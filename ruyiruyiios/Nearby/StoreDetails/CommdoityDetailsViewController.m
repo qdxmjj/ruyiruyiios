@@ -143,6 +143,8 @@ static NSInteger const HeadViewH = 150;
         [weakSelf.contentVC.tableView reloadData];
         weakSelf.bootV.numberLab.text = [NSString stringWithFormat:@"合计：0 元"];
         weakSelf.bootV.isDisplay = YES;
+        weakSelf.bootV.totalPrice = @"0";
+        
         [weakSelf.shopCartView removeFromSuperview];
     };
     
@@ -157,10 +159,11 @@ static NSInteger const HeadViewH = 150;
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(totalPriceLessNotification:) name:@"ShopCartLessNotification" object:nil];
 
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(totalPricePlusNotification:) name:@"ShopCartPlusNotification" object:nil];
+    
+    [self getCommodityInfoWithSetHeadView];
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+-(void)getCommodityInfoWithSetHeadView{
     
     //给子视图赋值，需在子视图添加完成之后
     if (self.commodityInfo.count>0) {

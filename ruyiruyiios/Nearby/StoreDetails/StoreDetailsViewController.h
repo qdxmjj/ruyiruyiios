@@ -11,4 +11,5 @@
 @interface StoreDetailsViewController : UIViewController
 
 @property(nonatomic,copy)NSString *storeID;
+
 @end

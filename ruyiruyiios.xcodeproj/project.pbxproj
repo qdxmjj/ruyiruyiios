@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1A3CB3004D62FF11EDC9B585 /* libPods-ruyiruyiios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D40C758474E7181E97834C56 /* libPods-ruyiruyiios.a */; };
+		36CD2DF120C68AA7007E278B /* StoreHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 36CD2DF020C68AA7007E278B /* StoreHeadView.m */; };
 		4306779420AE7C07003BB046 /* CarInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4306779320AE7C07003BB046 /* CarInfoViewController.m */; };
 		4306779A20AEB848003BB046 /* TopCarInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4306779920AEB848003BB046 /* TopCarInfoTableViewCell.m */; };
 		4306779D20AEB864003BB046 /* BottomCarInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4306779C20AEB864003BB046 /* BottomCarInfoTableViewCell.m */; };
@@ -533,6 +534,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		36CD2DEF20C68AA7007E278B /* StoreHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreHeadView.h; sourceTree = "<group>"; };
+		36CD2DF020C68AA7007E278B /* StoreHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreHeadView.m; sourceTree = "<group>"; };
 		4306779220AE7C07003BB046 /* CarInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarInfoViewController.h; sourceTree = "<group>"; };
 		4306779320AE7C07003BB046 /* CarInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarInfoViewController.m; sourceTree = "<group>"; };
 		4306779820AEB848003BB046 /* TopCarInfoTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopCarInfoTableViewCell.h; sourceTree = "<group>"; };
@@ -1261,18 +1264,18 @@
 		43280A6720C65EDB003FA621 /* Nearby */ = {
 			isa = PBXGroup;
 			children = (
-				43280A6820C65EDB003FA621 /* PrivateNavigationView.h */,
 				43280A6920C65EDB003FA621 /* UIView+extension.h */,
+				43280A8520C65EDC003FA621 /* UIView+extension.m */,
+				43280AA820C65EDC003FA621 /* SearchViewController.h */,
 				43280A6A20C65EDB003FA621 /* SearchViewController.m */,
+				43280A8620C65EDC003FA621 /* NearbyViewController.h */,
 				43280A6B20C65EDB003FA621 /* NearbyViewController.m */,
+				43280A6820C65EDB003FA621 /* PrivateNavigationView.h */,
 				43280A6C20C65EDC003FA621 /* PrivateNavigationView.m */,
 				43280A6D20C65EDC003FA621 /* model */,
 				43280A7220C65EDC003FA621 /* view */,
 				43280A8220C65EDC003FA621 /* request */,
-				43280A8520C65EDC003FA621 /* UIView+extension.m */,
-				43280A8620C65EDC003FA621 /* NearbyViewController.h */,
 				43280A8720C65EDC003FA621 /* StoreDetails */,
-				43280AA820C65EDC003FA621 /* SearchViewController.h */,
 			);
 			path = Nearby;
 			sourceTree = "<group>";
@@ -1281,9 +1284,9 @@
 			isa = PBXGroup;
 			children = (
 				43280A6E20C65EDC003FA621 /* YM_FJStoreServiceModel.h */,
-				43280A6F20C65EDC003FA621 /* YM_FjStoreModel.m */,
 				43280A7020C65EDC003FA621 /* YM_FJStoreServiceModel.m */,
 				43280A7120C65EDC003FA621 /* YM_FjStoreModel.h */,
+				43280A6F20C65EDC003FA621 /* YM_FjStoreModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1291,21 +1294,21 @@
 		43280A7220C65EDC003FA621 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				43280A7320C65EDC003FA621 /* TopBarView.m */,
-				43280A7420C65EDC003FA621 /* TopBarCollectionViewCell.m */,
-				43280A7520C65EDC003FA621 /* FJStoreServiceListCell.m */,
-				43280A7620C65EDC003FA621 /* JJMenuView.m */,
-				43280A7720C65EDC003FA621 /* FJStoreServiceListCell.xib */,
-				43280A7820C65EDC003FA621 /* FJStoreTableViewCell.h */,
 				43280A7920C65EDC003FA621 /* FJStoreFlowLayout.h */,
-				43280A7A20C65EDC003FA621 /* TopBarView.h */,
-				43280A7B20C65EDC003FA621 /* TopBarCollectionViewCell.xib */,
-				43280A7C20C65EDC003FA621 /* JJMenuView.h */,
-				43280A7D20C65EDC003FA621 /* FJStoreServiceListCell.h */,
-				43280A7E20C65EDC003FA621 /* TopBarCollectionViewCell.h */,
-				43280A7F20C65EDC003FA621 /* FJStoreTableViewCell.xib */,
-				43280A8020C65EDC003FA621 /* FJStoreTableViewCell.m */,
 				43280A8120C65EDC003FA621 /* FJStoreFlowLayout.m */,
+				43280A7A20C65EDC003FA621 /* TopBarView.h */,
+				43280A7320C65EDC003FA621 /* TopBarView.m */,
+				43280A7C20C65EDC003FA621 /* JJMenuView.h */,
+				43280A7620C65EDC003FA621 /* JJMenuView.m */,
+				43280A7D20C65EDC003FA621 /* FJStoreServiceListCell.h */,
+				43280A7520C65EDC003FA621 /* FJStoreServiceListCell.m */,
+				43280A7720C65EDC003FA621 /* FJStoreServiceListCell.xib */,
+				43280A7E20C65EDC003FA621 /* TopBarCollectionViewCell.h */,
+				43280A7420C65EDC003FA621 /* TopBarCollectionViewCell.m */,
+				43280A7B20C65EDC003FA621 /* TopBarCollectionViewCell.xib */,
+				43280A7820C65EDC003FA621 /* FJStoreTableViewCell.h */,
+				43280A8020C65EDC003FA621 /* FJStoreTableViewCell.m */,
+				43280A7F20C65EDC003FA621 /* FJStoreTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1322,17 +1325,19 @@
 		43280A8720C65EDC003FA621 /* StoreDetails */ = {
 			isa = PBXGroup;
 			children = (
-				43280A8820C65EDC003FA621 /* StoreDetailsViewController.m */,
-				43280A8920C65EDC003FA621 /* DirectoryTableViewController.h */,
-				43280A8A20C65EDC003FA621 /* ContentTableViewController.h */,
-				43280A8B20C65EDC003FA621 /* CommdoityDetailsViewController.h */,
-				43280A8C20C65EDC003FA621 /* StoreDetailsViewController.h */,
-				43280A8D20C65EDC003FA621 /* ContentTableViewController.m */,
-				43280A8E20C65EDC003FA621 /* DirectoryTableViewController.m */,
 				43280A8F20C65EDC003FA621 /* DetailsRequest */,
 				43280A9220C65EDC003FA621 /* DetailsModel */,
 				43280A9520C65EDC003FA621 /* DetailsView */,
+				43280A8B20C65EDC003FA621 /* CommdoityDetailsViewController.h */,
 				43280AA720C65EDC003FA621 /* CommdoityDetailsViewController.m */,
+				43280A8920C65EDC003FA621 /* DirectoryTableViewController.h */,
+				43280A8E20C65EDC003FA621 /* DirectoryTableViewController.m */,
+				43280A8A20C65EDC003FA621 /* ContentTableViewController.h */,
+				43280A8D20C65EDC003FA621 /* ContentTableViewController.m */,
+				43280A8C20C65EDC003FA621 /* StoreDetailsViewController.h */,
+				43280A8820C65EDC003FA621 /* StoreDetailsViewController.m */,
+				36CD2DEF20C68AA7007E278B /* StoreHeadView.h */,
+				36CD2DF020C68AA7007E278B /* StoreHeadView.m */,
 			);
 			path = StoreDetails;
 			sourceTree = "<group>";
@@ -1340,8 +1345,8 @@
 		43280A8F20C65EDC003FA621 /* DetailsRequest */ = {
 			isa = PBXGroup;
 			children = (
-				43280A9020C65EDC003FA621 /* StoreDetailsRequest.m */,
 				43280A9120C65EDC003FA621 /* StoreDetailsRequest.h */,
+				43280A9020C65EDC003FA621 /* StoreDetailsRequest.m */,
 			);
 			path = DetailsRequest;
 			sourceTree = "<group>";
@@ -1349,8 +1354,8 @@
 		43280A9220C65EDC003FA621 /* DetailsModel */ = {
 			isa = PBXGroup;
 			children = (
-				43280A9320C65EDC003FA621 /* CommodityModel.m */,
 				43280A9420C65EDC003FA621 /* CommodityModel.h */,
+				43280A9320C65EDC003FA621 /* CommodityModel.m */,
 			);
 			path = DetailsModel;
 			sourceTree = "<group>";
@@ -1358,22 +1363,22 @@
 		43280A9520C65EDC003FA621 /* DetailsView */ = {
 			isa = PBXGroup;
 			children = (
-				43280A9620C65EDC003FA621 /* DirectoryTableViewCell.h */,
+				43280A9F20C65EDC003FA621 /* BootView.h */,
 				43280A9720C65EDC003FA621 /* BootView.m */,
-				43280A9820C65EDC003FA621 /* TabbarView.h */,
-				43280A9920C65EDC003FA621 /* ContentTableViewCell.xib */,
 				43280A9A20C65EDC003FA621 /* HeadView.h */,
+				43280AA520C65EDC003FA621 /* HeadView.m */,
+				43280A9820C65EDC003FA621 /* TabbarView.h */,
+				43280A9E20C65EDC003FA621 /* TabbarView.m */,
+				43280AA320C65EDC003FA621 /* ShopCartView.h */,
 				43280A9B20C65EDC003FA621 /* ShopCartView.m */,
 				43280A9C20C65EDC003FA621 /* ShopCartTableViewCell.h */,
-				43280A9D20C65EDC003FA621 /* ContentTableViewCell.h */,
-				43280A9E20C65EDC003FA621 /* TabbarView.m */,
-				43280A9F20C65EDC003FA621 /* BootView.h */,
-				43280AA020C65EDC003FA621 /* DirectoryTableViewCell.m */,
-				43280AA120C65EDC003FA621 /* ShopCartTableViewCell.xib */,
-				43280AA220C65EDC003FA621 /* ContentTableViewCell.m */,
-				43280AA320C65EDC003FA621 /* ShopCartView.h */,
 				43280AA420C65EDC003FA621 /* ShopCartTableViewCell.m */,
-				43280AA520C65EDC003FA621 /* HeadView.m */,
+				43280AA120C65EDC003FA621 /* ShopCartTableViewCell.xib */,
+				43280A9D20C65EDC003FA621 /* ContentTableViewCell.h */,
+				43280AA220C65EDC003FA621 /* ContentTableViewCell.m */,
+				43280A9920C65EDC003FA621 /* ContentTableViewCell.xib */,
+				43280A9620C65EDC003FA621 /* DirectoryTableViewCell.h */,
+				43280AA020C65EDC003FA621 /* DirectoryTableViewCell.m */,
 				43280AA620C65EDC003FA621 /* DirectoryTableViewCell.xib */,
 			);
 			path = DetailsView;
@@ -2737,6 +2742,7 @@
 				43280AC820C65EDC003FA621 /* CommdoityDetailsViewController.m in Sources */,
 				4332362D20B2C1F2008F45FD /* RoadConditionTableViewCell.m in Sources */,
 				439D060C20BE443700379414 /* BuyTireViewController.m in Sources */,
+				36CD2DF120C68AA7007E278B /* StoreHeadView.m in Sources */,
 				438B2AFE20B7EF2D004A7E2A /* ManageCarTableViewCell.m in Sources */,
 				432EFEB320B5A5520090DEC8 /* AddressPickerView.m in Sources */,
 				435E594B20A18C1E005C8BDA /* WinterTyreViewController.m in Sources */,

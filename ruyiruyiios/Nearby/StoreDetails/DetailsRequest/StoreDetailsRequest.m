@@ -21,7 +21,7 @@
             succrsshandler(code,message,data);
         }
         
-        [MBProgressHUD showTextMessage:message];
+//        [MBProgressHUD showTextMessage:message];
         
     } failure:^(NSError * _Nullable error) {
         
@@ -56,7 +56,7 @@
             succrsshandler(code,message,data);
         }
         
-        [MBProgressHUD showTextMessage:message];
+//        [MBProgressHUD showTextMessage:message];
         
     } failure:^(NSError * _Nullable error) {
         
