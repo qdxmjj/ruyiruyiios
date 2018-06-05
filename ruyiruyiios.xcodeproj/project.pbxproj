@@ -198,8 +198,6 @@
 		435E594820A18BEF005C8BDA /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 435E594720A18BEF005C8BDA /* MyViewController.m */; };
 		435E594B20A18C1E005C8BDA /* WinterTyreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 435E594A20A18C1E005C8BDA /* WinterTyreViewController.m */; };
 		435E595220A18D44005C8BDA /* MainTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 435E595120A18D44005C8BDA /* MainTabBarViewController.m */; };
-		435E59A420A18FD1005C8BDA /* 对号@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 435E595320A18FC3005C8BDA /* 对号@3x.png */; };
-		435E59A520A18FD1005C8BDA /* 对号@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 435E595420A18FC3005C8BDA /* 对号@1x.png */; };
 		435E59A720A18FD1005C8BDA /* 首页2@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 435E595620A18FC3005C8BDA /* 首页2@1x.png */; };
 		435E59A820A18FD1005C8BDA /* banner2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 435E595720A18FC4005C8BDA /* banner2@2x.png */; };
 		435E59A920A18FD1005C8BDA /* 添加@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 435E595820A18FC4005C8BDA /* 添加@3x.png */; };
@@ -218,7 +216,6 @@
 		435E59B620A18FD1005C8BDA /* 雪花@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 435E596520A18FC7005C8BDA /* 雪花@2x.png */; };
 		435E59B720A18FD1005C8BDA /* 轮胎共享@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 435E596620A18FC7005C8BDA /* 轮胎共享@1x.png */; };
 		435E59B820A18FD1005C8BDA /* 畅行无忧@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 435E596720A18FC7005C8BDA /* 畅行无忧@2x.png */; };
-		435E59B920A18FD1005C8BDA /* 对号@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 435E596820A18FC7005C8BDA /* 对号@2x.png */; };
 		435E59BA20A18FD1005C8BDA /* 问@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 435E596920A18FC7005C8BDA /* 问@3x.png */; };
 		435E59BB20A18FD1005C8BDA /* 一元洗车@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 435E596A20A18FC8005C8BDA /* 一元洗车@2x.png */; };
 		435E59BC20A18FD1005C8BDA /* 汽车保养@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 435E596B20A18FC8005C8BDA /* 汽车保养@3x.png */; };
@@ -813,8 +810,6 @@
 		435E594A20A18C1E005C8BDA /* WinterTyreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WinterTyreViewController.m; sourceTree = "<group>"; };
 		435E595020A18D44005C8BDA /* MainTabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainTabBarViewController.h; sourceTree = "<group>"; };
 		435E595120A18D44005C8BDA /* MainTabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainTabBarViewController.m; sourceTree = "<group>"; };
-		435E595320A18FC3005C8BDA /* 对号@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "对号@3x.png"; sourceTree = "<group>"; };
-		435E595420A18FC3005C8BDA /* 对号@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "对号@1x.png"; sourceTree = "<group>"; };
 		435E595620A18FC3005C8BDA /* 首页2@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "首页2@1x.png"; sourceTree = "<group>"; };
 		435E595720A18FC4005C8BDA /* banner2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banner2@2x.png"; sourceTree = "<group>"; };
 		435E595820A18FC4005C8BDA /* 添加@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "添加@3x.png"; sourceTree = "<group>"; };
@@ -833,7 +828,6 @@
 		435E596520A18FC7005C8BDA /* 雪花@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "雪花@2x.png"; sourceTree = "<group>"; };
 		435E596620A18FC7005C8BDA /* 轮胎共享@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "轮胎共享@1x.png"; sourceTree = "<group>"; };
 		435E596720A18FC7005C8BDA /* 畅行无忧@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "畅行无忧@2x.png"; sourceTree = "<group>"; };
-		435E596820A18FC7005C8BDA /* 对号@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "对号@2x.png"; sourceTree = "<group>"; };
 		435E596920A18FC7005C8BDA /* 问@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "问@3x.png"; sourceTree = "<group>"; };
 		435E596A20A18FC8005C8BDA /* 一元洗车@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "一元洗车@2x.png"; sourceTree = "<group>"; };
 		435E596B20A18FC8005C8BDA /* 汽车保养@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "汽车保养@3x.png"; sourceTree = "<group>"; };
@@ -1757,9 +1751,6 @@
 				435E595B20A18FC4005C8BDA /* 定位@1x.png */,
 				435E595C20A18FC5005C8BDA /* 定位@2x.png */,
 				435E599A20A18FD0005C8BDA /* 定位@3x.png */,
-				435E595420A18FC3005C8BDA /* 对号@1x.png */,
-				435E596820A18FC7005C8BDA /* 对号@2x.png */,
-				435E595320A18FC3005C8BDA /* 对号@3x.png */,
 				435E595F20A18FC5005C8BDA /* 感叹号@1x.png */,
 				435E598D20A18FCD005C8BDA /* 感叹号@2x.png */,
 				435E599D20A18FD0005C8BDA /* 感叹号@3x.png */,
@@ -2347,7 +2338,6 @@
 				435E5ACE20A19088005C8BDA /* ic_pingjia@2x.png in Resources */,
 				4343EBCC20A07621003AD5FE /* 验证码(1)@3x.png in Resources */,
 				43CE0A8920A963F300D7FACF /* ic_2.png in Resources */,
-				435E59B920A18FD1005C8BDA /* 对号@2x.png in Resources */,
 				430677E420AED838003BB046 /* 下拷贝.png in Resources */,
 				435E5AAF20A19088005C8BDA /* ic_tuiguang@3x.png in Resources */,
 				4343EB76209FE79E003AD5FE /* LaunchScreen.storyboard in Resources */,
@@ -2476,7 +2466,6 @@
 				435E5AC720A19088005C8BDA /* ic_fuwu@3x.png in Resources */,
 				435E59DB20A18FD1005C8BDA /* 活动赠送@2x.png in Resources */,
 				439D068420BE980400379414 /* ic_no.png in Resources */,
-				435E59A420A18FD1005C8BDA /* 对号@3x.png in Resources */,
 				43CE0A8420A963F300D7FACF /* ic_3.png in Resources */,
 				435E59C220A18FD1005C8BDA /* banner1@1x.png in Resources */,
 				435E5ACF20A19088005C8BDA /* ic_carmer.png in Resources */,
@@ -2632,7 +2621,6 @@
 				439D067520BE980400379414 /* ic_wechat.png in Resources */,
 				4343EBCD20A07621003AD5FE /* 切换登录方式@3x.png in Resources */,
 				435E5AD220A19088005C8BDA /* ic_done@2x.png in Resources */,
-				435E59A520A18FD1005C8BDA /* 对号@1x.png in Resources */,
 				435E5AFD20A19088005C8BDA /* ic_message@3x.png in Resources */,
 				4306780D20AED839003BB046 /* 快速公路.png in Resources */,
 				430677F120AED838003BB046 /* 未选中.png in Resources */,
