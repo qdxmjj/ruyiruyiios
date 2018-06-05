@@ -7,7 +7,15 @@
 //
 
 #import "RootViewController.h"
+#import "ShoeSpeedLoadResult.h"
+#import "BuyTireData.h"
 
 @interface SureOrderViewController : RootViewController
+
+@property(nonatomic, strong)ShoeSpeedLoadResult *shoeSpeedLoadResult;
+@property(nonatomic, strong)BuyTireData *buyTireData;
+@property(nonatomic, strong)NSString *tireCount;
+@property(nonatomic, strong)NSString *cxwyCount;
+@property(nonatomic, strong)NSString *fontRearFlag;
 
 @end

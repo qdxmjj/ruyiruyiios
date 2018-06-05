@@ -7,7 +7,15 @@
 //
 
 #import "RootViewController.h"
+#import "BuyTireData.h"
+#import "ShoeSpeedLoadResult.h"
 
 @interface QualityServiceViewController : RootViewController
+
+@property(nonatomic, strong)BuyTireData *buyTireData;
+@property(nonatomic, strong)ShoeSpeedLoadResult *shoeSpeedResult;
+@property(nonatomic, strong)NSString *tireCount;
+@property(nonatomic, strong)NSString *cxwyCount;
+@property(nonatomic, strong)NSString *fontRearFlag;
 
 @end
