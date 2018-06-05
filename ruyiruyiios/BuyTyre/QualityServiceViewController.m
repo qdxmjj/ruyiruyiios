@@ -9,6 +9,7 @@
 #import "QualityServiceViewController.h"
 #import "CustomQualityView.h"
 #import "PurchaseProcessViewController.h"
+#import "SureOrderViewController.h"
 
 @interface QualityServiceViewController ()<UIScrollViewDelegate>
 
@@ -31,6 +32,11 @@
 @end
 
 @implementation QualityServiceViewController
+@synthesize buyTireData;
+@synthesize shoeSpeedResult;
+@synthesize cxwyCount;
+@synthesize tireCount;
+@synthesize fontRearFlag;
 
 - (void)viewWillAppear:(BOOL)animated{
     
@@ -259,7 +265,13 @@
 
 - (void)chickNextBtn:(UIButton *)button{
     
-    
+    SureOrderViewController *sureVC = [[SureOrderViewController alloc] init];
+    sureVC.shoeSpeedLoadResult = shoeSpeedResult;
+    sureVC.buyTireData = buyTireData;
+    sureVC.cxwyCount = cxwyCount;
+    sureVC.tireCount = tireCount;
+    sureVC.fontRearFlag = fontRearFlag;
+    [self.navigationController pushViewController:sureVC animated:YES];
 }
 
 - (void)viewDidLoad {

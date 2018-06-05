@@ -252,8 +252,18 @@
 
 - (void)chickNextBtn:(UIButton *)button{
     
-    QualityServiceViewController *qualityVC = [[QualityServiceViewController alloc] init];
-    [self.navigationController pushViewController:qualityVC animated:YES];
+    if ([self.tireView.numberLabel.text integerValue] <1) {
+        
+        [PublicClass showHUD:@"请选择轮胎数量" view:self.view];
+    }else{
+        
+        QualityServiceViewController *qualityVC = [[QualityServiceViewController alloc] init];
+        qualityVC.shoeSpeedResult = shoeSpeedLoadResult;
+        qualityVC.buyTireData = self.buyTireData;
+        qualityVC.tireCount = self.tireView.numberLabel.text;
+        qualityVC.cxwyCount = self.cxwyView.numberLabel.text;
+        [self.navigationController pushViewController:qualityVC animated:YES];
+    }
 }
 
 - (void)viewDidLoad {

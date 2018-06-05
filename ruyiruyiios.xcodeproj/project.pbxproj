@@ -516,6 +516,9 @@
 		439D06AB20BE980400379414 /* ic_banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 439D066620BE980300379414 /* ic_banner.png */; };
 		439D06AC20BE980400379414 /* ic_banner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 439D066720BE980400379414 /* ic_banner@2x.png */; };
 		439D06AD20BE980400379414 /* ic_wait@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 439D066820BE980400379414 /* ic_wait@3x.png */; };
+		43BBC39D20C67283002C2FE6 /* OrderHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43BBC39C20C67283002C2FE6 /* OrderHeadView.m */; };
+		43BBC3A020C67CEC002C2FE6 /* OderMiddleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43BBC39F20C67CEC002C2FE6 /* OderMiddleView.m */; };
+		43BBC3A320C68AE4002C2FE6 /* OderBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43BBC3A220C68AE4002C2FE6 /* OderBottomView.m */; };
 		43CE0A6C20A91F7E00D7FACF /* UserProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE0A6B20A91F7E00D7FACF /* UserProtocolViewController.m */; };
 		43CE0A7020A922BB00D7FACF /* ic_navback@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43CE0A6D20A922BA00D7FACF /* ic_navback@3x.png */; };
 		43CE0A7120A922BB00D7FACF /* ic_navback.png in Resources */ = {isa = PBXBuildFile; fileRef = 43CE0A6E20A922BB00D7FACF /* ic_navback.png */; };
@@ -1156,6 +1159,12 @@
 		439D066620BE980300379414 /* ic_banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_banner.png; sourceTree = "<group>"; };
 		439D066720BE980400379414 /* ic_banner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_banner@2x.png"; sourceTree = "<group>"; };
 		439D066820BE980400379414 /* ic_wait@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_wait@3x.png"; sourceTree = "<group>"; };
+		43BBC39B20C67283002C2FE6 /* OrderHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderHeadView.h; sourceTree = "<group>"; };
+		43BBC39C20C67283002C2FE6 /* OrderHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderHeadView.m; sourceTree = "<group>"; };
+		43BBC39E20C67CEC002C2FE6 /* OderMiddleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OderMiddleView.h; sourceTree = "<group>"; };
+		43BBC39F20C67CEC002C2FE6 /* OderMiddleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OderMiddleView.m; sourceTree = "<group>"; };
+		43BBC3A120C68AE4002C2FE6 /* OderBottomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OderBottomView.h; sourceTree = "<group>"; };
+		43BBC3A220C68AE4002C2FE6 /* OderBottomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OderBottomView.m; sourceTree = "<group>"; };
 		43CE0A6A20A91F7E00D7FACF /* UserProtocolViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserProtocolViewController.h; sourceTree = "<group>"; };
 		43CE0A6B20A91F7E00D7FACF /* UserProtocolViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserProtocolViewController.m; sourceTree = "<group>"; };
 		43CE0A6D20A922BA00D7FACF /* ic_navback@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_navback@3x.png"; sourceTree = "<group>"; };
@@ -2151,6 +2160,12 @@
 				438D44A120C26722008DAD97 /* YUFoldingTableView.m */,
 				439D062120BE961D00379414 /* SelectTirePositionTableViewCell.h */,
 				439D062220BE961D00379414 /* SelectTirePositionTableViewCell.m */,
+				43BBC39B20C67283002C2FE6 /* OrderHeadView.h */,
+				43BBC39C20C67283002C2FE6 /* OrderHeadView.m */,
+				43BBC39E20C67CEC002C2FE6 /* OderMiddleView.h */,
+				43BBC39F20C67CEC002C2FE6 /* OderMiddleView.m */,
+				43BBC3A120C68AE4002C2FE6 /* OderBottomView.h */,
+				43BBC3A220C68AE4002C2FE6 /* OderBottomView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2728,6 +2743,7 @@
 				43280AB620C65EDC003FA621 /* FJStoreFlowLayout.m in Sources */,
 				431FC5D920AB003E00EF97CA /* FMDBCarFactory.m in Sources */,
 				438B2B0120B7F681004A7E2A /* ManageCar.m in Sources */,
+				43BBC3A020C67CEC002C2FE6 /* OderMiddleView.m in Sources */,
 				43280AC620C65EDC003FA621 /* HeadView.m in Sources */,
 				439D060F20BE446D00379414 /* QualityServiceViewController.m in Sources */,
 				43280AC420C65EDC003FA621 /* ContentTableViewCell.m in Sources */,
@@ -2772,6 +2788,7 @@
 				43280AAE20C65EDC003FA621 /* TopBarView.m in Sources */,
 				435E5B3020A1CBF0005C8BDA /* MBProgressHUD+YYM_category.m in Sources */,
 				43280AC220C65EDC003FA621 /* DirectoryTableViewCell.m in Sources */,
+				43BBC39D20C67283002C2FE6 /* OrderHeadView.m in Sources */,
 				4322A1D020A2980B007B4037 /* RegisterTableViewCell.m in Sources */,
 				43280AB820C65EDC003FA621 /* UIView+extension.m in Sources */,
 				4322A1D620A2E8ED007B4037 /* DateTableViewCell.m in Sources */,
@@ -2810,6 +2827,7 @@
 				434DB63E20BCE3C10077234D /* LocationViewController.m in Sources */,
 				4358CAAD20A3EEAF006B456F /* WXZCustomPickView.m in Sources */,
 				4319D9DE20ABFCB900893026 /* FMDBCarVerhicle.m in Sources */,
+				43BBC3A320C68AE4002C2FE6 /* OderBottomView.m in Sources */,
 				438D44AC20C2672D008DAD97 /* ChoicePatternTableViewCell.m in Sources */,
 				4306779420AE7C07003BB046 /* CarInfoViewController.m in Sources */,
 				4306779A20AEB848003BB046 /* TopCarInfoTableViewCell.m in Sources */,
