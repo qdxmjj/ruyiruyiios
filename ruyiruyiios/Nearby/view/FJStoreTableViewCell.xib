@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="127" id="KGk-i7-Jjw" customClass="FJStoreTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="125"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="124.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xnd-G0-x5c">
+                        <rect key="frame" x="10" y="11" width="93" height="103"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="103" id="SqY-jc-RM1"/>
+                            <constraint firstAttribute="width" constant="93" id="npB-Ds-OoR"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="店铺名称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3wZ-GK-Vmk">
+                        <rect key="frame" x="111" y="11" width="61.5" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址：天安数码城" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ynb-gb-Aak">
+                        <rect key="frame" x="111" y="67" width="123" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="wbf-VN-Rqd">
+                        <rect key="frame" x="111" y="91" width="186" height="23"/>
+                        <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="23" id="Asw-iQ-bM5"/>
+                        </constraints>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="enZ-jB-tNk" customClass="FJStoreFlowLayout">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                    </collectionView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1KM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q7S-Go-HcO">
+                        <rect key="frame" x="278" y="68" width="26" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.4756349325" green="0.47564673419999998" blue="0.47564041610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4S店" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idt-ho-TTO">
+                        <rect key="frame" x="269" y="11" width="35" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Xnd-G0-x5c" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="1BU-iJ-cMl"/>
+                    <constraint firstItem="q7S-Go-HcO" firstAttribute="centerY" secondItem="Ynb-gb-Aak" secondAttribute="centerY" id="1bn-oP-hEJ"/>
+                    <constraint firstItem="wbf-VN-Rqd" firstAttribute="top" secondItem="Ynb-gb-Aak" secondAttribute="bottom" constant="6" id="3uc-e5-XTr"/>
+                    <constraint firstAttribute="trailing" secondItem="q7S-Go-HcO" secondAttribute="trailing" constant="16" id="ArS-mH-WNK"/>
+                    <constraint firstItem="wbf-VN-Rqd" firstAttribute="leading" secondItem="Xnd-G0-x5c" secondAttribute="trailing" constant="8" id="Cqv-A4-vpr"/>
+                    <constraint firstAttribute="trailing" secondItem="wbf-VN-Rqd" secondAttribute="trailing" constant="23" id="FXe-IH-aMJ"/>
+                    <constraint firstItem="idt-ho-TTO" firstAttribute="centerY" secondItem="3wZ-GK-Vmk" secondAttribute="centerY" id="Xac-U0-5eV"/>
+                    <constraint firstAttribute="trailing" secondItem="idt-ho-TTO" secondAttribute="trailing" constant="16" id="YIP-l0-jmp"/>
+                    <constraint firstItem="Ynb-gb-Aak" firstAttribute="leading" secondItem="Xnd-G0-x5c" secondAttribute="trailing" constant="8" id="gpP-us-0lv"/>
+                    <constraint firstItem="3wZ-GK-Vmk" firstAttribute="top" secondItem="Xnd-G0-x5c" secondAttribute="top" id="iar-b8-v9w"/>
+                    <constraint firstItem="Xnd-G0-x5c" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="jnx-5c-9Nw"/>
+                    <constraint firstItem="wbf-VN-Rqd" firstAttribute="bottom" secondItem="Xnd-G0-x5c" secondAttribute="bottom" id="kEd-75-pye"/>
+                    <constraint firstItem="3wZ-GK-Vmk" firstAttribute="leading" secondItem="Xnd-G0-x5c" secondAttribute="trailing" constant="8" id="y2Z-od-9ax"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="collectionView" destination="wbf-VN-Rqd" id="SEu-x6-dP3"/>
+                <outlet property="storeAddress" destination="Ynb-gb-Aak" id="G0n-Dt-uwc"/>
+                <outlet property="storeDistance" destination="q7S-Go-HcO" id="9o1-8Y-O3N"/>
+                <outlet property="storeImg" destination="Xnd-G0-x5c" id="D3A-HG-P3N"/>
+                <outlet property="storeName" destination="3wZ-GK-Vmk" id="C3W-ud-0bS"/>
+                <outlet property="storeServiceType" destination="wbf-VN-Rqd" id="R01-8F-YDZ"/>
+                <outlet property="storeType" destination="idt-ho-TTO" id="TtX-GZ-gXA"/>
+            </connections>
+            <point key="canvasLocation" x="-5" y="21.5"/>
+        </tableViewCell>
+    </objects>
+</document>
