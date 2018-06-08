@@ -13,15 +13,16 @@
 
 @optional
 
--(void)dropdownView:(JJMenuView *)dropdownView didSelectTitle:(NSString *)title index:(NSInteger)index;
+-(void)dropdownView:(JJMenuView *)dropdownView didSelectTitle:(NSString *)title didSelectIndex:(NSInteger)index whereGroup:(NSInteger)group;
 -(void)dropdownViewDidShow:(JJMenuView *)dropdownView;
 -(void)dropdownViewDidDismiss:(JJMenuView *)dropdownView;
 
 @end
 @interface JJMenuView : UIView
 
-
 @property(nonatomic,assign)id <JJDropdownViewDelegate>delegate;
+
+@property(nonatomic,assign)NSInteger whereGroup;
 
 -(void)showViewWithSuperView:(UIView *)view titleArr:(NSArray *)titleArr;
 

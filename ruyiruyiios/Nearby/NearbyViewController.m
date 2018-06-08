@@ -26,6 +26,10 @@
 @property(nonatomic,strong)NSMutableArray *dataArr;
 @property(nonatomic, strong)UIButton *leftBtn;
 
+@property(nonatomic,copy)NSString *storeName;
+@property(nonatomic,copy)NSString *storeType;
+@property(nonatomic,copy)NSString *serviceType;
+
 @end
 
 @implementation NearbyViewController
@@ -34,6 +38,9 @@
     
     NSString *cityName = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentCity"];
     [self.leftBtn setTitle:cityName forState:UIControlStateNormal];
+    
+
+    
 }
 
 - (void)viewDidLoad {
@@ -51,12 +58,18 @@
     
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     self.title = @"附近的门店";
+    
     [self.view addSubview:self.topBarView];
+    
     [self.view addSubview:self.tableView];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_search"] style:UIBarButtonItemStylePlain target:self action:@selector(pushSearchVC)];
     
+    self.storeName = @"";
+    self.storeType = @"";
+    self.serviceType = @"";
     
     //上拉更多
     self.tableView.mj_footer=[MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
@@ -89,7 +102,7 @@
     weakSelf.pageNumber=1;
     weakSelf.tableView.mj_footer.hidden = NO;
     
-    [weakSelf getFJStoreInfo:[NSString stringWithFormat:@"%ld",(long)weakSelf.pageNumber]];
+    [weakSelf getFJStoreInfo:[NSString stringWithFormat:@"%ld",(long)weakSelf.pageNumber] ];
     
     [weakSelf.tableView.mj_header endRefreshing];
     
@@ -111,7 +124,9 @@
 
     JJWeakSelf
     
-    [FJStoreReqeust getFJStoreByConditionWithInfo:@{@"page":number,@"rows":@"10",@"cityName":@"青岛市",@"storeName":@"",@"storeType":@"",@"serviceType":@"",@"longitude":@"120.44407513056112",@"latitude":@"36.3206963164126",@"rankType":@"1"} succrss:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+    NSLog(@"%@ ",self.leftBtn.titleLabel.text);
+    
+    [FJStoreReqeust getFJStoreByConditionWithInfo:@{@"page":number,@"rows":@"10",@"cityName":@"青岛市",@"storeName":@"",@"storeType":self.storeType,@"serviceType":self.serviceType,@"longitude":@"120.44407513056112",@"latitude":@"36.3206963164126",@"rankType":@"1"} succrss:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         
         if (weakSelf.pageNumber==1) {
             
@@ -158,12 +173,44 @@
 }
 
 #pragma mark - topView delegate
--(void)dropdownView:(JJMenuView *)dropdownView didSelectTitle:(NSString *)title index:(NSInteger)index{
+-(void)dropdownView:(JJMenuView *)dropdownView didSelectTitle:(NSString *)title didSelectIndex:(NSInteger)index whereGroup:(NSInteger)group{
     
-    NSLog(@"%@ %ld",title,index);
     
     self.topBarView.textBlock(title);
     
+    switch (group) {
+        case 0:
+            
+            if (index==0) {
+                
+                self.storeType = @"";
+                
+            }else{
+            
+            self.storeType = [NSString stringWithFormat:@"%ld",(long)index];
+            }
+            break;
+        case 1:
+            
+            
+            break;
+        case 2:
+            if (index == 0) {
+                
+                self.serviceType = @"";
+            }else{
+                
+            self.serviceType = [NSString stringWithFormat:@"%ld",(long)index];
+            }
+            break;
+            
+        default:
+            break;
+    }
+    
+    [self.tableView.mj_header beginRefreshing];
+    NSLog(@"%@ %@ %@",self.storeName,self.storeType,self.serviceType);
+
 }
 
 
@@ -179,12 +226,12 @@
 }
 
 #pragma mark - topBarView delegate
--(void)clickExpandView:(TopBarView *)topBarView menuData:(NSArray *)dataArr{
+-(void)clickExpandView:(TopBarView *)topBarView menuData:(NSArray *)dataArr didSelectIndex:(NSInteger)index{
     
     if (!self.menuView.status){
         
         [self.menuView showViewWithSuperView:self.view titleArr:dataArr];
-        
+        self.menuView.whereGroup = index;
     }else{
         
         [self.menuView disView];

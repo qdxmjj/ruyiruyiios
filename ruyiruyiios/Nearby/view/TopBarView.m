@@ -72,13 +72,13 @@
     };
     
     
-    if ([self.delegate respondsToSelector:@selector(clickExpandView:menuData:)]) {
+    if ([self.delegate respondsToSelector:@selector(clickExpandView:menuData:didSelectIndex:)]) {
         
         NSString *key = [self.dataArr[indexPath.row] allKeys][0];
         
         NSArray *menuDataArr = [self.dataArr[indexPath.row] objectForKey:key];
         
-        [self.delegate clickExpandView:self menuData:menuDataArr];
+        [self.delegate clickExpandView:self menuData:menuDataArr didSelectIndex:indexPath.row];
     }
 }
 

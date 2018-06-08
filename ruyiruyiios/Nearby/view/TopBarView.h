@@ -15,7 +15,7 @@ typedef void (^setTitleLabTextBlcok)(NSString *text);
 
 @protocol JJClickExpandDelegate <NSObject>
 
--(void)clickExpandView:(TopBarView *)topBarView menuData:(NSArray *)dataArr;
+-(void)clickExpandView:(TopBarView *)topBarView menuData:(NSArray *)dataArr didSelectIndex:(NSInteger)index;
 
 @end
 
