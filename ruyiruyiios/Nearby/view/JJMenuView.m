@@ -114,9 +114,9 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     
-    if ([self.delegate respondsToSelector:@selector(dropdownView:didSelectTitle:index:)]) {
+    if ([self.delegate respondsToSelector:@selector(dropdownView:didSelectTitle:didSelectIndex:whereGroup:)]) {
         
-        [self.delegate dropdownView:self didSelectTitle:self.titleArr[indexPath.row] index:indexPath.row];
+        [self.delegate dropdownView:self didSelectTitle:self.titleArr[indexPath.row] didSelectIndex:indexPath.row whereGroup:self.whereGroup];
     }
     
     [self disView];

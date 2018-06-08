@@ -13,6 +13,25 @@
 		43004A2220C7BBE4001BB01A /* TopayMiddleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43004A2120C7BBE4001BB01A /* TopayMiddleView.m */; };
 		43004A2520C7BF0B001BB01A /* ShoeOrderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 43004A2420C7BF0B001BB01A /* ShoeOrderInfo.m */; };
 		43004A2820C7CBDB001BB01A /* TopayBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43004A2720C7CBDB001BB01A /* TopayBottomView.m */; };
+		3694C53B20C7F47E0089FAE7 /* StoreDetailsOneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3694C53920C7F47E0089FAE7 /* StoreDetailsOneCell.m */; };
+		3694C53C20C7F47E0089FAE7 /* StoreDetailsOneCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3694C53A20C7F47E0089FAE7 /* StoreDetailsOneCell.xib */; };
+		3694C54520C7F4B60089FAE7 /* StoreDetailsOvervieCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3694C54320C7F4B60089FAE7 /* StoreDetailsOvervieCell.m */; };
+		3694C54620C7F4B60089FAE7 /* StoreDetailsOvervieCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3694C54420C7F4B60089FAE7 /* StoreDetailsOvervieCell.xib */; };
+		3694C54A20C7F4CB0089FAE7 /* StoreDetailsPhoneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3694C54820C7F4CB0089FAE7 /* StoreDetailsPhoneCell.m */; };
+		3694C54B20C7F4CB0089FAE7 /* StoreDetailsPhoneCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3694C54920C7F4CB0089FAE7 /* StoreDetailsPhoneCell.xib */; };
+		3694C54E20C7F7220089FAE7 /* storeDetailsOneFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3694C54D20C7F7220089FAE7 /* storeDetailsOneFlowLayout.m */; };
+		3694C55120C7F9960089FAE7 /* StoreDetailsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3694C55020C7F9960089FAE7 /* StoreDetailsModel.m */; };
+		369520F120C8CF31001FA48E /* AllAssessTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 369520F020C8CF31001FA48E /* AllAssessTableViewController.m */; };
+		369520F720C9172F001FA48E /* ic_my_shibai@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 369520F420C9172E001FA48E /* ic_my_shibai@3x.png */; };
+		369520F820C9172F001FA48E /* ic_my_shibai.png in Resources */ = {isa = PBXBuildFile; fileRef = 369520F520C9172E001FA48E /* ic_my_shibai.png */; };
+		369520F920C9172F001FA48E /* ic_my_shibai@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 369520F620C9172E001FA48E /* ic_my_shibai@2x.png */; };
+		36CBD43E20C7704D0044CE2F /* StoreDetailsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36CBD43C20C7704D0044CE2F /* StoreDetailsCollectionViewCell.m */; };
+		36CBD43F20C7704D0044CE2F /* StoreDetailsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36CBD43D20C7704D0044CE2F /* StoreDetailsCollectionViewCell.xib */; };
+		36CBD44520C770950044CE2F /* StoreDetailsFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 36CBD44420C770950044CE2F /* StoreDetailsFlowLayout.m */; };
+		36CBD44820C774F10044CE2F /* StoreAssessModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 36CBD44720C774F10044CE2F /* StoreAssessModel.m */; };
+		36CBD44B20C7B6B80044CE2F /* StoreHeadCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36CBD44A20C7B6B80044CE2F /* StoreHeadCollectionViewCell.m */; };
+		36CD2DF520C6A602007E278B /* StoreDetailsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36CD2DF320C6A602007E278B /* StoreDetailsCell.m */; };
+		36CD2DF620C6A602007E278B /* StoreDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36CD2DF420C6A602007E278B /* StoreDetailsCell.xib */; };
 		4306779420AE7C07003BB046 /* CarInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4306779320AE7C07003BB046 /* CarInfoViewController.m */; };
 		4306779A20AEB848003BB046 /* TopCarInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4306779920AEB848003BB046 /* TopCarInfoTableViewCell.m */; };
 		4306779D20AEB864003BB046 /* BottomCarInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4306779C20AEB864003BB046 /* BottomCarInfoTableViewCell.m */; };
@@ -554,6 +573,36 @@
 		43004A2420C7BF0B001BB01A /* ShoeOrderInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShoeOrderInfo.m; sourceTree = "<group>"; };
 		43004A2620C7CBDB001BB01A /* TopayBottomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopayBottomView.h; sourceTree = "<group>"; };
 		43004A2720C7CBDB001BB01A /* TopayBottomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopayBottomView.m; sourceTree = "<group>"; };
+		3694C53820C7F47E0089FAE7 /* StoreDetailsOneCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreDetailsOneCell.h; sourceTree = "<group>"; };
+		3694C53920C7F47E0089FAE7 /* StoreDetailsOneCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreDetailsOneCell.m; sourceTree = "<group>"; };
+		3694C53A20C7F47E0089FAE7 /* StoreDetailsOneCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StoreDetailsOneCell.xib; sourceTree = "<group>"; };
+		3694C54220C7F4B60089FAE7 /* StoreDetailsOvervieCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreDetailsOvervieCell.h; sourceTree = "<group>"; };
+		3694C54320C7F4B60089FAE7 /* StoreDetailsOvervieCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreDetailsOvervieCell.m; sourceTree = "<group>"; };
+		3694C54420C7F4B60089FAE7 /* StoreDetailsOvervieCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StoreDetailsOvervieCell.xib; sourceTree = "<group>"; };
+		3694C54720C7F4CB0089FAE7 /* StoreDetailsPhoneCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreDetailsPhoneCell.h; sourceTree = "<group>"; };
+		3694C54820C7F4CB0089FAE7 /* StoreDetailsPhoneCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreDetailsPhoneCell.m; sourceTree = "<group>"; };
+		3694C54920C7F4CB0089FAE7 /* StoreDetailsPhoneCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StoreDetailsPhoneCell.xib; sourceTree = "<group>"; };
+		3694C54C20C7F7220089FAE7 /* storeDetailsOneFlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = storeDetailsOneFlowLayout.h; sourceTree = "<group>"; };
+		3694C54D20C7F7220089FAE7 /* storeDetailsOneFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = storeDetailsOneFlowLayout.m; sourceTree = "<group>"; };
+		3694C54F20C7F9960089FAE7 /* StoreDetailsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreDetailsModel.h; sourceTree = "<group>"; };
+		3694C55020C7F9960089FAE7 /* StoreDetailsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreDetailsModel.m; sourceTree = "<group>"; };
+		369520EF20C8CF31001FA48E /* AllAssessTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AllAssessTableViewController.h; sourceTree = "<group>"; };
+		369520F020C8CF31001FA48E /* AllAssessTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AllAssessTableViewController.m; sourceTree = "<group>"; };
+		369520F420C9172E001FA48E /* ic_my_shibai@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_my_shibai@3x.png"; sourceTree = "<group>"; };
+		369520F520C9172E001FA48E /* ic_my_shibai.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_my_shibai.png; sourceTree = "<group>"; };
+		369520F620C9172E001FA48E /* ic_my_shibai@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_my_shibai@2x.png"; sourceTree = "<group>"; };
+		36CBD43B20C7704D0044CE2F /* StoreDetailsCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreDetailsCollectionViewCell.h; sourceTree = "<group>"; };
+		36CBD43C20C7704D0044CE2F /* StoreDetailsCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreDetailsCollectionViewCell.m; sourceTree = "<group>"; };
+		36CBD43D20C7704D0044CE2F /* StoreDetailsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StoreDetailsCollectionViewCell.xib; sourceTree = "<group>"; };
+		36CBD44320C770950044CE2F /* StoreDetailsFlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreDetailsFlowLayout.h; sourceTree = "<group>"; };
+		36CBD44420C770950044CE2F /* StoreDetailsFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreDetailsFlowLayout.m; sourceTree = "<group>"; };
+		36CBD44620C774F00044CE2F /* StoreAssessModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreAssessModel.h; sourceTree = "<group>"; };
+		36CBD44720C774F10044CE2F /* StoreAssessModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreAssessModel.m; sourceTree = "<group>"; };
+		36CBD44920C7B6B80044CE2F /* StoreHeadCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreHeadCollectionViewCell.h; sourceTree = "<group>"; };
+		36CBD44A20C7B6B80044CE2F /* StoreHeadCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreHeadCollectionViewCell.m; sourceTree = "<group>"; };
+		36CD2DF220C6A602007E278B /* StoreDetailsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreDetailsCell.h; sourceTree = "<group>"; };
+		36CD2DF320C6A602007E278B /* StoreDetailsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreDetailsCell.m; sourceTree = "<group>"; };
+		36CD2DF420C6A602007E278B /* StoreDetailsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StoreDetailsCell.xib; sourceTree = "<group>"; };
 		4306779220AE7C07003BB046 /* CarInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarInfoViewController.h; sourceTree = "<group>"; };
 		4306779320AE7C07003BB046 /* CarInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarInfoViewController.m; sourceTree = "<group>"; };
 		4306779820AEB848003BB046 /* TopCarInfoTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopCarInfoTableViewCell.h; sourceTree = "<group>"; };
@@ -1222,6 +1271,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		361E517420C8C2A3004196F2 /* StoreDetailsView */ = {
+			isa = PBXGroup;
+			children = (
+				3694C53820C7F47E0089FAE7 /* StoreDetailsOneCell.h */,
+				3694C53920C7F47E0089FAE7 /* StoreDetailsOneCell.m */,
+				3694C53A20C7F47E0089FAE7 /* StoreDetailsOneCell.xib */,
+				3694C54C20C7F7220089FAE7 /* storeDetailsOneFlowLayout.h */,
+				3694C54D20C7F7220089FAE7 /* storeDetailsOneFlowLayout.m */,
+				36CBD44920C7B6B80044CE2F /* StoreHeadCollectionViewCell.h */,
+				36CBD44A20C7B6B80044CE2F /* StoreHeadCollectionViewCell.m */,
+				3694C54720C7F4CB0089FAE7 /* StoreDetailsPhoneCell.h */,
+				3694C54820C7F4CB0089FAE7 /* StoreDetailsPhoneCell.m */,
+				3694C54920C7F4CB0089FAE7 /* StoreDetailsPhoneCell.xib */,
+				3694C54220C7F4B60089FAE7 /* StoreDetailsOvervieCell.h */,
+				3694C54320C7F4B60089FAE7 /* StoreDetailsOvervieCell.m */,
+				3694C54420C7F4B60089FAE7 /* StoreDetailsOvervieCell.xib */,
+				36CD2DF220C6A602007E278B /* StoreDetailsCell.h */,
+				36CD2DF320C6A602007E278B /* StoreDetailsCell.m */,
+				36CD2DF420C6A602007E278B /* StoreDetailsCell.xib */,
+				36CBD44320C770950044CE2F /* StoreDetailsFlowLayout.h */,
+				36CBD44420C770950044CE2F /* StoreDetailsFlowLayout.m */,
+				36CBD43B20C7704D0044CE2F /* StoreDetailsCollectionViewCell.h */,
+				36CBD43C20C7704D0044CE2F /* StoreDetailsCollectionViewCell.m */,
+				36CBD43D20C7704D0044CE2F /* StoreDetailsCollectionViewCell.xib */,
+			);
+			path = StoreDetailsView;
+			sourceTree = "<group>";
+		};
 		3DB0F8DFB5E4EF9DD8187B8A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1296,12 +1373,12 @@
 			children = (
 				43280A6920C65EDB003FA621 /* UIView+extension.h */,
 				43280A8520C65EDC003FA621 /* UIView+extension.m */,
-				43280AA820C65EDC003FA621 /* SearchViewController.h */,
-				43280A6A20C65EDB003FA621 /* SearchViewController.m */,
 				43280A8620C65EDC003FA621 /* NearbyViewController.h */,
 				43280A6B20C65EDB003FA621 /* NearbyViewController.m */,
 				43280A6820C65EDB003FA621 /* PrivateNavigationView.h */,
 				43280A6C20C65EDC003FA621 /* PrivateNavigationView.m */,
+				43280AA820C65EDC003FA621 /* SearchViewController.h */,
+				43280A6A20C65EDB003FA621 /* SearchViewController.m */,
 				43280A6D20C65EDC003FA621 /* model */,
 				43280A7220C65EDC003FA621 /* view */,
 				43280A8220C65EDC003FA621 /* request */,
@@ -1358,6 +1435,7 @@
 				43280A8F20C65EDC003FA621 /* DetailsRequest */,
 				43280A9220C65EDC003FA621 /* DetailsModel */,
 				43280A9520C65EDC003FA621 /* DetailsView */,
+				361E517420C8C2A3004196F2 /* StoreDetailsView */,
 				43280A8B20C65EDC003FA621 /* CommdoityDetailsViewController.h */,
 				43280AA720C65EDC003FA621 /* CommdoityDetailsViewController.m */,
 				43280A8920C65EDC003FA621 /* DirectoryTableViewController.h */,
@@ -1366,8 +1444,8 @@
 				43280A8D20C65EDC003FA621 /* ContentTableViewController.m */,
 				43280A8C20C65EDC003FA621 /* StoreDetailsViewController.h */,
 				43280A8820C65EDC003FA621 /* StoreDetailsViewController.m */,
-				36CD2DEF20C68AA7007E278B /* StoreHeadView.h */,
-				36CD2DF020C68AA7007E278B /* StoreHeadView.m */,
+				369520EF20C8CF31001FA48E /* AllAssessTableViewController.h */,
+				369520F020C8CF31001FA48E /* AllAssessTableViewController.m */,
 			);
 			path = StoreDetails;
 			sourceTree = "<group>";
@@ -1386,6 +1464,10 @@
 			children = (
 				43280A9420C65EDC003FA621 /* CommodityModel.h */,
 				43280A9320C65EDC003FA621 /* CommodityModel.m */,
+				3694C54F20C7F9960089FAE7 /* StoreDetailsModel.h */,
+				3694C55020C7F9960089FAE7 /* StoreDetailsModel.m */,
+				36CBD44620C774F00044CE2F /* StoreAssessModel.h */,
+				36CBD44720C774F10044CE2F /* StoreAssessModel.m */,
 			);
 			path = DetailsModel;
 			sourceTree = "<group>";
@@ -2164,6 +2246,9 @@
 				435E5B0C20A19302005C8BDA /* ic_fujin.png */,
 				435E5B0B20A19301005C8BDA /* ic_fujin@2x.png */,
 				435E5B0A20A19301005C8BDA /* ic_fujin@3x.png */,
+				369520F520C9172E001FA48E /* ic_my_shibai.png */,
+				369520F620C9172E001FA48E /* ic_my_shibai@2x.png */,
+				369520F420C9172E001FA48E /* ic_my_shibai@3x.png */,
 			);
 			path = Nearby;
 			sourceTree = "<group>";
@@ -2350,6 +2435,7 @@
 				439D066D20BE980400379414 /* ic_yes@3x.png in Resources */,
 				439D067220BE980400379414 /* ic_plus@3x.png in Resources */,
 				4343EBCA20A07621003AD5FE /* 验证码(1)@2x.png in Resources */,
+				36CD2DF620C6A602007E278B /* StoreDetailsCell.xib in Resources */,
 				4306781620AED839003BB046 /* ic_jincheng.png in Resources */,
 				435E59C020A18FD1005C8BDA /* 汽车保养@1x.png in Resources */,
 				4306781420AED839003BB046 /* 添加照片.png in Resources */,
@@ -2385,6 +2471,7 @@
 				435E5B0020A19088005C8BDA /* ic_mima.png in Resources */,
 				435E59C920A18FD1005C8BDA /* 门店@1x.png in Resources */,
 				4306780520AED839003BB046 /* 规格示例@2x.png in Resources */,
+				369520F820C9172F001FA48E /* ic_my_shibai.png in Resources */,
 				435E5AA420A19088005C8BDA /* ic_changxing.png in Resources */,
 				435E5AF920A19088005C8BDA /* ic_wodeche.png in Resources */,
 				435E59E720A18FD1005C8BDA /* banner1@2x.png in Resources */,
@@ -2436,6 +2523,7 @@
 				435E59E520A18FD1005C8BDA /* 畅行无忧@1x.png in Resources */,
 				435E5AE320A19088005C8BDA /* ic_tuiguang.png in Resources */,
 				439D067A20BE980400379414 /* ic_overplus.png in Resources */,
+				369520F920C9172F001FA48E /* ic_my_shibai@2x.png in Resources */,
 				435E5AE620A19088005C8BDA /* ic_red.png in Resources */,
 				439D066E20BE980400379414 /* ic_overplus@2x.png in Resources */,
 				435E5AB920A19088005C8BDA /* ic_gaishoujihao@2x.png in Resources */,
@@ -2503,6 +2591,7 @@
 				435E59EB20A18FD1005C8BDA /* 定位@3x.png in Resources */,
 				435E5AF620A19088005C8BDA /* ic_youhuiquan@3x.png in Resources */,
 				4343EBD920A07621003AD5FE /* 切换登录方式@2x.png in Resources */,
+				36CBD43F20C7704D0044CE2F /* StoreDetailsCollectionViewCell.xib in Resources */,
 				4306781020AED839003BB046 /* 非铺装道路@2x.png in Resources */,
 				435E59CA20A18FD1005C8BDA /* 我的@3x.png in Resources */,
 				430677FC20AED838003BB046 /* 自选规格@2x.png in Resources */,
@@ -2532,6 +2621,7 @@
 				435E5AEB20A19088005C8BDA /* ic_right.png in Resources */,
 				435E5ABB20A19088005C8BDA /* ic_mima@2x.png in Resources */,
 				435E5AF020A19088005C8BDA /* ic_fahuo.png in Resources */,
+				369520F720C9172F001FA48E /* ic_my_shibai@3x.png in Resources */,
 				430677F820AED838003BB046 /* 添加照片@3x.png in Resources */,
 				4306781C20AED839003BB046 /* ic_jincheng@2x.png in Resources */,
 				435E5AC720A19088005C8BDA /* ic_fuwu@3x.png in Resources */,
@@ -2586,6 +2676,7 @@
 				430677F220AED838003BB046 /* 高速公路@2x.png in Resources */,
 				435E5A9D20A19088005C8BDA /* ic_gaimima@3x.png in Resources */,
 				435E59EA20A18FD1005C8BDA /* button@3x.png in Resources */,
+				3694C53C20C7F47E0089FAE7 /* StoreDetailsOneCell.xib in Resources */,
 				435E59F420A18FD1005C8BDA /* 雪花@1x.png in Resources */,
 				435E5B1520A19764005C8BDA /* ic_my@3x.png in Resources */,
 				439D067F20BE980400379414 /* ic_overplus@3x.png in Resources */,
@@ -2597,6 +2688,7 @@
 				435E5AFA20A19088005C8BDA /* m_ic_wait.png in Resources */,
 				435E5B0D20A19302005C8BDA /* ic_fujin@3x.png in Resources */,
 				439D06A120BE980400379414 /* ic_Recommend@3x.png in Resources */,
+				3694C54620C7F4B60089FAE7 /* StoreDetailsOvervieCell.xib in Resources */,
 				435E5A1D20A19061005C8BDA /* ic_chansheng.png in Resources */,
 				435E5AFB20A19088005C8BDA /* ic_about@3x.png in Resources */,
 				435E5A1F20A19061005C8BDA /* ic_forever.png in Resources */,
@@ -2652,6 +2744,7 @@
 				435E5B1A20A19773005C8BDA /* ic_index@3x.png in Resources */,
 				4343EBD520A07621003AD5FE /* 删除.png in Resources */,
 				435E5A1920A19061005C8BDA /* ic_backmoney@3x.png in Resources */,
+				3694C54B20C7F4CB0089FAE7 /* StoreDetailsPhoneCell.xib in Resources */,
 				4343EB71209FE79E003AD5FE /* Main.storyboard in Resources */,
 				439D06A720BE980400379414 /* ic_right@2x.png in Resources */,
 				435E59D220A18FD1005C8BDA /* 免费更换@2x.png in Resources */,
@@ -2779,6 +2872,7 @@
 				4343EB79209FE79E003AD5FE /* main.m in Sources */,
 				434B2DB920B6BA22004F1058 /* PlateLicenseView.m in Sources */,
 				438B2AFB20B7EC41004A7E2A /* ManageCarViewController.m in Sources */,
+				36CBD44820C774F10044CE2F /* StoreAssessModel.m in Sources */,
 				431FC5D620AAD74C00EF97CA /* HomeTableViewCell.m in Sources */,
 				4347BF7D20B3E852002F13E8 /* DelegateConfiguration.m in Sources */,
 				438D44AB20C2672D008DAD97 /* NumberSelectView.m in Sources */,
@@ -2787,7 +2881,9 @@
 				439D060920BE43F400379414 /* ChoicePatternViewController.m in Sources */,
 				43004A2520C7BF0B001BB01A /* ShoeOrderInfo.m in Sources */,
 				4306779D20AEB864003BB046 /* BottomCarInfoTableViewCell.m in Sources */,
+				3694C54A20C7F4CB0089FAE7 /* StoreDetailsPhoneCell.m in Sources */,
 				438D449B20C26701008DAD97 /* ShoeSpeedLoadResult.m in Sources */,
+				3694C54E20C7F7220089FAE7 /* storeDetailsOneFlowLayout.m in Sources */,
 				432EFEAD20B566BF0090DEC8 /* FMDBPosition.m in Sources */,
 				4306782A20B0576B003BB046 /* SelectBrandViewController.m in Sources */,
 				4322A1D920A2F57C007B4037 /* SexTableViewCell.m in Sources */,
@@ -2805,15 +2901,17 @@
 				439D061820BE452000379414 /* ToBePaidViewController.m in Sources */,
 				435E5B2A20A1C8C9005C8BDA /* JJRequest.m in Sources */,
 				439D060620BE43B600379414 /* SelectTirePositionViewController.m in Sources */,
+				3694C55120C7F9960089FAE7 /* StoreDetailsModel.m in Sources */,
 				435E5B2920A1C8C9005C8BDA /* JJFileParam.m in Sources */,
 				435E594120A17084005C8BDA /* UITextField+HL.m in Sources */,
 				43280ABA20C65EDC003FA621 /* ContentTableViewController.m in Sources */,
 				43280AC820C65EDC003FA621 /* CommdoityDetailsViewController.m in Sources */,
 				4332362D20B2C1F2008F45FD /* RoadConditionTableViewCell.m in Sources */,
 				439D060C20BE443700379414 /* BuyTireViewController.m in Sources */,
-				36CD2DF120C68AA7007E278B /* StoreHeadView.m in Sources */,
 				438B2AFE20B7EF2D004A7E2A /* ManageCarTableViewCell.m in Sources */,
+				369520F120C8CF31001FA48E /* AllAssessTableViewController.m in Sources */,
 				432EFEB320B5A5520090DEC8 /* AddressPickerView.m in Sources */,
+				36CBD44520C770950044CE2F /* StoreDetailsFlowLayout.m in Sources */,
 				435E594B20A18C1E005C8BDA /* WinterTyreViewController.m in Sources */,
 				4332361520B261A3008F45FD /* SelectBrandTableViewCell.m in Sources */,
 				43280AB920C65EDC003FA621 /* StoreDetailsViewController.m in Sources */,
@@ -2823,6 +2921,7 @@
 				4332362A20B2BF3E008F45FD /* RoadConditionViewController.m in Sources */,
 				435E594820A18BEF005C8BDA /* MyViewController.m in Sources */,
 				433EECF820ADBD6A0051DF9F /* UILabel+YBAttributeTextTapAction.m in Sources */,
+				36CBD43E20C7704D0044CE2F /* StoreDetailsCollectionViewCell.m in Sources */,
 				4306782420AFF6A8003BB046 /* PhotoBtnView.m in Sources */,
 				43515E7220A722C80043C0CC /* LosDatabaseHelper.m in Sources */,
 				43280ABE20C65EDC003FA621 /* BootView.m in Sources */,
@@ -2849,7 +2948,9 @@
 				43280AB820C65EDC003FA621 /* UIView+extension.m in Sources */,
 				4322A1D620A2E8ED007B4037 /* DateTableViewCell.m in Sources */,
 				43280ABD20C65EDC003FA621 /* CommodityModel.m in Sources */,
+				3694C54520C7F4B60089FAE7 /* StoreDetailsOvervieCell.m in Sources */,
 				4343EB6B209FE79E003AD5FE /* AppDelegate.m in Sources */,
+				36CBD44B20C7B6B80044CE2F /* StoreHeadCollectionViewCell.m in Sources */,
 				4332363020B2F0DA008F45FD /* RoadInfo.m in Sources */,
 				43280AC520C65EDC003FA621 /* ShopCartTableViewCell.m in Sources */,
 				43280AB720C65EDC003FA621 /* FJStoreReqeust.m in Sources */,
@@ -2885,6 +2986,7 @@
 				434DB63E20BCE3C10077234D /* LocationViewController.m in Sources */,
 				4358CAAD20A3EEAF006B456F /* WXZCustomPickView.m in Sources */,
 				4319D9DE20ABFCB900893026 /* FMDBCarVerhicle.m in Sources */,
+				36CD2DF520C6A602007E278B /* StoreDetailsCell.m in Sources */,
 				43BBC3A320C68AE4002C2FE6 /* OderBottomView.m in Sources */,
 				438D44AC20C2672D008DAD97 /* ChoicePatternTableViewCell.m in Sources */,
 				4306779420AE7C07003BB046 /* CarInfoViewController.m in Sources */,
@@ -2895,6 +2997,7 @@
 				4343EB8E20A01C49003AD5FE /* CodeLoginViewController.m in Sources */,
 				438D449A20C26701008DAD97 /* TirePattern.m in Sources */,
 				4332362120B29A50008F45FD /* SelectEngineViewController.m in Sources */,
+				3694C53B20C7F47E0089FAE7 /* StoreDetailsOneCell.m in Sources */,
 				43CE0A9120A979DB00D7FACF /* WelcomeViewController.m in Sources */,
 				435E594520A18B79005C8BDA /* HomeViewController.m in Sources */,
 				43515E6F20A721E20043C0CC /* DBRecorder.m in Sources */,
@@ -3037,7 +3140,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-3";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = AW3WK2C3KB;
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ruyiruyiios/PrefixHeader.pch;
 				INFOPLIST_FILE = ruyiruyiios/Info.plist;
@@ -3058,7 +3161,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-3";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = AW3WK2C3KB;
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ruyiruyiios/PrefixHeader.pch;
 				INFOPLIST_FILE = ruyiruyiios/Info.plist;

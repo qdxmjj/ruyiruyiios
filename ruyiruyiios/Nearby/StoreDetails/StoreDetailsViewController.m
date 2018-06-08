@@ -7,28 +7,30 @@
 //
 
 #import "StoreDetailsViewController.h"
+#import "AllAssessTableViewController.h"
 #import "StoreDetailsRequest.h"
-#import "StoreHeadView.h"
+
 #import <SDCycleScrollView.h>
 #import <Masonry.h>
-#import "UIView+extension.h"
+#import "StoreAssessModel.h"
+#import "StoreDetailsModel.h"
+
+#import "StoreDetailsOneCell.h"
+#import "StoreDetailsOvervieCell.h"
+#import "StoreDetailsPhoneCell.h"
+#import "StoreDetailsCell.h"
+
 @interface StoreDetailsViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-@property(nonatomic,strong)NSDictionary *dataDic;
-
-@property(nonatomic,strong)UIScrollView *mainScrollView;
-
-@property(nonatomic,strong)UILabel *contactPhone;
+@property(nonatomic,strong)NSArray *assessContentArr;
 
 @property(nonatomic,strong)SDCycleScrollView *CycleView;
 
-@property(nonatomic,strong)StoreHeadView *storeHeadView;
-
-@property(nonatomic,strong)UILabel *storeTitle;
-
-@property(nonatomic,strong)UILabel *storeContent;
-
 @property(nonatomic,strong)UITableView *assessTableView;
+
+@property(nonatomic,strong)StoreDetailsModel *storeDetailsModel;
+
+@property(nonatomic,assign)CGFloat tableViewH;
 
 @end
 
@@ -39,109 +41,208 @@
 
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"门店首页";
+
+    [self.view addSubview:self.assessTableView];
     
-    [self.view addSubview:self.mainScrollView];
-    [self.mainScrollView addSubview:self.contactPhone];
-    [self.mainScrollView addSubview:self.CycleView];
-    [self.mainScrollView addSubview:self.storeHeadView];
-    [self.mainScrollView addSubview:self.storeTitle];
-    [self.mainScrollView addSubview:self.storeContent];
     
-    [self setFrame];
-    
+    [self.assessTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.mas_equalTo(self.view.mas_top);
+        make.left.and.right.mas_equalTo(self.view);
+        
+        make.bottom.mas_equalTo(self.view.mas_bottom);
+        
+    }];
 }
+
+
+
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 1;
+    return 4;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
+
+    if (section == 3) {
+        
+        if (self.assessContentArr.count>0) {
+            
+            return self.assessContentArr.count+1;
+        }
+        return 1;
+    }
+
     return 1;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"assessCellID" forIndexPath:indexPath];
-    
-    
-    return cell;
-}
+    switch (indexPath.section) {
+        case 0:{
+            
+            StoreDetailsOneCell *cell = [tableView dequeueReusableCellWithIdentifier:@"StoreDetailsOneCellID" forIndexPath:indexPath];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [cell setModel:self.storeDetailsModel];
+            return cell;
+            
+        }
+            break;
+        case 1:{
+            
+            StoreDetailsPhoneCell *cell = [tableView dequeueReusableCellWithIdentifier:@"StoreDetailsPhoneCellID" forIndexPath:indexPath];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [cell setModel:self.storeDetailsModel];
 
--(void)setFrame{
-    
-    [self.mainScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.right.top.bottom.mas_equalTo(self.view);
-    }];
-    
-    [self.storeHeadView mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.mas_equalTo(self.CycleView.mas_bottom);
-        make.left.right.mas_equalTo(self.view);
-        make.height.mas_equalTo(@100);
-        
-    }];
+            return cell;
+        }
+            break;
+        case 2:{
+            
+            StoreDetailsOvervieCell *cell = [tableView dequeueReusableCellWithIdentifier:@"StoreDetailsOvervieCellID" forIndexPath:indexPath];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            [cell setModel:self.storeDetailsModel];
 
-    [self.contactPhone mas_makeConstraints:^(MASConstraintMaker *make) {
+
+            return cell;
+        }
        
-        make.left.and.right.mas_equalTo(self.view);
-        make.top.mas_equalTo(self.storeHeadView.mas_bottom).inset(2);
-        make.height.mas_equalTo(@50);
-        
-    }];
-    
-    [self.storeTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.right.mas_equalTo(self.view);
-        make.top.mas_equalTo(self.contactPhone.mas_bottom).inset(2);
-        make.height.mas_equalTo(@45);
-        
-    }];
-    
-    [self.storeContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.right.mas_equalTo(self.view);
-        make.top.mas_equalTo(self.storeTitle.mas_bottom);
-        make.height.mas_equalTo(@45);
-        
-    }];
-
-    [self.assessTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-       
-        make.top.mas_equalTo(self.storeContent.mas_bottom).inset(2);
-        make.left.and.right.mas_equalTo(self.view);
-        make.height.mas_equalTo(@200);
-        
-    }];
-}
-
--(void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
-    
-    CGFloat h = self.CycleView.height+self.storeHeadView.height+self.contactPhone.height+2+self.storeTitle.height+self.storeContent.height+2+self.assessTableView.height+2;
-    
-    self.mainScrollView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), h);
-    
-}
-
-
--(UIScrollView *)mainScrollView{
-    
-    if (!_mainScrollView) {
-        
-        _mainScrollView = [[UIScrollView alloc] init];
-        _mainScrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)*1.5);
-        _mainScrollView.alwaysBounceVertical = YES;
-        _mainScrollView.showsVerticalScrollIndicator=NO;
-        _mainScrollView.showsHorizontalScrollIndicator=NO;
-
-        _mainScrollView.backgroundColor = [UIColor colorWithRed:230.f/255.f green:230.f/255.f blue:230.f/255.f alpha:1.f];
+        default:
+            break;
     }
     
-    return _mainScrollView;
+    if (indexPath.row == 0) {
+        
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"storeDetailsAllAssessCellID" forIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(16, 0, 100, 40)];
+        lab.text = @"门店评价";
+        [cell.contentView addSubview:lab];
+        
+        UIButton *allBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [allBtn setFrame:CGRectMake(cell.contentView.frame.size.width-80-16, 0, 80, 40)];
+        [allBtn setTitle:@"查看全部" forState:UIControlStateNormal];
+        [allBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        
+        [allBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, -25, 0, 0)];
+        [allBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 75, 0, 0)];
+        
+        [allBtn setImage:[UIImage imageNamed:@"ic_right"] forState:UIControlStateNormal];
+        [allBtn addTarget:self action:@selector(pushAssessViewController) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:allBtn];
+        
+        return cell;
+        
+        
+    }else{
+    
+    StoreDetailsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"assessCellID" forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    
+    StoreAssessModel *model = [[StoreAssessModel alloc] init];
+    
+    [model setValuesForKeysWithDictionary:self.assessContentArr[0]];
+    
+    [cell setAssessContentModel:model];
+    
+    return cell;
+    
+    }
 }
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    switch (indexPath.section) {
+        case 0:
+            
+            return UITableViewAutomaticDimension;
+            break;
+        case 1:
+            
+            return 44;
+            break;
+        case 2:
+            
+            return 65;
+
+            break;
+            
+        default:
+            break;
+    }
+    
+    if (indexPath.row == 0) {
+        
+        
+        return 40;
+    }else{
+    
+    return UITableViewAutomaticDimension;
+    }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    //return的是预估高度
+    switch (indexPath.section) {
+        case 0:
+            
+            return 115;
+            break;
+        case 3:
+            
+            if (indexPath.row==1) {
+                
+                return 195;
+            }
+            break;
+        default:
+            break;
+    }
+
+    return 60;
+}
+
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    
+
+    
+    return 1;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
+
+    
+    return 1;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    
+    return [UIView new];
+    
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    return [UIView new];
+}
+
+-(void)pushAssessViewController{
+    
+    AllAssessTableViewController *allAssessVC = [[AllAssessTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    
+    allAssessVC.storeId = self.storeDetailsModel.storeId;
+    
+    [self.navigationController pushViewController:allAssessVC animated:YES];
+    
+}
+
 
 -(SDCycleScrollView*)CycleView{
     if (_CycleView==nil) {
@@ -158,69 +259,48 @@
     return _CycleView;
 }
 
--(StoreHeadView *)storeHeadView{
-    
-    if (!_storeHeadView) {
-        
-        _storeHeadView = [[StoreHeadView alloc] init];
-        _storeHeadView.backgroundColor = [UIColor whiteColor];
-    }
-    
-    
-    return _storeHeadView;
-}
-
--(UILabel *)contactPhone{
-    
-    if (!_contactPhone) {
-        
-        _contactPhone = [[UILabel alloc] init];
-        _contactPhone.backgroundColor = [UIColor whiteColor];
-        _contactPhone.text = @"联系电话";
-        _contactPhone.textColor = [UIColor blackColor];
-    }
-    return _contactPhone;
-}
-
--(UILabel *)storeTitle{
-    
-    if (!_storeTitle) {
-        
-        _storeTitle = [[UILabel alloc] init];
-        _storeTitle.backgroundColor = [UIColor whiteColor];
-        _storeTitle.text = @"门店概况";
-        _storeTitle.textColor = [UIColor blackColor];
-        _storeTitle.font = [UIFont systemFontOfSize:18.f];
-    }
-    return _storeTitle;
-}
-
--(UILabel *)storeContent{
-    
-    if (!_storeContent) {
-        
-        _storeContent = [[UILabel alloc] init];
-        _storeContent.backgroundColor = [UIColor whiteColor];
-        _storeContent.text = @"123456789";
-        _storeContent.font = [UIFont systemFontOfSize:14.f];
-    }
-    return _storeContent;
-}
 
 -(UITableView *)assessTableView{
     
     if (!_assessTableView) {
         
-        _assessTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _assessTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 0, 0) style:UITableViewStyleGrouped];
         _assessTableView.delegate = self;
         _assessTableView.dataSource = self;
-        [_assessTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"assessCellID"];
+        _assessTableView.tableHeaderView = self.CycleView;
+        
+        _assessTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+        [_assessTableView registerNib:[UINib nibWithNibName:NSStringFromClass([StoreDetailsCell class]) bundle:nil] forCellReuseIdentifier:@"assessCellID"];
+        [_assessTableView registerNib:[UINib nibWithNibName:NSStringFromClass([StoreDetailsOneCell class]) bundle:nil] forCellReuseIdentifier:@"StoreDetailsOneCellID"];
+        [_assessTableView registerNib:[UINib nibWithNibName:NSStringFromClass([StoreDetailsPhoneCell class]) bundle:nil] forCellReuseIdentifier:@"StoreDetailsPhoneCellID"];
+        [_assessTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"storeDetailsAllAssessCellID"];
+        [_assessTableView registerNib:[UINib nibWithNibName:NSStringFromClass([StoreDetailsOvervieCell class]) bundle:nil] forCellReuseIdentifier:@"StoreDetailsOvervieCellID"];
+
     }
-    
-    
     return _assessTableView;
 }
 
+-(NSArray *)assessContentArr{
+    
+    if (!_assessContentArr) {
+        
+        _assessContentArr = [NSArray array];
+    }
+    
+    return _assessContentArr;
+}
+
+-(StoreDetailsModel *)storeDetailsModel{
+    
+    if (!_storeDetailsModel) {
+        
+        _storeDetailsModel= [[StoreDetailsModel alloc] init];
+    }
+    
+    
+    return _storeDetailsModel;
+}
 
 -(void)setStoreID:(NSString *)storeID{
     
@@ -229,42 +309,28 @@
     }
     
     [StoreDetailsRequest getStoreInfoByStoreIdWithInfo:@{@"storeId":storeID} succrss:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
-        
-        if ([data isKindOfClass:[NSDictionary class]]) {
+
+        if ([data objectForKey:@"store_first_commit"] !=[NSNull null]) {
             
-            self.dataDic = data;
+            self.assessContentArr = @[[data objectForKey:@"store_first_commit"]];
+            
         }
+
+        [self.storeDetailsModel setValuesForKeysWithDictionary:data];
         
-        NSLog(@"%@",data);
+        [self.assessTableView reloadData];
+
         
     } failure:^(NSError * _Nullable error) {
                                                                                                                                                   
     }];
 }
 
--(NSDictionary *)dataDic{
-    
-    if (!_dataDic) {
-        
-        _dataDic = [NSDictionary dictionary];
-    }
-    
-    return _dataDic;
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

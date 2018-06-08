@@ -61,6 +61,30 @@
     } failure:^(NSError * _Nullable error) {
         
     }];
+}
+
+
++(void)getCommitByConditionWithInfo:(NSDictionary *)info succrss:(requestSuccessBlock)succrsshandler failure:(requestFailureBlock)failureHandler{
+    
+    
+    [self postRequest:@"getCommitByCondition" params:@{@"reqJson":[PublicClass convertToJsonData:info],@"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+        
+        if ([code longLongValue] == 1) {
+            
+            
+            succrsshandler(code,message,data);
+        }
+        
+        [MBProgressHUD showTextMessage:message];
+        
+    } failure:^(NSError * _Nullable error) {
+        
+        
+        
+    }];
+    
+    
+    
     
     
     

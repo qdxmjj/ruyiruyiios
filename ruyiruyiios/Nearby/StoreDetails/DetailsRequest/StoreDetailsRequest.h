@@ -16,4 +16,7 @@
 +(void)getStockListByStoreWithInfo:(NSDictionary *)info succrss:(_Nullable requestSuccessBlock )succrsshandler failure:(_Nullable requestFailureBlock)failureHandler;
 
 +(void)getStoreInfoByStoreIdWithInfo:(NSDictionary *)info succrss:(_Nullable requestSuccessBlock )succrsshandler failure:(_Nullable requestFailureBlock)failureHandler;
+
+//获取全部评论
++(void)getCommitByConditionWithInfo:(NSDictionary *)info  succrss:(_Nullable requestSuccessBlock )succrsshandler failure:(_Nullable requestFailureBlock)failureHandler;
 @end
