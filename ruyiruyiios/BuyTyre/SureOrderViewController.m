@@ -10,6 +10,9 @@
 #import "OrderHeadView.h"
 #import "OderMiddleView.h"
 #import "OderBottomView.h"
+#import "UserConfig.h"
+#import "CashierViewController.h"
+#import "ShoeOrderInfo.h"
 
 @interface SureOrderViewController ()<UIScrollViewDelegate>
 
@@ -19,6 +22,11 @@
 @property(nonatomic, strong)OderBottomView *oderBottomView;
 @property(nonatomic, strong)UILabel *totalPriceLabel;
 @property(nonatomic, strong)UIButton *sureBtn;
+@property(nonatomic, strong)NSString *allTotalPriceStr;
+@property(nonatomic, strong)NSString *tireTotalPriceStr;
+@property(nonatomic, strong)NSString *cxwyTotalPriceStr;
+@property(nonatomic, strong)ShoeOrderInfo *shoeOrderInfo;
+
 
 @end
 
@@ -109,9 +117,43 @@
     return _sureBtn;
 }
 
+- (ShoeOrderInfo *)shoeOrderInfo{
+    
+    if (_shoeOrderInfo == nil) {
+        
+        _shoeOrderInfo = [[ShoeOrderInfo alloc] init];
+    }
+    return _shoeOrderInfo;
+}
+
 - (void)chickSureBtn{
     
-    
+    self.sureBtn.enabled = NO;
+    NSString *shoeIdStr = [NSString stringWithFormat:@"%@", shoeSpeedLoadResult.shoeId];
+//    NSLog(@"%@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@", buyTireData.shoeDownImg, [NSString stringWithFormat:@"%@", [UserConfig user_id]], fontRearFlag, tireCount, buyTireData.detailStr, self.oderBottomView.tireTotalPriceLabel.text, shoeSpeedLoadResult.price, cxwyCount, buyTireData.cxwyMaxPrice, self.oderBottomView.cxwyTotalPriceLabel.text, self.allTotalPriceStr);
+    NSDictionary *surePostDic = @{@"shoeId":shoeIdStr, @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]], @"fontRearFlag":fontRearFlag, @"amount":tireCount, @"shoeName":buyTireData.detailStr, @"shoeTotalPrice":self.tireTotalPriceStr, @"shoePrice":shoeSpeedLoadResult.price, @"cxwyAmount":cxwyCount, @"cxwyPrice":buyTireData.cxwyMaxPrice, @"cxwyTotalPrice":self.cxwyTotalPriceStr, @"totalPrice":self.allTotalPriceStr, @"orderImg":buyTireData.shoeDownImg};
+    NSString *reqJsonStr = [PublicClass convertToJsonData:surePostDic];
+    [JJRequest postRequest:@"addUserShoeOrder" params:@{@"reqJson":reqJsonStr, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+        
+        NSString *statusStr = [NSString stringWithFormat:@"%@", code];
+        NSString *messageStr = [NSString stringWithFormat:@"%@", message];
+        if ([statusStr isEqualToString:@"1"]) {
+            
+            NSLog(@"提交订单获取到的值:%@", data);
+            [self.shoeOrderInfo setValuesForKeysWithDictionary:data];
+            CashierViewController *cashierVC = [[CashierViewController alloc] init];
+            cashierVC.shoeOrderInfo = self.shoeOrderInfo;
+            cashierVC.fontRearFlag = fontRearFlag;
+            [self.navigationController pushViewController:cashierVC animated:YES];
+        }else{
+            
+            [PublicClass showHUD:messageStr view:self.view];
+        }
+        self.sureBtn.enabled = YES;
+    } failure:^(NSError * _Nullable error) {
+        
+        NSLog(@"提交轮胎购买订单错误:%@", error);
+    }];
 }
 
 - (void)viewDidLoad {
@@ -144,6 +186,9 @@
     [_oderMiddleView setMiddleViewData:buyTireData cxwyCount:cxwyCount priceCount:tireCount price:shoeSpeedLoadResult.price];
     [_oderBottomView setBottomViewData:tiretotalPrice cxwyTotalPrice:cxwyTotalPrice];
     _totalPriceLabel.text = [NSString stringWithFormat:@"合计: ¥%@ 元", allTotalPrice];
+    self.allTotalPriceStr = allTotalPrice;
+    self.tireTotalPriceStr = tiretotalPrice;
+    self.cxwyTotalPriceStr = cxwyTotalPrice;
 }
 
 - (void)didReceiveMemoryWarning {

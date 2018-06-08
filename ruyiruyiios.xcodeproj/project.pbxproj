@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		1A3CB3004D62FF11EDC9B585 /* libPods-ruyiruyiios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D40C758474E7181E97834C56 /* libPods-ruyiruyiios.a */; };
 		36CD2DF120C68AA7007E278B /* StoreHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 36CD2DF020C68AA7007E278B /* StoreHeadView.m */; };
+		43004A1F20C78317001BB01A /* CashierPayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43004A1E20C78317001BB01A /* CashierPayView.m */; };
+		43004A2220C7BBE4001BB01A /* TopayMiddleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43004A2120C7BBE4001BB01A /* TopayMiddleView.m */; };
+		43004A2520C7BF0B001BB01A /* ShoeOrderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 43004A2420C7BF0B001BB01A /* ShoeOrderInfo.m */; };
+		43004A2820C7CBDB001BB01A /* TopayBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43004A2720C7CBDB001BB01A /* TopayBottomView.m */; };
 		4306779420AE7C07003BB046 /* CarInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4306779320AE7C07003BB046 /* CarInfoViewController.m */; };
 		4306779A20AEB848003BB046 /* TopCarInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4306779920AEB848003BB046 /* TopCarInfoTableViewCell.m */; };
 		4306779D20AEB864003BB046 /* BottomCarInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4306779C20AEB864003BB046 /* BottomCarInfoTableViewCell.m */; };
@@ -534,11 +538,22 @@
 		43CE0A8D20A963F300D7FACF /* ic_3@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43CE0A8120A963F300D7FACF /* ic_3@3x.png */; };
 		43CE0A8E20A963F300D7FACF /* ic_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43CE0A8220A963F300D7FACF /* ic_2@2x.png */; };
 		43CE0A9120A979DB00D7FACF /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE0A9020A979DB00D7FACF /* WelcomeViewController.m */; };
+		43F5794920C8CF5D00E0B588 /* MyHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F5794820C8CF5D00E0B588 /* MyHeadView.m */; };
+		43F5794C20C9088900E0B588 /* MyOrderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F5794B20C9088900E0B588 /* MyOrderView.m */; };
+		43F5795220C9211E00E0B588 /* MyBottomCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F5795120C9211E00E0B588 /* MyBottomCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		36CD2DEF20C68AA7007E278B /* StoreHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreHeadView.h; sourceTree = "<group>"; };
 		36CD2DF020C68AA7007E278B /* StoreHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreHeadView.m; sourceTree = "<group>"; };
+		43004A1D20C78317001BB01A /* CashierPayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CashierPayView.h; sourceTree = "<group>"; };
+		43004A1E20C78317001BB01A /* CashierPayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CashierPayView.m; sourceTree = "<group>"; };
+		43004A2020C7BBE4001BB01A /* TopayMiddleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopayMiddleView.h; sourceTree = "<group>"; };
+		43004A2120C7BBE4001BB01A /* TopayMiddleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopayMiddleView.m; sourceTree = "<group>"; };
+		43004A2320C7BF0B001BB01A /* ShoeOrderInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShoeOrderInfo.h; sourceTree = "<group>"; };
+		43004A2420C7BF0B001BB01A /* ShoeOrderInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShoeOrderInfo.m; sourceTree = "<group>"; };
+		43004A2620C7CBDB001BB01A /* TopayBottomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopayBottomView.h; sourceTree = "<group>"; };
+		43004A2720C7CBDB001BB01A /* TopayBottomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopayBottomView.m; sourceTree = "<group>"; };
 		4306779220AE7C07003BB046 /* CarInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarInfoViewController.h; sourceTree = "<group>"; };
 		4306779320AE7C07003BB046 /* CarInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarInfoViewController.m; sourceTree = "<group>"; };
 		4306779820AEB848003BB046 /* TopCarInfoTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopCarInfoTableViewCell.h; sourceTree = "<group>"; };
@@ -1183,6 +1198,12 @@
 		43CE0A8220A963F300D7FACF /* ic_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_2@2x.png"; sourceTree = "<group>"; };
 		43CE0A8F20A979DB00D7FACF /* WelcomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
 		43CE0A9020A979DB00D7FACF /* WelcomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
+		43F5794720C8CF5D00E0B588 /* MyHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyHeadView.h; sourceTree = "<group>"; };
+		43F5794820C8CF5D00E0B588 /* MyHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyHeadView.m; sourceTree = "<group>"; };
+		43F5794A20C9088900E0B588 /* MyOrderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyOrderView.h; sourceTree = "<group>"; };
+		43F5794B20C9088900E0B588 /* MyOrderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyOrderView.m; sourceTree = "<group>"; };
+		43F5795020C9211E00E0B588 /* MyBottomCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyBottomCollectionViewCell.h; sourceTree = "<group>"; };
+		43F5795120C9211E00E0B588 /* MyBottomCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyBottomCollectionViewCell.m; sourceTree = "<group>"; };
 		5C7F5316AE001F1747DD6E97 /* Pods-ruyiruyiios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ruyiruyiios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ruyiruyiios/Pods-ruyiruyiios.debug.xcconfig"; sourceTree = "<group>"; };
 		B0497AEBEC85789819C3300D /* Pods-ruyiruyiios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ruyiruyiios.release.xcconfig"; path = "Pods/Target Support Files/Pods-ruyiruyiios/Pods-ruyiruyiios.release.xcconfig"; sourceTree = "<group>"; };
 		D40C758474E7181E97834C56 /* libPods-ruyiruyiios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ruyiruyiios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1570,6 +1591,8 @@
 		4343EB86209FFC5A003AD5FE /* My */ = {
 			isa = PBXGroup;
 			children = (
+				43F5794520C8CD0F00E0B588 /* Model */,
+				43F5794620C8CD0F00E0B588 /* View */,
 				435E594620A18BEF005C8BDA /* MyViewController.h */,
 				435E594720A18BEF005C8BDA /* MyViewController.m */,
 			);
@@ -2166,6 +2189,12 @@
 				43BBC39F20C67CEC002C2FE6 /* OderMiddleView.m */,
 				43BBC3A120C68AE4002C2FE6 /* OderBottomView.h */,
 				43BBC3A220C68AE4002C2FE6 /* OderBottomView.m */,
+				43004A1D20C78317001BB01A /* CashierPayView.h */,
+				43004A1E20C78317001BB01A /* CashierPayView.m */,
+				43004A2020C7BBE4001BB01A /* TopayMiddleView.h */,
+				43004A2120C7BBE4001BB01A /* TopayMiddleView.m */,
+				43004A2620C7CBDB001BB01A /* TopayBottomView.h */,
+				43004A2720C7CBDB001BB01A /* TopayBottomView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2179,6 +2208,8 @@
 				438D449520C26700008DAD97 /* ShoeSpeedLoadResult.m */,
 				438D449920C26701008DAD97 /* TirePattern.h */,
 				438D449420C26700008DAD97 /* TirePattern.m */,
+				43004A2320C7BF0B001BB01A /* ShoeOrderInfo.h */,
+				43004A2420C7BF0B001BB01A /* ShoeOrderInfo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2197,6 +2228,26 @@
 				43CE0A7720A963F100D7FACF /* ic_2@3x.png */,
 			);
 			path = Leading;
+			sourceTree = "<group>";
+		};
+		43F5794520C8CD0F00E0B588 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		43F5794620C8CD0F00E0B588 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				43F5794720C8CF5D00E0B588 /* MyHeadView.h */,
+				43F5794820C8CF5D00E0B588 /* MyHeadView.m */,
+				43F5794A20C9088900E0B588 /* MyOrderView.h */,
+				43F5794B20C9088900E0B588 /* MyOrderView.m */,
+				43F5795020C9211E00E0B588 /* MyBottomCollectionViewCell.h */,
+				43F5795120C9211E00E0B588 /* MyBottomCollectionViewCell.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		8182B6C7708DD93686C572E3 /* Frameworks */ = {
@@ -2734,12 +2785,14 @@
 				431FC5D320AAAC2900EF97CA /* HomeFirstView.m in Sources */,
 				43CE0A7520A93ABF00D7FACF /* JJUILabel.m in Sources */,
 				439D060920BE43F400379414 /* ChoicePatternViewController.m in Sources */,
+				43004A2520C7BF0B001BB01A /* ShoeOrderInfo.m in Sources */,
 				4306779D20AEB864003BB046 /* BottomCarInfoTableViewCell.m in Sources */,
 				438D449B20C26701008DAD97 /* ShoeSpeedLoadResult.m in Sources */,
 				432EFEAD20B566BF0090DEC8 /* FMDBPosition.m in Sources */,
 				4306782A20B0576B003BB046 /* SelectBrandViewController.m in Sources */,
 				4322A1D920A2F57C007B4037 /* SexTableViewCell.m in Sources */,
 				433EECED20AD85920051DF9F /* Lunbo_infos.m in Sources */,
+				43004A2820C7CBDB001BB01A /* TopayBottomView.m in Sources */,
 				43280AB620C65EDC003FA621 /* FJStoreFlowLayout.m in Sources */,
 				431FC5D920AB003E00EF97CA /* FMDBCarFactory.m in Sources */,
 				438B2B0120B7F681004A7E2A /* ManageCar.m in Sources */,
@@ -2782,12 +2835,15 @@
 				435E5B2420A19F45005C8BDA /* ForgetPasswordViewController.m in Sources */,
 				43280AAC20C65EDC003FA621 /* YM_FjStoreModel.m in Sources */,
 				4358CAA920A3DC3D006B456F /* WXZBasePickView.m in Sources */,
+				43004A2220C7BBE4001BB01A /* TopayMiddleView.m in Sources */,
 				435E594020A17084005C8BDA /* HLKeyboardCoverPreventTool.m in Sources */,
+				43F5794C20C9088900E0B588 /* MyOrderView.m in Sources */,
 				43280AB520C65EDC003FA621 /* FJStoreTableViewCell.m in Sources */,
 				438D44AD20C2672D008DAD97 /* CustomQualityView.m in Sources */,
 				43280AAE20C65EDC003FA621 /* TopBarView.m in Sources */,
 				435E5B3020A1CBF0005C8BDA /* MBProgressHUD+YYM_category.m in Sources */,
 				43280AC220C65EDC003FA621 /* DirectoryTableViewCell.m in Sources */,
+				43F5795220C9211E00E0B588 /* MyBottomCollectionViewCell.m in Sources */,
 				43BBC39D20C67283002C2FE6 /* OrderHeadView.m in Sources */,
 				4322A1D020A2980B007B4037 /* RegisterTableViewCell.m in Sources */,
 				43280AB820C65EDC003FA621 /* UIView+extension.m in Sources */,
@@ -2804,6 +2860,7 @@
 				4332361B20B26CFF008F45FD /* SelectSystemTableViewCell.m in Sources */,
 				4343EB8A209FFE4D003AD5FE /* RootViewController.m in Sources */,
 				433EECF020ADAC500051DF9F /* Data_cars.m in Sources */,
+				43004A1F20C78317001BB01A /* CashierPayView.m in Sources */,
 				43280AB020C65EDC003FA621 /* FJStoreServiceListCell.m in Sources */,
 				4322A1CA20A28C6A007B4037 /* RegisterViewController.m in Sources */,
 				435E595220A18D44005C8BDA /* MainTabBarViewController.m in Sources */,
@@ -2823,6 +2880,7 @@
 				43280AB120C65EDC003FA621 /* JJMenuView.m in Sources */,
 				4319D9E120ABFEDB00893026 /* FMDBCarTireInfo.m in Sources */,
 				432EFEB920B5A5EF0090DEC8 /* City.m in Sources */,
+				43F5794920C8CF5D00E0B588 /* MyHeadView.m in Sources */,
 				4332361820B26A71008F45FD /* SelectSystemViewController.m in Sources */,
 				434DB63E20BCE3C10077234D /* LocationViewController.m in Sources */,
 				4358CAAD20A3EEAF006B456F /* WXZCustomPickView.m in Sources */,

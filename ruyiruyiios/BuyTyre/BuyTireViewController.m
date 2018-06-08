@@ -262,6 +262,7 @@
         qualityVC.buyTireData = self.buyTireData;
         qualityVC.tireCount = self.tireView.numberLabel.text;
         qualityVC.cxwyCount = self.cxwyView.numberLabel.text;
+        qualityVC.fontRearFlag = fontRearFlag;
         [self.navigationController pushViewController:qualityVC animated:YES];
     }
 }

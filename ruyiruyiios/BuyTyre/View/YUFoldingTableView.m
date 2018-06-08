@@ -23,7 +23,10 @@ id YUSafeObject(NSArray *array, NSInteger index) {
     return [array objectAtIndex:index];
 }
 
-@interface YUFoldingTableView () <YUFoldingSectionHeaderDelegate>
+@interface YUFoldingTableView () <YUFoldingSectionHeaderDelegate>{
+    
+    NSInteger beforeIndex;
+}
 
 @property (nonatomic, strong) NSMutableArray *statusArray;
 
@@ -61,6 +64,7 @@ id YUSafeObject(NSArray *array, NSInteger index) {
 
 - (void)setupDelegateAndDataSource
 {
+    beforeIndex = -1;
     // 适配iOS 11
 #ifdef __IPHONE_11_0
     if ([self respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
@@ -122,7 +126,6 @@ id YUSafeObject(NSArray *array, NSInteger index) {
         _statusArray = tempStatusArrayM;
         _sectionStateArray = nil;
     }
-    
     
     return _statusArray;
 }
@@ -311,16 +314,43 @@ id YUSafeObject(NSArray *array, NSInteger index) {
 //
 //        [self.statusArray replaceObjectAtIndex:self.currentIndex withObject:[NSNumber numberWithBool:0]];
 //    }
+//    [self.statusArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//
+//        if ([[self.statusArray objectAtIndex:idx] integerValue] == 1) {
+//
+//            beforeIndex = idx;
+//            [self.statusArray replaceObjectAtIndex:idx withObject:[NSNumber numberWithBool:false]];
+//        }
+//    }];
     [self.statusArray replaceObjectAtIndex:index withObject:[NSNumber numberWithBool:!currentIsOpen]];
     NSLog(@"状态数组:%@", self.statusArray);
     NSInteger numberOfRow = [_foldingDelegate yuFoldingTableView:self numberOfRowsInSection:index];
+//    NSMutableArray *beforeArray = [NSMutableArray array];
+//    if (beforeIndex != -1) {
+//
+//        NSInteger be_numberOfRow = [_foldingDelegate yuFoldingTableView:self numberOfRowsInSection:beforeIndex];
+//        if (be_numberOfRow) {
+//
+//            for (NSInteger j = 0; j<be_numberOfRow; j++) {
+//
+//                [beforeArray addObject:[NSIndexPath indexPathForRow:j inSection:beforeIndex]];
+//            }
+//        }
+//    }
+//
+//    if (beforeArray.count) {
+//
+//        [self deleteRowsAtIndexPaths:[NSArray arrayWithArray:beforeArray] withRowAnimation:UITableViewRowAnimationTop];
+//    }
     NSMutableArray *rowArray = [NSMutableArray array];
     if (numberOfRow) {
         for (NSInteger i = 0; i < numberOfRow; i++) {
             [rowArray addObject:[NSIndexPath indexPathForRow:i inSection:index]];
         }
     }
+    NSLog(@"点击的section的信息:%@", rowArray);
     if (rowArray.count) {
+
         if (currentIsOpen) {
             [self deleteRowsAtIndexPaths:[NSArray arrayWithArray:rowArray] withRowAnimation:UITableViewRowAnimationTop];
         }else{

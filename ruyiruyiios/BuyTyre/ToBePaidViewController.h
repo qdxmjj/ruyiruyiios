@@ -7,7 +7,11 @@
 //
 
 #import "RootViewController.h"
+#import "ShoeOrderInfo.h"
 
 @interface ToBePaidViewController : RootViewController
+
+@property(nonatomic, strong)ShoeOrderInfo *shoeOrderInfo;
+@property(nonatomic, strong)NSString *fontRearFlag;
 
 @end

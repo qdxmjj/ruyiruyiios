@@ -151,18 +151,18 @@
     if (_mainScrollV == nil) {
 
         _mainScrollV = [[UIScrollView alloc] init];
-        _mainScrollV.frame = CGRectMake(0, -20, MAINSCREEN.width, MAINSCREEN.height);
+        _mainScrollV.frame = CGRectMake(0, -20, MAINSCREEN.width, MAINSCREEN.height - 20);
         _mainScrollV.showsHorizontalScrollIndicator = NO;
         _mainScrollV.showsVerticalScrollIndicator = NO;
         _mainScrollV.bounces = NO;
         _mainScrollV.delegate = self;
         _mainScrollV.tag = 2;
         _mainScrollV.scrollsToTop = NO;
-        if (@available(iOS 11.0, *)) {
-            _mainScrollV.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
-        } else {
-            // Fallback on earlier versions
-        }
+//        if (@available(iOS 11.0, *)) {
+//            _mainScrollV.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
+//        } else {
+//            // Fallback on earlier versions
+//        }
     }
     return _mainScrollV;
 }
@@ -477,6 +477,7 @@
         
         ChoicePatternViewController *choicePVC = [[ChoicePatternViewController alloc] init];
         choicePVC.tireSize = self.dataCars.font;
+        choicePVC.fontRearFlag = @"0";
         [self.navigationController pushViewController:choicePVC animated:YES];
     }else{
         
@@ -544,6 +545,8 @@
     [_locationManager stopUpdatingLocation];
     CLLocation *currentLocation = [locations lastObject];
     CLGeocoder *geoCoder = [[CLGeocoder alloc] init];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%f", currentLocation.coordinate.longitude] forKey:@"longitude"];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%f", currentLocation.coordinate.latitude] forKey:@"latitude"];
 //    NSTimeInterval locationAge = -[currentLocation.timestamp timeIntervalSinceNow];
 //    if (locationAge > 1.0) {
 //
