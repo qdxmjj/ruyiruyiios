@@ -122,7 +122,11 @@
                 CodeLoginViewController *codeLoginVC = [[CodeLoginViewController alloc] init];
                 [self.navigationController pushViewController:codeLoginVC animated:YES];
             }];
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];
             [alert addAction:ok];
+            [alert addAction:cancel];
             [self presentViewController:alert animated:YES completion:nil];
         }else{
             YLog(@"获取得到的车辆信息:%@", data);

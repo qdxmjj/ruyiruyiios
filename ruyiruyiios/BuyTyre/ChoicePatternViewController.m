@@ -119,6 +119,7 @@
         
         BuyTireViewController *buyTireVC = [[BuyTireViewController alloc] init];
         buyTireVC.shoeSpeedLoadResult = self.shoeSpeedLoadResult;
+        NSLog(@"%@", fontRearFlag);
         buyTireVC.fontRearFlag = fontRearFlag;
         [self.navigationController pushViewController:buyTireVC animated:YES];
     }
@@ -189,7 +190,11 @@
                 CodeLoginViewController *codeLoginVC = [[CodeLoginViewController alloc] init];
                 [self.navigationController pushViewController:codeLoginVC animated:YES];
             }];
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];
             [alert addAction:ok];
+            [alert addAction:cancel];
             [self presentViewController:alert animated:YES completion:nil];
         }else{
             
@@ -231,9 +236,10 @@
 
 - (NSInteger)yuFoldingTableView:(YUFoldingTableView *)yuTableView numberOfRowsInSection:(NSInteger)section{
     
-    TirePattern *tirePattern = [self.shoeMutableA objectAtIndex:section];
-    NSString *nameKey = tirePattern.shoeFlgureName;
-    return [[self.shoeFlgureNameDic objectForKey:nameKey] count];
+    return 1;
+//    TirePattern *tirePattern = [self.shoeMutableA objectAtIndex:section];
+//    NSString *nameKey = tirePattern.shoeFlgureName;
+//    return [[self.shoeFlgureNameDic objectForKey:nameKey] count];
 }
 
 - (CGFloat)yuFoldingTableView:(YUFoldingTableView *)yuTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
