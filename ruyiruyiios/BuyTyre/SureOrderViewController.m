@@ -10,7 +10,6 @@
 #import "OrderHeadView.h"
 #import "OderMiddleView.h"
 #import "OderBottomView.h"
-#import "UserConfig.h"
 #import "CashierViewController.h"
 #import "ShoeOrderInfo.h"
 
@@ -142,8 +141,9 @@
             NSLog(@"提交订单获取到的值:%@", data);
             [self.shoeOrderInfo setValuesForKeysWithDictionary:data];
             CashierViewController *cashierVC = [[CashierViewController alloc] init];
-            cashierVC.shoeOrderInfo = self.shoeOrderInfo;
-            cashierVC.fontRearFlag = fontRearFlag;
+            cashierVC.totalPriceStr = [NSString stringWithFormat:@"%@", self.shoeOrderInfo.totalPrice];
+            cashierVC.orderNoStr = [NSString stringWithFormat:@"%@", self.shoeOrderInfo.orderNo];
+            cashierVC.userStatusStr = @"0";
             [self.navigationController pushViewController:cashierVC animated:YES];
         }else{
             

@@ -21,8 +21,9 @@
 @end
 
 @implementation CashierViewController
-@synthesize shoeOrderInfo;
-@synthesize fontRearFlag;
+@synthesize totalPriceStr;
+@synthesize userStatusStr;
+@synthesize orderNoStr;
 
 - (void)viewWillAppear:(BOOL)animated{
     
@@ -48,7 +49,7 @@
         
         _moneyLabel = [[UILabel alloc] init];
         _moneyLabel.frame = CGRectMake(90, 19, MAINSCREEN.width - 90, 22);
-        _moneyLabel.text = [NSString stringWithFormat:@"%.2f元", [shoeOrderInfo.totalPrice floatValue]];
+        _moneyLabel.text = [NSString stringWithFormat:@"%.2f元", [totalPriceStr floatValue]];
         _moneyLabel.textColor = [UIColor redColor];
         _moneyLabel.font = [UIFont fontWithName:TEXTFONT size:22.0];
     }
@@ -148,10 +149,14 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"如驿如意" message:@"您确认离开支付订单界面，离开订单会变为待付款订单，可在待付款订单中查看" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
-        ToBePaidViewController *tobePaidVC = [[ToBePaidViewController alloc] init];
-        tobePaidVC.shoeOrderInfo = shoeOrderInfo;
-        tobePaidVC.fontRearFlag = fontRearFlag;
-        [self.navigationController pushViewController:tobePaidVC animated:YES];
+        if ([userStatusStr isEqualToString:@"0"]) {
+            
+            ToBePaidViewController *tobePaidVC = [[ToBePaidViewController alloc] init];
+            tobePaidVC.orderNoStr = orderNoStr;
+            tobePaidVC.totalPriceStr = totalPriceStr;
+            tobePaidVC.orderTypeStr = userStatusStr;
+            [self.navigationController pushViewController:tobePaidVC animated:YES];
+        }
     }];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         

@@ -13,7 +13,6 @@
 #import "FMDBCarTireType.h"
 #import "FMDBPosition.h"
 #import "FMDBUserInfo.h"
-#import "UserConfig.h"
 
 @interface DBRecorder : NSObject
 

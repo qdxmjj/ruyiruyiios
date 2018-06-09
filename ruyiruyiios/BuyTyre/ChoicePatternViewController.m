@@ -179,7 +179,7 @@
         NSString *messStr = [NSString stringWithFormat:@"%@", message];
         if ([statusStr isEqualToString:@"1"]) {
             
-            NSLog(@"getShoeBySize:%@", data);
+//            NSLog(@"getShoeBySize:%@", data);
             [self analySize:data];
             [self.foldingTableView reloadData];
         }else if ([statusStr isEqualToString:@"-999"]){

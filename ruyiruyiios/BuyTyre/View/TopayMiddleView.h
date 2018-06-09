@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ShoeOrderInfo.h"
+#import "TobepayInfo.h"
 
 @interface TopayMiddleView : UIView
 
@@ -16,6 +16,6 @@
 @property(nonatomic, strong)UILabel *platLabel;
 @property(nonatomic, strong)UILabel *totalPriceLabel;
 
-- (void)setPayMiddleViewData:(ShoeOrderInfo *)shoeOrderInfo;
+- (void)setPayMiddleViewData:(TobepayInfo *)tobepayInfo;
 
 @end

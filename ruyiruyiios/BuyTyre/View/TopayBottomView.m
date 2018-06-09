@@ -153,17 +153,17 @@
     self.cb_underView.frame = CGRectMake(0, 193, MAINSCREEN.width, 0.5);
 }
 
-- (void)setTopayBottomViewData:(ShoeOrderInfo *)shoeOrderInfo fontRearFlag:(NSString *)fontRearFlag{
+- (void)setTopayBottomViewData:(ShoeOrderVo *)shoeOrdervo tobePayinfo:(TobepayInfo *)tobePayinfo;{
     
-    if ([fontRearFlag isEqualToString:@"0"] || [fontRearFlag isEqualToString:@"1"]) {
+    if ([shoeOrdervo.fontRearFlag isEqualToString:@"0"] || [shoeOrdervo.fontRearFlag isEqualToString:@"1"]) {
         
-        [self.downImageV sd_setImageWithURL:[NSURL URLWithString:shoeOrderInfo.orderImg]];
-        self.detailLabel.text = shoeOrderInfo.fontShoeName;
-        self.piceLabel.text = [NSString stringWithFormat:@"¥ %@", shoeOrderInfo.fontPrice];
-        self.countLabel.text = [NSString stringWithFormat:@"x%@", shoeOrderInfo.fontAmount];
-        [self.cxwyBtn setTitle:[NSString stringWithFormat:@"畅行无忧 ¥ %@", shoeOrderInfo.cxwyPrice] forState:UIControlStateNormal];
-        self.cxwyCountLabel.text = [NSString stringWithFormat:@"x%@", shoeOrderInfo.cxwyAmount];
-        if ([fontRearFlag isEqualToString:@"0"]) {
+        [self.downImageV sd_setImageWithURL:[NSURL URLWithString:tobePayinfo.orderImg]];
+        self.detailLabel.text = shoeOrdervo.fontShoeName;
+        self.piceLabel.text = [NSString stringWithFormat:@"¥ %@", shoeOrdervo.fontPrice];
+        self.countLabel.text = [NSString stringWithFormat:@"x%@", shoeOrdervo.fontAmount];
+        [self.cxwyBtn setTitle:[NSString stringWithFormat:@"畅行无忧 ¥ %@", shoeOrdervo.cxwyPrice] forState:UIControlStateNormal];
+        self.cxwyCountLabel.text = [NSString stringWithFormat:@"x%@", shoeOrdervo.cxwyAmount];
+        if ([shoeOrdervo.fontRearFlag isEqualToString:@"0"]) {
             
             self.tirePositionLabel.text = [NSString stringWithFormat:@"位置: 前轮/后轮"];
         }else{
@@ -172,12 +172,12 @@
         }
     }else{
         
-        [self.downImageV sd_setImageWithURL:[NSURL URLWithString:shoeOrderInfo.orderImg]];
-        self.detailLabel.text = shoeOrderInfo.rearShoeName;
-        self.piceLabel.text = [NSString stringWithFormat:@"¥ %@", shoeOrderInfo.rearPrice];
-        self.countLabel.text = [NSString stringWithFormat:@"x%@", shoeOrderInfo.rearAmount];
-        [self.cxwyBtn setTitle:[NSString stringWithFormat:@"畅行无忧 ¥ %@", shoeOrderInfo.cxwyPrice] forState:UIControlStateNormal];
-        self.cxwyCountLabel.text = [NSString stringWithFormat:@"x%@", shoeOrderInfo.cxwyAmount];
+        [self.downImageV sd_setImageWithURL:[NSURL URLWithString:tobePayinfo.orderImg]];
+        self.detailLabel.text = shoeOrdervo.rearShoeName;
+        self.piceLabel.text = [NSString stringWithFormat:@"¥ %@", shoeOrdervo.rearPrice];
+        self.countLabel.text = [NSString stringWithFormat:@"x%@", shoeOrdervo.rearAmount];
+        [self.cxwyBtn setTitle:[NSString stringWithFormat:@"畅行无忧 ¥ %@", shoeOrdervo.cxwyPrice] forState:UIControlStateNormal];
+        self.cxwyCountLabel.text = [NSString stringWithFormat:@"x%@", shoeOrdervo.cxwyAmount];
         self.tirePositionLabel.text = [NSString stringWithFormat:@"位置: 后轮"];
     }
 }

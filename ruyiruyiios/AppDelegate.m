@@ -15,7 +15,7 @@
 #import "FMDBCarVerhicle.h"
 #import "FMDBCarTireInfo.h"
 #import "FMDBCarTireType.h"
-#import "ToBePaidViewController.h"
+#import "MyOrderViewController.h"
 
 @interface AppDelegate ()
 
@@ -31,7 +31,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
 
-//    ToBePaidViewController *carInfoVC = [[ToBePaidViewController alloc] init];
+//    MyOrderViewController *carInfoVC = [[MyOrderViewController alloc] init];
 //    UINavigationController *carNav = [[UINavigationController alloc] initWithRootViewController:carInfoVC];
 //    self.window.rootViewController = carNav;
     if (![[NSUserDefaults standardUserDefaults] valueForKey:@"isFirst"]) {

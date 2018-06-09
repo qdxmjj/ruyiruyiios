@@ -14,6 +14,5 @@
 @property(nonatomic, strong)UIButton *blanceBtn;
 @property(nonatomic, strong)UIButton *wxBtn;
 @property(nonatomic, strong)UIButton *alipayBtn;
-@property(nonatomic, strong)UIButton *couponBtn;
 
 @end

@@ -63,23 +63,6 @@
     return _alipayBtn;
 }
 
-- (UIButton *)couponBtn{
-    
-    if (_couponBtn == nil) {
-        
-        _couponBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _couponBtn.frame = CGRectMake(MAINSCREEN.width/2, 205, MAINSCREEN.width/2-20, 20);
-        _couponBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-        _couponBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
-        [_couponBtn setTitle:@"优惠券名称" forState:UIControlStateNormal];
-        [_couponBtn setTitleColor:TEXTCOLOR64 forState:UIControlStateNormal];
-        [_couponBtn setImage:[UIImage imageNamed:@"ic_right"] forState:UIControlStateNormal];
-        [_couponBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 25)];
-        [_couponBtn setImageEdgeInsets:UIEdgeInsetsMake(0, _couponBtn.frame.size.width - 15, 0, 0)];
-    }
-    return _couponBtn;
-}
-
 - (instancetype)initWithFrame:(CGRect)frame{
     
     self = [super initWithFrame:frame];
@@ -87,7 +70,6 @@
         
         [self addBlanceView];
         [self addOtherPayView];
-        [self addCouponView];
         [self addView];
     }
     return self;
@@ -139,18 +121,6 @@
         [self addSubview:imageV];
         [self addSubview:nameLabel];
     }
-    UIView *underView = [[UIView alloc] initWithFrame:CGRectMake(0, 190, MAINSCREEN.width, 0.5)];
-    underView.backgroundColor = [UIColor lightGrayColor];
-    [self addSubview:underView];
-}
-
-- (void)addCouponView{
-    
-    UILabel *couponLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 205, MAINSCREEN.width/2, 20)];
-    couponLabel.text = @"优惠券";
-    couponLabel.textColor = TEXTCOLOR64;
-    couponLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
-    [self addSubview:couponLabel];
 }
 
 - (void)addView{
@@ -159,7 +129,6 @@
     [self addSubview:self.blanceBtn];
     [self addSubview:self.wxBtn];
     [self addSubview:self.alipayBtn];
-    [self addSubview:self.couponBtn];
 }
 
 /*

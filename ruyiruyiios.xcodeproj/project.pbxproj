@@ -105,6 +105,8 @@
 		4306781E20AED839003BB046 /* 选中@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 430677DF20AED838003BB046 /* 选中@2x.png */; };
 		4306782420AFF6A8003BB046 /* PhotoBtnView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4306782320AFF6A8003BB046 /* PhotoBtnView.m */; };
 		4306782A20B0576B003BB046 /* SelectBrandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4306782920B0576B003BB046 /* SelectBrandViewController.m */; };
+		4307036820CA1E030044EBCE /* MyOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4307036720CA1E030044EBCE /* MyOrderViewController.m */; };
+		4307036B20CA29700044EBCE /* MyOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4307036A20CA29700044EBCE /* MyOrderTableViewCell.m */; };
 		4319D9DE20ABFCB900893026 /* FMDBCarVerhicle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4319D9DD20ABFCB900893026 /* FMDBCarVerhicle.m */; };
 		4319D9E120ABFEDB00893026 /* FMDBCarTireInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4319D9E020ABFEDB00893026 /* FMDBCarTireInfo.m */; };
 		4319D9E420AC308A00893026 /* FMDBCarTireType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4319D9E320AC308A00893026 /* FMDBCarTireType.m */; };
@@ -564,6 +566,9 @@
 		43F5794920C8CF5D00E0B588 /* MyHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F5794820C8CF5D00E0B588 /* MyHeadView.m */; };
 		43F5794C20C9088900E0B588 /* MyOrderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F5794B20C9088900E0B588 /* MyOrderView.m */; };
 		43F5795220C9211E00E0B588 /* MyBottomCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F5795120C9211E00E0B588 /* MyBottomCollectionViewCell.m */; };
+		43F955CB20CA57DD00B0E056 /* OrderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F955CA20CA57DD00B0E056 /* OrderInfo.m */; };
+		43F955CE20CA889D00B0E056 /* TobepayInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F955CD20CA889D00B0E056 /* TobepayInfo.m */; };
+		43F955D120CA895300B0E056 /* ShoeOrderVo.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F955D020CA895300B0E056 /* ShoeOrderVo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -688,6 +693,10 @@
 		4306782320AFF6A8003BB046 /* PhotoBtnView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoBtnView.m; sourceTree = "<group>"; };
 		4306782820B0576B003BB046 /* SelectBrandViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectBrandViewController.h; sourceTree = "<group>"; };
 		4306782920B0576B003BB046 /* SelectBrandViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectBrandViewController.m; sourceTree = "<group>"; };
+		4307036620CA1E030044EBCE /* MyOrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyOrderViewController.h; sourceTree = "<group>"; };
+		4307036720CA1E030044EBCE /* MyOrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyOrderViewController.m; sourceTree = "<group>"; };
+		4307036920CA29700044EBCE /* MyOrderTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyOrderTableViewCell.h; sourceTree = "<group>"; };
+		4307036A20CA29700044EBCE /* MyOrderTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyOrderTableViewCell.m; sourceTree = "<group>"; };
 		4319D9DC20ABFCB900893026 /* FMDBCarVerhicle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMDBCarVerhicle.h; sourceTree = "<group>"; };
 		4319D9DD20ABFCB900893026 /* FMDBCarVerhicle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMDBCarVerhicle.m; sourceTree = "<group>"; };
 		4319D9DF20ABFEDB00893026 /* FMDBCarTireInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMDBCarTireInfo.h; sourceTree = "<group>"; };
@@ -1263,6 +1272,12 @@
 		43F5794B20C9088900E0B588 /* MyOrderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyOrderView.m; sourceTree = "<group>"; };
 		43F5795020C9211E00E0B588 /* MyBottomCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyBottomCollectionViewCell.h; sourceTree = "<group>"; };
 		43F5795120C9211E00E0B588 /* MyBottomCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyBottomCollectionViewCell.m; sourceTree = "<group>"; };
+		43F955C920CA57DD00B0E056 /* OrderInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderInfo.h; sourceTree = "<group>"; };
+		43F955CA20CA57DD00B0E056 /* OrderInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderInfo.m; sourceTree = "<group>"; };
+		43F955CC20CA889D00B0E056 /* TobepayInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TobepayInfo.h; sourceTree = "<group>"; };
+		43F955CD20CA889D00B0E056 /* TobepayInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TobepayInfo.m; sourceTree = "<group>"; };
+		43F955CF20CA895300B0E056 /* ShoeOrderVo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShoeOrderVo.h; sourceTree = "<group>"; };
+		43F955D020CA895300B0E056 /* ShoeOrderVo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShoeOrderVo.m; sourceTree = "<group>"; };
 		5C7F5316AE001F1747DD6E97 /* Pods-ruyiruyiios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ruyiruyiios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ruyiruyiios/Pods-ruyiruyiios.debug.xcconfig"; sourceTree = "<group>"; };
 		B0497AEBEC85789819C3300D /* Pods-ruyiruyiios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ruyiruyiios.release.xcconfig"; path = "Pods/Target Support Files/Pods-ruyiruyiios/Pods-ruyiruyiios.release.xcconfig"; sourceTree = "<group>"; };
 		D40C758474E7181E97834C56 /* libPods-ruyiruyiios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ruyiruyiios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1695,6 +1710,8 @@
 				43F5794620C8CD0F00E0B588 /* View */,
 				435E594620A18BEF005C8BDA /* MyViewController.h */,
 				435E594720A18BEF005C8BDA /* MyViewController.m */,
+				4307036620CA1E030044EBCE /* MyOrderViewController.h */,
+				4307036720CA1E030044EBCE /* MyOrderViewController.m */,
 			);
 			path = My;
 			sourceTree = "<group>";
@@ -2313,6 +2330,10 @@
 				438D449420C26700008DAD97 /* TirePattern.m */,
 				43004A2320C7BF0B001BB01A /* ShoeOrderInfo.h */,
 				43004A2420C7BF0B001BB01A /* ShoeOrderInfo.m */,
+				43F955CC20CA889D00B0E056 /* TobepayInfo.h */,
+				43F955CD20CA889D00B0E056 /* TobepayInfo.m */,
+				43F955CF20CA895300B0E056 /* ShoeOrderVo.h */,
+				43F955D020CA895300B0E056 /* ShoeOrderVo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2336,6 +2357,8 @@
 		43F5794520C8CD0F00E0B588 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				43F955C920CA57DD00B0E056 /* OrderInfo.h */,
+				43F955CA20CA57DD00B0E056 /* OrderInfo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2349,6 +2372,8 @@
 				43F5794B20C9088900E0B588 /* MyOrderView.m */,
 				43F5795020C9211E00E0B588 /* MyBottomCollectionViewCell.h */,
 				43F5795120C9211E00E0B588 /* MyBottomCollectionViewCell.m */,
+				4307036920CA29700044EBCE /* MyOrderTableViewCell.h */,
+				4307036A20CA29700044EBCE /* MyOrderTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3012,6 +3037,8 @@
 				36CD2DF520C6A602007E278B /* StoreDetailsCell.m in Sources */,
 				43BBC3A320C68AE4002C2FE6 /* OderBottomView.m in Sources */,
 				438D44AC20C2672D008DAD97 /* ChoicePatternTableViewCell.m in Sources */,
+				43F955CE20CA889D00B0E056 /* TobepayInfo.m in Sources */,
+				43F955D120CA895300B0E056 /* ShoeOrderVo.m in Sources */,
 				4306779420AE7C07003BB046 /* CarInfoViewController.m in Sources */,
 				4306779A20AEB848003BB046 /* TopCarInfoTableViewCell.m in Sources */,
 				43515E6C20A718AC0043C0CC /* FMDBUserInfo.m in Sources */,
@@ -3019,12 +3046,15 @@
 				439D062320BE961D00379414 /* SelectTirePositionTableViewCell.m in Sources */,
 				4343EB8E20A01C49003AD5FE /* CodeLoginViewController.m in Sources */,
 				438D449A20C26701008DAD97 /* TirePattern.m in Sources */,
+				43F955CB20CA57DD00B0E056 /* OrderInfo.m in Sources */,
 				4332362120B29A50008F45FD /* SelectEngineViewController.m in Sources */,
 				3694C53B20C7F47E0089FAE7 /* StoreDetailsOneCell.m in Sources */,
 				43CE0A9120A979DB00D7FACF /* WelcomeViewController.m in Sources */,
 				435E594520A18B79005C8BDA /* HomeViewController.m in Sources */,
 				43515E6F20A721E20043C0CC /* DBRecorder.m in Sources */,
+				4307036820CA1E030044EBCE /* MyOrderViewController.m in Sources */,
 				43280AAF20C65EDC003FA621 /* TopBarCollectionViewCell.m in Sources */,
+				4307036B20CA29700044EBCE /* MyOrderTableViewCell.m in Sources */,
 				432EFEB820B5A5EF0090DEC8 /* Province.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3163,7 +3193,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-3";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = AW3WK2C3KB;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ruyiruyiios/PrefixHeader.pch;
 				INFOPLIST_FILE = ruyiruyiios/Info.plist;
@@ -3184,7 +3214,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-3";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = AW3WK2C3KB;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ruyiruyiios/PrefixHeader.pch;
 				INFOPLIST_FILE = ruyiruyiios/Info.plist;

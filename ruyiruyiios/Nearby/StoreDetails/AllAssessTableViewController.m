@@ -10,7 +10,6 @@
 #import "StoreDetailsCell.h"
 #import "StoreDetailsRequest.h"
 #import <MJRefresh.h>
-#import "UserConfig.h"
 #define JJWeakSelf __weak typeof(self) weakSelf = self;
 
 @interface AllAssessTableViewController ()

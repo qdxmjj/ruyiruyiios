@@ -7,7 +7,6 @@
 //
 
 #import "MyHeadView.h"
-#import "UserConfig.h"
 
 @implementation MyHeadView
 
