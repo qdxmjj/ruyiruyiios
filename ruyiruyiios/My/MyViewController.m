@@ -11,8 +11,9 @@
 #import "MyOrderView.h"
 #import "MyBottomCollectionViewCell.h"
 #import "ManageCarViewController.h"
+#import "MyOrderViewController.h"
 
-@interface MyViewController ()<UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
+@interface MyViewController ()<UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UINavigationControllerDelegate>
 
 @property(nonatomic, strong)UIScrollView *mainScrollV;
 @property(nonatomic, strong)MyHeadView *myHeadview;
@@ -24,6 +25,12 @@
 @end
 
 @implementation MyViewController
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
+    
+    BOOL isShowHomePage = [viewController isKindOfClass:[self class]];
+    [self.navigationController setNavigationBarHidden:isShowHomePage animated:YES];
+}
 
 - (void)viewWillAppear:(BOOL)animated{
     
@@ -65,7 +72,12 @@
         _myOrderview.todeliveryBtn.tag = 1002;
         _myOrderview.toserviceBtn.tag = 1003;
         _myOrderview.completedBtn.tag = 1004;
+        _myOrderview.lookAllOrderBtn.tag = 1005;
         [_myOrderview.topayBtn addTarget:self action:@selector(chickOrderViewBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [_myOrderview.todeliveryBtn addTarget:self action:@selector(chickOrderViewBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [_myOrderview.toserviceBtn addTarget:self action:@selector(chickOrderViewBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [_myOrderview.completedBtn addTarget:self action:@selector(chickOrderViewBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [_myOrderview.lookAllOrderBtn addTarget:self action:@selector(chickOrderViewBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _myOrderview;
 }
@@ -88,27 +100,39 @@
 
 - (void)chickOrderViewBtn:(UIButton *)button{
     
+    // 1001--topay  1002--todelivery  1003--toservice  1004--completed  1005--lookAllOrderBtn
+    MyOrderViewController *myOrderVC = [[MyOrderViewController alloc] init];
     switch (button.tag) {
             
         case 1001:
             
+            myOrderVC.statusStr = @"1";
             break;
             
         case 1002:
             
+            myOrderVC.statusStr = @"2";
             break;
             
         case 1003:
             
+            myOrderVC.statusStr = @"3";
             break;
             
         case 1004:
             
+            myOrderVC.statusStr = @"4";
+            break;
+            
+        case 1005:
+            
+            myOrderVC.statusStr = @"0";
             break;
             
         default:
             break;
     }
+    [self.navigationController pushViewController:myOrderVC animated:YES];
 }
 
 - (void)viewDidLoad {

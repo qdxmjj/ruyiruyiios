@@ -34,5 +34,6 @@
 
 #import "PublicClass.h"
 #import "JJRequest.h"
+#import "UserConfig.h"
 
 #endif /* PrefixHeader_pch */

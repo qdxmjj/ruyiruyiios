@@ -10,6 +10,8 @@
 #import "TopayMiddleView.h"
 #import "TopayBottomView.h"
 #import "CashierViewController.h"
+#import "TobepayInfo.h"
+#import "ShoeOrderVo.h"
 
 @interface ToBePaidViewController ()<UIScrollViewDelegate>
 
@@ -18,12 +20,15 @@
 @property(nonatomic, strong)UIButton *topayBtn;
 @property(nonatomic, strong)TopayMiddleView *topayMiddleView;
 @property(nonatomic, strong)TopayBottomView *topayBottomView;
+@property(nonatomic, strong)ShoeOrderVo *shoeOrdervo;
+@property(nonatomic, strong)TobepayInfo *tobepayInfo;
 
 @end
 
 @implementation ToBePaidViewController
-@synthesize shoeOrderInfo;
-@synthesize fontRearFlag;
+@synthesize totalPriceStr;
+@synthesize orderNoStr;
+@synthesize orderTypeStr;
 
 - (void)viewWillAppear:(BOOL)animated{
     
@@ -92,11 +97,30 @@
     return _topayBottomView;
 }
 
+- (ShoeOrderVo *)shoeOrdervo{
+    
+    if (_shoeOrdervo == nil) {
+        
+        _shoeOrdervo = [[ShoeOrderVo alloc] init];
+    }
+    return _shoeOrdervo;
+}
+
+- (TobepayInfo *)tobepayInfo{
+    
+    if (_tobepayInfo == nil) {
+        
+        _tobepayInfo = [[TobepayInfo alloc] init];
+    }
+    return _tobepayInfo;
+}
+
 - (void)chickTopayBtn:(UIButton *)button{
     
     CashierViewController *cashierVC = [[CashierViewController alloc] init];
-    cashierVC.shoeOrderInfo = shoeOrderInfo;
-    cashierVC.fontRearFlag = fontRearFlag;
+    cashierVC.orderNoStr = orderNoStr;
+    cashierVC.totalPriceStr = totalPriceStr;
+    cashierVC.userStatusStr = orderTypeStr;
     [self.navigationController pushViewController:cashierVC animated:YES];
 }
 
@@ -107,7 +131,37 @@
     [self.view addSubview:self.mainScrollV];
     [self.view addSubview:self.topayBtn];
     [self addView];
+    [self getUserOrderInfoByNoAndType];
     // Do any additional setup after loading the view.
+}
+
+- (void)getUserOrderInfoByNoAndType{
+    
+    NSDictionary *orderInfoPostDic = @{@"orderNo":orderNoStr, @"orderType":orderTypeStr, @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]]};
+    NSString *reqJson = [PublicClass convertToJsonData:orderInfoPostDic];
+    [JJRequest postRequest:@"getUserOrderInfoByNoAndType" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+        
+        NSString *statusStr = [NSString stringWithFormat:@"%@", code];
+        NSString *messageStr = [NSString stringWithFormat:@"%@", message];
+        if ([statusStr isEqualToString:@"1"]) {
+            
+            NSLog(@"%@", data);
+            [self analysizeData:data];
+        }else{
+            
+            [PublicClass showHUD:messageStr view:self.view];
+        }
+    } failure:^(NSError * _Nullable error) {
+        
+        NSLog(@"查询用户订单详情错误：%@", error);
+    }];
+}
+
+- (void)analysizeData:(NSDictionary *)dataDic{
+    
+    [self.tobepayInfo setValuesForKeysWithDictionary:dataDic];
+    [self.shoeOrdervo setValuesForKeysWithDictionary:[[dataDic objectForKey:@"shoeOrderVoList"] objectAtIndex:0]];
+    [self setdataToViews];
 }
 
 - (IBAction)backButtonAction:(id)sender{
@@ -122,13 +176,12 @@
     [_mainScrollV addSubview:self.topayMiddleView];
     [_mainScrollV addSubview:self.topayBottomView];
     [_mainScrollV setContentSize:CGSizeMake(MAINSCREEN.width, (self.topayBottomView.frame.size.height + self.topayBottomView.frame.origin.y))];
-    [self setdataToViews];
 }
 
 - (void)setdataToViews{
     
-    [_topayMiddleView setPayMiddleViewData:shoeOrderInfo];
-    [_topayBottomView setTopayBottomViewData:shoeOrderInfo fontRearFlag:fontRearFlag];
+    [_topayMiddleView setPayMiddleViewData:self.tobepayInfo];
+    [_topayBottomView setTopayBottomViewData:self.shoeOrdervo tobePayinfo:self.tobepayInfo];
 }
 
 - (void)didReceiveMemoryWarning {

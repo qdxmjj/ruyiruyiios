@@ -11,7 +11,8 @@
 
 @interface CashierViewController : RootViewController
 
-@property(nonatomic, strong)ShoeOrderInfo *shoeOrderInfo;
-@property(nonatomic, strong)NSString *fontRearFlag;
+@property(nonatomic, strong)NSString *orderNoStr;
+@property(nonatomic, strong)NSString *totalPriceStr;
+@property(nonatomic, strong)NSString *userStatusStr;
 
 @end

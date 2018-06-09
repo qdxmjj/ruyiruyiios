@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "JJUILabel.h"
-#import "ShoeOrderInfo.h"
+#import "ShoeOrderVo.h"
+#import "TobepayInfo.h"
 
 @interface TopayBottomView : UIView
 
@@ -22,6 +23,6 @@
 @property(nonatomic, strong)UIView *cb_underView;
 @property(nonatomic, strong)UILabel *tirePositionLabel;
 
-- (void)setTopayBottomViewData:(ShoeOrderInfo *)shoeOrderInfo fontRearFlag:(NSString *)fontRearFlag;
+- (void)setTopayBottomViewData:(ShoeOrderVo *)shoeOrdervo tobePayinfo:(TobepayInfo *)tobePayinfo;
 
 @end

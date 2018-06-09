@@ -7,7 +7,6 @@
 //
 
 #import "StoreDetailsRequest.h"
-#import "UserConfig.h"
 #import "MBProgressHUD+YYM_category.h"
 @implementation StoreDetailsRequest
 

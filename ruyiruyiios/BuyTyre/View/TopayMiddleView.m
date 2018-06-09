@@ -98,12 +98,12 @@
     self.totalPriceLabel.frame = CGRectMake(MAINSCREEN.width/2, 120, MAINSCREEN.width/2 - 20, 20);
 }
 
-- (void)setPayMiddleViewData:(ShoeOrderInfo *)shoeOrderInfo{
+- (void)setPayMiddleViewData:(TobepayInfo *)tobepayInfo{
     
-    self.nameLabel.text = shoeOrderInfo.name;
-    self.telephoneLabel.text = shoeOrderInfo.phone;
-    self.totalPriceLabel.text = [NSString stringWithFormat:@"¥ %@", shoeOrderInfo.totalPrice];
-    self.platLabel.text = shoeOrderInfo.platNumber;
+    self.nameLabel.text = tobepayInfo.userName;
+    self.telephoneLabel.text = tobepayInfo.userPhone;
+    self.totalPriceLabel.text = [NSString stringWithFormat:@"¥ %@", tobepayInfo.orderTotalPrice];
+    self.platLabel.text = tobepayInfo.platNumber;
 }
 
 /*
