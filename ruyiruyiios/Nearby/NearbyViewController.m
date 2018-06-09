@@ -16,7 +16,7 @@
 #import "FJStoreReqeust.h"
 #import "LocationViewController.h"
 #import "DelegateConfiguration.h"
-
+#import "MBProgressHUD+YYM_category.h"
 @interface NearbyViewController ()<UITableViewDelegate,UITableViewDataSource,JJDropdownViewDelegate,JJClickExpandDelegate, CityNameDelegate>
 
 @property(nonatomic,strong)UITableView *tableView;
@@ -26,7 +26,7 @@
 @property(nonatomic,strong)NSMutableArray *dataArr;
 @property(nonatomic, strong)UIButton *leftBtn;
 
-@property(nonatomic,copy)NSString *storeName;
+@property(nonatomic,copy)NSString *rankType;
 @property(nonatomic,copy)NSString *storeType;
 @property(nonatomic,copy)NSString *serviceType;
 
@@ -67,7 +67,7 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_search"] style:UIBarButtonItemStylePlain target:self action:@selector(pushSearchVC)];
     
-    self.storeName = @"";
+    self.rankType = @"0";
     self.storeType = @"";
     self.serviceType = @"";
     
@@ -126,7 +126,14 @@
     
     NSLog(@"%@ ",self.leftBtn.titleLabel.text);
     
-    [FJStoreReqeust getFJStoreByConditionWithInfo:@{@"page":number,@"rows":@"10",@"cityName":@"青岛市",@"storeName":@"",@"storeType":self.storeType,@"serviceType":self.serviceType,@"longitude":@"120.44407513056112",@"latitude":@"36.3206963164126",@"rankType":@"1"} succrss:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+    if ([self.leftBtn.titleLabel.text isEqualToString:@""]) {
+        
+        [MBProgressHUD showTextMessage:@"定位失败，请选择位置"];
+        return;
+    }
+    
+    
+    [FJStoreReqeust getFJStoreByConditionWithInfo:@{@"page":number,@"rows":@"10",@"cityName":self.leftBtn.titleLabel.text,@"storeName":@"",@"storeType":self.storeType,@"serviceType":self.serviceType,@"longitude":@"120.44407513056112",@"latitude":@"36.3206963164126",@"rankType":self.rankType} succrss:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         
         if (weakSelf.pageNumber==1) {
             
@@ -192,6 +199,7 @@
             break;
         case 1:
             
+            self.rankType = [NSString stringWithFormat:@"%ld",(long)index];
             
             break;
         case 2:
@@ -200,7 +208,7 @@
                 self.serviceType = @"";
             }else{
                 
-            self.serviceType = [NSString stringWithFormat:@"%ld",(long)index];
+            self.serviceType = [NSString stringWithFormat:@"%ld",(long)index+1];
             }
             break;
             
@@ -209,7 +217,6 @@
     }
     
     [self.tableView.mj_header beginRefreshing];
-    NSLog(@"%@ %@ %@",self.storeName,self.storeType,self.serviceType);
 
 }
 
@@ -319,7 +326,7 @@
     
     if (!_topBarView) {
         
-        _topBarView = [[TopBarView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 45) data:@[@{@"全部门店":@[@"全部门店",@"快修店",@"维修厂",@"美容店",@"4S店"]},@{@"默认排序":@[@"默认排序",@"附近优先"]},@{@"条件筛选":@[@"全部",@"汽车保养",@"美容清洗",@"安装",@"轮胎服务"]}]];
+        _topBarView = [[TopBarView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 45) data:@[@{@"全部门店":@[@"全部门店",@"4S店",@"快修店",@"维修厂",@"美容店",]},@{@"默认排序":@[@"默认排序",@"附近优先"]},@{@"条件筛选":@[@"全部",@"汽车保养",@"美容清洗",@"安装",@"轮胎服务"]}]];
         _topBarView.delegate = self;
     }
     
@@ -346,7 +353,6 @@
         _menuView.delegate = self;
     }
     
-    
     return _menuView;
 }
 
@@ -354,7 +360,7 @@
     
     if (!_tableView) {
         
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 45, self.view.frame.size.width, self.view.frame.size.height-45-64) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 50, self.view.frame.size.width, self.view.frame.size.height-45-64) style:UITableViewStyleGrouped];
         
         _tableView.delegate = self;
         _tableView.dataSource = self;

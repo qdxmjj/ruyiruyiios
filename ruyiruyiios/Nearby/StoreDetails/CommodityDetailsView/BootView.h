@@ -20,4 +20,6 @@ typedef void (^showShopCartViewBlock)(BOOL isShow);
 
 @property(nonatomic,assign)BOOL isDisplay;//是否可以显示。默认YES
 
+@property(nonatomic,strong)UIButton *submitBtn;
+
 @end

@@ -81,12 +81,23 @@
         
         
     }];
+}
+
++(void)generateOrdersWithCommodityInfo:(NSDictionary *)info succrss:(requestSuccessBlock)succrsshandler failure:(requestFailureBlock)failureHandler{
     
+    
+    [self postRequest:@"addStockOrder" params:@{@"reqJson":[PublicClass convertToJsonData:info],@"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+        
+        
+            succrsshandler(code,message,data);
+        
+    } failure:^(NSError * _Nullable error) {
+        
+    }];
     
     
     
     
     
 }
-
 @end

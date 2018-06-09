@@ -7,8 +7,10 @@
 //
 
 #import "CommdoityDetailsViewController.h"
-#import <UIImageView+WebCache.h>
 
+#import "StoreDetailsRequest.h"
+#import <UIImageView+WebCache.h>
+#import "UserConfig.h"
 #import "HeadView.h"
 #import "BootView.h"
 #import "TabbarView.h"
@@ -17,8 +19,8 @@
 #import "DirectoryTableViewController.h"
 #import "ContentTableViewController.h"
 #import "StoreDetailsViewController.h"
+#import "BuyCommdityViewController.h"
 
-#import "StoreDetailsRequest.h"
 static NSInteger const HeadViewH = 150;
 
 @interface CommdoityDetailsViewController ()<UINavigationControllerDelegate>
@@ -53,7 +55,7 @@ static NSInteger const HeadViewH = 150;
     [super viewDidLoad];
     
     self.navigationController.delegate = self;
-
+    self.view.backgroundColor = [UIColor whiteColor];
 //    NSLog(@"%@  %@",self.directoryRequest?@"YES":@"NO",self.contentRequest?@"YES":@"NO");
     
     [self.view addSubview:self.headV];
@@ -329,7 +331,30 @@ static NSInteger const HeadViewH = 150;
 -(void)popViewController{
     
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)pushBuyCommdityWithPayingViewController{
     
+    NSMutableArray *commodityArr = [NSMutableArray array];
+    for (NSDictionary *commodityDic in self.contentVCDataArr) {
+        
+        if ([[commodityDic objectForKey:@"commodityNumber"] longLongValue] >0) {
+            
+            [commodityArr addObject:commodityDic];
+        }
+    }
+    
+    BuyCommdityViewController *buyCommdityVC = [[BuyCommdityViewController alloc] init];
+    
+    buyCommdityVC.storeName = [self.commodityInfo objectForKey:@"storeName"];
+    buyCommdityVC.userPhone =[UserConfig phone];
+    buyCommdityVC.userName = [UserConfig nick];
+    buyCommdityVC.totalPrice = self.bootV.totalPrice;
+    buyCommdityVC.storeID = [self.commodityInfo objectForKey:@"storeId"];
+    buyCommdityVC.commodityList = commodityArr;
+    
+    self.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:buyCommdityVC animated:YES];
 }
 
 -(void)pushStoreDetailsVC{
@@ -341,7 +366,6 @@ static NSInteger const HeadViewH = 150;
     [self.navigationController pushViewController:storeDetailsVC animated:YES];
 //    self.hidesBottomBarWhenPushed = YES;
 }
-
 
 -(void)AutomaticClick{
     
@@ -386,6 +410,7 @@ static NSInteger const HeadViewH = 150;
     if (!_bootV) {
         
         _bootV = [[BootView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-45, self.view.frame.size.width, 45)];
+        [_bootV.submitBtn addTarget:self action:@selector(pushBuyCommdityWithPayingViewController) forControlEvents:UIControlEventTouchUpInside];
     }
     
     return _bootV;
