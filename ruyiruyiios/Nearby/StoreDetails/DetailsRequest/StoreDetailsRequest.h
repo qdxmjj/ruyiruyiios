@@ -19,4 +19,10 @@
 
 //获取全部评论
 +(void)getCommitByConditionWithInfo:(NSDictionary *)info  succrss:(_Nullable requestSuccessBlock )succrsshandler failure:(_Nullable requestFailureBlock)failureHandler;
+
+/**
+ *生成商品订单-->跳转支付页面
+ */
+
++(void)generateOrdersWithCommodityInfo:(NSDictionary *)info succrss:(_Nullable requestSuccessBlock )succrsshandler failure:(_Nullable requestFailureBlock)failureHandler;
 @end

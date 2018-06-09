@@ -44,7 +44,11 @@
     self.storeType.text = model.storeType;
     self.storeType.backgroundColor = [PublicClass colorWithHexString:model.storeTypeColor];
     self.storeAddress.text =[NSString stringWithFormat:@"地址：%@",model.storeAddress];
-    self.storeDistance.text = model.distance;
+    
+    if (![model.distance isEqualToString:@""]) {
+        
+        self.storeDistance.text = [NSString stringWithFormat:@"%@km", model.distance];
+    }
     self.serviceListArr = model.serviceList;
     if (self.serviceListArr.count>0) {
             [self.collectionView reloadData];

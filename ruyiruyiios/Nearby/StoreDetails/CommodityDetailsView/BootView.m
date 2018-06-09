@@ -12,9 +12,6 @@
 
 @property(nonatomic,strong)UIButton *shopCartBtn;
 
-
-@property(nonatomic,strong)UIButton *submitBtn;
-
 @end
 
 @implementation BootView

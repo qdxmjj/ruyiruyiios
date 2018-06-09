@@ -52,7 +52,7 @@
     
     [self.commodityImg sd_setImageWithURL:[NSURL URLWithString:model.imgUrl]];
     self.commodityName.text = model.name;
-    self.commodityPrice.text = [NSString stringWithFormat:@"%@",model.price];
+    self.commodityPrice.text = [NSString stringWithFormat:@"¥%@",model.price];
     self.commodityStock.text = [NSString stringWithFormat:@"%@",model.amount];
     self.numeberLab.text = [NSString stringWithFormat:@"%@",model.commodityNumber];
 }
