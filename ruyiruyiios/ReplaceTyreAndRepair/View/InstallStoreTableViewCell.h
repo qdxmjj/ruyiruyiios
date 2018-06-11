@@ -13,7 +13,8 @@
 
 @interface InstallStoreTableViewCell : UITableViewCell<UICollectionViewDelegate, UICollectionViewDataSource>
 
-@property(nonatomic, strong)UIButton *installStoreBtn;
+@property(nonatomic, strong)UILabel *installStoreLabel;
+@property(nonatomic, strong)UIImageView *rightImageV;
 @property(nonatomic, strong)UIImageView *storeImageV;
 @property(nonatomic, strong)UILabel *storeNameLabel;
 @property(nonatomic, strong)UILabel *locationLabel;

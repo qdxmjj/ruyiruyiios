@@ -10,17 +10,18 @@
 
 @implementation FirstUpdateCollectionViewCell
 
-- (UIButton *)functionBtn{
+- (UILabel *)functionLabel{
     
-    if (_functionBtn == nil) {
+    if (_functionLabel == nil) {
         
-        _functionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _functionBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
-        _functionBtn.layer.cornerRadius = 4.0;
-        _functionBtn.layer.masksToBounds = YES;
-        _functionBtn.layer.borderWidth = 1.0;
+        _functionLabel = [[UILabel alloc] init];
+        _functionLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
+        _functionLabel.layer.cornerRadius = 4.0;
+        _functionLabel.layer.masksToBounds = YES;
+        _functionLabel.layer.borderWidth = 1.0;
+        _functionLabel.textAlignment = NSTextAlignmentCenter;
     }
-    return _functionBtn;
+    return _functionLabel;
 }
 
 - (id)initWithFrame:(CGRect)frame{
@@ -28,7 +29,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-        [self addSubview:self.functionBtn];
+        [self addSubview:self.functionLabel];
     }
     return self;
 }
@@ -36,14 +37,14 @@
 - (void)layoutSubviews{
     
     [super layoutSubviews];
-    self.functionBtn.frame = CGRectMake(0, 0, 64, 20);
+    self.functionLabel.frame = CGRectMake(0, 0, 64, 20);
 }
 
 - (void)setDatatoBtn:(StoreServiceInfo *)serviceInfo{
     
-    [self.functionBtn setTitle:serviceInfo.name forState:UIControlStateNormal];
-    [self.functionBtn setTitleColor:[PublicClass colorWithHexString:serviceInfo.color] forState:UIControlStateNormal];
-    self.functionBtn.layer.borderColor = [[PublicClass colorWithHexString:serviceInfo.color] CGColor];
+    self.functionLabel.text = serviceInfo.name;
+    self.functionLabel.textColor = [PublicClass colorWithHexString:serviceInfo.color];
+    self.functionLabel.layer.borderColor = [[PublicClass colorWithHexString:serviceInfo.color] CGColor];
 }
 
 @end

@@ -12,20 +12,27 @@
 
 @implementation InstallStoreTableViewCell
 
-- (UIButton *)installStoreBtn{
+- (UILabel *)installStoreLabel{
     
-    if (_installStoreBtn == nil) {
+    if (_installStoreLabel == nil) {
         
-        _installStoreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _installStoreBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:16.0];
-        [_installStoreBtn setTitle:@"安装门店" forState:UIControlStateNormal];
-        [_installStoreBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [_installStoreBtn setImage:[UIImage imageNamed:@"ic_right"] forState:UIControlStateNormal];
-        [_installStoreBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, -10, 0, 0)];
-        [_installStoreBtn setImageEdgeInsets:UIEdgeInsetsMake(0, MAINSCREEN.width - 50, 0, 0)];
-        _installStoreBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        _installStoreLabel = [[UILabel alloc] init];
+        _installStoreLabel.text = @"安装门店";
+        _installStoreLabel.textAlignment = NSTextAlignmentLeft;
+        _installStoreLabel.textColor = [UIColor blackColor];
+        _installStoreLabel.font = [UIFont fontWithName:TEXTFONT size:16.0];
     }
-    return _installStoreBtn;
+    return _installStoreLabel;
+}
+
+- (UIImageView *)rightImageV{
+    
+    if (_rightImageV == nil) {
+        
+        _rightImageV = [[UIImageView alloc] init];
+        _rightImageV.image = [UIImage imageNamed:@"ic_right"];
+    }
+    return _rightImageV;
 }
 
 - (UIImageView *)storeImageV{
@@ -109,7 +116,8 @@
 
 - (void)addViews{
     
-    [self.contentView addSubview:self.installStoreBtn];
+    [self.contentView addSubview:self.installStoreLabel];
+    [self.contentView addSubview:self.rightImageV];
     [self.contentView addSubview:self.storeImageV];
     [self.contentView addSubview:self.storeNameLabel];
     [self.contentView addSubview:self.functionCollectionV];
@@ -120,7 +128,8 @@
 - (void)layoutSubviews{
     
     [super layoutSubviews];
-    self.installStoreBtn.frame = CGRectMake(20, 15, MAINSCREEN.width - 40, 20);
+    self.installStoreLabel.frame = CGRectMake(20, 15, MAINSCREEN.width/2 - 20, 20);
+    self.rightImageV.frame = CGRectMake(MAINSCREEN.width - 32, 15, 10, 18);
     self.storeImageV.frame = CGRectMake(20, 50, (MAINSCREEN.width - 30)*3/8, 110);
     self.storeNameLabel.frame = CGRectMake((MAINSCREEN.width - 30)*3/8 + 30, 50, (MAINSCREEN.width - ((MAINSCREEN.width - 30)*3/8 +30 +20)), 20);
     self.locationLabel.frame = CGRectMake(self.storeNameLabel.frame.origin.x, 140, self.storeNameLabel.frame.size.width/2, 20);
@@ -129,11 +138,11 @@
 
 - (void)setDatatoInstallStoreCellStoreInfo:(StoreInfo *)storeInfo{
     
-    NSLog(@"%@---%@---%@", storeInfo.storeImg, storeInfo.storeName, storeInfo.distance);
     [self.storeImageV sd_setImageWithURL:[NSURL URLWithString:storeInfo.storeImg]];
     self.storeNameLabel.text = storeInfo.storeName;
     self.locationLabel.text = storeInfo.storeAddress;
     self.distanceLabel.text = [NSString stringWithFormat:@"%.1fkm", ([storeInfo.distance floatValue])/1000];
+    [self.functionCollectionV reloadData];
 }
 
 #pragma mark UICollectionViewDelegate and UICollectionDataSource

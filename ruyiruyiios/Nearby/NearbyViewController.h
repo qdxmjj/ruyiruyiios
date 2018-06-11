@@ -25,6 +25,6 @@
  */
 @property(nonatomic,copy,nonnull)NSString *status;
 
-
+@property(copy, nonatomic)void(^backBlock)(NSDictionary *);
 
 @end

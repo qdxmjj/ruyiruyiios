@@ -37,9 +37,6 @@
     
     NSString *cityName = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentCity"];
     [self.leftBtn setTitle:cityName forState:UIControlStateNormal];
-    
-
-    
 }
 
 - (void)viewDidLoad {
@@ -308,6 +305,7 @@
     YM_FjStoreModel *model= [[YM_FjStoreModel alloc] init];
     [model setValuesForKeysWithDictionary:self.dataArr[indexPath.section]];
     
+    NSLog(@"model:%@", model);
     [cell setCellDataModel:model];
     
     return cell;
@@ -315,10 +313,16 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+//    NSLog(@"%@", self.dataArr);
     if ([self.status isEqualToString:@"1"]) {
         
         //状态为1  pop回掉
-        
+        DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+        [delegateConfiguration unregistercityNameListers:self];
+        NSDictionary *backDic = [self.dataArr objectAtIndex:indexPath.section];
+//        NSLog(@"%@", [backDic objectForKey:@"storeId"]);
+        self.backBlock(backDic);
+        [self.navigationController popViewControllerAnimated:YES];
     }else{
         
         CommdoityDetailsViewController *storeDetails = [[CommdoityDetailsViewController alloc]init];

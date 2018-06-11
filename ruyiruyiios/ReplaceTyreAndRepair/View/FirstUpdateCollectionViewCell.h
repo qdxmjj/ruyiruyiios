@@ -11,7 +11,7 @@
 
 @interface FirstUpdateCollectionViewCell : UICollectionViewCell
 
-@property(nonatomic, strong)UIButton *functionBtn;
+@property(nonatomic, strong)UILabel *functionLabel;
 
 - (void)setDatatoBtn:(StoreServiceInfo *)serviceInfo;
 
