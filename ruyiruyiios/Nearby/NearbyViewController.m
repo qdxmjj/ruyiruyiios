@@ -28,7 +28,6 @@
 
 @property(nonatomic,copy)NSString *rankType;
 @property(nonatomic,copy)NSString *storeType;
-@property(nonatomic,copy)NSString *serviceType;
 
 @end
 
@@ -67,10 +66,25 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_search"] style:UIBarButtonItemStylePlain target:self action:@selector(pushSearchVC)];
     
-    self.rankType = @"0";
-    self.storeType = @"";
-    self.serviceType = @"";
+    if ([self.status isEqualToString:@"1"]) {
+        
+        self.rankType = @"0";
+        if (self.serviceType.length<=0||self.condition.length<=0) {
+            
+            self.serviceType = @"";
+            self.condition = @"条件筛选";
+        }
+        self.storeType = @"";
+        self.topBarView.conditionArr = @[@{@"全部门店":@[@"全部门店",@"4S店",@"快修店",@"维修厂",@"美容店",]},@{@"默认排序":@[@"默认排序",@"附近优先"]},@{self.condition:@[self.condition]}];
+
+    }else{
     
+        self.rankType = @"0";
+        self.storeType = @"";
+        self.serviceType = @"";
+        self.topBarView.conditionArr = @[@{@"全部门店":@[@"全部门店",@"4S店",@"快修店",@"维修厂",@"美容店",]},@{@"默认排序":@[@"默认排序",@"附近优先"]},@{@"条件筛选":@[@"全部",@"汽车保养",@"美容清洗",@"安装改装",@"轮胎服务"]}];
+
+    }
     //上拉更多
     self.tableView.mj_footer=[MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         
@@ -132,8 +146,11 @@
         return;
     }
     
+   NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
+   NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
+
     
-    [FJStoreReqeust getFJStoreByConditionWithInfo:@{@"page":number,@"rows":@"10",@"cityName":self.leftBtn.titleLabel.text,@"storeName":@"",@"storeType":self.storeType,@"serviceType":self.serviceType,@"longitude":@"120.44407513056112",@"latitude":@"36.3206963164126",@"rankType":self.rankType} succrss:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+    [FJStoreReqeust getFJStoreByConditionWithInfo:@{@"page":number,@"rows":@"10",@"cityName":self.leftBtn.titleLabel.text,@"storeName":@"",@"storeType":self.storeType,@"serviceType":self.serviceType,@"longitude":longitude,@"latitude":latitude,@"rankType":self.rankType} succrss:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         
         if (weakSelf.pageNumber==1) {
             
@@ -167,6 +184,17 @@
 -(void)pushSearchVC{
     
     SearchViewController *searchVC = [[SearchViewController alloc] init];
+    
+    searchVC.searchBlock = ^(NSArray *searchContent) {
+      
+        if (self.dataArr.count>0) {
+            
+            [self.dataArr removeAllObjects];
+        }
+        
+        [self.dataArr addObjectsFromArray:searchContent];
+        [self.tableView reloadData];
+    };
     
     self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:searchVC animated:YES];
@@ -287,12 +315,19 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    CommdoityDetailsViewController *storeDetails = [[CommdoityDetailsViewController alloc]init];
-    storeDetails.commodityInfo = self.dataArr[indexPath.section];
+    if ([self.status isEqualToString:@"1"]) {
+        
+        //状态为1  pop回掉
+        
+    }else{
+        
+        CommdoityDetailsViewController *storeDetails = [[CommdoityDetailsViewController alloc]init];
+        storeDetails.commodityInfo = self.dataArr[indexPath.section];
     
-    self.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:storeDetails animated:YES];
-    self.hidesBottomBarWhenPushed = NO;
+        self.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:storeDetails animated:YES];
+        self.hidesBottomBarWhenPushed = NO;
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -326,7 +361,7 @@
     
     if (!_topBarView) {
         
-        _topBarView = [[TopBarView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 45) data:@[@{@"全部门店":@[@"全部门店",@"4S店",@"快修店",@"维修厂",@"美容店",]},@{@"默认排序":@[@"默认排序",@"附近优先"]},@{@"条件筛选":@[@"全部",@"汽车保养",@"美容清洗",@"安装",@"轮胎服务"]}]];
+        _topBarView = [[TopBarView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 45)];
         _topBarView.delegate = self;
     }
     

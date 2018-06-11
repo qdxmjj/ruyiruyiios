@@ -71,6 +71,8 @@
     self.storetype.backgroundColor = [PublicClass colorWithHexString:model.storeTypeColor];
     self.serviceList = model.storeServcieList;
     
+    CGFloat distance = [model.distance floatValue];
+    self.distance.text =[NSString stringWithFormat:@"%.2fkm",distance/1000.f];
     if (self.serviceList.count>3) {
 
         self.collectionViewH.constant = 60;

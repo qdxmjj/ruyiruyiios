@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		1A3CB3004D62FF11EDC9B585 /* libPods-ruyiruyiios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D40C758474E7181E97834C56 /* libPods-ruyiruyiios.a */; };
+		3605D89120CE10C1002FFD37 /* YMTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 3605D89020CE10C1002FFD37 /* YMTools.m */; };
+		3605D89420CE4B8E002FFD37 /* SearchRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 3605D89320CE4B8E002FFD37 /* SearchRecord.m */; };
+		3605D89820CE53B4002FFD37 /* SearchCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3605D89620CE53B4002FFD37 /* SearchCollectionViewCell.m */; };
+		3605D89920CE53B4002FFD37 /* SearchCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3605D89720CE53B4002FFD37 /* SearchCollectionViewCell.xib */; };
 		3694C53B20C7F47E0089FAE7 /* StoreDetailsOneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3694C53920C7F47E0089FAE7 /* StoreDetailsOneCell.m */; };
 		3694C53C20C7F47E0089FAE7 /* StoreDetailsOneCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3694C53A20C7F47E0089FAE7 /* StoreDetailsOneCell.xib */; };
 		3694C54520C7F4B60089FAE7 /* StoreDetailsOvervieCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3694C54320C7F4B60089FAE7 /* StoreDetailsOvervieCell.m */; };
@@ -613,6 +617,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3605D88F20CE10C1002FFD37 /* YMTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YMTools.h; sourceTree = "<group>"; };
+		3605D89020CE10C1002FFD37 /* YMTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YMTools.m; sourceTree = "<group>"; };
+		3605D89220CE4B8E002FFD37 /* SearchRecord.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchRecord.h; sourceTree = "<group>"; };
+		3605D89320CE4B8E002FFD37 /* SearchRecord.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchRecord.m; sourceTree = "<group>"; };
+		3605D89520CE53B4002FFD37 /* SearchCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchCollectionViewCell.h; sourceTree = "<group>"; };
+		3605D89620CE53B4002FFD37 /* SearchCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchCollectionViewCell.m; sourceTree = "<group>"; };
+		3605D89720CE53B4002FFD37 /* SearchCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchCollectionViewCell.xib; sourceTree = "<group>"; };
 		3694C53820C7F47E0089FAE7 /* StoreDetailsOneCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreDetailsOneCell.h; sourceTree = "<group>"; };
 		3694C53920C7F47E0089FAE7 /* StoreDetailsOneCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreDetailsOneCell.m; sourceTree = "<group>"; };
 		3694C53A20C7F47E0089FAE7 /* StoreDetailsOneCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StoreDetailsOneCell.xib; sourceTree = "<group>"; };
@@ -1389,6 +1400,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3605D88E20CE1054002FFD37 /* yym_tool */ = {
+			isa = PBXGroup;
+			children = (
+				43280A6920C65EDB003FA621 /* UIView+extension.h */,
+				43280A8520C65EDC003FA621 /* UIView+extension.m */,
+				36E7FBCD20CA563D00934823 /* CALayer+XIBConfiguration.h */,
+				36E7FBCE20CA563D00934823 /* CALayer+XIBConfiguration.m */,
+				3605D88F20CE10C1002FFD37 /* YMTools.h */,
+				3605D89020CE10C1002FFD37 /* YMTools.m */,
+			);
+			path = yym_tool;
+			sourceTree = "<group>";
+		};
 		361E517420C8C2A3004196F2 /* StoreDetailsView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1489,16 +1513,18 @@
 		43280A6720C65EDB003FA621 /* Nearby */ = {
 			isa = PBXGroup;
 			children = (
-				43280A6920C65EDB003FA621 /* UIView+extension.h */,
-				43280A8520C65EDC003FA621 /* UIView+extension.m */,
-				36E7FBCD20CA563D00934823 /* CALayer+XIBConfiguration.h */,
-				36E7FBCE20CA563D00934823 /* CALayer+XIBConfiguration.m */,
+				3605D88E20CE1054002FFD37 /* yym_tool */,
 				43280A8620C65EDC003FA621 /* NearbyViewController.h */,
 				43280A6B20C65EDB003FA621 /* NearbyViewController.m */,
 				43280A6820C65EDB003FA621 /* PrivateNavigationView.h */,
 				43280A6C20C65EDC003FA621 /* PrivateNavigationView.m */,
 				43280AA820C65EDC003FA621 /* SearchViewController.h */,
 				43280A6A20C65EDB003FA621 /* SearchViewController.m */,
+				3605D89520CE53B4002FFD37 /* SearchCollectionViewCell.h */,
+				3605D89620CE53B4002FFD37 /* SearchCollectionViewCell.m */,
+				3605D89720CE53B4002FFD37 /* SearchCollectionViewCell.xib */,
+				3605D89220CE4B8E002FFD37 /* SearchRecord.h */,
+				3605D89320CE4B8E002FFD37 /* SearchRecord.m */,
 				43280A6D20C65EDC003FA621 /* model */,
 				43280A7220C65EDC003FA621 /* view */,
 				43280A8220C65EDC003FA621 /* request */,
@@ -2782,6 +2808,7 @@
 				439D068C20BE980400379414 /* ic_procedure.png in Resources */,
 				435E5AB120A19088005C8BDA /* ic_carmer@3x.png in Resources */,
 				430677E520AED838003BB046 /* 高速公路.png in Resources */,
+				3605D89920CE53B4002FFD37 /* SearchCollectionViewCell.xib in Resources */,
 				43CE0A8A20A963F300D7FACF /* ic_1@3x.png in Resources */,
 				435E5AB420A19088005C8BDA /* ic_mima@3x.png in Resources */,
 				4306780020AED839003BB046 /* 快速公路@3x.png in Resources */,
@@ -3136,6 +3163,7 @@
 				435E594220A17084005C8BDA /* UIView+LK.m in Sources */,
 				36E7FBD620CA5E6900934823 /* BuyCommdityCell.m in Sources */,
 				43280ABC20C65EDC003FA621 /* StoreDetailsRequest.m in Sources */,
+				3605D89420CE4B8E002FFD37 /* SearchRecord.m in Sources */,
 				439D061820BE452000379414 /* ToBePaidViewController.m in Sources */,
 				435E5B2A20A1C8C9005C8BDA /* JJRequest.m in Sources */,
 				439D060620BE43B600379414 /* SelectTirePositionViewController.m in Sources */,
@@ -3168,6 +3196,7 @@
 				439D061520BE44EB00379414 /* SureOrderViewController.m in Sources */,
 				4332361E20B2752C008F45FD /* SelectTypeViewController.m in Sources */,
 				4322A1D320A29863007B4037 /* PasswordTableViewCell.m in Sources */,
+				3605D89120CE10C1002FFD37 /* YMTools.m in Sources */,
 				43280AAA20C65EDC003FA621 /* NearbyViewController.m in Sources */,
 				434DB64120BCE6B80077234D /* LocationTableViewCell.m in Sources */,
 				434B2DB020B66A66004F1058 /* TireSpecificationViewController.m in Sources */,
@@ -3232,6 +3261,7 @@
 				434DB63E20BCE3C10077234D /* LocationViewController.m in Sources */,
 				4358CAAD20A3EEAF006B456F /* WXZCustomPickView.m in Sources */,
 				4319D9DE20ABFCB900893026 /* FMDBCarVerhicle.m in Sources */,
+				3605D89820CE53B4002FFD37 /* SearchCollectionViewCell.m in Sources */,
 				36CD2DF520C6A602007E278B /* StoreDetailsCell.m in Sources */,
 				43F874F620CE72CE007D1C2E /* StoreInfo.m in Sources */,
 				43BBC3A320C68AE4002C2FE6 /* OderBottomView.m in Sources */,

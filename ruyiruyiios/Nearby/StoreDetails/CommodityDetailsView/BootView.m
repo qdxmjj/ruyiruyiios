@@ -7,7 +7,7 @@
 //
 
 #import "BootView.h"
-
+#import "YMTools.h"
 @interface BootView ()
 
 @property(nonatomic,strong)UIButton *shopCartBtn;
@@ -42,7 +42,7 @@
 -(void)setTotalPrice:(NSString *)totalPrice{
     
     _totalPrice = totalPrice;
-    self.numberLab.text = [NSString stringWithFormat:@"合计：%@ 元",totalPrice];
+    self.numberLab.attributedText = [YMTools priceWithRedString:totalPrice];
     
 }
 
@@ -69,7 +69,9 @@
         
         _numberLab = [[UILabel alloc] initWithFrame:CGRectMake(80, 0, self.frame.size.width-80-self.frame.size.width/3-10, self.frame.size.height)];
         _numberLab.textAlignment = NSTextAlignmentRight;
-        _numberLab.text = @"合计：0 元";
+        _numberLab.font = [UIFont systemFontOfSize:15.f];
+        _numberLab.numberOfLines = 0;
+        _numberLab.attributedText = [YMTools priceWithRedString:@"0"];
     }
     return _numberLab;
 }

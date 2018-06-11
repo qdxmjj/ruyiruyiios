@@ -10,6 +10,7 @@
 
 #import "StoreDetailsRequest.h"
 #import <UIImageView+WebCache.h>
+#import "MBProgressHUD+YYM_category.h"
 #import "UserConfig.h"
 #import "HeadView.h"
 #import "BootView.h"
@@ -282,10 +283,10 @@ static NSInteger const HeadViewH = 150;
     
     NSArray *priceInfo = [info object];
     
-    NSInteger number = [priceInfo[0] integerValue];
+    CGFloat number = [priceInfo[0] floatValue];
 
-    NSInteger price = [self.bootV.totalPrice integerValue];
-    self.bootV.totalPrice = [NSString stringWithFormat:@"%ld",price-number];
+    CGFloat price = [self.bootV.totalPrice floatValue];
+    self.bootV.totalPrice = [NSString stringWithFormat:@"%.2f",price-number];
     
     //判断所有的商品 取得ID  ID相同修改商品数量状态
     
@@ -308,11 +309,11 @@ static NSInteger const HeadViewH = 150;
     
     NSArray *priceInfo = [info object];
     
-    NSInteger number = [priceInfo[0] integerValue];
+    CGFloat number = [priceInfo[0] floatValue];
     
-    NSInteger price = [self.bootV.totalPrice integerValue];
+    CGFloat price = [self.bootV.totalPrice floatValue];
     
-    self.bootV.totalPrice = [NSString stringWithFormat:@"%ld",price+number];
+    self.bootV.totalPrice = [NSString stringWithFormat:@"%.2f",price+number];
     
     
     for (NSDictionary *dic in self.contentVCDataArr) {
@@ -342,6 +343,12 @@ static NSInteger const HeadViewH = 150;
             
             [commodityArr addObject:commodityDic];
         }
+    }
+    
+    if (commodityArr.count<=0) {
+        
+        [MBProgressHUD showTextMessage:@"没有选择商品!"];
+        return;
     }
     
     BuyCommdityViewController *buyCommdityVC = [[BuyCommdityViewController alloc] init];

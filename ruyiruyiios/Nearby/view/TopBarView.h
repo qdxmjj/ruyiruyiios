@@ -23,11 +23,11 @@ typedef void (^setTitleLabTextBlcok)(NSString *text);
 @interface TopBarView : UIView
 
 
--(instancetype)initWithFrame:(CGRect)frame data:(NSArray *)dataArr;
 
 
 @property(nonatomic,assign)id <JJClickExpandDelegate>delegate;
 
+@property(nonatomic,strong)NSArray *conditionArr;
 
 @property(nonatomic,copy)setTitleLabTextBlcok textBlock;
 
