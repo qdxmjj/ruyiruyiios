@@ -38,5 +38,6 @@
 @property(nonatomic, strong)NSString *updateTime;
 @property(nonatomic, strong)NSString *version;
 @property(nonatomic, strong)NSString *wxInfoId;
+@property(nonatomic, strong)NSNumber *userCarId;
 
 @end

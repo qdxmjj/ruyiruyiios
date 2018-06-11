@@ -53,6 +53,7 @@
     if (_myorderTableV == nil) {
         
         _myorderTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 45, MAINSCREEN.width, MAINSCREEN.height - 45 - 64) style:UITableViewStylePlain];
+        _myorderTableV.bounces = NO;
         _myorderTableV.delegate = self;
         _myorderTableV.dataSource = self;
         _myorderTableV.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -112,13 +113,13 @@
     _btnNameArray = @[@"全部", @"待支付", @"待发货", @"待服务", @"已完成"];
     [self addStatusBtn:_btnNameArray];
     [self addViews];
-    [self getUserGeneralOrderByStateFromInternet:statusStr];
+    [self getUserGeneralOrderByStateFromInternet];
     // Do any additional setup after loading the view.
 }
 
-- (void)getUserGeneralOrderByStateFromInternet:(NSString *)status{
+- (void)getUserGeneralOrderByStateFromInternet{
     
-    NSDictionary *orderPostDic = @{@"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]], @"state":status};
+    NSDictionary *orderPostDic = @{@"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]], @"state":@"0"};
     NSString *reqJsonStr = [PublicClass convertToJsonData:orderPostDic];
     [JJRequest postRequest:@"getUserGeneralOrderByState" params:@{@"reqJson":reqJsonStr, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         
@@ -126,7 +127,7 @@
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
         if ([codeStr isEqualToString:@"1"]) {
             
-            YLog(@"%@", data);
+//            YLog(@"相应的数据：%@", data);
             [self analysizeData:data];
         }else{
             
@@ -217,9 +218,8 @@
     }
     statusStr = [NSString stringWithFormat:@"%ld", (button.tag - 1000)];
     self.underBtnView.frame = CGRectMake((button.tag - 1000)*(MAINSCREEN.width/_btnNameArray.count), 40, MAINSCREEN.width/_btnNameArray.count, 2);
-    [self.myorderTableV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+//    [self.myorderTableV setContentOffset:CGPointMake(0, 5) animated:NO];
     [self.myorderTableV reloadData];
-//    [self.myorderTableV setContentOffset:CGPointMake(0, 0) animated:NO];
 }
 
 - (void)addViews{

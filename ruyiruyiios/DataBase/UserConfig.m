@@ -165,4 +165,9 @@
     
     return [self userDefaultsGetObjectForKey:@"wxInfoId"];
 }
+
++(NSNumber *)userCarId{
+    
+    return [self userDefaultsGetObjectForKey:@"userCarId"];
+}
 @end

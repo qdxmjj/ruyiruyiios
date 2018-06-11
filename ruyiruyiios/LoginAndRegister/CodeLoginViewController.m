@@ -481,6 +481,7 @@
     [UserConfig userDefaultsSetObject:userInfo.updateTime key:@"updateTime"];
     [UserConfig userDefaultsSetObject:userInfo.version key:@"version"];
     [UserConfig userDefaultsSetObject:userInfo.wxInfoId key:@"wxInfoId"];
+    [UserConfig userDefaultsSetObject:[NSNumber numberWithInt:0] key:@"userCarId"];
 }
 
 - (void)didReceiveMemoryWarning {

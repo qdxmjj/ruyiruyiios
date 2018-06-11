@@ -117,11 +117,12 @@
 
 - (void)chickTopayBtn:(UIButton *)button{
     
-    CashierViewController *cashierVC = [[CashierViewController alloc] init];
-    cashierVC.orderNoStr = orderNoStr;
-    cashierVC.totalPriceStr = totalPriceStr;
-    cashierVC.userStatusStr = orderTypeStr;
-    [self.navigationController pushViewController:cashierVC animated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
+//    CashierViewController *cashierVC = [[CashierViewController alloc] init];
+//    cashierVC.orderNoStr = orderNoStr;
+//    cashierVC.totalPriceStr = totalPriceStr;
+//    cashierVC.userStatusStr = orderTypeStr;
+//    [self.navigationController pushViewController:cashierVC animated:YES];
 }
 
 - (void)viewDidLoad {

@@ -118,6 +118,7 @@
         Data_cars *data_car = [[Data_cars alloc] init];
         [data_car setValuesForKeysWithDictionary:carDic];
         self.dataCars = data_car;
+        [UserConfig userDefaultsSetObject:data_car.user_car_id key:@"userCarId"];
     }
 }
 

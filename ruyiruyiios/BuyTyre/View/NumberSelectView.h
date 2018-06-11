@@ -13,5 +13,6 @@
 @property(nonatomic, strong)UIButton *leftBtn;
 @property(nonatomic, strong)UILabel *numberLabel;
 @property(nonatomic, strong)UIButton *rightBtn;
+@property(nonatomic, strong)NSString *limitNumberStr;
 
 @end

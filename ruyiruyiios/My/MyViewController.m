@@ -12,6 +12,7 @@
 #import "MyBottomCollectionViewCell.h"
 #import "ManageCarViewController.h"
 #import "MyOrderViewController.h"
+#import "TobeReplacedTiresViewController.h"
 
 @interface MyViewController ()<UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UINavigationControllerDelegate>
 
@@ -204,6 +205,8 @@
     // 0--update 1--not worry 2--my car 3--youhuiquan 4--extension code 5--valuetion 6--setting
     if (indexPath.item == 0) {
         
+        TobeReplacedTiresViewController *tobeReplacedVC = [[TobeReplacedTiresViewController alloc] init];
+        [self.navigationController pushViewController:tobeReplacedVC animated:YES];
     }else if (indexPath.item == 1){
         
     }else if (indexPath.item == 2){

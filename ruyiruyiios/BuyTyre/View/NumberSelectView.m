@@ -10,6 +10,7 @@
 #import "MBProgressHUD+YYM_category.h"
 
 @implementation NumberSelectView
+@synthesize limitNumberStr;
 
 - (UIButton *)leftBtn{
     
@@ -88,7 +89,7 @@
         }
     }else{
         
-        if (number > 9) {
+        if (number > ([limitNumberStr intValue] - 1)) {
             
             [MBProgressHUD showTextMessage:@"数量超过上限"];
             return;
@@ -103,9 +104,9 @@
 - (void)layoutSubviews{
     
     [super layoutSubviews];
-    self.leftBtn.frame = CGRectMake(30, 0, 30, 30);
-    self.numberLabel.frame = CGRectMake(60, 0, 50, 30);
-    self.rightBtn.frame =CGRectMake(110, 0, 30, 30);
+    self.leftBtn.frame = CGRectMake(0, 0, 30, 30);
+    self.numberLabel.frame = CGRectMake(30, 0, 50, 30);
+    self.rightBtn.frame =CGRectMake(80, 0, 30, 30);
 }
 
 /*

@@ -70,4 +70,6 @@
 +(NSString *)version;
 
 +(NSString *)wxInfoId;
+
++(NSNumber *)userCarId;
 @end

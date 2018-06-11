@@ -159,7 +159,8 @@
     
     if (_tireView == nil) {
         
-        _tireView = [[NumberSelectView alloc] initWithFrame:CGRectMake(MAINSCREEN.width/2, self.topView.frame.size.height + self.topView.frame.origin.y + 10, MAINSCREEN.width/2, 30)];
+        _tireView = [[NumberSelectView alloc] initWithFrame:CGRectMake(MAINSCREEN.width-(20+110), self.topView.frame.size.height + self.topView.frame.origin.y + 10,110, 30)];
+        _tireView.limitNumberStr = @"10";
     }
     return _tireView;
 }
@@ -207,7 +208,8 @@
     
     if (_cxwyView == nil) {
         
-        _cxwyView = [[NumberSelectView alloc] initWithFrame:CGRectMake(MAINSCREEN.width/2, self.valueAddServiceBtn.frame.size.height+self.valueAddServiceBtn.frame.origin.y+15, MAINSCREEN.width/2, 30)];
+        _cxwyView = [[NumberSelectView alloc] initWithFrame:CGRectMake(MAINSCREEN.width - 130, self.valueAddServiceBtn.frame.size.height+self.valueAddServiceBtn.frame.origin.y+15, 110, 30)];
+        _cxwyView.limitNumberStr = @"10";
     }
     return _cxwyView;
 }

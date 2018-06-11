@@ -129,7 +129,7 @@
             [alert addAction:cancel];
             [self presentViewController:alert animated:YES completion:nil];
         }else{
-            YLog(@"获取得到的车辆信息:%@", data);
+//            YLog(@"获取得到的车辆信息:%@", data);
             [self analysizeData:data];
         }
     } failure:^(NSError * _Nullable error) {
@@ -154,6 +154,10 @@
             NSDictionary *dataDic = [dataArray objectAtIndex:i];
             ManageCar *manageCar = [[ManageCar alloc] init];
             [manageCar setValuesForKeysWithDictionary:dataDic];
+            if (i == 0) {
+                
+                [UserConfig userDefaultsSetObject:manageCar.user_car_id key:@"userCarId"];
+            }
             [self.carMutableA addObject:manageCar];
         }
     }
