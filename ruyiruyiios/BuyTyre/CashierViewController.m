@@ -9,7 +9,7 @@
 #import "CashierViewController.h"
 #import "CashierPayView.h"
 #import "ToBePaidViewController.h"
-
+#import "BuyCommdityViewController.h"
 @interface CashierViewController ()
 
 @property(nonatomic, strong)UILabel *shouldPayLabel;
@@ -156,6 +156,20 @@
             tobePaidVC.totalPriceStr = totalPriceStr;
             tobePaidVC.orderTypeStr = userStatusStr;
             [self.navigationController pushViewController:tobePaidVC animated:YES];
+            
+        }else if ([userStatusStr isEqualToString:@"1"]){
+
+            for (UIViewController *popVC in self.navigationController.viewControllers) {
+                
+                if ([popVC isKindOfClass:[BuyCommdityViewController class]]) {
+                    
+                    BuyCommdityViewController *buyCommodityVc = (BuyCommdityViewController *)popVC;
+                    
+                    buyCommodityVc.popSelfBlock(self.orderNoStr, self.userStatusStr);
+                    
+                    [self.navigationController popToViewController:popVC animated:YES];
+                }
+            }
         }
     }];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {

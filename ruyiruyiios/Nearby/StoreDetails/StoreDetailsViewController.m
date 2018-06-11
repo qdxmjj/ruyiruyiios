@@ -55,7 +55,35 @@
     }];
 }
 
+-(void)byJumpMapNavigation{
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"选择地图" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *baiduMap = [UIAlertAction actionWithTitle:@"百度地图" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    UIAlertAction *gaodeuMap = [UIAlertAction actionWithTitle:@"高德地图" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    UIAlertAction *pingguoMap = [UIAlertAction actionWithTitle:@"苹果自带地图" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    [alert addAction:baiduMap];
+    [alert addAction:gaodeuMap];
+    [alert addAction:pingguoMap];
+    [alert addAction:cancel];
 
+    
+    [self presentViewController:alert animated:YES completion:nil];
+    
+}
 
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -85,6 +113,7 @@
             StoreDetailsOneCell *cell = [tableView dequeueReusableCellWithIdentifier:@"StoreDetailsOneCellID" forIndexPath:indexPath];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             [cell setModel:self.storeDetailsModel];
+            [cell.pushNavBtn addTarget:self action:@selector(byJumpMapNavigation) forControlEvents:UIControlEventTouchUpInside];
             return cell;
             
         }
@@ -247,11 +276,11 @@
 -(SDCycleScrollView*)CycleView{
     if (_CycleView==nil) {
         
-        _CycleView=[SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 150) shouldInfiniteLoop:YES imageNamesGroup:@[@"ic_banner_2",@"ic_banner"]];
+        _CycleView= [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 200) imageURLStringsGroup:@[]];
+        _CycleView.backgroundColor = [UIColor blackColor];
         _CycleView.infiniteLoop=YES;
         _CycleView.autoScroll=YES;
         _CycleView.showPageControl=YES;
-        
         _CycleView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
         _CycleView.pageControlStyle=SDCycleScrollViewPageContolStyleAnimated;
     }
@@ -307,8 +336,10 @@
     if (storeID == nil ||storeID.length<=0) {
         return;
     }
+    NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
+    NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
     
-    [StoreDetailsRequest getStoreInfoByStoreIdWithInfo:@{@"storeId":storeID} succrss:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+    [StoreDetailsRequest getStoreInfoByStoreIdWithInfo:@{@"storeId":storeID,@"longitude":longitude,@"latitude":latitude} succrss:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
 
         if ([data objectForKey:@"store_first_commit"] !=[NSNull null]) {
             
@@ -316,6 +347,8 @@
             
         }
 
+        [self.CycleView setImageURLStringsGroup:@[[data objectForKey:@"factoryImgUrl"],[data objectForKey:@"indoorImgUrl"],[data objectForKey:@"locationImgUrl"]]];
+        
         [self.storeDetailsModel setValuesForKeysWithDictionary:data];
         
         [self.assessTableView reloadData];

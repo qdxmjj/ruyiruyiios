@@ -19,19 +19,24 @@
 
 @implementation TopBarView
 
--(instancetype)initWithFrame:(CGRect)frame data:(NSArray *)dataArr{
+-(instancetype)initWithFrame:(CGRect)frame{
     
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor whiteColor];
         
-        self.dataArr = dataArr;
         [self addSubview:self.collectionView];
 
-//        [self.collectionView reloadData];
     }
     return self;
 }
 
+-(void)setConditionArr:(NSArray *)conditionArr{
+    
+    
+    self.dataArr = conditionArr;
+    [self.collectionView reloadData];
+
+}
 
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{

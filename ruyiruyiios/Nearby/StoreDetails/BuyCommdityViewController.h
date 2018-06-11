@@ -6,19 +6,42 @@
 //  Copyright © 2018年 ruyiruyi. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "RootViewController.h"
 
-@interface BuyCommdityViewController : UIViewController
+typedef void (^popBuyCommodityBlock)(NSString *orderNo,NSString *status);
 
-@property(strong,nonatomic)NSArray *commodityList;
+@interface BuyCommdityViewController : RootViewController
 
+@property(strong,nonatomic)NSArray *commodityList;//数据源
+
+/**
+ *用户名
+ */
 @property(copy,nonatomic)NSString *userName;
+
+/**
+ *用户联系方式
+ */
 @property(copy,nonatomic)NSString *userPhone;
+
+/**
+ * 购买的商店名
+ */
 @property(copy,nonatomic)NSString *storeName;
 
+/**
+ *总价
+ */
 @property(copy,nonatomic)NSString *totalPrice;
+
+/**
+ *购买的商店ID
+ */
 @property(copy,nonatomic)NSString *storeID;
 
-@property(copy,nonatomic)NSString *status;
+/**
+ *pop回当前vc
+ */
+@property(copy,nonatomic)popBuyCommodityBlock popSelfBlock;
 
 @end

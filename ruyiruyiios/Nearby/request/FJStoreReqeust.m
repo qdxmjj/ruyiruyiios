@@ -14,9 +14,7 @@
 @implementation FJStoreReqeust
 
 +(void)getFJStoreByConditionWithInfo:(NSDictionary *)info succrss:(requestSuccessBlock)succrsshandler failure:(requestFailureBlock)failureHandler{
-    
-//    FMDBUserInfo *infos = [[DBRecorder getAllUserInfoData] objectAtIndex:0];
-    
+        
     if ([UserConfig token] ==nil) {
         
         [MBProgressHUD showTextMessage:@"请先登录！再刷新此页面"];
@@ -40,6 +38,16 @@
     
 }
 
++(void)searchFjStoreByConditionWithInfo:(NSDictionary *)info succrss:(requestSuccessBlock)succrsshandler failure:(requestFailureBlock)failureHandler{
+    
+    
+    [self postRequest:@"" params:@{@"reqJson":[PublicClass convertToJsonData:info]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+        
+    } failure:^(NSError * _Nullable error) {
+        
+    }];
+    
+}
 
 
 @end

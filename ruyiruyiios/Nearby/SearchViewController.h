@@ -6,8 +6,12 @@
 //  Copyright © 2018年 如驿如意. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "RootViewController.h"
 
-@interface SearchViewController : UIViewController
+typedef void (^clickSearchBlock)(NSArray *searchContent);
+
+@interface SearchViewController : RootViewController
+
+@property(copy,nonatomic)clickSearchBlock searchBlock;
 
 @end

@@ -6,9 +6,8 @@
 //  Copyright © 2018年 ruyiruyi. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
-@interface StoreDetailsViewController : UIViewController
+#import "RootViewController.h"
+@interface StoreDetailsViewController : RootViewController
 
 @property(nonatomic,copy)NSString *storeID;
 

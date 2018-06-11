@@ -7,7 +7,9 @@
 //
 
 #import "SearchViewController.h"
-
+#import "SearchCollectionViewCell.h"
+#import "FJStoreReqeust.h"
+#import "SearchRecord.h"
 @interface SearchViewController ()<UISearchBarDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @property(nonatomic,strong)UISearchBar *searchBar;
@@ -15,6 +17,8 @@
 @property(nonatomic,strong)NSMutableArray *dataArr;
 
 @property(nonatomic,strong)UICollectionView *collectionView;
+
+@property(nonatomic,strong)SearchRecord *record;
 
 @end
 
@@ -27,9 +31,6 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-//    self.navigationItem.leftBarButtonItem = nil;
-//    self.navigationItem.hidesBackButton = YES;
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:self action:@selector(popViewController)];
     UIView*titleView = [[UIView alloc]initWithFrame:CGRectMake(0,0,[UIScreen mainScreen].bounds.size.width-80,44)];
 
     [titleView addSubview:self.searchBar];
@@ -57,16 +58,26 @@
 
     UICollectionView *contentView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 60, self.view.frame.size.width, self.view.frame.size.height-40-64) collectionViewLayout:flowLayout];
     
-    [contentView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"searcCollectionCellID"];
+    [contentView registerNib:[UINib nibWithNibName:NSStringFromClass([SearchCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:@"searcCollectionCellID"];
     contentView.delegate = self;
     contentView.dataSource = self;
     contentView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:contentView];
     self.collectionView = contentView;
+    
+    
+    if (self.dataArr.count>0) {
+        
+        [self.dataArr removeAllObjects];
+    }
+    [self.dataArr addObjectsFromArray:[self.record getSearchReacord]];
+    
+    NSLog(@"%@",self.dataArr);
 }
 
 -(void)deleteAllDataArr{
     
+    [self.record emptySearchRecord];
     [self.dataArr removeAllObjects];
     [self.collectionView reloadData];
 }
@@ -88,11 +99,17 @@
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"searcCollectionCellID" forIndexPath:indexPath];
-    cell.contentView.backgroundColor = [UIColor redColor];
+    SearchCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"searcCollectionCellID" forIndexPath:indexPath];
+    cell.contentLab.text = self.dataArr[indexPath.row];
     
     return cell;
     
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    NSLog(@"%@",self.dataArr[indexPath.row]);
 }
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -109,15 +126,31 @@
         [alertController addAction:alertAction];
         [self presentViewController:alertController animated:nil completion:nil];
         [_searchBar setText:[searchText substringToIndex:20]];
+        
+        return;
     }
 }
 
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     
+    [self.record addSearchReacord:searchBar.text];
+    
     [self.dataArr addObject:searchBar.text];
     [self.collectionView reloadData];
-    NSLog(@"搜索");
+    
+    NSString *cityName = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentCity"];
+    NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
+    NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
+    
+    [FJStoreReqeust getFJStoreByConditionWithInfo:@{@"page":@"1",@"rows":@"100",@"cityName":cityName,@"storeName":searchBar.text,@"storeType":@"",@"serviceType":@"",@"longitude":longitude,@"latitude":latitude,@"rankType":@"0"} succrss:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+        
+        self.searchBlock([data objectForKey:@"storeQuaryResVos"]);
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    } failure:^(NSError * _Nullable error) {
+        
+    }];
 }
 
 -(NSMutableArray *)dataArr{
@@ -144,22 +177,20 @@
     
     return _searchBar;
 }
+
+-(SearchRecord *)record{
+    
+    if (!_record) {
+        
+        _record = [[SearchRecord alloc] init];
+    }
+    
+    return _record;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-
-\
 
 @end

@@ -11,6 +11,9 @@
 #import "BuyCommdityCell.h"
 #import "MBProgressHUD+YYM_category.h"
 #import "UserConfig.h"
+#import "YMTools.h"
+#import "CashierViewController.h"
+#import "NearbyViewController.h"
 @interface BuyCommdityViewController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *priceLabLab;
@@ -18,7 +21,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *sotreUserNameLab;
 @property (weak, nonatomic) IBOutlet UILabel *storePhoneLab;
 @property (weak, nonatomic) IBOutlet UILabel *storeNameLab;
+@property (weak, nonatomic) IBOutlet UIButton *defineBtn;
 
+@property(strong,nonatomic)UIButton *goOnPayingBtn;
+
+@property(copy,nonatomic)NSString *status;//pop回当前视图、状态
+@property(copy,nonatomic)NSString *orderNo;//
 
 @end
 
@@ -33,17 +41,33 @@
     self.sotreUserNameLab.text = self.userName;
     self.storePhoneLab.text = self.userPhone;
     
-    NSString *redStr = [NSString stringWithFormat:@"合计： %@ 元",self.totalPrice];
-    
-    NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:redStr];
-    
-    [attributedStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:[redStr rangeOfString:[NSString stringWithFormat:@"%@",self.totalPrice]]];
-    
-    self.priceLabLab.attributedText = attributedStr;
+    self.priceLabLab.attributedText = [YMTools priceWithRedString:self.totalPrice];
 
     [self.tableVIew registerNib:[UINib nibWithNibName:NSStringFromClass([BuyCommdityCell class]) bundle:nil] forCellReuseIdentifier:@"buyCommodityListCellID"];
+    
+    JJWeakSelf
+    self.popSelfBlock = ^(NSString *orderNo, NSString *status) {
+      
+        [weakSelf.defineBtn removeFromSuperview];
+        [weakSelf.priceLabLab removeFromSuperview];
+        
+        [weakSelf.view addSubview:weakSelf.goOnPayingBtn];
+        
+        weakSelf.navigationItem.leftBarButtonItem = [weakSelf barButtonItemWithRect:CGRectMake(0, 0, 60, 30) image:[UIImage imageNamed:@"返回"] highlighted:nil target:weakSelf action:@selector(popNearbyViewController)];
+    };
 }
 
+
+-(void)popNearbyViewController{
+    
+    for (UIViewController *nearbyVC in self.navigationController.viewControllers) {
+            
+        if ([nearbyVC isKindOfClass:[NearbyViewController class]]) {
+                
+            [self.navigationController popToViewController:nearbyVC animated:YES];
+        }
+    }
+}
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
@@ -95,7 +119,6 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.label.text = @"正在生成订单...";
     hud.mode = MBProgressHUDModeText;
-    
     [hud showAnimated:YES];
     
     NSMutableArray *commodityInfoArr = [NSMutableArray array];
@@ -133,7 +156,13 @@
         if ([code longLongValue] ==1) {
 
             NSLog(@"订单信息：%@",data);
-            //跳转页面--->页面的属性{订单号，订单类型，总价}
+            CashierViewController *cashierVC = [[CashierViewController alloc] init];
+            
+            cashierVC.orderNoStr = data;
+            cashierVC.totalPriceStr = self.totalPrice;
+            cashierVC.userStatusStr = @"1";
+            [self.navigationController pushViewController:cashierVC animated:YES];
+            
         }else{
         
             [MBProgressHUD showTextMessage:message];
@@ -142,20 +171,35 @@
     } failure:^(NSError * _Nullable error) {
         
     }];
+}
+
+-(void)goOnPayingEvent{
+    
+    CashierViewController *cashierVC = [[CashierViewController alloc] init];
+    
+    cashierVC.orderNoStr = self.orderNo;
+    cashierVC.totalPriceStr = self.totalPrice;
+    cashierVC.userStatusStr = @"1";
+    [self.navigationController pushViewController:cashierVC animated:YES];
     
     
 }
 
--(void)setStatus:(NSString *)status{
+-(UIButton *)goOnPayingBtn{
     
-    if ([status isEqualToString:@"1"]) {
+    if (!_goOnPayingBtn) {
         
-        
+        _goOnPayingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_goOnPayingBtn setFrame:CGRectMake(0, self.view.frame.size.height-40, MAINSCREEN.width, 40)];
+        [_goOnPayingBtn setTitle:@"继续支付" forState:UIControlStateNormal];
+        [_goOnPayingBtn setBackgroundColor:[UIColor colorWithRed:255.f/255.f green:102.f/255.f blue:35.f/255.f alpha:1.f] forState:UIControlStateNormal];
+        [_goOnPayingBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_goOnPayingBtn addTarget:self action:@selector(goOnPayingEvent) forControlEvents:UIControlEventTouchUpInside];
     }
     
     
+    return _goOnPayingBtn;
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

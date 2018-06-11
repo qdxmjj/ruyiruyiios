@@ -13,6 +13,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BuyCommdityViewController" customModule="ruyiruyiios" customModuleProvider="target">
             <connections>
+                <outlet property="defineBtn" destination="nuX-Xe-PF1" id="fRX-nB-bbb"/>
                 <outlet property="priceLabLab" destination="tFu-Ex-9bC" id="KhP-dA-iFK"/>
                 <outlet property="sotreUserNameLab" destination="MDB-ff-02a" id="x1S-Bi-uK2"/>
                 <outlet property="storeNameLab" destination="9rL-Z9-EPq" id="dRX-co-rhK"/>
@@ -119,7 +120,7 @@
                         <outlet property="delegate" destination="-1" id="vYS-89-IRj"/>
                     </connections>
                 </tableView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="合计：1000000.0 元   " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tFu-Ex-9bC">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="合计：0.0 元   " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tFu-Ex-9bC">
                     <rect key="frame" x="0.0" y="627" width="250" height="40"/>
                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
@@ -169,7 +170,7 @@
             <constraints>
                 <constraint firstItem="F8h-kI-q5n" firstAttribute="leading" secondItem="OWh-ew-hyI" secondAttribute="leading" id="2Bw-PK-W7Y"/>
                 <constraint firstItem="tFu-Ex-9bC" firstAttribute="bottom" secondItem="OWh-ew-hyI" secondAttribute="bottom" id="SbR-bU-BRN"/>
-                <constraint firstItem="F8h-kI-q5n" firstAttribute="bottom" secondItem="tFu-Ex-9bC" secondAttribute="top" id="YEv-SR-iB2"/>
+                <constraint firstItem="OWh-ew-hyI" firstAttribute="bottom" secondItem="F8h-kI-q5n" secondAttribute="bottom" constant="40" id="aSP-b5-5PJ"/>
                 <constraint firstItem="OWh-ew-hyI" firstAttribute="top" secondItem="F8h-kI-q5n" secondAttribute="top" id="cvF-EA-2Ab"/>
                 <constraint firstItem="tFu-Ex-9bC" firstAttribute="leading" secondItem="OWh-ew-hyI" secondAttribute="leading" id="e0x-xS-qew"/>
                 <constraint firstItem="OWh-ew-hyI" firstAttribute="bottom" secondItem="nuX-Xe-PF1" secondAttribute="bottom" id="fAQ-0S-uIA"/>
