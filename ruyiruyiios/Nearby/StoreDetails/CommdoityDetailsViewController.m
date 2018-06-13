@@ -54,6 +54,11 @@ static NSInteger const HeadViewH = 150;
 @implementation CommdoityDetailsViewController
 
 
+- (void)viewWillAppear:(BOOL)animated{
+    
+    self.tabBarController.tabBar.hidden = YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -445,8 +450,6 @@ static NSInteger const HeadViewH = 150;
     buyCommdityVC.totalPrice = self.bootV.totalPrice;
     buyCommdityVC.storeID = [self.commodityInfo objectForKey:@"storeId"];
     buyCommdityVC.commodityList = commodityArr;
-    
-    self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:buyCommdityVC animated:YES];
 }
 
@@ -454,10 +457,7 @@ static NSInteger const HeadViewH = 150;
     
     StoreDetailsViewController *storeDetailsVC = [[StoreDetailsViewController alloc] init];
     storeDetailsVC.storeID = [self.commodityInfo objectForKey:@"storeId"];
-    
-    self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:storeDetailsVC animated:YES];
-//    self.hidesBottomBarWhenPushed = YES;
 }
 
 -(void)AutomaticClick{

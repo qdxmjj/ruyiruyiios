@@ -61,6 +61,7 @@
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     self.hidesBottomBarWhenPushed = NO;
+    self.navigationController.navigationBar.hidden = YES;
 }
 
 - (void)getAndroidHomeDate{
@@ -458,18 +459,18 @@
     }else{
         
         NearbyViewController *nearbyVC = [[NearbyViewController alloc] init];
-        nearbyVC.status = @"1";
-        nearbyVC.condition = btn.titleLabel.text;
+        nearbyVC.status = @"0";
+        nearbyVC.isLocation = @"1";
         if (btn.tag == 2001) {
             
             nearbyVC.serviceType = @"2";
+            nearbyVC.condition = @"汽车保养";
         }else{
             
             nearbyVC.serviceType = @"3";
+            nearbyVC.condition = @"美容清洗";
         }
-        nearbyVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:nearbyVC animated:YES];
-        nearbyVC.hidesBottomBarWhenPushed = NO;
     }
 }
 

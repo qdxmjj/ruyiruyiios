@@ -39,10 +39,13 @@
     
     if ([self.isLocation isEqualToString: @"1"]) {
 
+        self.tabBarController.tabBar.hidden = YES;
     }else {
         
+        self.tabBarController.tabBar.hidden = NO;
         [self.leftBtn setTitle:cityName forState:UIControlStateNormal];
     }
+    self.navigationController.navigationBar.hidden = NO;
 }
 
 - (void)viewDidLoad {
@@ -61,7 +64,7 @@
         [_leftBtn setImage:[UIImage imageNamed:@"定位"] forState:UIControlStateNormal];
     }
     
-    [_leftBtn setFrame:CGRectMake(20, 0, 50, 44)];
+    [_leftBtn setFrame:CGRectMake(20, 0, 60, 30)];
     [_leftBtn setImageEdgeInsets:UIEdgeInsetsMake(0.0, -10, 0.0, 0.0)];
     [_leftBtn addTarget:self action:@selector(chickLeftBtn:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_leftBtn];
@@ -89,7 +92,7 @@
         self.storeType = @"";
         self.topBarView.conditionArr = @[@{@"全部门店":@[@"全部门店",@"4S店",@"快修店",@"维修厂",@"美容店",]},@{@"默认排序":@[@"默认排序",@"附近优先"]},@{self.condition:@[self.condition]}];
 
-        self.tabBarController.tabBar.hidden = YES;
+        
     }else{
     
         self.rankType = @"0";
@@ -119,8 +122,8 @@
     
     if ([self.isLocation isEqualToString:@"1"]) {
         
+        self.tabBarController.tabBar.hidden = NO;
         [self.navigationController popViewControllerAnimated:YES];
-        
     }else{
         
         LocationViewController *locationVC = [[LocationViewController alloc] init];
@@ -216,10 +219,7 @@
         [self.tableView reloadData];
     };
     
-    self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:searchVC animated:YES];
-    self.hidesBottomBarWhenPushed = NO;
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -356,9 +356,7 @@
         CommdoityDetailsViewController *storeDetails = [[CommdoityDetailsViewController alloc]init];
         storeDetails.commodityInfo = self.dataArr[indexPath.section];
     
-        self.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:storeDetails animated:YES];
-        self.hidesBottomBarWhenPushed = NO;
     }
 }
 
