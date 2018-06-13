@@ -18,4 +18,7 @@
 
 @property(nonatomic,copy)NSString *commodityNumber;
 
+@property(nonatomic,copy)NSString *serviceId;
+
+@property(nonatomic,copy)NSString *serviceTypeId;
 @end

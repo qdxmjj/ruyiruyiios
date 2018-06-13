@@ -27,6 +27,7 @@
     [super viewDidLoad];
     
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([DirectoryTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"directoryCellID"];
+    self.tableView.showsVerticalScrollIndicator = NO;
 
     self.automaticallyAdjustsScrollViewInsets = NO;
     
@@ -105,17 +106,30 @@
     
     DirectoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"directoryCellID" forIndexPath:indexPath];
     
-    NSArray *currentPage = self.sevrviceGroup[self.index];
+    NSArray *currentPageData = self.sevrviceGroup[self.index];//取出大类对应的小类数组
 
-    cell.titleLab.text = [currentPage[indexPath.row] objectForKey:@"serviceName"];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.orangeLable.hidden = YES;
+    cell.titleLab.text = [currentPageData[indexPath.row] objectForKey:@"serviceName"];
     
-    if (indexPath.row == [[currentPage lastObject] integerValue]) {
-        
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    cell.orangeLable.hidden = YES;
+
+    NSInteger badge = [[currentPageData[indexPath.row] objectForKey:@"badgeNumber"] integerValue];
+
+    if (badge >0) {
+
+        cell.badgeLab.hidden = NO;
+        cell.badgeLab.text = [NSString stringWithFormat:@"%@",[currentPageData[indexPath.row] objectForKey:@"badgeNumber"]];//设置角标
+    }else{
+
+        cell.badgeLab.hidden = YES;
+    }
+    
+    if (indexPath.row == [[currentPageData lastObject] integerValue]) {
+        //默认选中哪一个
         cell.contentView.backgroundColor = [UIColor whiteColor];
         cell.orangeLable.hidden = NO;
-        self.refreshBlock(indexPath.row,[currentPage[indexPath.row] objectForKey:@"serviceId"]);
+        self.refreshBlock(indexPath.row,[currentPageData[indexPath.row] objectForKey:@"serviceId"]);
 
     } else {
         
@@ -139,13 +153,12 @@
 
     self.refreshBlock(indexPath.row,[currentPage[indexPath.row] objectForKey:@"serviceId"]);
 
-
 }
 
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
 
     DirectoryTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    
+
     cell.contentView.backgroundColor = backgroundLightGrayColor;
     cell.orangeLable.hidden = YES;
     if (indexPath.row == 0) {
@@ -161,4 +174,35 @@
     return UITableViewAutomaticDimension;
 }
 
+
+-(void)refreshBadgeNumberWithserviceID:(NSInteger )serviceID{
+
+    NSArray *currentPage = self.sevrviceGroup[self.index];
+
+    [currentPage enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if (![obj isKindOfClass:[NSDictionary class]]) {
+            
+            *stop = YES;
+            return ;
+        }
+        
+        if ([[obj objectForKey:@"serviceId"] longLongValue] == serviceID) {
+            
+            DirectoryTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:idx inSection:0]];
+            
+            cell.badgeLab.text = [NSString stringWithFormat:@"%@",[obj objectForKey:@"badgeNumber"]];
+            
+            if ([[obj objectForKey:@"badgeNumber"] integerValue] ==0) {
+                
+                cell.badgeLab.hidden = YES;
+            }else{
+                cell.badgeLab.hidden = NO;
+            }
+            *stop = YES;
+        }
+       
+    }];
+    
+}
 @end

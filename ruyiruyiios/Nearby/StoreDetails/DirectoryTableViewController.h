@@ -27,5 +27,10 @@ typedef void (^RefreshContentTableViewBlock)(NSInteger index,NSString *commodity
  */
 @property(nonatomic,strong)NSMutableArray *sevrviceGroup;
 
+/**
+ *更新角标
+ */
+-(void)refreshBadgeNumberWithserviceID:(NSInteger )serviceID;
+
 
 @end

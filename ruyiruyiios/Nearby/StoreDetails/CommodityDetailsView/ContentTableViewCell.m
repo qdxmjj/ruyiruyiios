@@ -33,13 +33,13 @@
         }
         self.number--;
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"TotalPriceLessNotification" object:@[[NSString stringWithFormat:@"%@",self.model.price],self.model.commodityID,@(self.number)]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"TotalPriceLessNotification" object:@[[NSString stringWithFormat:@"%@",self.model.price],self.model.commodityID,@(self.number),self.model.serviceId,self.model.serviceTypeId]];
 
     }else{
         
         self.number++;
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"TotalPricePlusNotification" object:@[[NSString stringWithFormat:@"%@",self.model.price],self.model.commodityID,@(self.number)]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"TotalPricePlusNotification" object:@[[NSString stringWithFormat:@"%@",self.model.price],self.model.commodityID,@(self.number),self.model.serviceId,self.model.serviceTypeId]];
 
     }
     

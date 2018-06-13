@@ -15,4 +15,11 @@
  */
 +(NSMutableAttributedString *)priceWithRedString:(NSString *)red;
 
++(void)openBaiDuMapWithAddress:(NSString *)address latitude:(NSString *)latitude longitude:(NSString *)longitude;
+
++(void)openGaoDeMapWithAddress:(NSString *)address latitude:(NSString *)latitude longitude:(NSString *)longitude;
+
+
++ (void)openAppleMapWithAddress:( NSString * _Nonnull )address latitude:( NSString * _Nonnull )latitude longitude:( NSString * _Nonnull )longitude;
+
 @end

@@ -8,6 +8,7 @@
 
 #import "TabbarView.h"
 #import "UIView+extension.h"
+#import "UIButton+Subscript.h"
 @interface TabbarView ()
 
 @property(nonatomic,strong)UIImageView *sliderView;//滑块
@@ -28,7 +29,6 @@
         
         [self addSubview:self.sliderView];
 
-        
         NSArray *titleArr = @[@"汽车保养",@"安装改装",@"轮胎服务",@"美容清洗"];
         
         for (int i=0; i<=3; i++) {
@@ -38,19 +38,107 @@
             [tabbarBtn setTitle:titleArr[i] forState:UIControlStateNormal];
             [tabbarBtn.titleLabel setFont:[UIFont systemFontOfSize:15.f]];
             [tabbarBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            if (i==0) {
-                tabbarBtn.tag = 100100;
-            }
+            
+            [tabbarBtn setBadgeValue:0];
+            
+//            if (i==0) {
+                tabbarBtn.tag = 100100+i;
+//            }
             [tabbarBtn addTarget:self action:@selector(topBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:tabbarBtn];
-            
-   
         }
-
-        
     }
     return self;
 }
+
+-(void)changeBadgeNumberWithButton:(NSInteger )buttonTag status:(BOOL)badgeStatus{
+    
+    UIButton *btn = [self viewWithTag:100100+buttonTag];
+
+    btn.badgeLable.hidden = NO;
+    
+    NSInteger number = [btn.badgeLable.text integerValue];
+    
+    switch (buttonTag) {
+        case 0:
+            
+            if (badgeStatus) {
+                
+                number ++;
+                btn.badgeLable.text = [NSString stringWithFormat:@"%ld",number];
+            }else{
+                
+                number --;
+                
+                btn.badgeLable.text = [NSString stringWithFormat:@"%ld",number];
+                if (number==0) {
+                    
+                    btn.badgeLable.hidden = YES;
+                    return;
+                }
+            }
+            break;
+        case 1:
+            
+            if (badgeStatus) {
+                
+                number ++;
+                btn.badgeLable.text = [NSString stringWithFormat:@"%ld",number];
+            }else{
+                
+                number --;
+                btn.badgeLable.text = [NSString stringWithFormat:@"%ld",number];
+                if (number==0) {
+                    
+                    btn.badgeLable.hidden = YES;
+                    return;
+                }
+            }
+            
+            break;
+        case 2:
+            
+            if (badgeStatus) {
+                
+                number ++;
+                btn.badgeLable.text = [NSString stringWithFormat:@"%ld",number];
+            }else{
+                
+                number --;
+                btn.badgeLable.text = [NSString stringWithFormat:@"%ld",number];
+                if (number==0) {
+                    
+                    btn.badgeLable.hidden = YES;
+                    return;
+                }
+            }
+            break;
+        case 3:
+            
+            if (badgeStatus) {
+                
+                number ++;
+                btn.badgeLable.text = [NSString stringWithFormat:@"%ld",number];
+            }else{
+                
+                number --;
+                btn.badgeLable.text = [NSString stringWithFormat:@"%ld",number];
+                if (number==0) {
+                    
+                    btn.badgeLable.hidden = YES;
+                    return;
+                }
+            }
+            
+            break;
+            
+        default:
+            break;
+    }
+    
+    
+}
+
 
 -(void)topBtnPressed:(UIButton *)sender{
     
