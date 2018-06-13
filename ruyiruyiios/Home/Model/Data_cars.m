@@ -10,4 +10,9 @@
 
 @implementation Data_cars
 
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key{
+    
+    
+}
+
 @end

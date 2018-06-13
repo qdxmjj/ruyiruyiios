@@ -14,5 +14,6 @@ target 'ruyiruyiios' do
   pod 'Masonry'
   pod 'FMDB'
   pod 'SDCycleScrollView'
+  pod 'GTMBase64'
 
 end

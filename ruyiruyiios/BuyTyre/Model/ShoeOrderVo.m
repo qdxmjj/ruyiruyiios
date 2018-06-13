@@ -6,8 +6,13 @@
 //  Copyright © 2018年 ruyiruyi. All rights reserved.
 //
 
-#import "shoeOrderVo.h"
+#import "ShoeOrderVo.h"
 
 @implementation ShoeOrderVo
+
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key{
+    
+    
+}
 
 @end

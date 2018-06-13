@@ -13,6 +13,7 @@
 #import "ManageCarViewController.h"
 #import "MyOrderViewController.h"
 #import "TobeReplacedTiresViewController.h"
+#import "PassImpededViewController.h"
 
 @interface MyViewController ()<UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UINavigationControllerDelegate>
 
@@ -209,6 +210,8 @@
         [self.navigationController pushViewController:tobeReplacedVC animated:YES];
     }else if (indexPath.item == 1){
         
+        PassImpededViewController *passImpededVC = [[PassImpededViewController alloc] init];
+        [self.navigationController pushViewController:passImpededVC animated:YES];
     }else if (indexPath.item == 2){
         
         ManageCarViewController *manageCarVC = [[ManageCarViewController alloc] init];

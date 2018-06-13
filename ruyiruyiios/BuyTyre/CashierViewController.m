@@ -10,6 +10,9 @@
 #import "CashierPayView.h"
 #import "ToBePaidViewController.h"
 #import "BuyCommdityViewController.h"
+#import <AlipaySDK/AlipaySDK.h>
+#import "PaySuccessViewController.h"
+
 @interface CashierViewController ()
 
 @property(nonatomic, strong)UILabel *shouldPayLabel;
@@ -22,7 +25,7 @@
 
 @implementation CashierViewController
 @synthesize totalPriceStr;
-@synthesize userStatusStr;
+@synthesize orderTypeStr;
 @synthesize orderNoStr;
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -75,6 +78,32 @@
 
 - (void)chickSurePayBtn:(UIButton *)button{
     
+    NSString *orderNameStr = @"";
+    if ([orderTypeStr isEqualToString:@"0"]) {
+        
+        orderNameStr = @"轮胎购买订单";
+    }else if ([orderTypeStr isEqualToString:@"1"]){
+        
+        orderNameStr = @"普通商品购买订单";
+    }else if ([orderTypeStr isEqualToString:@"2"]){
+        
+        orderNameStr = @"首次更换订单";
+    }else if ([orderTypeStr isEqualToString:@"3"]){
+        
+        orderNameStr = @"免费再换订单";
+    }else if ([orderTypeStr isEqualToString:@"4"]){
+        
+        orderNameStr = @"轮胎修补订单";
+    }else if ([orderTypeStr isEqualToString:@"5"]){
+        
+        orderNameStr = @"充值信用订单";
+    }else if ([orderTypeStr isEqualToString:@"6"]){
+        
+        orderNameStr = @"轮胎补差订单";
+    }else if ([orderTypeStr isEqualToString:@"7"]){
+        
+        orderNameStr = @"补邮费订单";
+    }
     //1--blanceMoney  2--wxPay  3--alipay
     if ([self.payTypeStr isEqualToString:@"1"]) {
         
@@ -84,8 +113,29 @@
         
     }else{
         
-        
+        NSDictionary *postDic = @{@"orderNo":orderNoStr, @"orderName":orderNameStr, @"orderPrice":@"0.01", @"orderType":orderTypeStr, @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]]};
+        NSString *reqJson = [PublicClass convertToJsonData:postDic];
+        NSString *threeDesStr = [PublicClass doEncryptStr:reqJson key:[[UserConfig token] substringWithRange:NSMakeRange(24, 24)]];
+        NSLog(@"%@", @{@"reqJson":threeDesStr, @"token":[UserConfig token]});
+        [JJRequest testPostRequest:@"getAliPaySign" params:@{@"reqJson":threeDesStr, @"token":[UserConfig token]} serviceAddress:TEXTSERVERPREFIX success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+            
+            NSString *messageStr = [NSString stringWithFormat:@"%@", message];
+            NSLog(@"%@", messageStr);
+            [[AlipaySDK defaultService] payOrder:messageStr fromScheme:@"ruyiruyiios" callback:^(NSDictionary *resultDic) {
+                
+            }];
+        } failure:^(NSError * _Nullable error) {
+            
+            NSLog(@"获取订单签名错误:%@", error);
+        }];
     }
+}
+
+- (void)chickPayResult{
+    
+    PaySuccessViewController *paySuccessVC = [[PaySuccessViewController alloc] init];
+    paySuccessVC.orderTypeStr = orderTypeStr;
+    [self.navigationController pushViewController:paySuccessVC animated:YES];
 }
 
 - (CashierPayView *)cashierPayView{
@@ -138,7 +188,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title =@"收银台";
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chickPayResult) name:@"payStatus" object:nil];
     self.payTypeStr = @"1";
     [self addView];
     // Do any additional setup after loading the view.
@@ -149,15 +199,15 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"如驿如意" message:@"您确认离开支付订单界面，离开订单会变为待付款订单，可在待付款订单中查看" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
-        if ([userStatusStr isEqualToString:@"0"]) {
+        if ([orderTypeStr isEqualToString:@"0"]) {
             
             ToBePaidViewController *tobePaidVC = [[ToBePaidViewController alloc] init];
             tobePaidVC.orderNoStr = orderNoStr;
             tobePaidVC.totalPriceStr = totalPriceStr;
-            tobePaidVC.orderTypeStr = userStatusStr;
+            tobePaidVC.orderTypeStr = orderTypeStr;
             [self.navigationController pushViewController:tobePaidVC animated:YES];
             
-        }else if ([userStatusStr isEqualToString:@"1"]){
+        }else if ([orderTypeStr isEqualToString:@"1"]){
 
             for (UIViewController *popVC in self.navigationController.viewControllers) {
                 
@@ -165,7 +215,7 @@
                     
                     BuyCommdityViewController *buyCommodityVc = (BuyCommdityViewController *)popVC;
                     
-                    buyCommodityVc.popSelfBlock(self.orderNoStr, self.userStatusStr);
+                    buyCommodityVc.popSelfBlock(self.orderNoStr, self.orderTypeStr);
                     
                     [self.navigationController popToViewController:popVC animated:YES];
                 }
@@ -186,6 +236,11 @@
     [self.view addSubview:self.moneyLabel];
     [self.view addSubview:self.surePayBtn];
     [self.view addSubview:self.cashierPayView];
+}
+
+- (void)dealloc{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"payStatus" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {

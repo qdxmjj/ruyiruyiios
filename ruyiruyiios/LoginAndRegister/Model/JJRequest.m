@@ -104,6 +104,42 @@
           }];
 }
 
++ (void)testPostRequest:(NSString *)url params:(NSDictionary *)params serviceAddress:(NSString *)hostAddress success:(requestSuccessBlock)successHandler failure:(requestFailureBlock)failureHandler {
+    
+    if ([self checkNetworkStatus] == NO) {
+        successHandler(nil,nil,nil);
+        failureHandler(nil);
+        return;
+    }
+    
+    AFNetworkReachabilityManager *reachabilityManager = [AFNetworkReachabilityManager sharedManager];
+    if (!reachabilityManager.isReachableViaWiFi) {
+        
+        
+    }
+    
+    AFSecurityPolicy *securityPolicy = [[AFSecurityPolicy alloc] init];
+    [securityPolicy setAllowInvalidCertificates:YES];
+    AFHTTPSessionManager *manager = [self getRequestManager];
+    [manager setSecurityPolicy:securityPolicy];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager POST:[NSString stringWithFormat:@"%@/%@",hostAddress,url] parameters:params progress:nil
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject){
+              
+              //              NSLog(@"%@", responseObject);
+              NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+              
+              successHandler(@"",responseStr,@"");
+              
+          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+              NSLog(@"------请求失败-------%@",error);
+              
+              [self requestErrorCode:error.code];
+              
+              failureHandler(error);
+          }];
+}
+
 + (void)putRequest:(NSString *)url params:(NSDictionary *)params success:(requestSuccessBlock)successHandler failure:(requestFailureBlock)failureHandler {
     
     if ([self checkNetworkStatus] == NO) {

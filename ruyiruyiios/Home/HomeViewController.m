@@ -21,6 +21,8 @@
 #import "DelegateConfiguration.h"
 #import "SelectTirePositionViewController.h"
 #import "ChoicePatternViewController.h"
+#import "PassImpededViewController.h"
+#import "NearbyViewController.h"
 
 @interface HomeViewController ()<UIScrollViewDelegate, SDCycleScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate, CityNameDelegate>{
     
@@ -437,38 +439,37 @@
     
     //1000轮胎购买，1001免费更换，1002免费修补，1003轮胎共享
     //2000畅行无忧，2001汽车保养，2002美容清洗
-    switch (btn.tag) {
-        case 1000:
+    if (btn.tag == 1000) {
+        
+        [self chickBuytyreBtn:btn];
+    }else if (btn.tag == 1001){
+        
+        
+    }else if (btn.tag == 1002){
+        
+        
+    }else if (btn.tag == 1003){
+        
+        
+    }else if (btn.tag == 2000){
+        
+        PassImpededViewController *passImpededVC = [[PassImpededViewController alloc] init];
+        [self.navigationController pushViewController:passImpededVC animated:YES];
+    }else{
+        
+        NearbyViewController *nearbyVC = [[NearbyViewController alloc] init];
+        nearbyVC.status = @"1";
+        nearbyVC.condition = btn.titleLabel.text;
+        if (btn.tag == 2001) {
             
-            [self chickBuytyreBtn:btn];
-            break;
+            nearbyVC.serviceType = @"2";
+        }else{
             
-        case 1001:
-            
-            break;
-            
-        case 1002:
-            
-            break;
-            
-        case 1003:
-            
-            break;
-            
-        case 2000:
-            
-            break;
-            
-        case 2001:
-            
-            break;
-            
-        case 2002:
-            
-            break;
-            
-        default:
-            break;
+            nearbyVC.serviceType = @"3";
+        }
+        nearbyVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:nearbyVC animated:YES];
+        nearbyVC.hidesBottomBarWhenPushed = NO;
     }
 }
 

@@ -143,7 +143,7 @@
             CashierViewController *cashierVC = [[CashierViewController alloc] init];
             cashierVC.totalPriceStr = [NSString stringWithFormat:@"%@", self.shoeOrderInfo.totalPrice];
             cashierVC.orderNoStr = [NSString stringWithFormat:@"%@", self.shoeOrderInfo.orderNo];
-            cashierVC.userStatusStr = @"0";
+            cashierVC.orderTypeStr = @"0";
             [self.navigationController pushViewController:cashierVC animated:YES];
         }else{
             

@@ -160,7 +160,7 @@
             
             cashierVC.orderNoStr = data;
             cashierVC.totalPriceStr = self.totalPrice;
-            cashierVC.userStatusStr = @"1";
+            cashierVC.orderTypeStr = @"1";
             [self.navigationController pushViewController:cashierVC animated:YES];
             
         }else{
@@ -179,7 +179,7 @@
     
     cashierVC.orderNoStr = self.orderNo;
     cashierVC.totalPriceStr = self.totalPrice;
-    cashierVC.userStatusStr = @"1";
+    cashierVC.orderTypeStr = @"1";
     [self.navigationController pushViewController:cashierVC animated:YES];
     
     

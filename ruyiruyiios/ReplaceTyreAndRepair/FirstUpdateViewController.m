@@ -384,7 +384,7 @@
     NearbyViewController *nearbyVC = [[NearbyViewController alloc] init];
     nearbyVC.condition = @"轮胎服务";
     nearbyVC.status = @"1";
-    nearbyVC.serviceType = @"4";
+    nearbyVC.serviceType = @"5";
     nearbyVC.backBlock = ^(NSDictionary *dataDic) {
         
 //        NSLog(@"%@", dataDic);

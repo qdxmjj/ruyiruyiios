@@ -15,7 +15,9 @@
 #import "FMDBCarVerhicle.h"
 #import "FMDBCarTireInfo.h"
 #import "FMDBCarTireType.h"
-#import "FirstUpdateViewController.h"
+#import "PaySuccessViewController.h"
+#import <AlipaySDK/AlipaySDK.h>
+#import "MBProgressHUD+YYM_category.h"
 
 @interface AppDelegate ()
 
@@ -30,8 +32,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-
-//    FirstUpdateViewController *carInfoVC = [[FirstUpdateViewController alloc] init];
+    
+//    PaySuccessViewController *carInfoVC = [[PaySuccessViewController alloc] init];
 //    UINavigationController *carNav = [[UINavigationController alloc] initWithRootViewController:carInfoVC];
 //    self.window.rootViewController = carNav;
     if (![[NSUserDefaults standardUserDefaults] valueForKey:@"isFirst"]) {
@@ -48,6 +50,46 @@
         self.window.rootViewController = mainTabVC;
     }
     NSLog(@"开始执行请求数据和插入数据库操作");
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    
+    if ([url.host isEqualToString:@"safepay"]) {
+        //跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"result = %@",resultDic);
+            if ([[resultDic objectForKey:@"resultStatus"] isEqualToString:@"9000"]) {
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"payStatus" object:nil];
+            }else{
+                
+                [MBProgressHUD showTextMessage:@"支付宝支付失败"];
+            }
+        }];
+    }
+    return YES;
+}
+
+// NOTE: 9.0以后使用新API接口
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary *)options
+{
+    if ([url.host isEqualToString:@"safepay"]) {
+        //跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"result = %@",resultDic);
+            if ([[resultDic objectForKey:@"resultStatus"] isEqualToString:@"9000"]) {
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"payStatus" object:nil];
+            }else{
+                
+                [MBProgressHUD showTextMessage:@"支付宝支付失败"];
+            }
+        }];
+    }
     return YES;
 }
 

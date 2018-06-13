@@ -21,6 +21,6 @@
 + (CGSize)getLabelSize:(UILabel *)label fontsize:(CGFloat)fontsize;
 + (NSString *)returnDateStrselectYear:(NSInteger)year selectMonth:(NSInteger)month selectDay:(NSInteger)day;
 +(NSString *)timestampSwitchTime:(NSInteger)timestamp andFormatter:(NSString *)format;
-
 + (UIColor *) colorWithHexString: (NSString *)color;
++ (NSString *)doEncryptStr:(NSString *)originalStr key:(NSString *)keyStr;
 @end

@@ -17,4 +17,9 @@
 @synthesize tireState;
 @synthesize tireTypeId;
 
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key{
+    
+    
+}
+
 @end

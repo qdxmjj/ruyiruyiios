@@ -13,6 +13,6 @@
 
 @property(nonatomic, strong)NSString *orderNoStr;
 @property(nonatomic, strong)NSString *totalPriceStr;
-@property(nonatomic, strong)NSString *userStatusStr;
+@property(nonatomic, strong)NSString *orderTypeStr;
 
 @end

@@ -10,6 +10,7 @@
 
 @interface TobepayInfo : NSObject
 
+@property(nonatomic, strong)NSString *associationOrderNo;
 @property(nonatomic, strong)NSString *firstChangeOrderVoList;
 @property(nonatomic, strong)NSString *freeChangeOrderVoList;
 @property(nonatomic, strong)NSString *orderImg;
