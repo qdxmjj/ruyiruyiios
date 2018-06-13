@@ -3604,7 +3604,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				DEVELOPMENT_TEAM = JM2BB8HHW8;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ruyiruyiios/PrefixHeader.pch;
 				INFOPLIST_FILE = ruyiruyiios/Info.plist;
@@ -3630,7 +3629,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				DEVELOPMENT_TEAM = JM2BB8HHW8;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ruyiruyiios/PrefixHeader.pch;
 				INFOPLIST_FILE = ruyiruyiios/Info.plist;
