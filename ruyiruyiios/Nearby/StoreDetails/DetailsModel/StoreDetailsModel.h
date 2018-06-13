@@ -28,4 +28,8 @@
 
 @property(nonatomic,strong)NSString *storeId;
 
+@property(nonatomic,strong)NSString *latitude;
+
+@property(nonatomic,strong)NSString *longitude;
+
 @end

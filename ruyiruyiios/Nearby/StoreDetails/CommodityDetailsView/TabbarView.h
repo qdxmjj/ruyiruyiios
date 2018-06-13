@@ -16,4 +16,6 @@ typedef void (^selelctSubServiceListBlock)(NSInteger row);
 
 @property(nonatomic,copy)selelctSubServiceListBlock serviceBlcok;
 
+-(void)changeBadgeNumberWithButton:(NSInteger )buttonTag status:(BOOL)badgeStatus;
+
 @end

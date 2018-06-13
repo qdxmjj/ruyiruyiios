@@ -20,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3cn-98-1yN">
-                        <rect key="frame" x="8" y="10" width="312" height="23.5"/>
+                        <rect key="frame" x="8" y="15" width="312" height="18.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -32,6 +32,23 @@
                             <constraint firstAttribute="width" constant="3" id="tLR-QA-6HL"/>
                         </constraints>
                     </view>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kwg-yU-3gN">
+                        <rect key="frame" x="305" y="0.0" width="15" height="15"/>
+                        <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="gIX-Si-bx9"/>
+                            <constraint firstAttribute="width" constant="15" id="jZu-or-bKc"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <real key="value" value="7.5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="qTh-vN-iyc" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="1em-tq-5Iu"/>
@@ -39,12 +56,17 @@
                     <constraint firstAttribute="bottom" secondItem="qTh-vN-iyc" secondAttribute="bottom" constant="6.5" id="6nC-c7-ZkU"/>
                     <constraint firstItem="3cn-98-1yN" firstAttribute="leading" secondItem="qTh-vN-iyc" secondAttribute="trailing" constant="5" id="Ree-TK-5b6"/>
                     <constraint firstItem="qTh-vN-iyc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="atE-dy-bez"/>
+                    <constraint firstItem="kwg-yU-3gN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="een-Qb-wJI"/>
                     <constraint firstAttribute="bottom" secondItem="3cn-98-1yN" secondAttribute="bottom" constant="10" id="leB-gZ-VB0"/>
-                    <constraint firstItem="3cn-98-1yN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="vUj-Dz-nDo"/>
+                    <constraint firstItem="3cn-98-1yN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="vUj-Dz-nDo"/>
                 </constraints>
             </tableViewCellContentView>
+            <constraints>
+                <constraint firstItem="aW0-zy-SZf" firstAttribute="trailing" secondItem="kwg-yU-3gN" secondAttribute="trailing" id="tr9-Bc-dYz"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <connections>
+                <outlet property="badgeLab" destination="kwg-yU-3gN" id="r2i-My-qEc"/>
                 <outlet property="orangeLable" destination="qTh-vN-iyc" id="Gaa-qH-RNs"/>
                 <outlet property="titleLab" destination="3cn-98-1yN" id="kru-rW-bqZ"/>
             </connections>

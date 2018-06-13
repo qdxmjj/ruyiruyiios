@@ -145,7 +145,10 @@
     
     [FJStoreReqeust getFJStoreByConditionWithInfo:@{@"page":@"1",@"rows":@"100",@"cityName":cityName,@"storeName":searchBar.text,@"storeType":@"",@"serviceType":@"",@"longitude":longitude,@"latitude":latitude,@"rankType":@"0"} succrss:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         
-        self.searchBlock([data objectForKey:@"storeQuaryResVos"]);
+        if (data !=nil) {
+            
+            self.searchBlock([data objectForKey:@"storeQuaryResVos"]);
+        }
         [self.navigationController popViewControllerAnimated:YES];
         
     } failure:^(NSError * _Nullable error) {

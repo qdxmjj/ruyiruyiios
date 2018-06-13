@@ -46,7 +46,9 @@ static NSInteger const HeadViewH = 150;
 @property(nonatomic,assign)BOOL directoryRequest;
 @property(nonatomic,assign)BOOL contentRequest;
 
+@property(nonatomic,assign)NSInteger totalNumberProducts;
 
+@property(nonatomic,strong)NSMutableDictionary *badgeNumberDic;
 @end
 
 @implementation CommdoityDetailsViewController
@@ -131,6 +133,7 @@ static NSInteger const HeadViewH = 150;
         weakSelf.directoryVC.subScript = row;
     };
     
+    //删除购物车商品
     self.shopCartView.removeBlock = ^(BOOL isRemove) {
         
         for (NSDictionary *commodityDic in weakSelf.contentVCDataArr) {
@@ -241,13 +244,52 @@ static NSInteger const HeadViewH = 150;
             [self.baoyangArr removeAllObjects];
             [self.fuwuArr removeAllObjects];
         }
-        [self.baoyangArr addObjectsFromArray:[data objectForKey:@"汽车保养"]];
+        
+        //0 默认选中的行  badgeNumber 角标数量
+        for (NSMutableDictionary *dic in [data objectForKey:@"汽车保养"]) {
+            
+            NSMutableDictionary *dic1 = [NSMutableDictionary dictionary];
+
+            [dic1 setValuesForKeysWithDictionary:dic];
+            
+            [dic1 setObject:@"0" forKey:@"badgeNumber"];
+            [self.baoyangArr addObject:dic1];
+        }
         [self.baoyangArr addObject:@"0"];
-        [self.anzhuangArr addObjectsFromArray:[data objectForKey:@"安装改装"]];
+        
+        for (NSMutableDictionary *dic in [data objectForKey:@"安装改装"]) {
+            
+            NSMutableDictionary *dic1 = [NSMutableDictionary dictionary];
+            
+            [dic1 setValuesForKeysWithDictionary:dic];
+            
+            [dic1 setObject:@"0" forKey:@"badgeNumber"];
+            [self.anzhuangArr addObject:dic1];
+        }
         [self.anzhuangArr addObject:@"0"];
-        [self.fuwuArr addObjectsFromArray:[data objectForKey:@"轮胎服务"]];
+        
+        for (NSMutableDictionary *dic in [data objectForKey:@"轮胎服务"]) {
+            
+            NSMutableDictionary *dic1 = [NSMutableDictionary dictionary];
+            
+            [dic1 setValuesForKeysWithDictionary:dic];
+            
+            [dic1 setObject:@"0" forKey:@"badgeNumber"];
+            [self.fuwuArr addObject:dic1];
+
+        }
         [self.fuwuArr addObject:@"0"];
-        [self.meirongArr addObjectsFromArray:[data objectForKey:@"美容清洗"]];
+        
+        for (NSMutableDictionary *dic in [data objectForKey:@"美容清洗"]) {
+            
+            NSMutableDictionary *dic1 = [NSMutableDictionary dictionary];
+            
+            [dic1 setValuesForKeysWithDictionary:dic];
+            
+            [dic1 setObject:@"0" forKey:@"badgeNumber"];
+            [self.meirongArr addObject:dic1];
+
+        }
         [self.meirongArr addObject:@"0"];
         
         [self.directoryVC.sevrviceGroup addObject:self.baoyangArr];
@@ -276,8 +318,8 @@ static NSInteger const HeadViewH = 150;
 
 #pragma mark 通知事件
 /**
- *商品数量的增加通知改变。并修改源数据的商品数量，用于刷新商品目录填充初始数量
- *info = @[商品价格，商品ID，商品数量];
+ *商品数量的减少通知改变。并修改源数据的商品数量，用于刷新商品目录填充初始数量
+ *info = @[0商品价格，1商品ID，2商品数量,3，小类ID，4大类ID];
  */
 -(void)totalPriceLessNotification:(NSNotification *)info{
     
@@ -289,7 +331,6 @@ static NSInteger const HeadViewH = 150;
     self.bootV.totalPrice = [NSString stringWithFormat:@"%.2f",price-number];
     
     //判断所有的商品 取得ID  ID相同修改商品数量状态
-    
     for (NSDictionary *dic in self.contentVCDataArr) {
         
         if ([[dic objectForKey:@"id"]longLongValue] == [priceInfo[1] longLongValue]) {
@@ -300,10 +341,34 @@ static NSInteger const HeadViewH = 150;
     }
     
     [self.contentVC.tableView reloadData];
+    
+    //子服务角标显示
+    for (id arr in self.directoryVC.sevrviceGroup) {
+        
+        if (![arr isKindOfClass:[NSArray class]]) {return;}
+        
+        for (id dic in arr) {
+            
+            if ([dic isKindOfClass:[NSDictionary class]]) {
+                
+                if ([[dic objectForKey:@"serviceId"] longLongValue] == [priceInfo[3] longLongValue]) {
+                    
+                    NSInteger number = [[dic objectForKey:@"badgeNumber"] integerValue];
+                    
+                    [dic setValue:[NSString stringWithFormat:@"%ld",number-1] forKey:@"badgeNumber"];//修改源数据
+                    
+                    [self.directoryVC refreshBadgeNumberWithserviceID:[priceInfo[3] integerValue]];
+                    
+                    break;
+                }
+            }}}
+    
+    //大类服务角标显示
+    [self.tabbarV changeBadgeNumberWithButton:self.directoryVC.subScript status:NO];
 }
 
 /**
- *商品数量的减少通知改变。并修改源数据的商品数量，用于刷新商品目录填充初始数量
+ *商品数量的增加通知改变。并修改源数据的商品数量，用于刷新商品目录填充初始数量
  */
 -(void)totalPricePlusNotification:(NSNotification *)info{
     
@@ -315,7 +380,6 @@ static NSInteger const HeadViewH = 150;
     
     self.bootV.totalPrice = [NSString stringWithFormat:@"%.2f",price+number];
     
-    
     for (NSDictionary *dic in self.contentVCDataArr) {
         
         if ([[dic objectForKey:@"id"]longLongValue] == [priceInfo[1] longLongValue]) {
@@ -326,6 +390,28 @@ static NSInteger const HeadViewH = 150;
     }
     
     [self.contentVC.tableView reloadData];
+    
+    for (id arr in self.directoryVC.sevrviceGroup) {
+        
+        if (![arr isKindOfClass:[NSArray class]]) {return;}
+        
+        for (id dic in arr) {
+            
+            if ([dic isKindOfClass:[NSDictionary class]]) {
+                
+                if ([[dic objectForKey:@"serviceId"] longLongValue] == [priceInfo[3] longLongValue]) {
+                    
+                    NSInteger number = [[dic objectForKey:@"badgeNumber"] integerValue];
+                    
+                    [dic setValue:[NSString stringWithFormat:@"%ld",number+1] forKey:@"badgeNumber"];//修改源数据
+                    
+                    [self.directoryVC refreshBadgeNumberWithserviceID:[priceInfo[3] integerValue]];
+                    
+                    break;
+                }
+            }}}
+    
+    [self.tabbarV changeBadgeNumberWithButton:self.directoryVC.subScript status:YES];
 }
 
 #pragma mark button 点击事件
@@ -504,6 +590,20 @@ static NSInteger const HeadViewH = 150;
     }
     
     return _anzhuangArr;
+}
+
+-(NSMutableDictionary *)badgeNumberDic{
+    
+    if (!_badgeNumberDic) {
+        
+        _badgeNumberDic = [NSMutableDictionary dictionary];
+        [_badgeNumberDic setObject:@"0" forKey:@"2"];
+        [_badgeNumberDic setObject:@"0" forKey:@"3"];
+        [_badgeNumberDic setObject:@"0" forKey:@"4"];
+        [_badgeNumberDic setObject:@"0" forKey:@"5"];
+
+    }
+    return _badgeNumberDic;
 }
 -(void)dealloc{
     

@@ -27,15 +27,14 @@
         if ([code longLongValue] == 1) {
             
             succrsshandler(code,message,data);
+        }else{
+        
+            [MBProgressHUD showTextMessage:@"筛选失败"];
+            succrsshandler(code,message,nil);
         }
-        
-//        [MBProgressHUD showTextMessage:message];
-        
     } failure:^(NSError * _Nullable error) {
         
     }];
-    
-    
 }
 
 +(void)searchFjStoreByConditionWithInfo:(NSDictionary *)info succrss:(requestSuccessBlock)succrsshandler failure:(requestFailureBlock)failureHandler{

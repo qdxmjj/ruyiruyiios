@@ -36,7 +36,13 @@
 - (void)viewWillAppear:(BOOL)animated{
     
     NSString *cityName = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentCity"];
-    [self.leftBtn setTitle:cityName forState:UIControlStateNormal];
+    
+    if ([self.isLocation isEqualToString: @"1"]) {
+
+    }else {
+        
+        [self.leftBtn setTitle:cityName forState:UIControlStateNormal];
+    }
 }
 
 - (void)viewDidLoad {
@@ -46,12 +52,22 @@
     [delegateCF registercityNameListers:self];
     
     _leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_leftBtn setImage:[UIImage imageNamed:@"定位"] forState:UIControlStateNormal];
+    
+    if ([self.isLocation isEqualToString: @"1"]) {
+        
+        [_leftBtn setImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
+    }else{
+        
+        [_leftBtn setImage:[UIImage imageNamed:@"定位"] forState:UIControlStateNormal];
+    }
+    
     [_leftBtn setFrame:CGRectMake(20, 0, 50, 44)];
     [_leftBtn setImageEdgeInsets:UIEdgeInsetsMake(0.0, -10, 0.0, 0.0)];
     [_leftBtn addTarget:self action:@selector(chickLeftBtn:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_leftBtn];
     
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_search"] style:UIBarButtonItemStylePlain target:self action:@selector(pushSearchVC)];
+
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
@@ -61,9 +77,8 @@
     
     [self.view addSubview:self.tableView];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_search"] style:UIBarButtonItemStylePlain target:self action:@selector(pushSearchVC)];
     
-    if ([self.status isEqualToString:@"1"]) {
+    if ([self.isLocation isEqualToString:@"1"]) {
         
         self.rankType = @"0";
         if (self.serviceType.length<=0||self.condition.length<=0) {
@@ -74,16 +89,17 @@
         self.storeType = @"";
         self.topBarView.conditionArr = @[@{@"全部门店":@[@"全部门店",@"4S店",@"快修店",@"维修厂",@"美容店",]},@{@"默认排序":@[@"默认排序",@"附近优先"]},@{self.condition:@[self.condition]}];
 
+        self.tabBarController.tabBar.hidden = YES;
     }else{
     
         self.rankType = @"0";
         self.storeType = @"";
         self.serviceType = @"";
         self.topBarView.conditionArr = @[@{@"全部门店":@[@"全部门店",@"4S店",@"快修店",@"维修厂",@"美容店",]},@{@"默认排序":@[@"默认排序",@"附近优先"]},@{@"条件筛选":@[@"全部",@"汽车保养",@"美容清洗",@"安装改装",@"轮胎服务"]}];
-
     }
+    
     //上拉更多
-    self.tableView.mj_footer=[MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         
         [self loadMoreData];
         
@@ -101,9 +117,16 @@
 
 - (void)chickLeftBtn:(UIButton *)button{
     
-    LocationViewController *locationVC = [[LocationViewController alloc] init];
-    locationVC.current_cityName = button.titleLabel.text;
-    [self.navigationController pushViewController:locationVC animated:YES];
+    if ([self.isLocation isEqualToString:@"1"]) {
+        
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    }else{
+        
+        LocationViewController *locationVC = [[LocationViewController alloc] init];
+        locationVC.current_cityName = button.titleLabel.text;
+        [self.navigationController pushViewController:locationVC animated:YES];
+    }
 }
 
 //下拉刷新
@@ -145,9 +168,9 @@
     
    NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
    NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
+    NSString *cityName = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentCity"];
 
-    
-    [FJStoreReqeust getFJStoreByConditionWithInfo:@{@"page":number,@"rows":@"10",@"cityName":self.leftBtn.titleLabel.text,@"storeName":@"",@"storeType":self.storeType,@"serviceType":self.serviceType,@"longitude":longitude,@"latitude":latitude,@"rankType":self.rankType} succrss:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+    [FJStoreReqeust getFJStoreByConditionWithInfo:@{@"page":number,@"rows":@"10",@"cityName":cityName,@"storeName":@"",@"storeType":self.storeType,@"serviceType":self.serviceType,@"longitude":longitude,@"latitude":latitude,@"rankType":self.rankType} succrss:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         
         if (weakSelf.pageNumber==1) {
             
@@ -207,7 +230,7 @@
 #pragma mark - topView delegate
 -(void)dropdownView:(JJMenuView *)dropdownView didSelectTitle:(NSString *)title didSelectIndex:(NSInteger)index whereGroup:(NSInteger)group{
     
-    
+    //group 点击的哪一组 全部门店 默认排序 条件筛选
     self.topBarView.textBlock(title);
     
     switch (group) {
@@ -273,7 +296,12 @@
 #pragma mark 更新城市 delegate
 - (void)updateCityName:(NSString *)cityNameStr{
     
-    [self.leftBtn setTitle:cityNameStr forState:UIControlStateNormal];
+    if ([self.isLocation isEqualToString:@"1"]) {
+        
+    }else{
+        
+        [self.leftBtn setTitle:cityNameStr forState:UIControlStateNormal];
+    }
 }
 
 #pragma mark - Table view data source
@@ -313,7 +341,6 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-//    NSLog(@"%@", self.dataArr);
     if ([self.status isEqualToString:@"1"]) {
         
         //状态为1  pop回掉
@@ -323,6 +350,7 @@
 //        NSLog(@"%@", [backDic objectForKey:@"storeId"]);
         self.backBlock(backDic);
         [self.navigationController popViewControllerAnimated:YES];
+        
     }else{
         
         CommdoityDetailsViewController *storeDetails = [[CommdoityDetailsViewController alloc]init];
@@ -403,10 +431,8 @@
         
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([FJStoreTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"fjStoreCellID"];
     }
-    
     return _tableView;
 }
 

@@ -25,6 +25,12 @@
  */
 @property(nonatomic,copy,nonnull)NSString *status;
 
+/**
+ *传入1  leftButton显示返回按钮 底部tabbar不显示
+ */
+@property(nonatomic,copy,nonnull)NSString *isLocation;
+
+
 @property(copy, nonatomic)void(^backBlock)(NSDictionary *);
 
 @end

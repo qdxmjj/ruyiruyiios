@@ -20,6 +20,7 @@
 #import "StoreDetailsPhoneCell.h"
 #import "StoreDetailsCell.h"
 
+#import "YMTools.h"
 @interface StoreDetailsViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)NSArray *assessContentArr;
@@ -61,13 +62,19 @@
     
     UIAlertAction *baiduMap = [UIAlertAction actionWithTitle:@"百度地图" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
+        [YMTools openBaiDuMapWithAddress:self.storeDetailsModel.storeAddress latitude:self.storeDetailsModel.latitude longitude:self.storeDetailsModel.longitude];
+        
     }];
     
     UIAlertAction *gaodeuMap = [UIAlertAction actionWithTitle:@"高德地图" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
+        [YMTools openGaoDeMapWithAddress:self.storeDetailsModel.storeAddress latitude:self.storeDetailsModel.latitude longitude:self.storeDetailsModel.longitude];
+        
     }];
     
     UIAlertAction *pingguoMap = [UIAlertAction actionWithTitle:@"苹果自带地图" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        [YMTools openAppleMapWithAddress:self.storeDetailsModel.storeAddress latitude:self.storeDetailsModel.latitude longitude:self.storeDetailsModel.longitude];
         
     }];
     

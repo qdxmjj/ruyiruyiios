@@ -12,4 +12,6 @@
 
 @property (weak, nonatomic) IBOutlet UIView *orangeLable;
 @property (weak, nonatomic) IBOutlet UILabel *titleLab;
+@property (weak, nonatomic) IBOutlet UILabel *badgeLab;
+
 @end
