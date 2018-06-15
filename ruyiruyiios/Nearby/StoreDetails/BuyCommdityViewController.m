@@ -38,14 +38,15 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
-    
+
     self.tabBarController.tabBar.hidden = NO;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"订单确认";
-    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+//    self.edgesForExtendedLayout = UIRectEdgeNone;
     
     self.storeNameLab.text = self.storeName;
     self.sotreUserNameLab.text = self.userName;

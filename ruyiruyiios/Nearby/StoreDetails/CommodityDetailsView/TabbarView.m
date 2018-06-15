@@ -29,7 +29,7 @@
         
         [self addSubview:self.sliderView];
 
-        NSArray *titleArr = @[@"汽车保养",@"安装改装",@"轮胎服务",@"美容清洗"];
+        NSArray *titleArr = @[@"汽车保养",@"轮胎服务",@"安装改装",@"美容清洗"];
         
         for (int i=0; i<=3; i++) {
             

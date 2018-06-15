@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "WinterTyreModel.h"
 @interface WinterTyreServiceCell : UICollectionViewCell
+
+-(void)setModel:(WinterTyreModel *)model;
 
 @end

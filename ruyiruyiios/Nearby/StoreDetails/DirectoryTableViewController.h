@@ -32,5 +32,8 @@ typedef void (^RefreshContentTableViewBlock)(NSInteger index,NSString *commodity
  */
 -(void)refreshBadgeNumberWithserviceID:(NSInteger )serviceID;
 
-
+/**
+ *自动选中哪一行
+ */
+@property(nonatomic,assign)NSInteger defaultSelectedIndex;
 @end
