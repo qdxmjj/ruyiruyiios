@@ -20,7 +20,7 @@
     self.minimumLineSpacing = 3;
     // 3.设置每个item的大小
     
-    self.sectionInset = UIEdgeInsetsMake(0, 3, 0, 3);
+    self.sectionInset = UIEdgeInsetsMake(3, 3, 3, 3);
     // 5.设置布局方向
     //    self.scrollDirection = UICollectionViewScrollDirectionVertical;
     

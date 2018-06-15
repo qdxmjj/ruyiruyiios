@@ -17,7 +17,6 @@
 #import "TabbarView.h"
 #import "ShopCartView.h"
 
-#import "DirectoryTableViewController.h"
 #import "ContentTableViewController.h"
 #import "StoreDetailsViewController.h"
 #import "BuyCommdityViewController.h"
@@ -26,7 +25,6 @@ static NSInteger const HeadViewH = 150;
 
 @interface CommdoityDetailsViewController ()<UINavigationControllerDelegate>
 
-@property(nonatomic,strong)DirectoryTableViewController *directoryVC;
 @property(nonatomic,strong)ContentTableViewController *contentVC;
 
 @property(nonatomic,strong)ShopCartView *shopCartView;
@@ -132,7 +130,7 @@ static NSInteger const HeadViewH = 150;
         }
     };
     
-    //点击刷新商品目录
+    //点击刷新商品目录--默认为第一个大类服务
     self.tabbarV.serviceBlcok = ^(NSInteger row) {
       
         weakSelf.directoryVC.subScript = row;
@@ -221,7 +219,15 @@ static NSInteger const HeadViewH = 150;
             
             if (self.directoryRequest && self.contentRequest) {
                 
-                [self AutomaticClick];
+                if (self.clickButtonTag) {
+                    
+                    [self AutomaticClick:100100+self.clickButtonTag];
+                    
+                }else{
+                    
+                    [self AutomaticClick:100100];
+                }
+                
             }
             
         }
@@ -308,7 +314,14 @@ static NSInteger const HeadViewH = 150;
             
             if (self.directoryRequest && self.contentRequest) {
                 
-                [self AutomaticClick];
+                if (self.clickButtonTag) {
+                    
+                    [self AutomaticClick:100100+self.clickButtonTag];
+                    
+                }else{
+                    
+                    [self AutomaticClick:100100];
+                } 
             }
             
         }
@@ -460,11 +473,11 @@ static NSInteger const HeadViewH = 150;
     [self.navigationController pushViewController:storeDetailsVC animated:YES];
 }
 
--(void)AutomaticClick{
+-(void)AutomaticClick:(NSInteger )buttonTag{
     
     for (UIButton *btn in self.tabbarV.subviews) {
         
-        if (btn.tag == 100100) {
+        if (btn.tag == buttonTag) {
             
             [btn sendActionsForControlEvents:UIControlEventTouchUpInside];//默认选中
         }

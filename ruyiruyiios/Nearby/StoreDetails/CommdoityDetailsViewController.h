@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DirectoryTableViewController.h"
 
 @interface CommdoityDetailsViewController : UIViewController
 
+@property(nonatomic,strong)DirectoryTableViewController *directoryVC;
+
 @property(nonatomic,strong)NSDictionary *commodityInfo;
+
+@property(nonatomic,assign)NSInteger clickButtonTag;
 
 @end

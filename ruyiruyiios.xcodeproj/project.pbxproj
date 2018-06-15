@@ -30,6 +30,13 @@
 		369520F720C9172F001FA48E /* ic_my_shibai@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 369520F420C9172E001FA48E /* ic_my_shibai@3x.png */; };
 		369520F820C9172F001FA48E /* ic_my_shibai.png in Resources */ = {isa = PBXBuildFile; fileRef = 369520F520C9172E001FA48E /* ic_my_shibai.png */; };
 		369520F920C9172F001FA48E /* ic_my_shibai@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 369520F620C9172E001FA48E /* ic_my_shibai@2x.png */; };
+		36A6D9BD20D207700034D7D6 /* WinterTyreRequeset.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A6D9BC20D207700034D7D6 /* WinterTyreRequeset.m */; };
+		36A6D9C120D209400034D7D6 /* WinterTyreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A6D9C020D209400034D7D6 /* WinterTyreModel.m */; };
+		36A6D9C520D212150034D7D6 /* YMDetailedServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A6D9C320D212150034D7D6 /* YMDetailedServiceViewController.m */; };
+		36A6D9C620D212150034D7D6 /* YMDetailedServiceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36A6D9C420D212150034D7D6 /* YMDetailedServiceViewController.xib */; };
+		36A6D9CA20D216260034D7D6 /* YMDetailedServiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A6D9C820D216260034D7D6 /* YMDetailedServiceCell.m */; };
+		36A6D9CB20D216260034D7D6 /* YMDetailedServiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36A6D9C920D216260034D7D6 /* YMDetailedServiceCell.xib */; };
+		36A6D9CE20D2410B0034D7D6 /* WinterTyreStockModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A6D9CD20D2410B0034D7D6 /* WinterTyreStockModel.m */; };
 		36CBD43E20C7704D0044CE2F /* StoreDetailsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36CBD43C20C7704D0044CE2F /* StoreDetailsCollectionViewCell.m */; };
 		36CBD43F20C7704D0044CE2F /* StoreDetailsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36CBD43D20C7704D0044CE2F /* StoreDetailsCollectionViewCell.xib */; };
 		36CBD44520C770950044CE2F /* StoreDetailsFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 36CBD44420C770950044CE2F /* StoreDetailsFlowLayout.m */; };
@@ -689,6 +696,18 @@
 		369520F420C9172E001FA48E /* ic_my_shibai@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_my_shibai@3x.png"; sourceTree = "<group>"; };
 		369520F520C9172E001FA48E /* ic_my_shibai.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_my_shibai.png; sourceTree = "<group>"; };
 		369520F620C9172E001FA48E /* ic_my_shibai@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_my_shibai@2x.png"; sourceTree = "<group>"; };
+		36A6D9BB20D207700034D7D6 /* WinterTyreRequeset.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WinterTyreRequeset.h; sourceTree = "<group>"; };
+		36A6D9BC20D207700034D7D6 /* WinterTyreRequeset.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WinterTyreRequeset.m; sourceTree = "<group>"; };
+		36A6D9BF20D209400034D7D6 /* WinterTyreModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WinterTyreModel.h; sourceTree = "<group>"; };
+		36A6D9C020D209400034D7D6 /* WinterTyreModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WinterTyreModel.m; sourceTree = "<group>"; };
+		36A6D9C220D212150034D7D6 /* YMDetailedServiceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YMDetailedServiceViewController.h; sourceTree = "<group>"; };
+		36A6D9C320D212150034D7D6 /* YMDetailedServiceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YMDetailedServiceViewController.m; sourceTree = "<group>"; };
+		36A6D9C420D212150034D7D6 /* YMDetailedServiceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YMDetailedServiceViewController.xib; sourceTree = "<group>"; };
+		36A6D9C720D216260034D7D6 /* YMDetailedServiceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YMDetailedServiceCell.h; sourceTree = "<group>"; };
+		36A6D9C820D216260034D7D6 /* YMDetailedServiceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YMDetailedServiceCell.m; sourceTree = "<group>"; };
+		36A6D9C920D216260034D7D6 /* YMDetailedServiceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YMDetailedServiceCell.xib; sourceTree = "<group>"; };
+		36A6D9CC20D2410B0034D7D6 /* WinterTyreStockModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WinterTyreStockModel.h; sourceTree = "<group>"; };
+		36A6D9CD20D2410B0034D7D6 /* WinterTyreStockModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WinterTyreStockModel.m; sourceTree = "<group>"; };
 		36CBD43B20C7704D0044CE2F /* StoreDetailsCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreDetailsCollectionViewCell.h; sourceTree = "<group>"; };
 		36CBD43C20C7704D0044CE2F /* StoreDetailsCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreDetailsCollectionViewCell.m; sourceTree = "<group>"; };
 		36CBD43D20C7704D0044CE2F /* StoreDetailsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StoreDetailsCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -1542,6 +1561,26 @@
 			path = StoreDetailsView;
 			sourceTree = "<group>";
 		};
+		36A6D9BA20D2071D0034D7D6 /* winterRequest */ = {
+			isa = PBXGroup;
+			children = (
+				36A6D9BB20D207700034D7D6 /* WinterTyreRequeset.h */,
+				36A6D9BC20D207700034D7D6 /* WinterTyreRequeset.m */,
+			);
+			path = winterRequest;
+			sourceTree = "<group>";
+		};
+		36A6D9BE20D209260034D7D6 /* winterTyreModel */ = {
+			isa = PBXGroup;
+			children = (
+				36A6D9BF20D209400034D7D6 /* WinterTyreModel.h */,
+				36A6D9C020D209400034D7D6 /* WinterTyreModel.m */,
+				36A6D9CC20D2410B0034D7D6 /* WinterTyreStockModel.h */,
+				36A6D9CD20D2410B0034D7D6 /* WinterTyreStockModel.m */,
+			);
+			path = winterTyreModel;
+			sourceTree = "<group>";
+		};
 		3DB0F8DFB5E4EF9DD8187B8A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1953,6 +1992,8 @@
 		4343EB87209FFC63003AD5FE /* WinterTyre */ = {
 			isa = PBXGroup;
 			children = (
+				36A6D9BE20D209260034D7D6 /* winterTyreModel */,
+				36A6D9BA20D2071D0034D7D6 /* winterRequest */,
 				435E594920A18C1E005C8BDA /* WinterTyreViewController.h */,
 				435E594A20A18C1E005C8BDA /* WinterTyreViewController.m */,
 				3606A86220D0EC9000E4650C /* WinterTyreViewController.xib */,
@@ -1964,6 +2005,12 @@
 				3606A86B20D0EF8C00E4650C /* WinterTyreServiceCell.xib */,
 				3606A86E20D102DC00E4650C /* WinterTyreFlowLayout.h */,
 				3606A86F20D102DC00E4650C /* WinterTyreFlowLayout.m */,
+				36A6D9C220D212150034D7D6 /* YMDetailedServiceViewController.h */,
+				36A6D9C320D212150034D7D6 /* YMDetailedServiceViewController.m */,
+				36A6D9C420D212150034D7D6 /* YMDetailedServiceViewController.xib */,
+				36A6D9C720D216260034D7D6 /* YMDetailedServiceCell.h */,
+				36A6D9C820D216260034D7D6 /* YMDetailedServiceCell.m */,
+				36A6D9C920D216260034D7D6 /* YMDetailedServiceCell.xib */,
 			);
 			path = WinterTyre;
 			sourceTree = "<group>";
@@ -2834,6 +2881,7 @@
 				435E59CD20A18FD1005C8BDA /* 正常购买@1x.png in Resources */,
 				435E5AE220A19088005C8BDA /* ic_gaishoujihao@3x.png in Resources */,
 				430677ED20AED838003BB046 /* ic_jincheng2@2x.png in Resources */,
+				36A6D9C620D212150034D7D6 /* YMDetailedServiceViewController.xib in Resources */,
 				4343EBDA20A07621003AD5FE /* icon@2x.png in Resources */,
 				435E5AEC20A19088005C8BDA /* ic_green.png in Resources */,
 				435E5B2020A19786005C8BDA /* ic_snow.png in Resources */,
@@ -3214,6 +3262,7 @@
 				4318692120D0F1D80051F16D /* pic_tu@3x.png in Resources */,
 				430677F120AED838003BB046 /* 未选中.png in Resources */,
 				435E59AA20A18FD1005C8BDA /* 雪花@3x.png in Resources */,
+				36A6D9CB20D216260034D7D6 /* YMDetailedServiceCell.xib in Resources */,
 				439D069320BE980400379414 /* ic_boxbig@2x.png in Resources */,
 				435E59DE20A18FD1005C8BDA /* 感叹号@2x.png in Resources */,
 				435E5A2E20A19061005C8BDA /* ic_forever@2x.png in Resources */,
@@ -3312,6 +3361,7 @@
 				3694C54A20C7F4CB0089FAE7 /* StoreDetailsPhoneCell.m in Sources */,
 				438D449B20C26701008DAD97 /* ShoeSpeedLoadResult.m in Sources */,
 				3694C54E20C7F7220089FAE7 /* storeDetailsOneFlowLayout.m in Sources */,
+				36A6D9C120D209400034D7D6 /* WinterTyreModel.m in Sources */,
 				432EFEAD20B566BF0090DEC8 /* FMDBPosition.m in Sources */,
 				4306782A20B0576B003BB046 /* SelectBrandViewController.m in Sources */,
 				4322A1D920A2F57C007B4037 /* SexTableViewCell.m in Sources */,
@@ -3329,6 +3379,7 @@
 				36E7FBD620CA5E6900934823 /* BuyCommdityCell.m in Sources */,
 				43280ABC20C65EDC003FA621 /* StoreDetailsRequest.m in Sources */,
 				43A7B1CE20CF68EC0002B756 /* BuyPassMiddleView.m in Sources */,
+				36A6D9BD20D207700034D7D6 /* WinterTyreRequeset.m in Sources */,
 				3605D89420CE4B8E002FFD37 /* SearchRecord.m in Sources */,
 				439D061820BE452000379414 /* ToBePaidViewController.m in Sources */,
 				435E5B2A20A1C8C9005C8BDA /* JJRequest.m in Sources */,
@@ -3336,11 +3387,13 @@
 				43F874E120CE49F5007D1C2E /* TobeReplacedTiresViewController.m in Sources */,
 				3694C55120C7F9960089FAE7 /* StoreDetailsModel.m in Sources */,
 				435E5B2920A1C8C9005C8BDA /* JJFileParam.m in Sources */,
+				36A6D9CE20D2410B0034D7D6 /* WinterTyreStockModel.m in Sources */,
 				435E594120A17084005C8BDA /* UITextField+HL.m in Sources */,
 				43280ABA20C65EDC003FA621 /* ContentTableViewController.m in Sources */,
 				43280AC820C65EDC003FA621 /* CommdoityDetailsViewController.m in Sources */,
 				36E7FBCA20CA2B3C00934823 /* BuyCommdityViewController.m in Sources */,
 				4332362D20B2C1F2008F45FD /* RoadConditionTableViewCell.m in Sources */,
+				36A6D9C520D212150034D7D6 /* YMDetailedServiceViewController.m in Sources */,
 				439D060C20BE443700379414 /* BuyTireViewController.m in Sources */,
 				438B2AFE20B7EF2D004A7E2A /* ManageCarTableViewCell.m in Sources */,
 				369520F120C8CF31001FA48E /* AllAssessTableViewController.m in Sources */,
@@ -3460,6 +3513,7 @@
 				43515E6F20A721E20043C0CC /* DBRecorder.m in Sources */,
 				4307036820CA1E030044EBCE /* MyOrderViewController.m in Sources */,
 				43280AAF20C65EDC003FA621 /* TopBarCollectionViewCell.m in Sources */,
+				36A6D9CA20D216260034D7D6 /* YMDetailedServiceCell.m in Sources */,
 				4307036B20CA29700044EBCE /* MyOrderTableViewCell.m in Sources */,
 				432EFEB820B5A5EF0090DEC8 /* Province.m in Sources */,
 			);
@@ -3600,6 +3654,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AW3WK2C3KB;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -3625,6 +3680,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AW3WK2C3KB;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

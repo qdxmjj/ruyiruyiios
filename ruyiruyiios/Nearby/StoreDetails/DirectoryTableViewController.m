@@ -49,22 +49,42 @@
    * 每次点击服务大类，就根据数据来刷新当前商品目录 sevrviceGroup
    * 每次点击商品目录cell  就修改一次当前选中的商品 sevrviceGroup
  */
-
-
-
 -(void)setSubScript:(NSInteger)subScript{
     
     _subScript = subScript;
     
     self.index = _subScript;
     
-    [self.tableView reloadData];
+    [self.tableView reloadData];//填充数据
     
+    
+    //设置选中
     if (self.sevrviceGroup.count>0) {
         
-       NSInteger row = [[self.sevrviceGroup[_subScript] lastObject] integerValue];
+      __block NSInteger row ;
         
-        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] animated:YES scrollPosition:UITableViewScrollPositionNone];
+        if (self.defaultSelectedIndex) {
+            
+            [self.sevrviceGroup[_subScript] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+               
+                if ([[obj objectForKey:@"serviceId"] integerValue] == self.defaultSelectedIndex) {
+                    
+                    row = idx;
+                    
+                    *stop = YES;
+                }
+            }];
+            
+        }else{
+            
+            row = [[self.sevrviceGroup[_subScript] lastObject] integerValue];
+        }
+        
+        self.defaultSelectedIndex = 0;//每次使用后清0 防止手动点击后造成点击超出小类个数
+        
+        [self.sevrviceGroup[_subScript] replaceObjectAtIndex:[self.sevrviceGroup[_subScript] count]-1 withObject:[NSString stringWithFormat:@"%ld",row]];//修改源数据
+        
+        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] animated:YES scrollPosition:UITableViewScrollPositionNone];//默认选中效果
     }
 }
 
