@@ -14,6 +14,7 @@
 #import "MyOrderViewController.h"
 #import "TobeReplacedTiresViewController.h"
 #import "PassImpededViewController.h"
+#import "PersonalInformationViewController.h"
 
 @interface MyViewController ()<UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UINavigationControllerDelegate>
 
@@ -61,8 +62,19 @@
     if (_myHeadview == nil) {
         
         _myHeadview = [[MyHeadView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, 215)];
+        [_myHeadview.nameAndHeadBtn addTarget:self action:@selector(chickNameAndHeadBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _myHeadview;
+}
+
+- (void)chickNameAndHeadBtn:(UIButton *)button{
+    
+    PersonalInformationViewController *personInfoVC = [[PersonalInformationViewController alloc] init];
+    personInfoVC.updateViewBlock = ^(NSString *update) {
+        
+        [self setDatatoViews];
+    };
+    [self.navigationController pushViewController:personInfoVC animated:YES];
 }
 
 - (MyOrderView *)myOrderview{

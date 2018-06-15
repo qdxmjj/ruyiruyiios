@@ -13,6 +13,7 @@
 @property(nonatomic, strong)UIImageView *backImageV;
 @property(nonatomic, strong)UIImageView *headPortraitImageV;
 @property(nonatomic, strong)UILabel *nameLabel;
+@property(nonatomic, strong)UIButton *nameAndHeadBtn;
 @property(nonatomic, strong)UILabel *myQuotaLabel;
 @property(nonatomic, strong)UILabel *creditLineLabel;
 

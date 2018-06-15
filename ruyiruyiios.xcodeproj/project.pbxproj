@@ -136,6 +136,8 @@
 		4318692720D0F1D80051F16D /* pic_right@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4318691E20D0F1D80051F16D /* pic_right@3x.png */; };
 		4318692A20D0F3290051F16D /* PaySuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4318692920D0F3290051F16D /* PaySuccessViewController.m */; };
 		4318692D20D0F4FA0051F16D /* PaySuccessBackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4318692C20D0F4FA0051F16D /* PaySuccessBackView.m */; };
+		4318693020D14B7D0051F16D /* CarCXWYInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4318692F20D14B7D0051F16D /* CarCXWYInfo.m */; };
+		4318693320D1529A0051F16D /* BuyCXWYUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4318693220D1529A0051F16D /* BuyCXWYUserInfo.m */; };
 		4319D9DE20ABFCB900893026 /* FMDBCarVerhicle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4319D9DD20ABFCB900893026 /* FMDBCarVerhicle.m */; };
 		4319D9E120ABFEDB00893026 /* FMDBCarTireInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4319D9E020ABFEDB00893026 /* FMDBCarTireInfo.m */; };
 		4319D9E420AC308A00893026 /* FMDBCarTireType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4319D9E320AC308A00893026 /* FMDBCarTireType.m */; };
@@ -235,6 +237,10 @@
 		4343EBDC20A07621003AD5FE /* 删除@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4343EBBB20A07621003AD5FE /* 删除@2x.png */; };
 		4347BF7A20B3AA8C002F13E8 /* NotofenRoadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4347BF7920B3AA8C002F13E8 /* NotofenRoadViewController.m */; };
 		4347BF7D20B3E852002F13E8 /* DelegateConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4347BF7C20B3E852002F13E8 /* DelegateConfiguration.m */; };
+		43490C0E20D201A600BE5F8E /* PersonalInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43490C0D20D201A600BE5F8E /* PersonalInformationViewController.m */; };
+		43490C1120D2042900BE5F8E /* PersonHeadImgTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43490C1020D2042900BE5F8E /* PersonHeadImgTableViewCell.m */; };
+		43490C1420D2113D00BE5F8E /* PersonOtherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43490C1320D2113D00BE5F8E /* PersonOtherTableViewCell.m */; };
+		43490C1720D24B1200BE5F8E /* PersonAlertEmailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43490C1620D24B1200BE5F8E /* PersonAlertEmailView.m */; };
 		434B2DB020B66A66004F1058 /* TireSpecificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 434B2DAF20B66A66004F1058 /* TireSpecificationViewController.m */; };
 		434B2DB420B66C9B004F1058 /* ic_guige.png in Resources */ = {isa = PBXBuildFile; fileRef = 434B2DB120B66C9A004F1058 /* ic_guige.png */; };
 		434B2DB520B66C9B004F1058 /* ic_guige@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 434B2DB220B66C9A004F1058 /* ic_guige@3x.png */; };
@@ -830,6 +836,10 @@
 		4318692920D0F3290051F16D /* PaySuccessViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaySuccessViewController.m; sourceTree = "<group>"; };
 		4318692B20D0F4FA0051F16D /* PaySuccessBackView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaySuccessBackView.h; sourceTree = "<group>"; };
 		4318692C20D0F4FA0051F16D /* PaySuccessBackView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaySuccessBackView.m; sourceTree = "<group>"; };
+		4318692E20D14B7D0051F16D /* CarCXWYInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarCXWYInfo.h; sourceTree = "<group>"; };
+		4318692F20D14B7D0051F16D /* CarCXWYInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarCXWYInfo.m; sourceTree = "<group>"; };
+		4318693120D1529A0051F16D /* BuyCXWYUserInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuyCXWYUserInfo.h; sourceTree = "<group>"; };
+		4318693220D1529A0051F16D /* BuyCXWYUserInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BuyCXWYUserInfo.m; sourceTree = "<group>"; };
 		4319D9DC20ABFCB900893026 /* FMDBCarVerhicle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMDBCarVerhicle.h; sourceTree = "<group>"; };
 		4319D9DD20ABFCB900893026 /* FMDBCarVerhicle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMDBCarVerhicle.m; sourceTree = "<group>"; };
 		4319D9DF20ABFEDB00893026 /* FMDBCarTireInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMDBCarTireInfo.h; sourceTree = "<group>"; };
@@ -991,6 +1001,14 @@
 		4347BF7920B3AA8C002F13E8 /* NotofenRoadViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotofenRoadViewController.m; sourceTree = "<group>"; };
 		4347BF7B20B3E852002F13E8 /* DelegateConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DelegateConfiguration.h; sourceTree = "<group>"; };
 		4347BF7C20B3E852002F13E8 /* DelegateConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DelegateConfiguration.m; sourceTree = "<group>"; };
+		43490C0C20D201A600BE5F8E /* PersonalInformationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonalInformationViewController.h; sourceTree = "<group>"; };
+		43490C0D20D201A600BE5F8E /* PersonalInformationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonalInformationViewController.m; sourceTree = "<group>"; };
+		43490C0F20D2042900BE5F8E /* PersonHeadImgTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonHeadImgTableViewCell.h; sourceTree = "<group>"; };
+		43490C1020D2042900BE5F8E /* PersonHeadImgTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonHeadImgTableViewCell.m; sourceTree = "<group>"; };
+		43490C1220D2113D00BE5F8E /* PersonOtherTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonOtherTableViewCell.h; sourceTree = "<group>"; };
+		43490C1320D2113D00BE5F8E /* PersonOtherTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonOtherTableViewCell.m; sourceTree = "<group>"; };
+		43490C1520D24B1200BE5F8E /* PersonAlertEmailView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonAlertEmailView.h; sourceTree = "<group>"; };
+		43490C1620D24B1200BE5F8E /* PersonAlertEmailView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonAlertEmailView.m; sourceTree = "<group>"; };
 		434B2DAE20B66A66004F1058 /* TireSpecificationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TireSpecificationViewController.h; sourceTree = "<group>"; };
 		434B2DAF20B66A66004F1058 /* TireSpecificationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TireSpecificationViewController.m; sourceTree = "<group>"; };
 		434B2DB120B66C9A004F1058 /* ic_guige.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_guige.png; sourceTree = "<group>"; };
@@ -1985,6 +2003,8 @@
 				43A7B1C420CF5B640002B756 /* PassImpededViewController.m */,
 				43A7B1C920CF667D0002B756 /* BuyPassViewController.h */,
 				43A7B1CA20CF667D0002B756 /* BuyPassViewController.m */,
+				43490C0C20D201A600BE5F8E /* PersonalInformationViewController.h */,
+				43490C0D20D201A600BE5F8E /* PersonalInformationViewController.m */,
 			);
 			path = My;
 			sourceTree = "<group>";
@@ -2693,6 +2713,10 @@
 			children = (
 				43F955C920CA57DD00B0E056 /* OrderInfo.h */,
 				43F955CA20CA57DD00B0E056 /* OrderInfo.m */,
+				4318692E20D14B7D0051F16D /* CarCXWYInfo.h */,
+				4318692F20D14B7D0051F16D /* CarCXWYInfo.m */,
+				4318693120D1529A0051F16D /* BuyCXWYUserInfo.h */,
+				4318693220D1529A0051F16D /* BuyCXWYUserInfo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2714,6 +2738,12 @@
 				43A7B1CD20CF68EC0002B756 /* BuyPassMiddleView.m */,
 				43A7B1CF20CF69060002B756 /* BuyPassBottomView.h */,
 				43A7B1D020CF69060002B756 /* BuyPassBottomView.m */,
+				43490C0F20D2042900BE5F8E /* PersonHeadImgTableViewCell.h */,
+				43490C1020D2042900BE5F8E /* PersonHeadImgTableViewCell.m */,
+				43490C1220D2113D00BE5F8E /* PersonOtherTableViewCell.h */,
+				43490C1320D2113D00BE5F8E /* PersonOtherTableViewCell.m */,
+				43490C1520D24B1200BE5F8E /* PersonAlertEmailView.h */,
+				43490C1620D24B1200BE5F8E /* PersonAlertEmailView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3344,6 +3374,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43490C1120D2042900BE5F8E /* PersonHeadImgTableViewCell.m in Sources */,
 				4343EB79209FE79E003AD5FE /* main.m in Sources */,
 				434B2DB920B6BA22004F1058 /* PlateLicenseView.m in Sources */,
 				438B2AFB20B7EC41004A7E2A /* ManageCarViewController.m in Sources */,
@@ -3395,6 +3426,7 @@
 				4332362D20B2C1F2008F45FD /* RoadConditionTableViewCell.m in Sources */,
 				36A6D9C520D212150034D7D6 /* YMDetailedServiceViewController.m in Sources */,
 				439D060C20BE443700379414 /* BuyTireViewController.m in Sources */,
+				4318693320D1529A0051F16D /* BuyCXWYUserInfo.m in Sources */,
 				438B2AFE20B7EF2D004A7E2A /* ManageCarTableViewCell.m in Sources */,
 				369520F120C8CF31001FA48E /* AllAssessTableViewController.m in Sources */,
 				432EFEB320B5A5520090DEC8 /* AddressPickerView.m in Sources */,
@@ -3427,6 +3459,7 @@
 				4318692D20D0F4FA0051F16D /* PaySuccessBackView.m in Sources */,
 				43F874F920CE738F007D1C2E /* StoreServiceInfo.m in Sources */,
 				43280AAC20C65EDC003FA621 /* YM_FjStoreModel.m in Sources */,
+				43490C1420D2113D00BE5F8E /* PersonOtherTableViewCell.m in Sources */,
 				4358CAA920A3DC3D006B456F /* WXZBasePickView.m in Sources */,
 				43004A2220C7BBE4001BB01A /* TopayMiddleView.m in Sources */,
 				435E594020A17084005C8BDA /* HLKeyboardCoverPreventTool.m in Sources */,
@@ -3457,6 +3490,7 @@
 				43280AC120C65EDC003FA621 /* TabbarView.m in Sources */,
 				43F874E420CE4A50007D1C2E /* FirstUpdateViewController.m in Sources */,
 				4347BF7A20B3AA8C002F13E8 /* NotofenRoadViewController.m in Sources */,
+				4318693020D14B7D0051F16D /* CarCXWYInfo.m in Sources */,
 				4332361B20B26CFF008F45FD /* SelectSystemTableViewCell.m in Sources */,
 				4343EB8A209FFE4D003AD5FE /* RootViewController.m in Sources */,
 				433EECF020ADAC500051DF9F /* Data_cars.m in Sources */,
@@ -3465,6 +3499,7 @@
 				4322A1CA20A28C6A007B4037 /* RegisterViewController.m in Sources */,
 				435E595220A18D44005C8BDA /* MainTabBarViewController.m in Sources */,
 				4319D9E420AC308A00893026 /* FMDBCarTireType.m in Sources */,
+				43490C0E20D201A600BE5F8E /* PersonalInformationViewController.m in Sources */,
 				435E5B2D20A1CA76005C8BDA /* PublicClass.m in Sources */,
 				3606A86720D0EF6C00E4650C /* WinterTyreServiceTypeCell.m in Sources */,
 				43280AC020C65EDC003FA621 /* ShopCartView.m in Sources */,
@@ -3490,6 +3525,7 @@
 				3605D89820CE53B4002FFD37 /* SearchCollectionViewCell.m in Sources */,
 				36CD2DF520C6A602007E278B /* StoreDetailsCell.m in Sources */,
 				43F874F620CE72CE007D1C2E /* StoreInfo.m in Sources */,
+				43490C1720D24B1200BE5F8E /* PersonAlertEmailView.m in Sources */,
 				43BBC3A320C68AE4002C2FE6 /* OderBottomView.m in Sources */,
 				438D44AC20C2672D008DAD97 /* ChoicePatternTableViewCell.m in Sources */,
 				43F874D520CE4802007D1C2E /* TobeReplaceTireInfo.m in Sources */,

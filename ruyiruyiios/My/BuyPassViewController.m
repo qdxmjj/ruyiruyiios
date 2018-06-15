@@ -11,6 +11,8 @@
 #import "BuyPassBottomView.h"
 #import "UILabel+YBAttributeTextTapAction.h"
 #import "UserProtocolViewController.h"
+#import "BuyCXWYUserInfo.h"
+#import "CashierViewController.h"
 
 @interface BuyPassViewController ()<UIScrollViewDelegate, YBAttributeTapActionDelegate>
 
@@ -18,6 +20,7 @@
 @property(nonatomic, strong)UIImageView *passDetialImageV;
 @property(nonatomic, strong)BuyPassMiddleView *buypassMiddleV;
 @property(nonatomic, strong)BuyPassBottomView *buypassBottomV;
+@property(nonatomic, strong)BuyCXWYUserInfo *buyCXWYUserInfo;
 
 @end
 
@@ -75,9 +78,52 @@
     return _buypassBottomV;
 }
 
+- (BuyCXWYUserInfo *)buyCXWYUserInfo{
+    
+    if (_buyCXWYUserInfo == nil) {
+        
+        _buyCXWYUserInfo = [[BuyCXWYUserInfo alloc] init];
+    }
+    return _buyCXWYUserInfo;
+}
+
 - (void)chickSureBuyBtn:(UIButton *)button{
     
-    
+    if (_buypassBottomV.selectBtn.selected != YES) {
+        
+        [PublicClass showHUD:@"请选择使用协议" view:self.view];
+    }else{
+        
+        if ([self.buypassMiddleV.buyNumberSelectV.numberLabel.text isEqualToString:@"0"]) {
+            
+            [PublicClass showHUD:@"请选择购买数量" view:self.view];
+        }else{
+            
+            float cxwytotalPrice = [self.buypassMiddleV.buyNumberSelectV.numberLabel.text integerValue]*[self.buyCXWYUserInfo.cxwyPrice floatValue];
+            NSString *cxwyPriceStr = [NSString stringWithFormat:@"%.2f", cxwytotalPrice];
+            NSDictionary *postDic = @{@"shoeId":@"0", @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]], @"fontRearFlag":@"0", @"amount":@"0", @"shoeName":@"", @"shoeTotalPrice":@"0", @"shoePrice":@"0", @"cxwyAmount":_buypassMiddleV.buyNumberSelectV.numberLabel.text, @"cxwyPrice":self.buyCXWYUserInfo.cxwyPrice, @"cxwyTotalPrice":cxwyPriceStr, @"totalPrice":cxwyPriceStr, @"orderImg":@""};
+            NSString *reqJson = [PublicClass convertToJsonData:postDic];
+            [JJRequest postRequest:@"addUserShoeOrder" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+                
+                NSString *statusStr = [NSString stringWithFormat:@"%@", code];
+                NSString *messageStr = [NSString stringWithFormat:@"%@", message];
+                if ([statusStr isEqualToString:@"1"]) {
+                    
+                    CashierViewController *cashierVC = [[CashierViewController alloc] init];
+                    cashierVC.orderNoStr = [data objectForKey:@"orderNo"];
+                    cashierVC.totalPriceStr = [data objectForKey:@"totalPrice"];
+                    cashierVC.orderTypeStr = @"0";
+                    [self.navigationController pushViewController:cashierVC animated:YES];
+                }else{
+                    
+                    [PublicClass showHUD:messageStr view:self.view];
+                }
+            } failure:^(NSError * _Nullable error) {
+                
+                NSLog(@"购买畅行无忧的错误:%@", error);
+            }];
+        }
+    }
 }
 
 - (void)yb_attributeTapReturnString:(NSString *)string range:(NSRange)range index:(NSInteger)index{
@@ -91,6 +137,7 @@
     
     self.title = @"畅行无忧";
     [self addViews];
+    [self getCarByUserIdAndCarId];
     // Do any additional setup after loading the view.
 }
 
@@ -101,12 +148,58 @@
     [_mainScrollV addSubview:self.passDetialImageV];
     [_mainScrollV addSubview:self.buypassMiddleV];
     [_mainScrollV setContentSize:CGSizeMake(MAINSCREEN.width, self.buypassMiddleV.frame.size.height+self.buypassMiddleV.frame.origin.y)];
-    [self setdatatoSubviews];
 }
 
-- (void)setdatatoSubviews{
+- (void)getCarByUserIdAndCarId{
     
-    [_buypassMiddleV setdatatoViews];
+    NSDictionary *postDic = @{@"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]], @"userCarId":[NSString stringWithFormat:@"%@", [UserConfig userCarId]]};
+    NSString *reqJson = [PublicClass convertToJsonData:postDic];
+    [JJRequest postRequest:@"getCarByUserIdAndCarId" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+        
+        NSString *statusStr = [NSString stringWithFormat:@"%@", code];
+        NSString *messageStr = [NSString stringWithFormat:@"%@", message];
+        if ([statusStr isEqualToString:@"1"]) {
+            
+//            NSLog(@"%@", data);
+            self.buyCXWYUserInfo.userPlatnumber = [data objectForKey:@"platNumber"];
+            [self getShoeDetailByShoeId];
+        }else{
+            
+            [PublicClass showHUD:messageStr view:self.view];
+        }
+    } failure:^(NSError * _Nullable error) {
+        
+        NSLog(@"购买畅行无忧页面获取用户车辆信息:%@", error);
+    }];
+}
+
+- (void)getShoeDetailByShoeId{
+    
+    NSDictionary *detailPostDic = @{@"shoeId":@"", @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]]};
+    NSString *reqJson = [PublicClass convertToJsonData:detailPostDic];
+    [JJRequest postRequest:@"getShoeDetailByShoeId" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+        
+        NSString *statusStr = [NSString stringWithFormat:@"%@", code];
+        NSString *messageStr = [NSString stringWithFormat:@"%@", message];
+        if ([statusStr isEqualToString:@"1"]) {
+            
+            self.buyCXWYUserInfo.cxwyPrice = [data objectForKey:@"finalCxwyPrice"];
+            self.buyCXWYUserInfo.userName = [UserConfig nick];
+            self.buyCXWYUserInfo.userPhone = [UserConfig phone];
+            [self setdatatoSubviews:self.buyCXWYUserInfo];
+        }else{
+            
+            [PublicClass showHUD:messageStr view:self.view];
+        }
+    } failure:^(NSError * _Nullable error) {
+        
+        NSLog(@"购买畅行无忧页面根据轮胎id和userId获取:%@", error);
+    }];
+}
+
+- (void)setdatatoSubviews:(BuyCXWYUserInfo *)buyCXWYInfo{
+    
+    [_buypassMiddleV setdatatoViews:buyCXWYInfo];
 }
 
 - (void)didReceiveMemoryWarning {

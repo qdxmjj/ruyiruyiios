@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CarCXWYInfo.h"
 
 @interface PassImpededTableViewCell : UITableViewCell
 
 @property(nonatomic, strong)UIImageView *backGroundImageV;
 @property(nonatomic, strong)UILabel *controlTimeLabel;
 
-- (void)setdatatoCellViews;
+- (void)setdatatoCellViews:(CarCXWYInfo *)carCXWYInfo;
 
 @end
