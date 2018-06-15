@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "NumberSelectView.h"
+#import "BuyCXWYUserInfo.h"
 
 @interface BuyPassMiddleView : UIView
 
@@ -17,6 +18,6 @@
 @property(nonatomic, strong)UILabel *passPriceLabel;
 @property(nonatomic, strong)NumberSelectView *buyNumberSelectV;
 
-- (void)setdatatoViews;
+- (void)setdatatoViews:(BuyCXWYUserInfo *)buyCXWYUserInfo;
 
 @end

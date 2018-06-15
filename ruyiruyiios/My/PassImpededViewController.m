@@ -9,11 +9,13 @@
 #import "PassImpededViewController.h"
 #import "PassImpededTableViewCell.h"
 #import "BuyPassViewController.h"
+#import "CarCXWYInfo.h"
 
 @interface PassImpededViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property(nonatomic, strong)UITableView *passTableView;
 @property(nonatomic, strong)UIButton *buyPassImpededBtn;
+@property(nonatomic, strong)NSMutableArray *carCXWYMutableA;
 
 @end
 
@@ -60,6 +62,15 @@
     return _buyPassImpededBtn;
 }
 
+- (NSMutableArray *)carCXWYMutableA{
+    
+    if (_carCXWYMutableA == nil) {
+        
+        _carCXWYMutableA = [[NSMutableArray alloc] init];
+    }
+    return _carCXWYMutableA;
+}
+
 - (void)chickBuypassImpededBtn:(UIButton *)button{
     
     BuyPassViewController *buypassVC = [[BuyPassViewController alloc] init];
@@ -71,7 +82,7 @@
     
     self.title = @"畅行无忧";
     [self addViews];
-//    [self queryCarCxwyInfo];
+    [self queryCarCxwyInfo];
     // Do any additional setup after loading the view.
 }
 
@@ -92,6 +103,7 @@
         if ([statusStr isEqualToString:@"1"]) {
             
             NSLog(@"%@", data);
+            [self ananysize:data];
         }else{
             
             [PublicClass showHUD:messageStr view:self.view];
@@ -102,6 +114,18 @@
     }];
 }
 
+- (void)ananysize:(NSArray *)dataArray{
+    
+    for (int i = 0; i<dataArray.count; i++) {
+        
+        NSDictionary *dataDic = [dataArray objectAtIndex:i];
+        CarCXWYInfo *carCXWYInfo = [[CarCXWYInfo alloc] init];
+        [carCXWYInfo setValuesForKeysWithDictionary:dataDic];
+        [self.carCXWYMutableA addObject:carCXWYInfo];
+    }
+    [_passTableView reloadData];
+}
+
 //UITableViewDelegate and UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
@@ -110,7 +134,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 2;
+    return [self.carCXWYMutableA count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -127,7 +151,8 @@
         cell = [[PassImpededTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIndentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    [cell setdatatoCellViews];
+
+    [cell setdatatoCellViews:[self.carCXWYMutableA objectAtIndex:indexPath.row]];
     return cell;
 }
 

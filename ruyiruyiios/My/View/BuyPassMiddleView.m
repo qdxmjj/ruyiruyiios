@@ -117,12 +117,12 @@
     self.buyNumberSelectV.frame = CGRectMake(MAINSCREEN.width - 130, 215, 110, 30);
 }
 
-- (void)setdatatoViews{
+- (void)setdatatoViews:(BuyCXWYUserInfo *)buyCXWYUserInfo{
     
-    self.nameLabel.text = @"123";
-    self.phoneLabel.text = @"21421";
-    self.platNumberLabel.text = @"1234";
-    self.passPriceLabel.text = @"14";
+    self.nameLabel.text = buyCXWYUserInfo.userName;
+    self.phoneLabel.text = buyCXWYUserInfo.userPhone;
+    self.platNumberLabel.text = buyCXWYUserInfo.userPlatnumber;
+    self.passPriceLabel.text = [NSString stringWithFormat:@"¥ %@", buyCXWYUserInfo.cxwyPrice];
     self.buyNumberSelectV.limitNumberStr = @"50";
 }
 

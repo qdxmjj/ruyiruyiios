@@ -7,6 +7,7 @@
 //
 
 #import "MyHeadView.h"
+#import <UIImageView+WebCache.h>
 
 @implementation MyHeadView
 
@@ -25,7 +26,6 @@
     if (_headPortraitImageV == nil) {
         
         _headPortraitImageV = [[UIImageView alloc] init];
-        _headPortraitImageV.image = [UIImage imageNamed:@"ic_blue"];
         _headPortraitImageV.layer.cornerRadius = 25.0;
         _headPortraitImageV.layer.masksToBounds = YES;
     }
@@ -39,10 +39,19 @@
         _nameLabel = [[UILabel alloc] init];
         _nameLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
         _nameLabel.textColor = [UIColor whiteColor];
-        _nameLabel.text = [UserConfig nick];
         _nameLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _nameLabel;
+}
+
+- (UIButton *)nameAndHeadBtn{
+    
+    if (_nameAndHeadBtn == nil) {
+        
+        _nameAndHeadBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        _nameAndHeadBtn.backgroundColor = [UIColor blackColor];
+    }
+    return _nameAndHeadBtn;
 }
 
 - (UILabel *)myQuotaLabel{
@@ -107,6 +116,7 @@
     [self addSubview:self.backImageV];
     [self addSubview:self.headPortraitImageV];
     [self addSubview:self.nameLabel];
+    [self addSubview:self.nameAndHeadBtn];
     [self addSubview:self.myQuotaLabel];
     [self addSubview:self.creditLineLabel];
 }
@@ -117,12 +127,15 @@
     self.backImageV.frame = CGRectMake(0, 0, MAINSCREEN.width, 140);
     self.headPortraitImageV.frame = CGRectMake(MAINSCREEN.width/2 - 50/2, 40, 50, 50);
     self.nameLabel.frame = CGRectMake(0, 100, MAINSCREEN.width, 20);
+    self.nameAndHeadBtn.frame = CGRectMake(self.headPortraitImageV.frame.origin.x, 40, self.headPortraitImageV.frame.size.width, 80);
     self.myQuotaLabel.frame = CGRectMake(0, 180, MAINSCREEN.width/2, 20);
     self.creditLineLabel.frame = CGRectMake(MAINSCREEN.width/2, 180, MAINSCREEN.width/2, 20);
 }
 
 - (void)setDatatoHeadView:(NSString *)myQuotaStr creditLine:(NSString *)creditLineStr{
     
+    [self.headPortraitImageV sd_setImageWithURL:[NSURL URLWithString:[UserConfig headimgurl]]];
+    self.nameLabel.text = [UserConfig nick];
     self.myQuotaLabel.text = myQuotaStr;
     self.creditLineLabel.text = creditLineStr;
 }

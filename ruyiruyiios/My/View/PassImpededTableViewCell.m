@@ -49,10 +49,25 @@
     self.controlTimeLabel.frame = CGRectMake(30, 80, MAINSCREEN.width - 40, 20);
 }
 
-- (void)setdatatoCellViews{
+- (void)setdatatoCellViews:(CarCXWYInfo *)carCXWYInfo{
     
-    self.backGroundImageV.image = [UIImage imageNamed:@"活动赠送"];
-    self.controlTimeLabel.text = @"限制使用时间：无限制";
+    if ([carCXWYInfo.getWay isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        
+        self.backGroundImageV.image = [UIImage imageNamed:@"活动赠送"];
+    }else{
+        
+        self.backGroundImageV.image = [UIImage imageNamed:@"正常购买"];
+    }
+    if ([carCXWYInfo.cxwyTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        
+        NSString *startTimeStr = [PublicClass timestampSwitchTime:[carCXWYInfo.cxwyStarttime integerValue] andFormatter:@"YYYY-MM-dd"];
+        NSString *endTimeStr = [PublicClass timestampSwitchTime:[carCXWYInfo.cxwyEndtime integerValue] andFormatter:@"YYYY-MM-dd"];
+        self.controlTimeLabel.text = [NSString stringWithFormat:@"限制使用时间:%@-%@", startTimeStr, endTimeStr];
+    }else{
+        
+        self.controlTimeLabel.text = @"限制使用时间：无限制";
+    }
+    
 }
 
 - (void)awakeFromNib {

@@ -117,7 +117,7 @@
         NSString *reqJson = [PublicClass convertToJsonData:postDic];
         NSString *threeDesStr = [PublicClass doEncryptStr:reqJson key:[[UserConfig token] substringWithRange:NSMakeRange(24, 24)]];
         NSLog(@"%@", @{@"reqJson":threeDesStr, @"token":[UserConfig token]});
-        [JJRequest testPostRequest:@"getAliPaySign" params:@{@"reqJson":threeDesStr, @"token":[UserConfig token]} serviceAddress:TEXTSERVERPREFIX success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+        [JJRequest testPostRequest:@"getAliPaySign" params:@{@"reqJson":threeDesStr, @"token":[UserConfig token]} serviceAddress:SERVERPREFIX success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
             
             NSString *messageStr = [NSString stringWithFormat:@"%@", message];
             NSLog(@"%@", messageStr);
