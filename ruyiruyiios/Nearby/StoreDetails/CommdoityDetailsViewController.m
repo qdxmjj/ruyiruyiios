@@ -23,7 +23,7 @@
 
 static NSInteger const HeadViewH = 150;
 
-@interface CommdoityDetailsViewController ()<UINavigationControllerDelegate>
+@interface CommdoityDetailsViewController ()
 
 @property(nonatomic,strong)ContentTableViewController *contentVC;
 
@@ -53,14 +53,19 @@ static NSInteger const HeadViewH = 150;
 
 
 - (void)viewWillAppear:(BOOL)animated{
-    
+    self.navigationController.navigationBarHidden = YES;
     self.tabBarController.tabBar.hidden = YES;
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    
+    self.navigationController.navigationBarHidden = NO;
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationController.delegate = self;
     self.view.backgroundColor = [UIColor whiteColor];
 //    NSLog(@"%@  %@",self.directoryRequest?@"YES":@"NO",self.contentRequest?@"YES":@"NO");
     
@@ -257,6 +262,7 @@ static NSInteger const HeadViewH = 150;
         }
         
         //0 默认选中的行  badgeNumber 角标数量
+        //汽车保养  美容清洗 安装改装 轮胎服务 顺序不能乱
         for (NSMutableDictionary *dic in [data objectForKey:@"汽车保养"]) {
             
             NSMutableDictionary *dic1 = [NSMutableDictionary dictionary];
@@ -267,6 +273,18 @@ static NSInteger const HeadViewH = 150;
             [self.baoyangArr addObject:dic1];
         }
         [self.baoyangArr addObject:@"0"];
+        
+        for (NSMutableDictionary *dic in [data objectForKey:@"美容清洗"]) {
+            
+            NSMutableDictionary *dic1 = [NSMutableDictionary dictionary];
+            
+            [dic1 setValuesForKeysWithDictionary:dic];
+            
+            [dic1 setObject:@"0" forKey:@"badgeNumber"];
+            [self.meirongArr addObject:dic1];
+            
+        }
+        [self.meirongArr addObject:@"0"];
         
         for (NSMutableDictionary *dic in [data objectForKey:@"安装改装"]) {
             
@@ -291,22 +309,12 @@ static NSInteger const HeadViewH = 150;
         }
         [self.fuwuArr addObject:@"0"];
         
-        for (NSMutableDictionary *dic in [data objectForKey:@"美容清洗"]) {
-            
-            NSMutableDictionary *dic1 = [NSMutableDictionary dictionary];
-            
-            [dic1 setValuesForKeysWithDictionary:dic];
-            
-            [dic1 setObject:@"0" forKey:@"badgeNumber"];
-            [self.meirongArr addObject:dic1];
 
-        }
-        [self.meirongArr addObject:@"0"];
         
         [self.directoryVC.sevrviceGroup addObject:self.baoyangArr];
+        [self.directoryVC.sevrviceGroup addObject:self.meirongArr];
         [self.directoryVC.sevrviceGroup addObject:self.anzhuangArr];
         [self.directoryVC.sevrviceGroup addObject:self.fuwuArr];
-        [self.directoryVC.sevrviceGroup addObject:self.meirongArr];
         
         if (self.directoryVC.sevrviceGroup.count>0) {
             
@@ -633,11 +641,11 @@ static NSInteger const HeadViewH = 150;
 
 
 //隐藏导航栏
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    
-    BOOL isShowHomePage = [viewController isKindOfClass:[self class]];
-    [self.navigationController setNavigationBarHidden:isShowHomePage animated:YES];
-}
+//- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+//
+//    BOOL isShowHomePage = [viewController isKindOfClass:[self class]];
+//    [self.navigationController setNavigationBarHidden:isShowHomePage animated:YES];
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
