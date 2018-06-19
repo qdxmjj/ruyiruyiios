@@ -29,7 +29,7 @@
         
         [self addSubview:self.sliderView];
 
-        NSArray *titleArr = @[@"汽车保养",@"轮胎服务",@"安装改装",@"美容清洗"];
+        NSArray *titleArr = @[@"汽车保养",@"美容清洗",@"安装改装",@"轮胎服务"];
         
         for (int i=0; i<=3; i++) {
             
@@ -153,13 +153,13 @@
     if ([sender.titleLabel.text isEqualToString:@"汽车保养"]) {
         row = 0;
     }
-    if ([sender.titleLabel.text isEqualToString:@"安装改装"]) {
+    if ([sender.titleLabel.text isEqualToString:@"美容清洗"]) {
         row = 1;
     }
-    if ([sender.titleLabel.text isEqualToString:@"轮胎服务"]) {
+    if ([sender.titleLabel.text isEqualToString:@"安装改装"]) {
         row = 2;
     }
-    if ([sender.titleLabel.text isEqualToString:@"美容清洗"]) {
+    if ([sender.titleLabel.text isEqualToString:@"轮胎服务"]) {
         row = 3;
     }
     
