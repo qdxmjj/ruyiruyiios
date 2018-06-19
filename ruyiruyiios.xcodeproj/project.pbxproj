@@ -196,6 +196,8 @@
 		4332362A20B2BF3E008F45FD /* RoadConditionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4332362920B2BF3E008F45FD /* RoadConditionViewController.m */; };
 		4332362D20B2C1F2008F45FD /* RoadConditionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4332362C20B2C1F2008F45FD /* RoadConditionTableViewCell.m */; };
 		4332363020B2F0DA008F45FD /* RoadInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4332362F20B2F0DA008F45FD /* RoadInfo.m */; };
+		4332F88520D8A19500AF386F /* MySettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4332F88420D8A19500AF386F /* MySettingViewController.m */; };
+		4332F88820D8A25600AF386F /* MySettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4332F88720D8A25600AF386F /* MySettingTableViewCell.m */; };
 		433EECED20AD85920051DF9F /* Lunbo_infos.m in Sources */ = {isa = PBXBuildFile; fileRef = 433EECEC20AD85920051DF9F /* Lunbo_infos.m */; };
 		433EECF020ADAC500051DF9F /* Data_cars.m in Sources */ = {isa = PBXBuildFile; fileRef = 433EECEF20ADAC500051DF9F /* Data_cars.m */; };
 		433EECF820ADBD6A0051DF9F /* UILabel+YBAttributeTextTapAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 433EECF720ADBD6A0051DF9F /* UILabel+YBAttributeTextTapAction.m */; };
@@ -950,6 +952,10 @@
 		4332362C20B2C1F2008F45FD /* RoadConditionTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoadConditionTableViewCell.m; sourceTree = "<group>"; };
 		4332362E20B2F0DA008F45FD /* RoadInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoadInfo.h; sourceTree = "<group>"; };
 		4332362F20B2F0DA008F45FD /* RoadInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoadInfo.m; sourceTree = "<group>"; };
+		4332F88320D8A19500AF386F /* MySettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MySettingViewController.h; sourceTree = "<group>"; };
+		4332F88420D8A19500AF386F /* MySettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MySettingViewController.m; sourceTree = "<group>"; };
+		4332F88620D8A25600AF386F /* MySettingTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MySettingTableViewCell.h; sourceTree = "<group>"; };
+		4332F88720D8A25600AF386F /* MySettingTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MySettingTableViewCell.m; sourceTree = "<group>"; };
 		433EECEB20AD85920051DF9F /* Lunbo_infos.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Lunbo_infos.h; sourceTree = "<group>"; };
 		433EECEC20AD85920051DF9F /* Lunbo_infos.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Lunbo_infos.m; sourceTree = "<group>"; };
 		433EECEE20ADAC500051DF9F /* Data_cars.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Data_cars.h; sourceTree = "<group>"; };
@@ -2031,6 +2037,8 @@
 				43A7B1CA20CF667D0002B756 /* BuyPassViewController.m */,
 				43490C0C20D201A600BE5F8E /* PersonalInformationViewController.h */,
 				43490C0D20D201A600BE5F8E /* PersonalInformationViewController.m */,
+				4332F88320D8A19500AF386F /* MySettingViewController.h */,
+				4332F88420D8A19500AF386F /* MySettingViewController.m */,
 			);
 			path = My;
 			sourceTree = "<group>";
@@ -2744,6 +2752,8 @@
 				43490C1320D2113D00BE5F8E /* PersonOtherTableViewCell.m */,
 				43490C1520D24B1200BE5F8E /* PersonAlertEmailView.h */,
 				43490C1620D24B1200BE5F8E /* PersonAlertEmailView.m */,
+				4332F88620D8A25600AF386F /* MySettingTableViewCell.h */,
+				4332F88720D8A25600AF386F /* MySettingTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3398,6 +3408,9 @@
 				4306779D20AEB864003BB046 /* BottomCarInfoTableViewCell.m in Sources */,
 				438D449B20C26701008DAD97 /* ShoeSpeedLoadResult.m in Sources */,
 				36C80A6320D89C640036C14A /* StoreDetailsPhoneCell.m in Sources */,
+				3694C54E20C7F7220089FAE7 /* storeDetailsOneFlowLayout.m in Sources */,
+				36A6D9C120D209400034D7D6 /* WinterTyreModel.m in Sources */,
+				4332F88520D8A19500AF386F /* MySettingViewController.m in Sources */,
 				432EFEAD20B566BF0090DEC8 /* FMDBPosition.m in Sources */,
 				4306782A20B0576B003BB046 /* SelectBrandViewController.m in Sources */,
 				4322A1D920A2F57C007B4037 /* SexTableViewCell.m in Sources */,
@@ -3475,6 +3488,7 @@
 				43F874E420CE4A50007D1C2E /* FirstUpdateViewController.m in Sources */,
 				4347BF7A20B3AA8C002F13E8 /* NotofenRoadViewController.m in Sources */,
 				4318693020D14B7D0051F16D /* CarCXWYInfo.m in Sources */,
+				4332F88820D8A25600AF386F /* MySettingTableViewCell.m in Sources */,
 				4332361B20B26CFF008F45FD /* SelectSystemTableViewCell.m in Sources */,
 				4343EB8A209FFE4D003AD5FE /* RootViewController.m in Sources */,
 				433EECF020ADAC500051DF9F /* Data_cars.m in Sources */,

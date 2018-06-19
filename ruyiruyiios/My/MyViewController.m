@@ -15,6 +15,7 @@
 #import "TobeReplacedTiresViewController.h"
 #import "PassImpededViewController.h"
 #import "PersonalInformationViewController.h"
+#import "MySettingViewController.h"
 
 @interface MyViewController ()<UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UINavigationControllerDelegate>
 
@@ -236,6 +237,8 @@
         
     }else{
         
+        MySettingViewController *mysettingVC = [[MySettingViewController alloc] init];
+        [self.navigationController pushViewController:mysettingVC animated:YES];
     }
 }
 
