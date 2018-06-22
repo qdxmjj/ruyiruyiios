@@ -16,8 +16,15 @@
 #import "PassImpededViewController.h"
 #import "PersonalInformationViewController.h"
 #import "MySettingViewController.h"
+#import "CouponViewController.h"
+#import "ExtensionCodeViewController.h"
+#import "MyEvaluationViewController.h"
+#import "MyQuotaViewController.h"
+#import "CreditLineViewController.h"
+#import "CodeLoginViewController.h"
+#import "DelegateConfiguration.h"
 
-@interface MyViewController ()<UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UINavigationControllerDelegate>
+@interface MyViewController ()<UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UINavigationControllerDelegate, LoginStatusDelegate>
 
 @property(nonatomic, strong)UIScrollView *mainScrollV;
 @property(nonatomic, strong)MyHeadView *myHeadview;
@@ -62,27 +69,59 @@
     
     if (_myHeadview == nil) {
         
-        _myHeadview = [[MyHeadView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, 215)];
+        _myHeadview = [[MyHeadView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, 195)];
         [_myHeadview.nameAndHeadBtn addTarget:self action:@selector(chickNameAndHeadBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [_myHeadview.myQuotaBtn addTarget:self action:@selector(chickMyquotaBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [_myHeadview.creditLineBtn addTarget:self action:@selector(chickCreaditLineBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _myHeadview;
 }
 
 - (void)chickNameAndHeadBtn:(UIButton *)button{
     
-    PersonalInformationViewController *personInfoVC = [[PersonalInformationViewController alloc] init];
-    personInfoVC.updateViewBlock = ^(NSString *update) {
+    if ([UserConfig user_id] == NULL) {
         
-        [self setDatatoViews];
-    };
-    [self.navigationController pushViewController:personInfoVC animated:YES];
+        [self alertIsloginView];
+    }else{
+        
+        PersonalInformationViewController *personInfoVC = [[PersonalInformationViewController alloc] init];
+        personInfoVC.updateViewBlock = ^(NSString *update) {
+            
+            [self setDatatoViews];
+        };
+        [self.navigationController pushViewController:personInfoVC animated:YES];
+    }
+}
+
+- (void)chickMyquotaBtn:(UIButton *)button{
+    
+    if ([UserConfig user_id] == NULL) {
+        
+        [self alertIsloginView];
+    }else{
+        
+        MyQuotaViewController *myQuotaVC = [[MyQuotaViewController alloc] init];
+        [self.navigationController pushViewController:myQuotaVC animated:YES];
+    }
+}
+
+- (void)chickCreaditLineBtn:(UIButton *)button{
+    
+    if ([UserConfig user_id] == NULL) {
+        
+        [self alertIsloginView];
+    }else{
+        
+        CreditLineViewController *creditLineVC = [[CreditLineViewController alloc] init];
+        [self.navigationController pushViewController:creditLineVC animated:YES];
+    }
 }
 
 - (MyOrderView *)myOrderview{
     
     if (_myOrderview == nil) {
         
-        _myOrderview = [[MyOrderView alloc] initWithFrame:CGRectMake(0, 216, MAINSCREEN.width, 114)];
+        _myOrderview = [[MyOrderView alloc] initWithFrame:CGRectMake(0, 196, MAINSCREEN.width, 114)];
         _myOrderview.topayBtn.tag = 1001;
         _myOrderview.todeliveryBtn.tag = 1002;
         _myOrderview.toserviceBtn.tag = 1003;
@@ -103,7 +142,7 @@
         
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
         [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
-        _myCollectionV = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 330, MAINSCREEN.width, 250) collectionViewLayout:flowLayout];
+        _myCollectionV = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 310, MAINSCREEN.width, 250) collectionViewLayout:flowLayout];
         _myCollectionV.backgroundColor = [UIColor clearColor];
         _myCollectionV.delegate = self;
         _myCollectionV.dataSource = self;
@@ -116,42 +155,51 @@
 - (void)chickOrderViewBtn:(UIButton *)button{
     
     // 1001--topay  1002--todelivery  1003--toservice  1004--completed  1005--lookAllOrderBtn
-    MyOrderViewController *myOrderVC = [[MyOrderViewController alloc] init];
-    switch (button.tag) {
-            
-        case 1001:
-            
-            myOrderVC.statusStr = @"1";
-            break;
-            
-        case 1002:
-            
-            myOrderVC.statusStr = @"2";
-            break;
-            
-        case 1003:
-            
-            myOrderVC.statusStr = @"3";
-            break;
-            
-        case 1004:
-            
-            myOrderVC.statusStr = @"4";
-            break;
-            
-        case 1005:
-            
-            myOrderVC.statusStr = @"0";
-            break;
-            
-        default:
-            break;
+    if ([UserConfig user_id] == NULL) {
+        
+        [self alertIsloginView];
+    }else{
+        
+        MyOrderViewController *myOrderVC = [[MyOrderViewController alloc] init];
+        switch (button.tag) {
+                
+            case 1001:
+                
+                myOrderVC.statusStr = @"1";
+                break;
+                
+            case 1002:
+                
+                myOrderVC.statusStr = @"2";
+                break;
+                
+            case 1003:
+                
+                myOrderVC.statusStr = @"3";
+                break;
+                
+            case 1004:
+                
+                myOrderVC.statusStr = @"4";
+                break;
+                
+            case 1005:
+                
+                myOrderVC.statusStr = @"0";
+                break;
+                
+            default:
+                break;
+        }
+        [self.navigationController pushViewController:myOrderVC animated:YES];
     }
-    [self.navigationController pushViewController:myOrderVC animated:YES];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+    [delegateConfiguration registerLoginStatusChangedListener:self];
     
     self.titleArray = @[@"带更换轮胎", @"畅行无忧", @"我的宝驹", @"优惠券", @"推广码", @"评价", @"设置"];
     self.imgArray = @[@"ic_daigenghuan", @"ic_changxing", @"ic_wodeche", @"ic_youhuiquan", @"ic_tuiguang", @"ic_pingjia", @"ic_shezhi"];
@@ -172,7 +220,7 @@
 
 - (void)setDatatoViews{
     
-    [_myHeadview setDatatoHeadView:@"1000" creditLine:@"1000"];
+    [_myHeadview setDatatoHeadView];
 }
 
 
@@ -217,28 +265,40 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     // 0--update 1--not worry 2--my car 3--youhuiquan 4--extension code 5--valuetion 6--setting
-    if (indexPath.item == 0) {
+    if ([UserConfig user_id] == NULL) {
         
-        TobeReplacedTiresViewController *tobeReplacedVC = [[TobeReplacedTiresViewController alloc] init];
-        [self.navigationController pushViewController:tobeReplacedVC animated:YES];
-    }else if (indexPath.item == 1){
-        
-        PassImpededViewController *passImpededVC = [[PassImpededViewController alloc] init];
-        [self.navigationController pushViewController:passImpededVC animated:YES];
-    }else if (indexPath.item == 2){
-        
-        ManageCarViewController *manageCarVC = [[ManageCarViewController alloc] init];
-        [self.navigationController pushViewController:manageCarVC animated:YES];
-    }else if (indexPath.item == 3){
-        
-    }else if (indexPath.item == 4){
-        
-    }else if (indexPath.item == 5){
-        
+        [self alertIsloginView];
     }else{
         
-        MySettingViewController *mysettingVC = [[MySettingViewController alloc] init];
-        [self.navigationController pushViewController:mysettingVC animated:YES];
+        if (indexPath.item == 0) {
+            
+            TobeReplacedTiresViewController *tobeReplacedVC = [[TobeReplacedTiresViewController alloc] init];
+            [self.navigationController pushViewController:tobeReplacedVC animated:YES];
+        }else if (indexPath.item == 1){
+            
+            PassImpededViewController *passImpededVC = [[PassImpededViewController alloc] init];
+            [self.navigationController pushViewController:passImpededVC animated:YES];
+        }else if (indexPath.item == 2){
+            
+            ManageCarViewController *manageCarVC = [[ManageCarViewController alloc] init];
+            [self.navigationController pushViewController:manageCarVC animated:YES];
+        }else if (indexPath.item == 3){
+            
+            CouponViewController *couponVC = [[CouponViewController alloc] init];
+            [self.navigationController pushViewController:couponVC animated:YES];
+        }else if (indexPath.item == 4){
+            
+            ExtensionCodeViewController *extensionVC = [[ExtensionCodeViewController alloc] init];
+            [self.navigationController pushViewController:extensionVC animated:YES];
+        }else if (indexPath.item == 5){
+            
+            MyEvaluationViewController *myEvaluationVC = [[MyEvaluationViewController alloc] init];
+            [self.navigationController pushViewController:myEvaluationVC animated:YES];
+        }else{
+            
+            MySettingViewController *mysettingVC = [[MySettingViewController alloc] init];
+            [self.navigationController pushViewController:mysettingVC animated:YES];
+        }
     }
 }
 
@@ -252,6 +312,12 @@
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
     
     return UIEdgeInsetsMake(0, 20, 0, 20);//（上、左、下、右）
+}
+
+//LoginStatusDelegate
+- (void)updateLoginStatus{
+    
+    [self setDatatoViews];
 }
 
 - (void)didReceiveMemoryWarning {

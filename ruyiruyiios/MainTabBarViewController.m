@@ -43,9 +43,9 @@
 
 - (void)creatItems{
     
-    NSArray *titleArray = @[@"首页", @"附近", @"冬季胎", @"我的"];
-    NSArray *selectImageNameArray = @[@"首页2", @"ic_fujin", @"ic_snow", @"ic_my"];
-    NSArray *unSelectImageNameArray = @[@"ic_index", @"门店", @"雪花", @"我的"];
+    NSArray *titleArray = @[@"首页", @"附近", @"分类", @"我的"];
+    NSArray *selectImageNameArray = @[@"首页2", @"ic_fujin", @"ic_shangpin_xuanzhong", @"ic_my"];
+    NSArray *unSelectImageNameArray = @[@"ic_index", @"门店", @"ic_shangpin", @"我的"];
     for (int i = 0; i<self.tabBar.items.count; i++) {
         
         UITabBarItem *item = self.tabBar.items[i];

@@ -131,6 +131,7 @@
     }
 }
 
+//information
 - (void)chickPayResult{
     
     PaySuccessViewController *paySuccessVC = [[PaySuccessViewController alloc] init];

@@ -20,7 +20,6 @@
 @property(nonatomic, strong)UIView *topView;
 @property(nonatomic, strong)UIView *bottomView;
 @property(nonatomic, strong)UIButton *selectImgBtn;
-@property(nonatomic, strong)UIButton *viceBtn;
 @property(nonatomic, strong)UIButton *deleteBtn;
 @property(nonatomic, strong)UIButton *residentAreaBtn;
 

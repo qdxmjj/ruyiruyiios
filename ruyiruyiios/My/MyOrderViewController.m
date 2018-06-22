@@ -14,7 +14,6 @@
 
 @property(nonatomic, strong)UIView *underBtnView;
 @property(nonatomic, strong)NSArray *btnNameArray;
-@property(nonatomic, strong)UIButton *tmpBtn;
 @property(nonatomic, strong)UITableView *myorderTableV;
 @property(nonatomic, strong)NSMutableArray *allMutableA;
 @property(nonatomic, strong)NSMutableArray *topayMutableA;
@@ -203,18 +202,17 @@
 - (void)chickButton:(UIButton *)button{
  
     //1000--all  1001--topay  1002--todeliver  1003--toservice  1004--completed
-    if (_tmpBtn == nil) {
+    
+    for (int i = 0; i<self.btnNameArray.count; i++) {
         
-        button.selected = YES;
-        _tmpBtn = button;
-    }else if (_tmpBtn != nil && _tmpBtn == button){
-        
-        button.selected = YES;
-    }else if (_tmpBtn != button && _tmpBtn != nil){
-        
-        _tmpBtn.selected = NO;
-        button.selected = YES;
-        _tmpBtn = button;
+        UIButton *btn = (UIButton *)[[button superview] viewWithTag:1000+i];
+        if (button.tag == btn.tag) {
+            
+            button.selected = YES;
+        }else{
+            
+            [btn setSelected:NO];
+        }
     }
     statusStr = [NSString stringWithFormat:@"%ld", (button.tag - 1000)];
     self.underBtnView.frame = CGRectMake((button.tag - 1000)*(MAINSCREEN.width/_btnNameArray.count), 40, MAINSCREEN.width/_btnNameArray.count, 2);

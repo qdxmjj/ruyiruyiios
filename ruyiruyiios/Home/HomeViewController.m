@@ -390,7 +390,8 @@
 
 - (void)addFourButtons{
     
-    NSArray *nameArray = @[@"轮胎购买", @"免费更换", @"免费修补", @"轮胎共享"];
+    NSArray *nameArray = @[@"轮胎购买", @"免费更换", @"免费修补", @"商品分类"];
+    NSArray *imgArray = @[@"轮胎购买", @"免费更换", @"免费修补", @"ic_icon4"];
     for (int i = 0; i<4; i++) {
         
         CGFloat btnW = MAINSCREEN.width/4;
@@ -403,7 +404,7 @@
         [midBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         midBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
         midBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
-        [midBtn setImage:[UIImage imageNamed:[nameArray objectAtIndex:i]] forState:UIControlStateNormal];
+        [midBtn setImage:[UIImage imageNamed:[imgArray objectAtIndex:i]] forState:UIControlStateNormal];
         midBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
         midBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         [midBtn setImageEdgeInsets:UIEdgeInsetsMake(-20, 8, 0, 0)];
@@ -438,39 +439,45 @@
 
 - (void)chickMidBtn:(UIButton *)btn{
     
-    //1000轮胎购买，1001免费更换，1002免费修补，1003轮胎共享
+    //1000轮胎购买，1001免费更换，1002免费修补，1003商品分类
     //2000畅行无忧，2001汽车保养，2002美容清洗
-    if (btn.tag == 1000) {
+    if ([UserConfig user_id] == NULL) {
         
-        [self chickBuytyreBtn:btn];
-    }else if (btn.tag == 1001){
-        
-        
-    }else if (btn.tag == 1002){
-        
-        
-    }else if (btn.tag == 1003){
-        
-        
-    }else if (btn.tag == 2000){
-        
-        PassImpededViewController *passImpededVC = [[PassImpededViewController alloc] init];
-        [self.navigationController pushViewController:passImpededVC animated:YES];
+        [self alertIsloginView];
     }else{
         
-        NearbyViewController *nearbyVC = [[NearbyViewController alloc] init];
-        nearbyVC.status = @"0";
-        nearbyVC.isLocation = @"1";
-        if (btn.tag == 2001) {
+        if (btn.tag == 1000) {
             
-            nearbyVC.serviceType = @"2";
-            nearbyVC.condition = @"汽车保养";
+            [self chickBuytyreBtn:btn];
+        }else if (btn.tag == 1001){
+            
+            
+        }else if (btn.tag == 1002){
+            
+            
+        }else if (btn.tag == 1003){
+            
+            self.tabBarController.selectedIndex = 2;
+        }else if (btn.tag == 2000){
+            
+            PassImpededViewController *passImpededVC = [[PassImpededViewController alloc] init];
+            [self.navigationController pushViewController:passImpededVC animated:YES];
         }else{
             
-            nearbyVC.serviceType = @"3";
-            nearbyVC.condition = @"美容清洗";
+            NearbyViewController *nearbyVC = [[NearbyViewController alloc] init];
+            nearbyVC.status = @"0";
+            nearbyVC.isLocation = @"1";
+            if (btn.tag == 2001) {
+                
+                nearbyVC.serviceType = @"2";
+                nearbyVC.condition = @"汽车保养";
+            }else{
+                
+                nearbyVC.serviceType = @"3";
+                nearbyVC.condition = @"美容清洗";
+            }
+            [self.navigationController pushViewController:nearbyVC animated:YES];
         }
-        [self.navigationController pushViewController:nearbyVC animated:YES];
     }
 }
 

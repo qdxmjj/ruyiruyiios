@@ -54,28 +54,28 @@
     return _nameAndHeadBtn;
 }
 
-- (UILabel *)myQuotaLabel{
+- (UIButton *)myQuotaBtn{
     
-    if (_myQuotaLabel == nil) {
+    if (_myQuotaBtn == nil) {
         
-        _myQuotaLabel = [[UILabel alloc] init];
-        _myQuotaLabel.textAlignment = NSTextAlignmentCenter;
-        _myQuotaLabel.textColor = TEXTCOLOR64;
-        _myQuotaLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
+        _myQuotaBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_myQuotaBtn setTitle:@"我的额度" forState:UIControlStateNormal];
+        [_myQuotaBtn setTitleColor:TEXTCOLOR64 forState:UIControlStateNormal];
+        _myQuotaBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
     }
-    return _myQuotaLabel;
+    return _myQuotaBtn;
 }
 
-- (UILabel *)creditLineLabel{
+- (UIButton *)creditLineBtn{
     
-    if (_creditLineLabel == nil) {
+    if (_creditLineBtn == nil) {
         
-        _creditLineLabel = [[UILabel alloc] init];
-        _creditLineLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
-        _creditLineLabel.textColor = TEXTCOLOR64;
-        _creditLineLabel.textAlignment = NSTextAlignmentCenter;
+        _creditLineBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_creditLineBtn setTitle:@"信用额度" forState:UIControlStateNormal];
+        [_creditLineBtn setTitleColor:TEXTCOLOR64 forState:UIControlStateNormal];
+        _creditLineBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
     }
-    return _creditLineLabel;
+    return _creditLineBtn;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame{
@@ -91,22 +91,11 @@
 
 - (void)addUnchangeView{
     
-    NSArray *nameArray = @[@"我的额度", @"信用额度"];
-    for (int i = 0; i<nameArray.count; i++) {
-        
-        UILabel *label = [[UILabel alloc] init];
-        label.frame = CGRectMake(0+(MAINSCREEN.width/2)*i, 155, MAINSCREEN.width/2, 20);
-        label.font = [UIFont fontWithName:TEXTFONT size:14.0];
-        label.text = nameArray[i];
-        label.textColor = TEXTCOLOR64;
-        label.textAlignment = NSTextAlignmentCenter;
-        [self addSubview:label];
-    }
-    UIView *midView = [[UIView alloc] initWithFrame:CGRectMake(MAINSCREEN.width/2, 140, 0.5, 70)];
+    UIView *midView = [[UIView alloc] initWithFrame:CGRectMake(MAINSCREEN.width/2, 140, 0.5, 50)];
     midView.backgroundColor = [PublicClass colorWithHexString:@"#ececec"];
     [self addSubview:midView];
     
-    UIView *underLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 210, MAINSCREEN.width, 5)];
+    UIView *underLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 190, MAINSCREEN.width, 5)];
     underLineView.backgroundColor = [PublicClass colorWithHexString:@"#ececec"];
     [self addSubview:underLineView];
 }
@@ -117,8 +106,8 @@
     [self addSubview:self.headPortraitImageV];
     [self addSubview:self.nameLabel];
     [self addSubview:self.nameAndHeadBtn];
-    [self addSubview:self.myQuotaLabel];
-    [self addSubview:self.creditLineLabel];
+    [self addSubview:self.myQuotaBtn];
+    [self addSubview:self.creditLineBtn];
 }
 
 - (void)layoutSubviews{
@@ -126,18 +115,31 @@
     [super layoutSubviews];
     self.backImageV.frame = CGRectMake(0, 0, MAINSCREEN.width, 140);
     self.headPortraitImageV.frame = CGRectMake(MAINSCREEN.width/2 - 50/2, 40, 50, 50);
-    self.nameLabel.frame = CGRectMake(0, 100, MAINSCREEN.width, 20);
-    self.nameAndHeadBtn.frame = CGRectMake(self.headPortraitImageV.frame.origin.x, 40, self.headPortraitImageV.frame.size.width, 80);
-    self.myQuotaLabel.frame = CGRectMake(0, 180, MAINSCREEN.width/2, 20);
-    self.creditLineLabel.frame = CGRectMake(MAINSCREEN.width/2, 180, MAINSCREEN.width/2, 20);
+    self.nameLabel.frame = CGRectMake(MAINSCREEN.width/2 - 50, 100, 100, 20);
+    self.nameAndHeadBtn.frame = CGRectMake(self.headPortraitImageV.frame.origin.x, 40, 100, 100);
+    self.myQuotaBtn.frame = CGRectMake(0, 140, MAINSCREEN.width/2, 50);
+    self.creditLineBtn.frame = CGRectMake(MAINSCREEN.width/2, 140, MAINSCREEN.width/2, 50);
 }
 
-- (void)setDatatoHeadView:(NSString *)myQuotaStr creditLine:(NSString *)creditLineStr{
+- (void)setDatatoHeadView{
     
-    [self.headPortraitImageV sd_setImageWithURL:[NSURL URLWithString:[UserConfig headimgurl]]];
-    self.nameLabel.text = [UserConfig nick];
-    self.myQuotaLabel.text = myQuotaStr;
-    self.creditLineLabel.text = creditLineStr;
+    if ([UserConfig user_id] == NULL) {
+        
+        self.headPortraitImageV.image = [UIImage imageNamed:@"ic_notlogged"];
+        self.nameLabel.text = @"立即登录";
+        self.nameLabel.layer.cornerRadius = 4.0;
+        self.nameLabel.layer.masksToBounds = YES;
+        self.nameLabel.layer.borderColor = [[UIColor whiteColor] CGColor];
+        self.nameLabel.layer.borderWidth = 1.0;
+    }else{
+        
+        [self.headPortraitImageV sd_setImageWithURL:[NSURL URLWithString:[UserConfig headimgurl]]];
+        self.nameLabel.text = [UserConfig nick];
+        self.nameLabel.layer.cornerRadius = 0.0;
+        self.nameLabel.layer.masksToBounds = YES;
+        self.nameLabel.layer.borderColor = [[UIColor clearColor] CGColor];
+        self.nameLabel.layer.borderWidth = 0.0;
+    }
 }
 
 /*

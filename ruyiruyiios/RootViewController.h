@@ -18,4 +18,6 @@
 
 - (UIBarButtonItem *)barButtonItemWithRect:(CGRect)frame image:(UIImage *)image highlighted:(UIImage *)imagehigh target:(id)target action:(SEL)action;
 - (IBAction)backButtonAction:(id)sender;
+- (void)alertIsloginView;
+- (void)alertIsequallyTokenView;
 @end

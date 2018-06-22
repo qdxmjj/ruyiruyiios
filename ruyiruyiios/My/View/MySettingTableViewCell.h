@@ -12,6 +12,10 @@
 
 @property(nonatomic, strong)UIImageView *iconImageV;
 @property(nonatomic, strong)UILabel *titleLabel;
-@property(nonatomic, strong)UIImageView *rightImage;
+@property(nonatomic, strong)UIImageView *rightImageV;
 @property(nonatomic, strong)UIView *underLineView;
+@property(nonatomic, strong)NSArray *imgArray;
+@property(nonatomic, strong)NSArray *titleArray;
+
+- (void)setDatatoViews:(NSInteger)index;
 @end

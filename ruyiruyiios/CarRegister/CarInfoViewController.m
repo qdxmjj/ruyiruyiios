@@ -66,16 +66,17 @@
         
         _promptLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
         [_promptLabel setNumberOfLines:0];
-        _promptLabel.text = @"温馨提示：以下信息均为必填，以方便我们核实您的车辆状况，为您提供专业的服务";
+        _promptLabel.text = @"温馨提示：如驿如意平台致力于您的爱车提供终身个性化轮胎服务，需要了解您爱车的详细信息，请您仔细填写!";
 //        _promptLabel.backgroundColor = [UIColor whiteColor];
-        _promptLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];;
+        _promptLabel.font = [UIFont fontWithName:TEXTFONT size:12.0];
+        _promptLabel.textColor = TEXTCOLOR64;
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
         paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
         NSDictionary *attributes = @{NSFontAttributeName:_promptLabel.font, NSParagraphStyleAttributeName:paragraphStyle.copy};
         
-        CGSize labelsize = [_promptLabel.text boundingRectWithSize:CGSizeMake(MAINSCREEN.width, MAINSCREEN.height) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
+        CGSize labelsize = [_promptLabel.text boundingRectWithSize:CGSizeMake(MAINSCREEN.width-10, MAINSCREEN.height) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
         height = labelsize.height;
-        [_promptLabel setFrame:CGRectMake(6, y, labelsize.width, labelsize.height)];
+        [_promptLabel setFrame:CGRectMake(0, y, labelsize.width, labelsize.height)];
         [self.view addSubview:_promptLabel];
     }
     return _promptLabel;
@@ -91,6 +92,7 @@
         _carInfoTV.delegate = self;
         _carInfoTV.dataSource = self;
         _carInfoTV.backgroundColor = [UIColor whiteColor];
+        _carInfoTV.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _carInfoTV;
 }
@@ -238,11 +240,12 @@
     
     NSString *useridStr = [NSString stringWithFormat:@"%@", [UserConfig user_id]];
     TopCarInfoTableViewCell *topCell = [_carInfoTV cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    BottomCarInfoTableViewCell *bottomCell = [_carInfoTV cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     if ([isodomter isEqualToString:@"2"]) {
         
-        NSLog(@"主页的图片:%@, 副页的图片:%@", topCell.selectImgBtn.imageView.image, topCell.viceBtn.imageView.image);
+        NSLog(@"主页的图片:%@, 副页的图片:%@", topCell.selectImgBtn.imageView.image, nil);
         NSLog(@"%@,%@,%@,%@,%@,%@,%@", useridStr ,resultPlateStr, fontStr, rearStr, serviceCutoffStr, dateStr, addressStr);
-        if (resultPlateStr.length == 0 || fontStr.length == 0 || rearStr.length == 0 || serviceCutoffStr.length == 0 || dateStr.length == 0 || addressStr.length == 0 || topCell.selectImgBtn.imageView.image == nil || topCell.viceBtn.imageView.image == nil) {
+        if (resultPlateStr.length == 0 || fontStr.length == 0 || rearStr.length == 0 || serviceCutoffStr.length == 0 || dateStr.length == 0 || addressStr.length == 0 || topCell.selectImgBtn.imageView.image == nil) {
             
             [PublicClass showHUD:@"输入信息不完整" view:self.view];
         }else{
@@ -251,8 +254,8 @@
                 
                 if (self.plateLicenseView.inputTF.text.length == 6) {
                     
-                    self.commitPostDic =@{@"userId":useridStr, @"car_id":self.car_carTireInfo.tireInfoId, @"xinnengyuan":@"true", @"plat_number":resultPlateStr, @"pro_city_id":pro_city_id, @"font":fontStr, @"rear":rearStr, @"driving_license_date":dateStr, @"service_end_date":serviceCutoffStr, @"type_i_rate":@"3,4", @"type_ii_rate":@"2,5", @"type_iii_rate":@"1", @"traveled":@"", @"invite_code":@"", @"car_name":self.car_carTireInfo.verhicle, @"proCityName":addressStr, @"road_txt":@"普通公路;非铺装道路;快速公路;极端路况道路"};
-                    [self commitInternetWithDic:self.commitPostDic mainImage:topCell.selectImgBtn.imageView.image subImage:topCell.viceBtn.imageView.image odometerImage:nil];
+                    self.commitPostDic =@{@"userId":useridStr, @"car_id":self.car_carTireInfo.tireInfoId, @"xinnengyuan":@"true", @"plat_number":resultPlateStr, @"pro_city_id":pro_city_id, @"font":fontStr, @"rear":rearStr, @"driving_license_date":dateStr, @"service_end_date":serviceCutoffStr, @"type_i_rate":oftenId, @"type_ii_rate":onceId, @"type_iii_rate":notId, @"traveled":bottomCell.kilometerTF.text, @"invite_code":@"", @"car_name":self.car_carTireInfo.verhicle, @"proCityName":addressStr, @"road_txt":carroadStr};
+                    [self commitInternetWithDic:self.commitPostDic mainImage:topCell.selectImgBtn.imageView.image subImage:nil odometerImage:nil];
                 }else{
                     
                     [PublicClass showHUD:@"请输入正确新能源牌号" view:self.view];
@@ -261,8 +264,8 @@
                 
                 if (self.plateLicenseView.inputTF.text.length == 5){
                     
-                    self.commitPostDic =@{@"userId":useridStr, @"car_id":self.car_carTireInfo.tireInfoId, @"xinnengyuan":@"false", @"plat_number":resultPlateStr, @"pro_city_id":pro_city_id, @"font":fontStr, @"rear":rearStr, @"driving_license_date":dateStr, @"service_end_date":serviceCutoffStr, @"type_i_rate":@"3,4", @"type_ii_rate":@"2,5", @"type_iii_rate":@"1", @"traveled":@"", @"invite_code":@"", @"car_name":self.car_carTireInfo.verhicle, @"proCityName":addressStr, @"road_txt":@"普通公路;非铺装道路;快速公路;极端路况道路"};
-                    [self commitInternetWithDic:self.commitPostDic mainImage:topCell.selectImgBtn.imageView.image subImage:topCell.viceBtn.imageView.image odometerImage:nil];
+                    self.commitPostDic =@{@"userId":useridStr, @"car_id":self.car_carTireInfo.tireInfoId, @"xinnengyuan":@"false", @"plat_number":resultPlateStr, @"pro_city_id":pro_city_id, @"font":fontStr, @"rear":rearStr, @"driving_license_date":dateStr, @"service_end_date":serviceCutoffStr, @"type_i_rate":oftenId, @"type_ii_rate":onceId, @"type_iii_rate":notId, @"traveled":bottomCell.kilometerTF.text, @"invite_code":@"", @"car_name":self.car_carTireInfo.verhicle, @"proCityName":addressStr, @"road_txt":carroadStr};
+                    [self commitInternetWithDic:self.commitPostDic mainImage:topCell.selectImgBtn.imageView.image subImage:nil odometerImage:nil];
                 }else{
                     
                     [PublicClass showHUD:@"请输入正确的车牌号" view:self.view];
@@ -271,8 +274,7 @@
         }
     }else{
         
-        BottomCarInfoTableViewCell *bottomCell = [_carInfoTV cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-        if (resultPlateStr.length == 0 || fontStr.length == 0 || rearStr.length == 0 || dateStr.length == 0 || serviceCutoffStr.length == 0 || addressStr.length == 0 || topCell.selectImgBtn.imageView.image == nil || topCell.viceBtn.imageView.image == nil || bottomCell.kilometerTF.text.length == 0 || bottomCell.b_selectImgBtn.imageView.image == nil || carroadStr.length == 0) {
+        if (resultPlateStr.length == 0 || fontStr.length == 0 || rearStr.length == 0 || dateStr.length == 0 || serviceCutoffStr.length == 0 || addressStr.length == 0 || topCell.selectImgBtn.imageView.image == nil || bottomCell.kilometerTF.text.length == 0 || carroadStr.length == 0) {
         
             [PublicClass showHUD:@"输入信息不能为空!" view:self.view];
         }else{
@@ -281,8 +283,8 @@
                 
                 if (self.plateLicenseView.inputTF.text.length == 6) {
                     
-                    self.commitPostDic =@{@"userId":useridStr, @"car_id":self.car_carTireInfo.tireInfoId, @"xinnengyuan":@"true", @"plat_number":resultPlateStr, @"pro_city_id":pro_city_id, @"font":fontStr, @"rear":rearStr, @"driving_license_date":dateStr, @"service_end_date":serviceCutoffStr, @"type_i_rate":oftenId, @"type_ii_rate":onceId, @"type_iii_rate":notId, @"traveled":self.plateLicenseView.inputTF.text, @"invite_code":@"", @"car_name":self.car_carTireInfo.verhicle, @"proCityName":addressStr, @"road_txt":carroadStr};
-                    [self commitInternetWithDic:self.commitPostDic mainImage:topCell.selectImgBtn.imageView.image subImage:topCell.viceBtn.imageView.image odometerImage:bottomCell.b_selectImgBtn.imageView.image];
+                    self.commitPostDic =@{@"userId":useridStr, @"car_id":self.car_carTireInfo.tireInfoId, @"xinnengyuan":@"true", @"plat_number":resultPlateStr, @"pro_city_id":pro_city_id, @"font":fontStr, @"rear":rearStr, @"driving_license_date":dateStr, @"service_end_date":serviceCutoffStr, @"type_i_rate":oftenId, @"type_ii_rate":onceId, @"type_iii_rate":notId, @"traveled":bottomCell.kilometerTF.text, @"invite_code":@"", @"car_name":self.car_carTireInfo.verhicle, @"proCityName":addressStr, @"road_txt":carroadStr};
+                    [self commitInternetWithDic:self.commitPostDic mainImage:topCell.selectImgBtn.imageView.image subImage:nil odometerImage:nil];
                 }else{
                     
                     [PublicClass showHUD:@"请输入正确的新能源车牌号" view:self.view];
@@ -292,8 +294,8 @@
                 if (self.plateLicenseView.inputTF.text.length == 5) {
                 
                     NSLog(@"%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@", useridStr, self.car_carTireInfo.tireInfoId, resultPlateStr, pro_city_id, fontStr, rearStr, dateStr, serviceCutoffStr, oftenId, onceId, notId, bottomCell.kilometerTF.text, self.car_carTireInfo.verhicle);
-                    self.commitPostDic =@{@"userId":useridStr, @"car_id":self.car_carTireInfo.tireInfoId, @"xinnengyuan":@"false", @"plat_number":resultPlateStr, @"pro_city_id":pro_city_id, @"font":fontStr, @"rear":rearStr, @"driving_license_date":dateStr, @"service_end_date":serviceCutoffStr, @"type_i_rate":oftenId, @"type_ii_rate":onceId, @"type_iii_rate":notId, @"traveled":self.plateLicenseView.inputTF.text, @"invite_code":@"", @"car_name":self.car_carTireInfo.verhicle, @"proCityName":addressStr, @"road_txt":carroadStr};
-                    [self commitInternetWithDic:self.commitPostDic mainImage:topCell.selectImgBtn.imageView.image subImage:topCell.viceBtn.imageView.image odometerImage:bottomCell.b_selectImgBtn.imageView.image];
+                    self.commitPostDic =@{@"userId":useridStr, @"car_id":self.car_carTireInfo.tireInfoId, @"xinnengyuan":@"false", @"plat_number":resultPlateStr, @"pro_city_id":pro_city_id, @"font":fontStr, @"rear":rearStr, @"driving_license_date":dateStr, @"service_end_date":serviceCutoffStr, @"type_i_rate":oftenId, @"type_ii_rate":onceId, @"type_iii_rate":notId, @"traveled":bottomCell.kilometerTF.text, @"invite_code":@"", @"car_name":self.car_carTireInfo.verhicle, @"proCityName":addressStr, @"road_txt":carroadStr};
+                    [self commitInternetWithDic:self.commitPostDic mainImage:topCell.selectImgBtn.imageView.image subImage:nil odometerImage:nil];
                 }else{
                     
                     [PublicClass showHUD:@"请输入正确的车牌号" view:self.view];
@@ -301,9 +303,6 @@
             }
         }
     }
-//            NSString *commitReqJson = [PublicClass convertToJsonData:commitPostDic];
-//        }
-//    }
 }
 
 - (void)commitInternetWithDic:(NSDictionary *)dic mainImage:(UIImage *)mainImage subImage:(UIImage *)subImage odometerImage:(UIImage *)oImage{
@@ -311,17 +310,8 @@
     NSString *reqJson = [PublicClass convertToJsonData:dic];
     float imgCompressionQuality = 0.3;//图片压缩比例
     NSData *mainData=UIImageJPEGRepresentation(mainImage, imgCompressionQuality);
-    NSData *subData = UIImageJPEGRepresentation(subImage, imgCompressionQuality);
     NSArray <JJFileParam *> *fileArray;
-    if (oImage == nil) {
-        
-        fileArray = @[[JJFileParam fileConfigWithfileData:mainData name:@"jiashizhengzhuye" fileName:@"jiashizhengzhuye.png" mimeType:@"image/jpg/png/jpeg"], [JJFileParam fileConfigWithfileData:subData name:@"jiashizhengfuye" fileName:@"jiashizhengfuye.png" mimeType:@"image/jpg/png/jpeg"]];
-    }else{
-        
-        NSData *odometerData = UIImageJPEGRepresentation(oImage, imgCompressionQuality);
-        fileArray = @[[JJFileParam fileConfigWithfileData:mainData name:@"jiashizhengzhuye" fileName:@"jiashizhengzhuye.png" mimeType:@"image/jpg/png/jpeg"], [JJFileParam fileConfigWithfileData:subData name:@"jiashizhengfuye" fileName:@"jiashizhengfuye.png" mimeType:@"image/jpg/png/jpeg"], [JJFileParam fileConfigWithfileData:odometerData name:@"lichengbiao" fileName:@"jlichengbiao.png" mimeType:@"image/jpg/png/jpeg"]];
-    }
-    
+    fileArray = @[[JJFileParam fileConfigWithfileData:mainData name:@"jiashizhengzhuye" fileName:@"jiashizhengzhuye.png" mimeType:@"image/jpg/png/jpeg"]];
     __strong __typeof(self)strongSelf = self;
     [JJRequest updateRequest:@"addUserCar" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} fileConfig:fileArray progress:^(int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
         
@@ -482,13 +472,7 @@
         return 445.0;
     }else{
 
-        if ([isodomter isEqualToString:@"1"]) {
-
-            return 265.0;
-        }else{
-
-            return 40.0;
-        }
+        return 90.0;
     }
 }
 
@@ -521,7 +505,6 @@
         [topCell.rearBtn addTarget:self action:@selector(chickTopBtn:) forControlEvents:UIControlEventTouchUpInside];
         topCell.rearBtn.userInteractionEnabled = is_alter;
         topCell.selectImgBtn.userInteractionEnabled = is_alter;
-        topCell.viceBtn.userInteractionEnabled = is_alter;
         if (fontStr.length == 0) {
             
             [topCell.frontBtn setTitle:self.car_carTireInfo.font forState:UIControlStateNormal];
@@ -570,8 +553,7 @@
             [topCell.drivingBtn setTitle:drivingDateStr forState:UIControlStateNormal];
             [topCell.serviceBtn setTitle:serviceEndStr forState:UIControlStateNormal];
             [topCell.residentAreaBtn setTitle:self.carInfo.proCityName forState:UIControlStateNormal];
-            [topCell.selectImgBtn sd_setImageWithURL:[NSURL URLWithString:self.carInfo.traveledImgInverse] forState:UIControlStateNormal];
-            [topCell.viceBtn sd_setImageWithURL:[NSURL URLWithString:self.carInfo.traveledImgObverse] forState:UIControlStateNormal];
+            [topCell.selectImgBtn sd_setImageWithURL:[NSURL URLWithString:self.carInfo.traveledImgObverse] forState:UIControlStateNormal];
         }
         return topCell;
     }else{
@@ -584,17 +566,11 @@
             bottomCell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         bottomCell.backgroundColor = [UIColor clearColor];
-        bottomCell.odometerBtn.tag = 20000;
         if ([isodomter isEqualToString:@"2"]) {
             
-            bottomCell.odometerBtn.selected = YES;
         }else{
             
-            bottomCell.odometerBtn.selected = NO;
         }
-        [bottomCell.odometerBtn addTarget:self action:@selector(chickBottomBtn:) forControlEvents:UIControlEventTouchUpInside];
-        bottomCell.odometerBtn.userInteractionEnabled = is_alter;
-        bottomCell.b_selectImgBtn.userInteractionEnabled = is_alter;
         bottomCell.roadConditionBtn.tag = 20001;
         [bottomCell.roadConditionBtn setTitle:carroadStr forState:UIControlStateNormal];
         [bottomCell.roadConditionBtn addTarget:self action:@selector(chickBottomBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -604,13 +580,10 @@
             
             if ([self.carInfo.maturityImg isEqualToString:@""]) {
                 
-                bottomCell.odometerBtn.selected = YES;
             }else{
                 
-                bottomCell.odometerBtn.selected = NO;
             }
             bottomCell.kilometerTF.text = [NSString stringWithFormat:@"%@", self.carInfo.mileage];
-            [bottomCell.b_selectImgBtn sd_setImageWithURL:[NSURL URLWithString:self.carInfo.maturityImg] forState:UIControlStateNormal];
             [bottomCell.roadConditionBtn setTitle:self.carInfo.roadTxt forState:UIControlStateNormal];
         }
         return bottomCell;
@@ -736,22 +709,8 @@
 
 - (void)chickBottomBtn:(UIButton *)bottomBtn{
     
-    //20000:选择里程表，20001:行驶路况
+    //20001:行驶路况
     switch (bottomBtn.tag) {
-        case 20000:
-            
-            [self.carInfoTV beginUpdates];
-            if (bottomBtn.selected == NO) {
-                
-                isodomter = @"2";
-                bottomBtn.selected = YES;
-            }else{
-                
-                isodomter = @"1";
-                bottomBtn.selected = NO;
-            }
-            [self.carInfoTV endUpdates];
-            break;
             
         case 20001:
             
