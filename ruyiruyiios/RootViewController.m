@@ -9,6 +9,7 @@
 #import "RootViewController.h"
 #import <MBProgressHUD.h>
 #import <AFNetworking.h>
+#import "CodeLoginViewController.h"
 
 @implementation UIButton(FillColor)
 
@@ -75,6 +76,38 @@
 - (IBAction)backButtonAction:(id)sender{
     
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)alertIsloginView{
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"您还没有登录" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"前往登录" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        CodeLoginViewController *loginVC = [[CodeLoginViewController alloc] init];
+        [self.navigationController pushViewController:loginVC animated:YES];
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"暂不登录" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [alert addAction:ok];
+    [alert addAction:cancel];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)alertIsequallyTokenView{
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"此用户已在别的地方登录，请重新登录" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        CodeLoginViewController *codeLoginVC = [[CodeLoginViewController alloc] init];
+        [self.navigationController pushViewController:codeLoginVC animated:YES];
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [alert addAction:ok];
+    [alert addAction:cancel];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

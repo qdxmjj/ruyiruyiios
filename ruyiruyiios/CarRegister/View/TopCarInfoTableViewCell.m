@@ -13,7 +13,7 @@
 
 @implementation TopCarInfoTableViewCell{
     
-    UIButton *deleteMainBtn, *deleteViceBtn;
+    UIButton *deleteMainBtn;
     CGFloat bottomy;
 }
 
@@ -23,7 +23,7 @@
         
         _topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, 325)];
         _topView.backgroundColor = [UIColor whiteColor];
-        NSArray *leftNameArray = @[@"车型", @"是否为新能源", @"车牌号码", @"前轮规格", @"后轮规格", @"行驶证注册日期", @"服务截止日期", @"常驻地区"];
+        NSArray *leftNameArray = @[@"车型", @"是否是新能源汽车", @"车牌号码", @"常驻地区", @"前轮型号", @"后轮型号", @"行驶证注册日期", @"服务截止日期"];
         for (int i = 0; i<leftNameArray.count; i++) {
             
             CGFloat gap = i*40;
@@ -79,11 +79,25 @@
     return _platenumBtn;
 }
 
+- (UIButton *)residentAreaBtn{
+    
+    if (_residentAreaBtn == nil) {
+        
+        _residentAreaBtn = [[UIButton alloc] initWithFrame:CGRectMake(MAINSCREEN.width/2, 120, MAINSCREEN.width/2 - 20, 40)];
+        //        _residentAreaBtn.backgroundColor = [UIColor redColor];
+        _residentAreaBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
+        _residentAreaBtn.titleLabel.textAlignment = NSTextAlignmentRight;
+        [_residentAreaBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        _residentAreaBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    }
+    return _residentAreaBtn;
+}
+
 - (UIButton *)frontBtn{
     
     if (_frontBtn == nil) {
         
-        _frontBtn = [[UIButton alloc] initWithFrame:CGRectMake(MAINSCREEN.width/2, 120, MAINSCREEN.width/2 - 20, 40)];
+        _frontBtn = [[UIButton alloc] initWithFrame:CGRectMake(MAINSCREEN.width/2, 160, MAINSCREEN.width/2 - 20, 40)];
         _frontBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
         _frontBtn.titleLabel.textAlignment = NSTextAlignmentRight;
         [_frontBtn setTitle:@"2015/70R15" forState:UIControlStateNormal];
@@ -97,7 +111,7 @@
     
     if (_rearBtn == nil) {
         
-        _rearBtn = [[UIButton alloc] initWithFrame:CGRectMake(MAINSCREEN.width/2, 160, MAINSCREEN.width/2 - 20, 40)];
+        _rearBtn = [[UIButton alloc] initWithFrame:CGRectMake(MAINSCREEN.width/2, 200, MAINSCREEN.width/2 - 20, 40)];
         _rearBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
         _rearBtn.titleLabel.textAlignment = NSTextAlignmentRight;
         [_rearBtn setTitle:@"2015/70R15" forState:UIControlStateNormal];
@@ -111,7 +125,7 @@
     
     if (_drivingBtn == nil) {
         
-        _drivingBtn = [[UIButton alloc] initWithFrame:CGRectMake(MAINSCREEN.width/2, 200, MAINSCREEN.width/2 - 20, 40)];
+        _drivingBtn = [[UIButton alloc] initWithFrame:CGRectMake(MAINSCREEN.width/2, 240, MAINSCREEN.width/2 - 20, 40)];
         _drivingBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
         _drivingBtn.titleLabel.textAlignment = NSTextAlignmentRight;
         [_drivingBtn setTitle:@"2017-09-09" forState:UIControlStateNormal];
@@ -125,7 +139,7 @@
     
     if (_serviceBtn == nil) {
         
-        _serviceBtn = [[UIButton alloc] initWithFrame:CGRectMake(MAINSCREEN.width/2, 240, MAINSCREEN.width/2 - 20, 40)];
+        _serviceBtn = [[UIButton alloc] initWithFrame:CGRectMake(MAINSCREEN.width/2, 280, MAINSCREEN.width/2 - 20, 40)];
         _serviceBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
         _serviceBtn.titleLabel.textAlignment = NSTextAlignmentRight;
         [_serviceBtn setTitle:@"2032-09-08" forState:UIControlStateNormal];
@@ -133,21 +147,6 @@
         _serviceBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     }
     return _serviceBtn;
-}
-
-- (UIButton *)residentAreaBtn{
-    
-    if (_residentAreaBtn == nil) {
-        
-        _residentAreaBtn = [[UIButton alloc] initWithFrame:CGRectMake(MAINSCREEN.width/2, 280, MAINSCREEN.width/2 - 20, 40)];
-//        _residentAreaBtn.backgroundColor = [UIColor redColor];
-        _residentAreaBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
-        _residentAreaBtn.titleLabel.textAlignment = NSTextAlignmentRight;
-        [_residentAreaBtn setTitle:@"" forState:UIControlStateNormal];
-        [_residentAreaBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-        _residentAreaBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    }
-    return _residentAreaBtn;
 }
 
 - (UIView *)bottomView{
@@ -181,32 +180,11 @@
     return _selectImgBtn;
 }
 
-- (UIButton *)viceBtn{
-    
-    if (_viceBtn == nil) {
-        
-        _viceBtn = [[UIButton alloc] initWithFrame:CGRectMake(MAINSCREEN.width/2+20, bottomy, MAINSCREEN.width/2 - 40, 70)];
-        _viceBtn.tag = 2;
-        _viceBtn.enabled = YES;
-        _viceBtn.backgroundColor = [UIColor clearColor];
-        [_viceBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-        _viceBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
-        [_viceBtn addTarget:self action:@selector(chickSelectBtn:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _viceBtn;
-}
-
 - (void)chickSelectBtn:(UIButton *)button{
     
     [[ZZYPhotoHelper shareHelper] showImageViewSelcteWithResultBlock:^(id data) {
-        
-        if (button.tag == 1) {
             
-            deleteMainBtn.hidden = NO;
-        }else{
-            
-            deleteViceBtn.hidden = NO;
-        }
+        deleteMainBtn.hidden = NO;
         [button setImage:(UIImage *)data forState:UIControlStateNormal];
     }];
 }
@@ -230,7 +208,6 @@
         [self.contentView addSubview:self.bottomView];
         [self addPictureView];
         [_bottomView addSubview:self.selectImgBtn];
-        [_bottomView addSubview:self.viceBtn];
         [self addDeleteBtn];
     }
     return self;
@@ -238,8 +215,8 @@
 
 - (void)addPictureView{
     
-    NSArray *nameArray = @[@"添加主页", @"添加副页"];
-    for (int i = 0; i<2; i++) {
+    NSArray *nameArray = @[@"添加主页"];
+    for (int i = 0; i<nameArray.count; i++) {
         
         CGFloat photoX = i*MAINSCREEN.width/2;
         PhotoBtnView *phView = [[PhotoBtnView alloc] initWithFrame:CGRectMake(20+photoX, bottomy, MAINSCREEN.width/2 - 40, 70)];
@@ -252,7 +229,7 @@
 
 - (void)addDeleteBtn{
     
-    for (int i = 0; i<2; i++) {
+    for (int i = 0; i<1; i++) {
         
         CGFloat buttonX = i*MAINSCREEN.width/2;
         _deleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(MAINSCREEN.width/2 - 20 - 13 + buttonX, bottomy, 13, 13)];
@@ -261,26 +238,14 @@
         _deleteBtn.hidden = YES;
         [_deleteBtn setImage:[UIImage imageNamed:@"删除照片"] forState:UIControlStateNormal];
         [_deleteBtn addTarget:self action:@selector(chickDeleteBtn:) forControlEvents:UIControlEventTouchUpInside];
-        if (i == 0) {
-            
-            deleteMainBtn = _deleteBtn;
-        }else{
-            
-            deleteViceBtn = _deleteBtn;
-        }
+        deleteMainBtn = _deleteBtn;
         [_bottomView addSubview:_deleteBtn];
     }
 }
 
 - (void)chickDeleteBtn:(UIButton *)button{
-    
-    if (button.tag == 1000) {
         
-        [_selectImgBtn setImage:nil forState:UIControlStateNormal];
-    }else{
-        
-        [_viceBtn setImage:nil forState:UIControlStateNormal];
-    }
+    [_selectImgBtn setImage:nil forState:UIControlStateNormal];
     button.hidden = YES;
 }
 

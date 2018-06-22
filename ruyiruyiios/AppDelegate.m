@@ -15,7 +15,7 @@
 #import "FMDBCarVerhicle.h"
 #import "FMDBCarTireInfo.h"
 #import "FMDBCarTireType.h"
-#import "PersonalInformationViewController.h"
+#import "MyQuotaViewController.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import "MBProgressHUD+YYM_category.h"
 
@@ -33,7 +33,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-//    PersonalInformationViewController *carInfoVC = [[PersonalInformationViewController alloc] init];
+//    MyQuotaViewController *carInfoVC = [[MyQuotaViewController alloc] init];
 //    UINavigationController *carNav = [[UINavigationController alloc] initWithRootViewController:carInfoVC];
 //    self.window.rootViewController = carNav;
     if (![[NSUserDefaults standardUserDefaults] valueForKey:@"isFirst"]) {

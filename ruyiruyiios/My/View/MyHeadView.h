@@ -14,9 +14,9 @@
 @property(nonatomic, strong)UIImageView *headPortraitImageV;
 @property(nonatomic, strong)UILabel *nameLabel;
 @property(nonatomic, strong)UIButton *nameAndHeadBtn;
-@property(nonatomic, strong)UILabel *myQuotaLabel;
-@property(nonatomic, strong)UILabel *creditLineLabel;
+@property(nonatomic, strong)UIButton *myQuotaBtn;
+@property(nonatomic, strong)UIButton *creditLineBtn;
 
-- (void)setDatatoHeadView:(NSString *)myQuotaStr creditLine:(NSString *)creditLineStr;
+- (void)setDatatoHeadView;
 
 @end

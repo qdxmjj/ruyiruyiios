@@ -116,18 +116,7 @@
             [PublicClass showHUD:mesgStr view:self.view];
         }else if ([statusStr isEqualToString:@"-999"]){
             
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"此用户已在别的地方登录，请重新登录" preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            
-                CodeLoginViewController *codeLoginVC = [[CodeLoginViewController alloc] init];
-                [self.navigationController pushViewController:codeLoginVC animated:YES];
-            }];
-            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                
-            }];
-            [alert addAction:ok];
-            [alert addAction:cancel];
-            [self presentViewController:alert animated:YES completion:nil];
+            [self alertIsequallyTokenView];
         }else{
 //            YLog(@"获取得到的车辆信息:%@", data);
             [self analysizeData:data];
