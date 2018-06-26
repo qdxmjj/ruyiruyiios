@@ -6,10 +6,10 @@
 //  Copyright © 2018年 如驿如意. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "RootViewController.h"
 #import "DirectoryTableViewController.h"
 
-@interface CommdoityDetailsViewController : UIViewController
+@interface CommdoityDetailsViewController : RootViewController
 
 @property(nonatomic,strong)DirectoryTableViewController *directoryVC;
 

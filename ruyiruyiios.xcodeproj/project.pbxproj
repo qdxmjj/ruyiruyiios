@@ -10,6 +10,8 @@
 		1A3CB3004D62FF11EDC9B585 /* libPods-ruyiruyiios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D40C758474E7181E97834C56 /* libPods-ruyiruyiios.a */; };
 		360CD54220DCED8E005123B9 /* StoreDetailsPhoneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C80A1B20D89C640036C14A /* StoreDetailsPhoneCell.m */; };
 		360CD54320DCEDB8005123B9 /* MySettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4332F88420D8A19500AF386F /* MySettingViewController.m */; };
+		3618716E20E22BE500BBAE43 /* RepairHeadAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298620E1E494006E2CCA /* RepairHeadAlertView.m */; };
+		3618716F20E22C3600BBAE43 /* TireRepairViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298020E1DD2D006E2CCA /* TireRepairViewController.m */; };
 		369520F720C9172F001FA48E /* ic_my_shibai@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 369520F420C9172E001FA48E /* ic_my_shibai@3x.png */; };
 		369520F820C9172F001FA48E /* ic_my_shibai.png in Resources */ = {isa = PBXBuildFile; fileRef = 369520F520C9172E001FA48E /* ic_my_shibai.png */; };
 		369520F920C9172F001FA48E /* ic_my_shibai@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 369520F620C9172E001FA48E /* ic_my_shibai@2x.png */; };
@@ -3747,6 +3749,8 @@
 			files = (
 				4326298F20E22CF8006E2CCA /* RepairHeadAlertView.m in Sources */,
 				4326298E20E22C55006E2CCA /* TireRepairViewController.m in Sources */,
+				3618716F20E22C3600BBAE43 /* TireRepairViewController.m in Sources */,
+				3618716E20E22BE500BBAE43 /* RepairHeadAlertView.m in Sources */,
 				360CD54320DCEDB8005123B9 /* MySettingViewController.m in Sources */,
 				360CD54220DCED8E005123B9 /* StoreDetailsPhoneCell.m in Sources */,
 				43490C1120D2042900BE5F8E /* PersonHeadImgTableViewCell.m in Sources */,
