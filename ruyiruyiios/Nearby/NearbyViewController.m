@@ -123,6 +123,8 @@
     
     if ([self.isLocation isEqualToString:@"1"]) {
         
+        DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+        [delegateConfiguration unregisterLoginStatusChangedListener:self];
         self.tabBarController.tabBar.hidden = NO;
         [self.navigationController popViewControllerAnimated:YES];
     }else{
