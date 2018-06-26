@@ -208,8 +208,6 @@
 		4322A1D920A2F57C007B4037 /* SexTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4322A1D820A2F57C007B4037 /* SexTableViewCell.m */; };
 		4326298420E1E2AC006E2CCA /* TireRepairHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298320E1E2AC006E2CCA /* TireRepairHeadView.m */; };
 		4326298A20E210CC006E2CCA /* TireRepairMiddleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298920E210CC006E2CCA /* TireRepairMiddleView.m */; };
-		4326298E20E22C55006E2CCA /* TireRepairViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298020E1DD2D006E2CCA /* TireRepairViewController.m */; };
-		4326298F20E22CF8006E2CCA /* RepairHeadAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298620E1E494006E2CCA /* RepairHeadAlertView.m */; };
 		432EFEAD20B566BF0090DEC8 /* FMDBPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 432EFEAC20B566BF0090DEC8 /* FMDBPosition.m */; };
 		432EFEB320B5A5520090DEC8 /* AddressPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 432EFEB120B5A5520090DEC8 /* AddressPickerView.m */; };
 		432EFEB820B5A5EF0090DEC8 /* Province.m in Sources */ = {isa = PBXBuildFile; fileRef = 432EFEB520B5A5EE0090DEC8 /* Province.m */; };
@@ -3749,8 +3747,6 @@
 			files = (
 				3618716F20E22C3600BBAE43 /* TireRepairViewController.m in Sources */,
 				3618716E20E22BE500BBAE43 /* RepairHeadAlertView.m in Sources */,
-				4326298F20E22CF8006E2CCA /* RepairHeadAlertView.m in Sources */,
-				4326298E20E22C55006E2CCA /* TireRepairViewController.m in Sources */,
 				360CD54320DCEDB8005123B9 /* MySettingViewController.m in Sources */,
 				360CD54220DCED8E005123B9 /* StoreDetailsPhoneCell.m in Sources */,
 				43490C1120D2042900BE5F8E /* PersonHeadImgTableViewCell.m in Sources */,
