@@ -10,6 +10,8 @@
 		1A3CB3004D62FF11EDC9B585 /* libPods-ruyiruyiios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D40C758474E7181E97834C56 /* libPods-ruyiruyiios.a */; };
 		360CD54220DCED8E005123B9 /* StoreDetailsPhoneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C80A1B20D89C640036C14A /* StoreDetailsPhoneCell.m */; };
 		360CD54320DCEDB8005123B9 /* MySettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4332F88420D8A19500AF386F /* MySettingViewController.m */; };
+		3618716E20E22BE500BBAE43 /* RepairHeadAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298620E1E494006E2CCA /* RepairHeadAlertView.m */; };
+		3618716F20E22C3600BBAE43 /* TireRepairViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298020E1DD2D006E2CCA /* TireRepairViewController.m */; };
 		369520F720C9172F001FA48E /* ic_my_shibai@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 369520F420C9172E001FA48E /* ic_my_shibai@3x.png */; };
 		369520F820C9172F001FA48E /* ic_my_shibai.png in Resources */ = {isa = PBXBuildFile; fileRef = 369520F520C9172E001FA48E /* ic_my_shibai.png */; };
 		369520F920C9172F001FA48E /* ic_my_shibai@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 369520F620C9172E001FA48E /* ic_my_shibai@2x.png */; };
@@ -204,9 +206,7 @@
 		4322A1D320A29863007B4037 /* PasswordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4322A1D220A29863007B4037 /* PasswordTableViewCell.m */; };
 		4322A1D620A2E8ED007B4037 /* DateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4322A1D520A2E8ED007B4037 /* DateTableViewCell.m */; };
 		4322A1D920A2F57C007B4037 /* SexTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4322A1D820A2F57C007B4037 /* SexTableViewCell.m */; };
-		4326298120E1DD2D006E2CCA /* TireRepairViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298020E1DD2D006E2CCA /* TireRepairViewController.m */; };
 		4326298420E1E2AC006E2CCA /* TireRepairHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298320E1E2AC006E2CCA /* TireRepairHeadView.m */; };
-		4326298720E1E494006E2CCA /* RepairHeadAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298620E1E494006E2CCA /* RepairHeadAlertView.m */; };
 		4326298A20E210CC006E2CCA /* TireRepairMiddleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298920E210CC006E2CCA /* TireRepairMiddleView.m */; };
 		432EFEAD20B566BF0090DEC8 /* FMDBPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 432EFEAC20B566BF0090DEC8 /* FMDBPosition.m */; };
 		432EFEB320B5A5520090DEC8 /* AddressPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 432EFEB120B5A5520090DEC8 /* AddressPickerView.m */; };
@@ -3745,6 +3745,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3618716F20E22C3600BBAE43 /* TireRepairViewController.m in Sources */,
+				3618716E20E22BE500BBAE43 /* RepairHeadAlertView.m in Sources */,
 				360CD54320DCEDB8005123B9 /* MySettingViewController.m in Sources */,
 				360CD54220DCED8E005123B9 /* StoreDetailsPhoneCell.m in Sources */,
 				43490C1120D2042900BE5F8E /* PersonHeadImgTableViewCell.m in Sources */,
@@ -3773,12 +3775,6 @@
 				43004A2520C7BF0B001BB01A /* ShoeOrderInfo.m in Sources */,
 				4306779D20AEB864003BB046 /* BottomCarInfoTableViewCell.m in Sources */,
 				438D449B20C26701008DAD97 /* ShoeSpeedLoadResult.m in Sources */,
-				4332F88520D8A19500AF386F /* MySettingViewController.m in Sources */,
-				4326298120E1DD2D006E2CCA /* TireRepairViewController.m in Sources */,
-				4326298720E1E494006E2CCA /* RepairHeadAlertView.m in Sources */,
-				36C80A6320D89C640036C14A /* StoreDetailsPhoneCell.m in Sources */,
-				4326298120E1DD2D006E2CCA /* TireRepairViewController.m in Sources */,
-				4326298720E1E494006E2CCA /* RepairHeadAlertView.m in Sources */,
 				432EFEAD20B566BF0090DEC8 /* FMDBPosition.m in Sources */,
 				4306782A20B0576B003BB046 /* SelectBrandViewController.m in Sources */,
 				4322A1D920A2F57C007B4037 /* SexTableViewCell.m in Sources */,

@@ -53,15 +53,15 @@ static NSInteger const HeadViewH = 150;
 
 
 - (void)viewWillAppear:(BOOL)animated{
-    self.navigationController.navigationBarHidden = YES;
+    
+    self.navigationController.navigationBar.hidden = YES;
     self.tabBarController.tabBar.hidden = YES;
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     
-    self.navigationController.navigationBarHidden = NO;
-    
+    self.navigationController.navigationBar.hidden = NO;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
