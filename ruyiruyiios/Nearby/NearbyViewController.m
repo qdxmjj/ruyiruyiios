@@ -164,7 +164,9 @@
     
     NSLog(@"%@ ",self.leftBtn.titleLabel.text);
     
-    if ([self.leftBtn.titleLabel.text isEqualToString:@""]||self.leftBtn.titleLabel.text == NULL) {
+    NSString *cityName = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentCity"];
+
+    if (cityName == NULL || !cityName ||cityName==nil ||cityName.length<=0) {
         
         [MBProgressHUD showTextMessage:@"定位失败，请选择位置"];
         return;
@@ -179,7 +181,6 @@
     
    NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
    NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
-    NSString *cityName = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentCity"];
 
     [FJStoreReqeust getFJStoreByConditionWithInfo:@{@"page":number,@"rows":@"10",@"cityName":cityName,@"storeName":@"",@"storeType":self.storeType,@"serviceType":self.serviceType,@"longitude":longitude,@"latitude":latitude,@"rankType":self.rankType} succrss:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         

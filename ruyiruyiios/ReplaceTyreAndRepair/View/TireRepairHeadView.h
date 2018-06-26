@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RepairHeadAlertView.m"
+#import "RepairHeadAlertView.h"
 
 @interface TireRepairHeadView : UIView
 
