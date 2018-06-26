@@ -288,7 +288,7 @@
             
         case 1003:
             
-            if ([getCodeBtn.titleLabel.text isEqualToString:@""]) {
+            if ([getCodeBtn.titleLabel.text isEqualToString:@"忘记密码？"]) {
                 
                 [self chickPassLoginBtn];
             }else{
