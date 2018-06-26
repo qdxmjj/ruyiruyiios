@@ -218,7 +218,7 @@ static NSInteger const HeadViewH = 150;
         }
         
         
-        if (self.contentVCDataArr.count>0) {
+        if (self.contentVCDataArr) {
             
             self.contentRequest = YES;
             
@@ -226,10 +226,12 @@ static NSInteger const HeadViewH = 150;
                 
                 if (self.clickButtonTag) {
                     
+                    //自动选择时会调用此方法，self.clickButtonTag，分类页面点击商品跳转到对应页面
                     [self AutomaticClick:100100+self.clickButtonTag];
                     
                 }else{
                     
+                    //附近的门店进入此页面，执行此方法，默认选择第一个
                     [self AutomaticClick:100100];
                 }
                 
@@ -324,10 +326,12 @@ static NSInteger const HeadViewH = 150;
                 
                 if (self.clickButtonTag) {
                     
+                    //自动选择时会调用此方法，self.clickButtonTag，分类页面点击商品跳转到对应页面
                     [self AutomaticClick:100100+self.clickButtonTag];
                     
                 }else{
                     
+                    //附近的门店进入此页面，执行此方法，默认选择第一个
                     [self AutomaticClick:100100];
                 } 
             }

@@ -15,13 +15,6 @@
 
 +(void)getFJStoreByConditionWithInfo:(NSDictionary *)info succrss:(requestSuccessBlock)succrsshandler failure:(requestFailureBlock)failureHandler{
         
-    if ([UserConfig token] ==nil) {
-        
-        [MBProgressHUD showTextMessage:@"请先登录！再刷新此页面"];
-        return;
-    }
-
-    
     [self postRequest:@"selectStoreByCondition" params:@{@"reqJson":[PublicClass convertToJsonData:info],@"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         
         if ([code longLongValue] == 1) {

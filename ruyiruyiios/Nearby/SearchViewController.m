@@ -10,6 +10,7 @@
 #import "SearchCollectionViewCell.h"
 #import "FJStoreReqeust.h"
 #import "SearchRecord.h"
+#import "MBProgressHUD+YYM_category.h"
 @interface SearchViewController ()<UISearchBarDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @property(nonatomic,strong)UISearchBar *searchBar;
@@ -148,6 +149,12 @@
     
     [self.dataArr addObject:searchBar.text];
     [self.collectionView reloadData];
+    
+    if ([UserConfig user_id] == NULL) {
+        
+        [MBProgressHUD showTextMessage:@"请先登录！"];
+        return;
+    }
     
     NSString *cityName = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentCity"];
     NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
