@@ -17,7 +17,7 @@
 #import "LocationViewController.h"
 #import "DelegateConfiguration.h"
 #import "MBProgressHUD+YYM_category.h"
-@interface NearbyViewController ()<UITableViewDelegate,UITableViewDataSource,JJDropdownViewDelegate,JJClickExpandDelegate, CityNameDelegate>
+@interface NearbyViewController ()<UITableViewDelegate,UITableViewDataSource,JJDropdownViewDelegate,JJClickExpandDelegate, CityNameDelegate, LoginStatusDelegate>
 
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)JJMenuView *menuView;
@@ -53,6 +53,7 @@
     
     DelegateConfiguration *delegateCF = [DelegateConfiguration sharedConfiguration];
     [delegateCF registercityNameListers:self];
+    [delegateCF registerLoginStatusChangedListener:self];
     
     _leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     
@@ -74,7 +75,7 @@
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    self.title = @"附近的门店";
+    self.navigationItem.title = @"附近的门店";
     
     [self.view addSubview:self.topBarView];
     
@@ -163,9 +164,16 @@
     
     NSLog(@"%@ ",self.leftBtn.titleLabel.text);
     
-    if ([self.leftBtn.titleLabel.text isEqualToString:@""]) {
+    if ([self.leftBtn.titleLabel.text isEqualToString:@""]||self.leftBtn.titleLabel.text == NULL) {
         
         [MBProgressHUD showTextMessage:@"定位失败，请选择位置"];
+        return;
+    }
+    
+    if ([UserConfig user_id] == NULL) {
+        
+        [self alertIsloginView];
+        
         return;
     }
     
@@ -193,7 +201,6 @@
         }
         
     } failure:^(NSError * _Nullable error) {
-        
         
     }];
 }
@@ -304,6 +311,12 @@
     }
 }
 
+#pragma mark loginStatus delegate
+- (void)updateLoginStatus{
+    
+    [self.tableView.mj_header beginRefreshing];
+}
+
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
@@ -346,6 +359,7 @@
         //状态为1  pop回掉
         DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
         [delegateConfiguration unregistercityNameListers:self];
+        [delegateConfiguration unregisterLoginStatusChangedListener:self];
         NSDictionary *backDic = [self.dataArr objectAtIndex:indexPath.section];
 //        NSLog(@"%@", [backDic objectForKey:@"storeId"]);
         self.backBlock(backDic);

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1A3CB3004D62FF11EDC9B585 /* libPods-ruyiruyiios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D40C758474E7181E97834C56 /* libPods-ruyiruyiios.a */; };
+		360CD54220DCED8E005123B9 /* StoreDetailsPhoneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C80A1B20D89C640036C14A /* StoreDetailsPhoneCell.m */; };
+		360CD54320DCEDB8005123B9 /* MySettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4332F88420D8A19500AF386F /* MySettingViewController.m */; };
 		369520F720C9172F001FA48E /* ic_my_shibai@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 369520F420C9172E001FA48E /* ic_my_shibai@3x.png */; };
 		369520F820C9172F001FA48E /* ic_my_shibai.png in Resources */ = {isa = PBXBuildFile; fileRef = 369520F520C9172E001FA48E /* ic_my_shibai.png */; };
 		369520F920C9172F001FA48E /* ic_my_shibai@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 369520F620C9172E001FA48E /* ic_my_shibai@2x.png */; };
@@ -52,7 +54,6 @@
 		36C80A6020D89C640036C14A /* storeDetailsOneFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C80A1620D89C640036C14A /* storeDetailsOneFlowLayout.m */; };
 		36C80A6120D89C640036C14A /* StoreDetailsOvervieCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C80A1820D89C640036C14A /* StoreDetailsOvervieCell.m */; };
 		36C80A6220D89C640036C14A /* StoreDetailsOvervieCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36C80A1920D89C640036C14A /* StoreDetailsOvervieCell.xib */; };
-		36C80A6320D89C640036C14A /* StoreDetailsPhoneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C80A1B20D89C640036C14A /* StoreDetailsPhoneCell.m */; };
 		36C80A6420D89C640036C14A /* StoreDetailsPhoneCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36C80A1C20D89C640036C14A /* StoreDetailsPhoneCell.xib */; };
 		36C80A6520D89C640036C14A /* StoreHeadCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C80A1E20D89C640036C14A /* StoreHeadCollectionViewCell.m */; };
 		36C80A6620D89C640036C14A /* StoreDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C80A2020D89C640036C14A /* StoreDetailsViewController.m */; };
@@ -215,7 +216,6 @@
 		4332362A20B2BF3E008F45FD /* RoadConditionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4332362920B2BF3E008F45FD /* RoadConditionViewController.m */; };
 		4332362D20B2C1F2008F45FD /* RoadConditionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4332362C20B2C1F2008F45FD /* RoadConditionTableViewCell.m */; };
 		4332363020B2F0DA008F45FD /* RoadInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4332362F20B2F0DA008F45FD /* RoadInfo.m */; };
-		4332F88520D8A19500AF386F /* MySettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4332F88420D8A19500AF386F /* MySettingViewController.m */; };
 		4332F88820D8A25600AF386F /* MySettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4332F88720D8A25600AF386F /* MySettingTableViewCell.m */; };
 		4332F88B20D8AD2F00AF386F /* UpdatePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4332F88A20D8AD2F00AF386F /* UpdatePasswordViewController.m */; };
 		4332F88E20D8AD5E00AF386F /* ContactCustomerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4332F88D20D8AD5E00AF386F /* ContactCustomerViewController.m */; };
@@ -3671,6 +3671,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				360CD54320DCEDB8005123B9 /* MySettingViewController.m in Sources */,
+				360CD54220DCED8E005123B9 /* StoreDetailsPhoneCell.m in Sources */,
 				43490C1120D2042900BE5F8E /* PersonHeadImgTableViewCell.m in Sources */,
 				4343EB79209FE79E003AD5FE /* main.m in Sources */,
 				36C80A8E20D89C6A0036C14A /* WinterTyreRequeset.m in Sources */,
@@ -3697,14 +3699,6 @@
 				43004A2520C7BF0B001BB01A /* ShoeOrderInfo.m in Sources */,
 				4306779D20AEB864003BB046 /* BottomCarInfoTableViewCell.m in Sources */,
 				438D449B20C26701008DAD97 /* ShoeSpeedLoadResult.m in Sources */,
-				36C80A6320D89C640036C14A /* StoreDetailsPhoneCell.m in Sources */,
-				3694C54E20C7F7220089FAE7 /* storeDetailsOneFlowLayout.m in Sources */,
-				36A6D9C120D209400034D7D6 /* WinterTyreModel.m in Sources */,
-				4332F88520D8A19500AF386F /* MySettingViewController.m in Sources */,
-				3694C54E20C7F7220089FAE7 /* storeDetailsOneFlowLayout.m in Sources */,
-				36A6D9C120D209400034D7D6 /* WinterTyreModel.m in Sources */,
-				4332F88520D8A19500AF386F /* MySettingViewController.m in Sources */,
-				36C80A6320D89C640036C14A /* StoreDetailsPhoneCell.m in Sources */,
 				432EFEAD20B566BF0090DEC8 /* FMDBPosition.m in Sources */,
 				4306782A20B0576B003BB046 /* SelectBrandViewController.m in Sources */,
 				4322A1D920A2F57C007B4037 /* SexTableViewCell.m in Sources */,
