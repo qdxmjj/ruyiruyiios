@@ -204,10 +204,10 @@
 		4322A1D320A29863007B4037 /* PasswordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4322A1D220A29863007B4037 /* PasswordTableViewCell.m */; };
 		4322A1D620A2E8ED007B4037 /* DateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4322A1D520A2E8ED007B4037 /* DateTableViewCell.m */; };
 		4322A1D920A2F57C007B4037 /* SexTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4322A1D820A2F57C007B4037 /* SexTableViewCell.m */; };
-		4326298120E1DD2D006E2CCA /* TireRepairViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298020E1DD2D006E2CCA /* TireRepairViewController.m */; };
 		4326298420E1E2AC006E2CCA /* TireRepairHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298320E1E2AC006E2CCA /* TireRepairHeadView.m */; };
-		4326298720E1E494006E2CCA /* RepairHeadAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298620E1E494006E2CCA /* RepairHeadAlertView.m */; };
 		4326298A20E210CC006E2CCA /* TireRepairMiddleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298920E210CC006E2CCA /* TireRepairMiddleView.m */; };
+		4326298E20E22C55006E2CCA /* TireRepairViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298020E1DD2D006E2CCA /* TireRepairViewController.m */; };
+		4326298F20E22CF8006E2CCA /* RepairHeadAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298620E1E494006E2CCA /* RepairHeadAlertView.m */; };
 		432EFEAD20B566BF0090DEC8 /* FMDBPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 432EFEAC20B566BF0090DEC8 /* FMDBPosition.m */; };
 		432EFEB320B5A5520090DEC8 /* AddressPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 432EFEB120B5A5520090DEC8 /* AddressPickerView.m */; };
 		432EFEB820B5A5EF0090DEC8 /* Province.m in Sources */ = {isa = PBXBuildFile; fileRef = 432EFEB520B5A5EE0090DEC8 /* Province.m */; };
@@ -3745,6 +3745,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4326298F20E22CF8006E2CCA /* RepairHeadAlertView.m in Sources */,
+				4326298E20E22C55006E2CCA /* TireRepairViewController.m in Sources */,
 				360CD54320DCEDB8005123B9 /* MySettingViewController.m in Sources */,
 				360CD54220DCED8E005123B9 /* StoreDetailsPhoneCell.m in Sources */,
 				43490C1120D2042900BE5F8E /* PersonHeadImgTableViewCell.m in Sources */,
@@ -3773,12 +3775,6 @@
 				43004A2520C7BF0B001BB01A /* ShoeOrderInfo.m in Sources */,
 				4306779D20AEB864003BB046 /* BottomCarInfoTableViewCell.m in Sources */,
 				438D449B20C26701008DAD97 /* ShoeSpeedLoadResult.m in Sources */,
-				4326298120E1DD2D006E2CCA /* TireRepairViewController.m in Sources */,
-				4326298720E1E494006E2CCA /* RepairHeadAlertView.m in Sources */,
-				4332F88520D8A19500AF386F /* MySettingViewController.m in Sources */,
-				4326298120E1DD2D006E2CCA /* TireRepairViewController.m in Sources */,
-				4326298720E1E494006E2CCA /* RepairHeadAlertView.m in Sources */,
-				36C80A6320D89C640036C14A /* StoreDetailsPhoneCell.m in Sources */,
 				432EFEAD20B566BF0090DEC8 /* FMDBPosition.m in Sources */,
 				4306782A20B0576B003BB046 /* SelectBrandViewController.m in Sources */,
 				4322A1D920A2F57C007B4037 /* SexTableViewCell.m in Sources */,
