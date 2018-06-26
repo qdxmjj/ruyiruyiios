@@ -65,6 +65,24 @@ static DelegateConfiguration *shareConfiguration = nil;
     return _cityNameListers;
 }
 
+- (NSMutableArray *)addCarListers{
+    
+    if (_addCarListers == nil) {
+        
+        _addCarListers = [[NSMutableArray alloc] init];
+    }
+    return _addCarListers;
+}
+
+- (NSMutableArray *)defaultCarListers{
+    
+    if (_defaultCarListers == nil) {
+        
+        _defaultCarListers = [[NSMutableArray alloc] init];
+    }
+    return _defaultCarListers;
+}
+
 - (void)registerLoginStatusChangedListener:(id<RoadStatusDelegate>)delegate{
     
     if (delegate == nil) {
@@ -141,7 +159,7 @@ static DelegateConfiguration *shareConfiguration = nil;
 
 - (void)changeRoadStatusName:(NSString *)nameStr OftenId:(NSString *)oftenIdStr OnceId:(NSString *)onceIdStr NotId:(NSString *)notIdStr{
     
-    NSLog(@"调用代理事件的delegateListers:%@",self.roadStatusListeners);
+    NSLog(@"调用道路状态代理事件的delegateListers:%@",self.roadStatusListeners);
     for (int i = 0; i<self.roadStatusListeners.count; i++) {
         
         id<RoadStatusDelegate> delegate = [self.roadStatusListeners objectAtIndex:i];
@@ -231,6 +249,96 @@ static DelegateConfiguration *shareConfiguration = nil;
         id<CityNameDelegate> delegate = [self.cityNameListers objectAtIndex:i];
         [delegate updateCityName:city_Str];
     }
+}
+
+- (void)registeraddCarListers:(id<UpdateAddCarDelegate>)delegate{
+    
+    if (delegate == nil) {
+        
+        return;
+    }
+    if (self.addCarListers != nil) {
+        
+        if (![self.addCarListers containsObject:delegate]) {
+            
+            [self.addCarListers addObject:delegate];
+        }
+    }
+    NSLog(@"添加车辆代理注册之后的数组:%@", self.addCarListers);
+}
+
+- (void)unregisteraddCarListers:(id<UpdateAddCarDelegate>)delegate{
+    
+    if (delegate == nil) {
+        
+        return;
+    }
+    if (self.addCarListers != nil) {
+        
+        if ([self.addCarListers containsObject:delegate]) {
+            
+            [self.addCarListers removeObject:delegate];
+        }
+    }
+    NSLog(@"注销之后的添加车辆代理:%@", self.addCarListers);
+}
+
+- (void)changeaddCarNumber{
+    
+    NSLog(@"添加车辆调用代理事件的代理数组:%@", self.addCarListers);
+    for (int i = 0; i<self.addCarListers.count; i++) {
+        
+        id<UpdateAddCarDelegate> delegate = [self.addCarListers objectAtIndex:i];
+        [delegate updateAddCarNumber];
+    }
+}
+
+- (void)registerdefaultCarListers:(id<SetDefaultCarDelegate>)delegate{
+    
+    if (delegate == nil) {
+        
+        return;
+    }
+    if (self.defaultCarListers != nil) {
+        
+        if (![self.defaultCarListers containsObject:delegate]) {
+            
+            [self.defaultCarListers addObject:delegate];
+        }
+    }
+    NSLog(@"设置默认车辆代理之后的数组:%@", self.defaultCarListers);
+}
+
+- (void)unregisterdefaultCarListers:(id<SetDefaultCarDelegate>)delegate{
+    
+    if (delegate == nil) {
+        
+        return;
+    }
+    if ([self.defaultCarListers containsObject:delegate]) {
+        
+        [self.defaultCarListers removeObject:delegate];
+    }
+    NSLog(@"注销之后的设置默认车辆代理:%@", self.defaultCarListers);
+}
+
+- (void)changedefaultCarNumber{
+    
+    NSLog(@"设置默认车辆调用代理事件的代理数组:%@", self.defaultCarListers);
+    for (int i = 0; i<self.defaultCarListers.count; i++) {
+        
+        id<SetDefaultCarDelegate> delegate = [self.defaultCarListers objectAtIndex:i];
+        [delegate updateDefaultCar];
+    }
+}
+
+- (void)removeAllDelegateMutableA{
+    
+    [self.loginStatusListeners removeAllObjects];
+    [self.roadStatusListeners removeAllObjects];
+    [self.CartypeStatusListeners removeAllObjects];
+    [self.cityNameListers removeAllObjects];
+    [self.addCarListers removeAllObjects];
 }
 
 @end

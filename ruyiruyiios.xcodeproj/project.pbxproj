@@ -191,6 +191,7 @@
 		4318692D20D0F4FA0051F16D /* PaySuccessBackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4318692C20D0F4FA0051F16D /* PaySuccessBackView.m */; };
 		4318693020D14B7D0051F16D /* CarCXWYInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4318692F20D14B7D0051F16D /* CarCXWYInfo.m */; };
 		4318693320D1529A0051F16D /* BuyCXWYUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4318693220D1529A0051F16D /* BuyCXWYUserInfo.m */; };
+		4319BD1E20DE22F500CBA46C /* ChoiceTableHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4319BD1D20DE22F500CBA46C /* ChoiceTableHeadView.m */; };
 		4319D9DE20ABFCB900893026 /* FMDBCarVerhicle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4319D9DD20ABFCB900893026 /* FMDBCarVerhicle.m */; };
 		4319D9E120ABFEDB00893026 /* FMDBCarTireInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4319D9E020ABFEDB00893026 /* FMDBCarTireInfo.m */; };
 		4319D9E420AC308A00893026 /* FMDBCarTireType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4319D9E320AC308A00893026 /* FMDBCarTireType.m */; };
@@ -203,6 +204,9 @@
 		4322A1D320A29863007B4037 /* PasswordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4322A1D220A29863007B4037 /* PasswordTableViewCell.m */; };
 		4322A1D620A2E8ED007B4037 /* DateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4322A1D520A2E8ED007B4037 /* DateTableViewCell.m */; };
 		4322A1D920A2F57C007B4037 /* SexTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4322A1D820A2F57C007B4037 /* SexTableViewCell.m */; };
+		4326298120E1DD2D006E2CCA /* TireRepairViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298020E1DD2D006E2CCA /* TireRepairViewController.m */; };
+		4326298420E1E2AC006E2CCA /* TireRepairHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298320E1E2AC006E2CCA /* TireRepairHeadView.m */; };
+		4326298720E1E494006E2CCA /* RepairHeadAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298620E1E494006E2CCA /* RepairHeadAlertView.m */; };
 		432EFEAD20B566BF0090DEC8 /* FMDBPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 432EFEAC20B566BF0090DEC8 /* FMDBPosition.m */; };
 		432EFEB320B5A5520090DEC8 /* AddressPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 432EFEB120B5A5520090DEC8 /* AddressPickerView.m */; };
 		432EFEB820B5A5EF0090DEC8 /* Province.m in Sources */ = {isa = PBXBuildFile; fileRef = 432EFEB520B5A5EE0090DEC8 /* Province.m */; };
@@ -246,6 +250,17 @@
 		4332F8C820D9047700AF386F /* ic_icon4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4332F8C520D9047600AF386F /* ic_icon4@2x.png */; };
 		4332F8C920D9047700AF386F /* ic_icon4.png in Resources */ = {isa = PBXBuildFile; fileRef = 4332F8C620D9047600AF386F /* ic_icon4.png */; };
 		4332F8CA20D9047700AF386F /* ic_icon4@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4332F8C720D9047700AF386F /* ic_icon4@3x.png */; };
+		43380E5020E0BD9200B3ABAF /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 43380E4D20E0BD9100B3ABAF /* README.txt */; };
+		43380E5120E0BD9200B3ABAF /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43380E4F20E0BD9100B3ABAF /* libWeChatSDK.a */; };
+		43380E5320E0BE3000B3ABAF /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 43380E5220E0BE3000B3ABAF /* libsqlite3.0.tbd */; };
+		43380E5720E0CC4800B3ABAF /* ic_pengyou@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43380E5420E0CC4700B3ABAF /* ic_pengyou@3x.png */; };
+		43380E5820E0CC4800B3ABAF /* ic_pengyou.png in Resources */ = {isa = PBXBuildFile; fileRef = 43380E5520E0CC4700B3ABAF /* ic_pengyou.png */; };
+		43380E5920E0CC4800B3ABAF /* ic_pengyou@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43380E5620E0CC4800B3ABAF /* ic_pengyou@2x.png */; };
+		43380E5C20E0CC7C00B3ABAF /* WXShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43380E5B20E0CC7C00B3ABAF /* WXShareView.m */; };
+		43380E6020E0D62D00B3ABAF /* ic_t_wechat.png in Resources */ = {isa = PBXBuildFile; fileRef = 43380E5D20E0D62C00B3ABAF /* ic_t_wechat.png */; };
+		43380E6120E0D62D00B3ABAF /* ic_t_wechat@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43380E5E20E0D62C00B3ABAF /* ic_t_wechat@3x.png */; };
+		43380E6220E0D62D00B3ABAF /* ic_t_wechat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43380E5F20E0D62C00B3ABAF /* ic_t_wechat@2x.png */; };
+		43380E6420E0E3B900B3ABAF /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43380E6320E0E3B900B3ABAF /* Security.framework */; };
 		433EECED20AD85920051DF9F /* Lunbo_infos.m in Sources */ = {isa = PBXBuildFile; fileRef = 433EECEC20AD85920051DF9F /* Lunbo_infos.m */; };
 		433EECF020ADAC500051DF9F /* Data_cars.m in Sources */ = {isa = PBXBuildFile; fileRef = 433EECEF20ADAC500051DF9F /* Data_cars.m */; };
 		433EECF820ADBD6A0051DF9F /* UILabel+YBAttributeTextTapAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 433EECF720ADBD6A0051DF9F /* UILabel+YBAttributeTextTapAction.m */; };
@@ -560,8 +575,6 @@
 		438D449A20C26701008DAD97 /* TirePattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 438D449420C26700008DAD97 /* TirePattern.m */; };
 		438D449B20C26701008DAD97 /* ShoeSpeedLoadResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 438D449520C26700008DAD97 /* ShoeSpeedLoadResult.m */; };
 		438D449C20C26701008DAD97 /* BuyTireData.m in Sources */ = {isa = PBXBuildFile; fileRef = 438D449620C26701008DAD97 /* BuyTireData.m */; };
-		438D44A220C26722008DAD97 /* YUFoldingSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 438D449E20C26722008DAD97 /* YUFoldingSectionHeader.m */; };
-		438D44A420C26722008DAD97 /* YUFoldingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 438D44A120C26722008DAD97 /* YUFoldingTableView.m */; };
 		438D44AB20C2672D008DAD97 /* NumberSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 438D44A520C2672C008DAD97 /* NumberSelectView.m */; };
 		438D44AC20C2672D008DAD97 /* ChoicePatternTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 438D44A720C2672D008DAD97 /* ChoicePatternTableViewCell.m */; };
 		438D44AD20C2672D008DAD97 /* CustomQualityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 438D44A920C2672D008DAD97 /* CustomQualityView.m */; };
@@ -996,6 +1009,8 @@
 		4318692F20D14B7D0051F16D /* CarCXWYInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarCXWYInfo.m; sourceTree = "<group>"; };
 		4318693120D1529A0051F16D /* BuyCXWYUserInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuyCXWYUserInfo.h; sourceTree = "<group>"; };
 		4318693220D1529A0051F16D /* BuyCXWYUserInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BuyCXWYUserInfo.m; sourceTree = "<group>"; };
+		4319BD1C20DE22F500CBA46C /* ChoiceTableHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChoiceTableHeadView.h; sourceTree = "<group>"; };
+		4319BD1D20DE22F500CBA46C /* ChoiceTableHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChoiceTableHeadView.m; sourceTree = "<group>"; };
 		4319D9DC20ABFCB900893026 /* FMDBCarVerhicle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMDBCarVerhicle.h; sourceTree = "<group>"; };
 		4319D9DD20ABFCB900893026 /* FMDBCarVerhicle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMDBCarVerhicle.m; sourceTree = "<group>"; };
 		4319D9DF20ABFEDB00893026 /* FMDBCarTireInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMDBCarTireInfo.h; sourceTree = "<group>"; };
@@ -1020,6 +1035,12 @@
 		4322A1D520A2E8ED007B4037 /* DateTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DateTableViewCell.m; sourceTree = "<group>"; };
 		4322A1D720A2F57C007B4037 /* SexTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SexTableViewCell.h; sourceTree = "<group>"; };
 		4322A1D820A2F57C007B4037 /* SexTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SexTableViewCell.m; sourceTree = "<group>"; };
+		4326297F20E1DD2D006E2CCA /* TireRepairViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TireRepairViewController.h; sourceTree = "<group>"; };
+		4326298020E1DD2D006E2CCA /* TireRepairViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TireRepairViewController.m; sourceTree = "<group>"; };
+		4326298220E1E2AC006E2CCA /* TireRepairHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TireRepairHeadView.h; sourceTree = "<group>"; };
+		4326298320E1E2AC006E2CCA /* TireRepairHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TireRepairHeadView.m; sourceTree = "<group>"; };
+		4326298520E1E494006E2CCA /* RepairHeadAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RepairHeadAlertView.h; sourceTree = "<group>"; };
+		4326298620E1E494006E2CCA /* RepairHeadAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RepairHeadAlertView.m; sourceTree = "<group>"; };
 		432EFEAB20B566BF0090DEC8 /* FMDBPosition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMDBPosition.h; sourceTree = "<group>"; };
 		432EFEAC20B566BF0090DEC8 /* FMDBPosition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMDBPosition.m; sourceTree = "<group>"; };
 		432EFEB120B5A5520090DEC8 /* AddressPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressPickerView.m; sourceTree = "<group>"; };
@@ -1084,6 +1105,21 @@
 		4332F8C520D9047600AF386F /* ic_icon4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_icon4@2x.png"; sourceTree = "<group>"; };
 		4332F8C620D9047600AF386F /* ic_icon4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_icon4.png; sourceTree = "<group>"; };
 		4332F8C720D9047700AF386F /* ic_icon4@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_icon4@3x.png"; sourceTree = "<group>"; };
+		43380E4B20E0BD9100B3ABAF /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		43380E4C20E0BD9100B3ABAF /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		43380E4D20E0BD9100B3ABAF /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		43380E4E20E0BD9100B3ABAF /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
+		43380E4F20E0BD9100B3ABAF /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		43380E5220E0BE3000B3ABAF /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		43380E5420E0CC4700B3ABAF /* ic_pengyou@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_pengyou@3x.png"; sourceTree = "<group>"; };
+		43380E5520E0CC4700B3ABAF /* ic_pengyou.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_pengyou.png; sourceTree = "<group>"; };
+		43380E5620E0CC4800B3ABAF /* ic_pengyou@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_pengyou@2x.png"; sourceTree = "<group>"; };
+		43380E5A20E0CC7C00B3ABAF /* WXShareView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXShareView.h; sourceTree = "<group>"; };
+		43380E5B20E0CC7C00B3ABAF /* WXShareView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXShareView.m; sourceTree = "<group>"; };
+		43380E5D20E0D62C00B3ABAF /* ic_t_wechat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_t_wechat.png; sourceTree = "<group>"; };
+		43380E5E20E0D62C00B3ABAF /* ic_t_wechat@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_t_wechat@3x.png"; sourceTree = "<group>"; };
+		43380E5F20E0D62C00B3ABAF /* ic_t_wechat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_t_wechat@2x.png"; sourceTree = "<group>"; };
+		43380E6320E0E3B900B3ABAF /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		433EECEB20AD85920051DF9F /* Lunbo_infos.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Lunbo_infos.h; sourceTree = "<group>"; };
 		433EECEC20AD85920051DF9F /* Lunbo_infos.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Lunbo_infos.m; sourceTree = "<group>"; };
 		433EECEE20ADAC500051DF9F /* Data_cars.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Data_cars.h; sourceTree = "<group>"; };
@@ -1451,10 +1487,6 @@
 		438D449720C26701008DAD97 /* ShoeSpeedLoadResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoeSpeedLoadResult.h; sourceTree = "<group>"; };
 		438D449820C26701008DAD97 /* BuyTireData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyTireData.h; sourceTree = "<group>"; };
 		438D449920C26701008DAD97 /* TirePattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TirePattern.h; sourceTree = "<group>"; };
-		438D449D20C26722008DAD97 /* YUFoldingSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YUFoldingSectionHeader.h; sourceTree = "<group>"; };
-		438D449E20C26722008DAD97 /* YUFoldingSectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YUFoldingSectionHeader.m; sourceTree = "<group>"; };
-		438D449F20C26722008DAD97 /* YUFoldingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YUFoldingTableView.h; sourceTree = "<group>"; };
-		438D44A120C26722008DAD97 /* YUFoldingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YUFoldingTableView.m; sourceTree = "<group>"; };
 		438D44A520C2672C008DAD97 /* NumberSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumberSelectView.m; sourceTree = "<group>"; };
 		438D44A620C2672D008DAD97 /* ChoicePatternTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChoicePatternTableViewCell.h; sourceTree = "<group>"; };
 		438D44A720C2672D008DAD97 /* ChoicePatternTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChoicePatternTableViewCell.m; sourceTree = "<group>"; };
@@ -1679,6 +1711,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43380E6420E0E3B900B3ABAF /* Security.framework in Frameworks */,
+				43380E5320E0BE3000B3ABAF /* libsqlite3.0.tbd in Frameworks */,
+				43A7B1D320CF96F70002B756 /* libc++.tbd in Frameworks */,
+				43A7B1D920CF97210002B756 /* CoreTelephony.framework in Frameworks */,
 				43A7B1E920CF97910002B756 /* AlipaySDK.framework in Frameworks */,
 				43A7B1E720CF97750002B756 /* CoreMotion.framework in Frameworks */,
 				43A7B1E520CF97670002B756 /* CFNetwork.framework in Frameworks */,
@@ -1687,12 +1723,11 @@
 				43A7B1DF20CF974C0002B756 /* CoreGraphics.framework in Frameworks */,
 				43A7B1DD20CF973F0002B756 /* CoreText.framework in Frameworks */,
 				43A7B1DB20CF972F0002B756 /* QuartzCore.framework in Frameworks */,
-				43A7B1D920CF97210002B756 /* CoreTelephony.framework in Frameworks */,
 				43A7B1D720CF970F0002B756 /* SystemConfiguration.framework in Frameworks */,
 				43A7B1D520CF97040002B756 /* libz.tbd in Frameworks */,
-				43A7B1D320CF96F70002B756 /* libc++.tbd in Frameworks */,
 				434DB64320BD22420077234D /* CoreLocation.framework in Frameworks */,
 				1A3CB3004D62FF11EDC9B585 /* libPods-ruyiruyiios.a in Frameworks */,
+				43380E5120E0BD9200B3ABAF /* libWeChatSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1995,6 +2030,18 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		43380E4A20E0BD9100B3ABAF /* WechatSDK1.8.2 */ = {
+			isa = PBXGroup;
+			children = (
+				43380E4B20E0BD9100B3ABAF /* WXApi.h */,
+				43380E4C20E0BD9100B3ABAF /* WXApiObject.h */,
+				43380E4D20E0BD9100B3ABAF /* README.txt */,
+				43380E4E20E0BD9100B3ABAF /* WechatAuthSDK.h */,
+				43380E4F20E0BD9100B3ABAF /* libWeChatSDK.a */,
+			);
+			path = WechatSDK1.8.2;
+			sourceTree = "<group>";
+		};
 		433EECF520ADBD6A0051DF9F /* Category */ = {
 			isa = PBXGroup;
 			children = (
@@ -2039,6 +2086,7 @@
 				43515E7120A722C80043C0CC /* LosDatabaseHelper.m */,
 				4347BF7B20B3E852002F13E8 /* DelegateConfiguration.h */,
 				4347BF7C20B3E852002F13E8 /* DelegateConfiguration.m */,
+				43380E4A20E0BD9100B3ABAF /* WechatSDK1.8.2 */,
 				433EECF520ADBD6A0051DF9F /* Category */,
 				43515E6920A718660043C0CC /* DataBase */,
 				4343EB7F209FFBE0003AD5FE /* Leading */,
@@ -2168,6 +2216,8 @@
 				43F874E320CE4A50007D1C2E /* FirstUpdateViewController.m */,
 				43F874EB20CE4B51007D1C2E /* ReplacementProcessViewController.h */,
 				43F874EC20CE4B51007D1C2E /* ReplacementProcessViewController.m */,
+				4326297F20E1DD2D006E2CCA /* TireRepairViewController.h */,
+				4326298020E1DD2D006E2CCA /* TireRepairViewController.m */,
 			);
 			path = ReplaceTyreAndRepair;
 			sourceTree = "<group>";
@@ -2268,6 +2318,12 @@
 		4343EB9320A075B8003AD5FE /* My */ = {
 			isa = PBXGroup;
 			children = (
+				43380E5D20E0D62C00B3ABAF /* ic_t_wechat.png */,
+				43380E5F20E0D62C00B3ABAF /* ic_t_wechat@2x.png */,
+				43380E5E20E0D62C00B3ABAF /* ic_t_wechat@3x.png */,
+				43380E5520E0CC4700B3ABAF /* ic_pengyou.png */,
+				43380E5620E0CC4800B3ABAF /* ic_pengyou@2x.png */,
+				43380E5420E0CC4700B3ABAF /* ic_pengyou@3x.png */,
 				4343680020DB53AB009D2657 /* ic_qr_man.png */,
 				434367FF20DB53AB009D2657 /* ic_qr_woman.png */,
 				434367F620DB4DBA009D2657 /* ic_erweima.png */,
@@ -2870,10 +2926,6 @@
 				438D44A920C2672D008DAD97 /* CustomQualityView.m */,
 				438D44AA20C2672D008DAD97 /* NumberSelectView.h */,
 				438D44A520C2672C008DAD97 /* NumberSelectView.m */,
-				438D449D20C26722008DAD97 /* YUFoldingSectionHeader.h */,
-				438D449E20C26722008DAD97 /* YUFoldingSectionHeader.m */,
-				438D449F20C26722008DAD97 /* YUFoldingTableView.h */,
-				438D44A120C26722008DAD97 /* YUFoldingTableView.m */,
 				439D062120BE961D00379414 /* SelectTirePositionTableViewCell.h */,
 				439D062220BE961D00379414 /* SelectTirePositionTableViewCell.m */,
 				43BBC39B20C67283002C2FE6 /* OrderHeadView.h */,
@@ -2890,6 +2942,8 @@
 				43004A2720C7CBDB001BB01A /* TopayBottomView.m */,
 				4318692B20D0F4FA0051F16D /* PaySuccessBackView.h */,
 				4318692C20D0F4FA0051F16D /* PaySuccessBackView.m */,
+				4319BD1C20DE22F500CBA46C /* ChoiceTableHeadView.h */,
+				4319BD1D20DE22F500CBA46C /* ChoiceTableHeadView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3003,6 +3057,8 @@
 				43E2830620DC9CFF0080D3FD /* MyQuotaMiddleView.m */,
 				43E2830820DCC87B0080D3FD /* PaymentMethodView.h */,
 				43E2830920DCC87B0080D3FD /* PaymentMethodView.m */,
+				43380E5A20E0CC7C00B3ABAF /* WXShareView.h */,
+				43380E5B20E0CC7C00B3ABAF /* WXShareView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3018,6 +3074,10 @@
 				43F874DD20CE497C007D1C2E /* InstallStoreTableViewCell.m */,
 				43F874EE20CE4D2F007D1C2E /* FirstUpdateCollectionViewCell.h */,
 				43F874EF20CE4D2F007D1C2E /* FirstUpdateCollectionViewCell.m */,
+				4326298220E1E2AC006E2CCA /* TireRepairHeadView.h */,
+				4326298320E1E2AC006E2CCA /* TireRepairHeadView.m */,
+				4326298520E1E494006E2CCA /* RepairHeadAlertView.h */,
+				4326298620E1E494006E2CCA /* RepairHeadAlertView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3040,6 +3100,8 @@
 		8182B6C7708DD93686C572E3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				43380E6320E0E3B900B3ABAF /* Security.framework */,
+				43380E5220E0BE3000B3ABAF /* libsqlite3.0.tbd */,
 				43A7B1E820CF97900002B756 /* AlipaySDK.framework */,
 				43A7B1E620CF97740002B756 /* CoreMotion.framework */,
 				43A7B1E420CF97670002B756 /* CFNetwork.framework */,
@@ -3132,6 +3194,7 @@
 				435E5AAA20A19088005C8BDA /* ic_fuwu.png in Resources */,
 				435E5A1B20A19061005C8BDA /* ic_answer.png in Resources */,
 				4332F8C320D9045800AF386F /* ic_shangpin_xuanzhong@2x.png in Resources */,
+				43380E5020E0BD9200B3ABAF /* README.txt in Resources */,
 				43F874C920CE23CC007D1C2E /* ic_weixuan.png in Resources */,
 				439D068020BE980400379414 /* ic_yes.png in Resources */,
 				430677FF20AED839003BB046 /* 极端路况道路@3x.png in Resources */,
@@ -3154,6 +3217,7 @@
 				43F874CB20CE23CC007D1C2E /* ic_check@2x.png in Resources */,
 				439D066D20BE980400379414 /* ic_yes@3x.png in Resources */,
 				43A7B1C020CF57D00002B756 /* ic_chang.png in Resources */,
+				43380E5720E0CC4800B3ABAF /* ic_pengyou@3x.png in Resources */,
 				439D067220BE980400379414 /* ic_plus@3x.png in Resources */,
 				4343EBCA20A07621003AD5FE /* 验证码(1)@2x.png in Resources */,
 				4306781620AED839003BB046 /* ic_jincheng.png in Resources */,
@@ -3162,6 +3226,7 @@
 				434367FA20DB4DBA009D2657 /* ic_erweima@3x.png in Resources */,
 				43F874D020CE23CC007D1C2E /* ic_check.png in Resources */,
 				435E59C020A18FD1005C8BDA /* 汽车保养@1x.png in Resources */,
+				43380E6220E0D62D00B3ABAF /* ic_t_wechat@2x.png in Resources */,
 				43F874BE20CE23CC007D1C2E /* ic_transport@2x.png in Resources */,
 				4306781420AED839003BB046 /* 添加照片.png in Resources */,
 				435E5B0220A19088005C8BDA /* m_ic_wait@2x.png in Resources */,
@@ -3252,6 +3317,7 @@
 				36C80A6420D89C640036C14A /* StoreDetailsPhoneCell.xib in Resources */,
 				430677F420AED838003BB046 /* 删除照片.png in Resources */,
 				439D068620BE980400379414 /* ic_right.png in Resources */,
+				43380E5920E0CC4800B3ABAF /* ic_pengyou@2x.png in Resources */,
 				435E59B120A18FD1005C8BDA /* 注册@1x.png in Resources */,
 				439D067820BE980400379414 /* ic_banner@3x.png in Resources */,
 				4332F8AA20D8D6E900AF386F /* ic_lianxi@2x.png in Resources */,
@@ -3452,6 +3518,7 @@
 				435E59ED20A18FD1005C8BDA /* banner3@2x.png in Resources */,
 				430677FA20AED838003BB046 /* 下拷贝@2x.png in Resources */,
 				430677F220AED838003BB046 /* 高速公路@2x.png in Resources */,
+				43380E5820E0CC4800B3ABAF /* ic_pengyou.png in Resources */,
 				435E5A9D20A19088005C8BDA /* ic_gaimima@3x.png in Resources */,
 				435E59EA20A18FD1005C8BDA /* button@3x.png in Resources */,
 				435E59F420A18FD1005C8BDA /* 雪花@1x.png in Resources */,
@@ -3474,6 +3541,7 @@
 				435E5AC920A19088005C8BDA /* ic_pink@2x.png in Resources */,
 				43CE0A7120A922BB00D7FACF /* ic_navback.png in Resources */,
 				43CE0A7020A922BB00D7FACF /* ic_navback@3x.png in Resources */,
+				43380E6020E0D62D00B3ABAF /* ic_t_wechat.png in Resources */,
 				435E5A1820A19061005C8BDA /* ic_day.png in Resources */,
 				435E5AF720A19088005C8BDA /* ic_huise@2x.png in Resources */,
 				4306780220AED839003BB046 /* 默认.png in Resources */,
@@ -3495,6 +3563,7 @@
 				435E5AD120A19088005C8BDA /* ic_daigenghuan.png in Resources */,
 				439D069D20BE980400379414 /* ic_pay.png in Resources */,
 				439D068F20BE980400379414 /* ic_back@2x.png in Resources */,
+				43380E6120E0D62D00B3ABAF /* ic_t_wechat@3x.png in Resources */,
 				43F874EA20CE4AEB007D1C2E /* ic_five_change@3x.png in Resources */,
 				439D067920BE980400379414 /* bic_down.png in Resources */,
 				435E59D020A18FD1005C8BDA /* 注册框@3x.png in Resources */,
@@ -3699,10 +3768,15 @@
 				43004A2520C7BF0B001BB01A /* ShoeOrderInfo.m in Sources */,
 				4306779D20AEB864003BB046 /* BottomCarInfoTableViewCell.m in Sources */,
 				438D449B20C26701008DAD97 /* ShoeSpeedLoadResult.m in Sources */,
+				4332F88520D8A19500AF386F /* MySettingViewController.m in Sources */,
+				4326298120E1DD2D006E2CCA /* TireRepairViewController.m in Sources */,
+				4326298720E1E494006E2CCA /* RepairHeadAlertView.m in Sources */,
+				36C80A6320D89C640036C14A /* StoreDetailsPhoneCell.m in Sources */,
 				432EFEAD20B566BF0090DEC8 /* FMDBPosition.m in Sources */,
 				4306782A20B0576B003BB046 /* SelectBrandViewController.m in Sources */,
 				4322A1D920A2F57C007B4037 /* SexTableViewCell.m in Sources */,
 				43E2830A20DCC87B0080D3FD /* PaymentMethodView.m in Sources */,
+				4326298420E1E2AC006E2CCA /* TireRepairHeadView.m in Sources */,
 				36C80A5D20D89C640036C14A /* StoreDetailsFlowLayout.m in Sources */,
 				433EECED20AD85920051DF9F /* Lunbo_infos.m in Sources */,
 				43004A2820C7CBDB001BB01A /* TopayBottomView.m in Sources */,
@@ -3766,6 +3840,7 @@
 				435E594020A17084005C8BDA /* HLKeyboardCoverPreventTool.m in Sources */,
 				43F5794C20C9088900E0B588 /* MyOrderView.m in Sources */,
 				4311E9A220D9F0AB00F74960 /* CouponRightView.m in Sources */,
+				43380E5C20E0CC7C00B3ABAF /* WXShareView.m in Sources */,
 				43F874DE20CE497C007D1C2E /* InstallStoreTableViewCell.m in Sources */,
 				36C80A5520D89C640036C14A /* StoreAssessModel.m in Sources */,
 				438D44AD20C2672D008DAD97 /* CustomQualityView.m in Sources */,
@@ -3817,9 +3892,7 @@
 				439D061B20BE456000379414 /* CashierViewController.m in Sources */,
 				36C80A4920D89C640036C14A /* BootView.m in Sources */,
 				430677A020AED59F003BB046 /* ZZYPhotoHelper.m in Sources */,
-				438D44A220C26722008DAD97 /* YUFoldingSectionHeader.m in Sources */,
 				43F874ED20CE4B51007D1C2E /* ReplacementProcessViewController.m in Sources */,
-				438D44A420C26722008DAD97 /* YUFoldingTableView.m in Sources */,
 				4358CAAA20A3DC3D006B456F /* WXZPickDateView.m in Sources */,
 				439D061E20BE860800379414 /* UserConfig.m in Sources */,
 				4332362420B29BF0008F45FD /* SelectProductYearViewController.m in Sources */,
@@ -3831,6 +3904,7 @@
 				4332361820B26A71008F45FD /* SelectSystemViewController.m in Sources */,
 				434DB63E20BCE3C10077234D /* LocationViewController.m in Sources */,
 				4358CAAD20A3EEAF006B456F /* WXZCustomPickView.m in Sources */,
+				4319BD1E20DE22F500CBA46C /* ChoiceTableHeadView.m in Sources */,
 				4319D9DE20ABFCB900893026 /* FMDBCarVerhicle.m in Sources */,
 				36C80A9020D89C6A0036C14A /* WinterTyreModel.m in Sources */,
 				43F874F620CE72CE007D1C2E /* StoreInfo.m in Sources */,
@@ -4026,6 +4100,10 @@
 				INFOPLIST_FILE = ruyiruyiios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ruyiruyiios/WechatSDK1.8.2",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruyiruyiios.ruyiruyiios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -4052,6 +4130,10 @@
 				INFOPLIST_FILE = ruyiruyiios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ruyiruyiios/WechatSDK1.8.2",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruyiruyiios.ruyiruyiios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

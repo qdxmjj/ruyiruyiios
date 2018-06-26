@@ -17,7 +17,8 @@
 #define TEXTCOLORB3 [PublicClass colorWithHexString:@"#B3B3B3"]
 #define TEXTCOLOR64 [PublicClass colorWithHexString:@"#646464"]
 #define SERVERPREFIX @"http://192.168.0.167:8082/xmjj-webservice"
-#define TEXTSERVERPREFIX @"http://192.168.0.190:8060"
+#define TEXTSERVERPREFIX @"http://192.168.0.105:8060"
+#define WEIXINID @"wx407c59de8b10c601"
 
 
 #define TEXTFONT @"ArialMT"

@@ -7,12 +7,9 @@
 //
 
 #import "RootViewController.h"
-#import "YUFoldingTableView.h"
 @interface ChoicePatternViewController : RootViewController
 
 @property(nonatomic, strong)NSString *tireSize;
 @property(nonatomic, strong)NSString *fontRearFlag;
-
-@property (nonatomic, assign) YUFoldingSectionHeaderArrowPosition arrowPosition;
 
 @end

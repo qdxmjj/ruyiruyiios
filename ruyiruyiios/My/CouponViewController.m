@@ -9,8 +9,9 @@
 #import "CouponViewController.h"
 #import "CouponTableViewCell.h"
 #import "CouponInfo.h"
+#import "DelegateConfiguration.h"
 
-@interface CouponViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface CouponViewController ()<UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate>
 
 @property(nonatomic, strong)NSArray *buttonNameArray;
 @property(nonatomic, strong)UIView *btnUnderView;
@@ -79,6 +80,9 @@
     [super viewDidLoad];
     self.title = @"我的优惠券";
     
+    DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+    [delegateConfiguration registerLoginStatusChangedListener:self];
+    
     self.statusStr = @"1";
     [self addViews];
     [self getUserCouponsFromInternet];
@@ -91,6 +95,13 @@
     [self addButtons:self.buttonNameArray];
     [self.view addSubview:self.btnUnderView];
     [self.view addSubview:self.couponTableView];
+}
+
+- (IBAction)backButtonAction:(id)sender{
+    
+    DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+    [delegateConfiguration unregisterLoginStatusChangedListener:self];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)addButtons:(NSArray *)nameArray{
@@ -148,6 +159,9 @@
 
 //            NSLog(@"%@", data);
             [self analySizeData:data];
+        }else if ([statusStr isEqualToString:@"-999"]){
+            
+            [self alertIsequallyTokenView];
         }else{
 
             [PublicClass showHUD:messageStr view:self.view];
@@ -220,6 +234,12 @@
     }
     [couponCell setdatatoViews:couponInfo];
     return couponCell;
+}
+
+//LoginStatusDelegate
+- (void)updateLoginStatus{
+    
+    [self getUserCouponsFromInternet];
 }
 
 - (void)didReceiveMemoryWarning {

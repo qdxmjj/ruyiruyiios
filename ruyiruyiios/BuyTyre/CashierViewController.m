@@ -19,7 +19,7 @@
 @property(nonatomic, strong)UILabel *moneyLabel;
 @property(nonatomic, strong)UIButton *surePayBtn;
 @property(nonatomic, strong)CashierPayView *cashierPayView;
-@property(nonatomic, strong)NSString *payTypeStr;
+@property(nonatomic, strong)NSString *payTypeStr; //1---jinepay 2---weixinpay 3---alipay
 
 @end
 
@@ -110,7 +110,26 @@
         [PublicClass showHUD:@"金额不足支付" view:self.view];
     }else if ([self.payTypeStr isEqualToString:@"2"]){
         
-        
+        NSDictionary *wxPostDic = @{@"orderNo":orderNoStr, @"orderName":orderNameStr, @"orderPrice":@"0.01", @"orderType":orderTypeStr, @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]]};
+        NSString *reqJson = [PublicClass convertToJsonData:wxPostDic];
+        NSString *threeDesStr = [PublicClass doEncryptStr:reqJson key:[[UserConfig token] substringWithRange:NSMakeRange(24, 24)]];
+//        NSLog(@"%@", @{@"reqJson":threeDesStr, @"token":[UserConfig token]});
+        [JJRequest commonPostRequest:@"getWeixinPaySign" params:@{@"reqJson":threeDesStr, @"token":[UserConfig token]} hostNameStr:TEXTSERVERPREFIX success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+            
+//            NSLog(@"%@", data);
+            PayReq *req = [[PayReq alloc] init];
+            req.openID = [data objectForKey:@"appid"];
+            req.partnerId = [data objectForKey:@"partnerid"];
+            req.prepayId = [data objectForKey:@"prepayid"];
+            req.package = [data objectForKey:@"package"];
+            req.nonceStr = [data objectForKey:@"noncestr"];
+            req.timeStamp = [[data objectForKey:@"timestamp"] intValue];
+            req.sign = [data objectForKey:@"sign"];
+            [WXApi sendReq:req];
+        } failure:^(NSError * _Nullable error) {
+            
+            NSLog(@"获取微信支付签名错误:%@", error);
+        }];
     }else{
         
         NSDictionary *postDic = @{@"orderNo":orderNoStr, @"orderName":orderNameStr, @"orderPrice":@"0.01", @"orderType":orderTypeStr, @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]]};
@@ -120,13 +139,13 @@
         [JJRequest testPostRequest:@"getAliPaySign" params:@{@"reqJson":threeDesStr, @"token":[UserConfig token]} serviceAddress:SERVERPREFIX success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
             
             NSString *messageStr = [NSString stringWithFormat:@"%@", message];
-            NSLog(@"%@", messageStr);
+//            NSLog(@"%@", messageStr);
             [[AlipaySDK defaultService] payOrder:messageStr fromScheme:@"ruyiruyiios" callback:^(NSDictionary *resultDic) {
                 
             }];
         } failure:^(NSError * _Nullable error) {
             
-            NSLog(@"获取订单签名错误:%@", error);
+            NSLog(@"获取支付宝支付签名错误:%@", error);
         }];
     }
 }

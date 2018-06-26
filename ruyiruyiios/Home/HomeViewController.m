@@ -23,8 +23,9 @@
 #import "ChoicePatternViewController.h"
 #import "PassImpededViewController.h"
 #import "NearbyViewController.h"
+#import "TireRepairViewController.h"
 
-@interface HomeViewController ()<UIScrollViewDelegate, SDCycleScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate, CityNameDelegate>{
+@interface HomeViewController ()<UIScrollViewDelegate, SDCycleScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate, CityNameDelegate, UpdateAddCarDelegate, SetDefaultCarDelegate>{
     
     CGFloat nameW;
     CGFloat tviewX, tviewY, tviewW, tviewH;
@@ -240,19 +241,10 @@
             
             CarInfoViewController *carinfoVC = [[CarInfoViewController alloc] init];
             carinfoVC.is_alter = YES;
-            carinfoVC.updateViewBlock = ^(NSString *text) {
-
-//                NSLog(@"%@", text);
-                [self getAndroidHomeDate];
-            };
             [self.navigationController pushViewController:carinfoVC animated:YES];
         }else{
             
             ManageCarViewController *manageCarVC = [[ManageCarViewController alloc] init];
-            manageCarVC.updateDefaultBlock = ^(NSString *text) {
-                
-                [self getAndroidHomeDate];
-            };
             [self.navigationController pushViewController:manageCarVC animated:YES];
         }
     }
@@ -350,6 +342,10 @@
     DelegateConfiguration *delegateCF = [DelegateConfiguration sharedConfiguration];
     [delegateCF registercityNameListers:self];
     [delegateCF registerLoginStatusChangedListener:self];
+    [delegateCF registeraddCarListers:self
+     ];
+    [delegateCF registerdefaultCarListers:self];
+    
     [self locateMap];
     self.navigationController.delegate = self;
     //消除iOS7自带侧翻的效果
@@ -454,7 +450,8 @@
             
         }else if (btn.tag == 1002){
             
-            
+            TireRepairViewController *tireRepairVC = [[TireRepairViewController alloc] init];
+            [self.navigationController pushViewController:tireRepairVC animated:YES];
         }else if (btn.tag == 1003){
             
             self.tabBarController.selectedIndex = 2;
@@ -591,6 +588,17 @@
     [self.locationBtn setTitle:cityNameStr forState:UIControlStateNormal];
 }
 
+#pragma mark UpdateAddCarDelegate
+- (void)updateAddCarNumber{
+    
+    [self getAndroidHomeDate];
+}
+
+#pragma mark SetDefaultCarDelegate
+- (void)updateDefaultCar{
+    
+    [self getAndroidHomeDate];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

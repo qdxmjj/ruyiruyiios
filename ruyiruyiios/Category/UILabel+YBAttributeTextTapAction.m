@@ -216,7 +216,7 @@
 //    for (int i = 0; i < range.length ; i++) {
 //        [string appendString:@" "];
 //    }
-    NSLog(@"返回的字符串:%@fa", string);
+//    NSLog(@"返回的字符串:%@fa", string);
     return string;
 }
 

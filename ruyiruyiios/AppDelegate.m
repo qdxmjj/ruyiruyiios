@@ -18,8 +18,10 @@
 #import "MyQuotaViewController.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import "MBProgressHUD+YYM_category.h"
+#import "WXApi.h"
+#import "MBProgressHUD+YYM_category.h"
 
-@interface AppDelegate ()
+@interface AppDelegate ()<WXApiDelegate>
 
 @end
 
@@ -32,6 +34,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    [WXApi registerApp:WEIXINID];
     
 //    MyQuotaViewController *carInfoVC = [[MyQuotaViewController alloc] init];
 //    UINavigationController *carNav = [[UINavigationController alloc] initWithRootViewController:carInfoVC];
@@ -71,7 +75,7 @@
             }
         }];
     }
-    return YES;
+    return [WXApi handleOpenURL:url delegate:self];
 }
 
 // NOTE: 9.0以后使用新API接口
@@ -90,7 +94,42 @@
             }
         }];
     }
-    return YES;
+    return [WXApi handleOpenURL:url delegate:self];
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
+    
+    return [WXApi handleOpenURL:url delegate:self];
+}
+
+#pragma mark WXApiDelegate
+- (void)onResp:(BaseResp *)resp{
+    
+    //WXSuccess           = 0,    /**< 成功    */
+    //WXErrCodeCommon     = -1,   /**< 普通错误类型    */
+    //WXErrCodeUserCancel = -2,   /**< 用户点击取消并返回    */
+    //WXErrCodeSentFail   = -3,   /**< 发送失败    */
+    //WXErrCodeAuthDeny   = -4,   /**< 授权失败    */
+    //WXErrCodeUnsupport  = -5,   /**< 微信不支持    */
+    if (resp.errCode == 0) {
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"payStatus" object:nil];
+    }else if (resp.errCode == -1){
+        
+        [MBProgressHUD showTextMessage:@"普通错误类型"];
+    }else if (resp.errCode == -2){
+        
+        [MBProgressHUD showTextMessage:@"用户点击取消并返回"];
+    }else if (resp.errCode == -3){
+        
+        [MBProgressHUD showTextMessage:@"发送失败"];
+    }else if (resp.errCode == -4){
+        
+        [MBProgressHUD showTextMessage:@"授权失败"];
+    }else if (resp.errCode == -5){
+        
+        [MBProgressHUD showTextMessage:@"微信不支持"];
+    }
 }
 
 - (void)databaseOperation:(NSString *)timeStr{

@@ -312,7 +312,6 @@
     NSData *mainData=UIImageJPEGRepresentation(mainImage, imgCompressionQuality);
     NSArray <JJFileParam *> *fileArray;
     fileArray = @[[JJFileParam fileConfigWithfileData:mainData name:@"jiashizhengzhuye" fileName:@"jiashizhengzhuye.png" mimeType:@"image/jpg/png/jpeg"]];
-    __strong __typeof(self)strongSelf = self;
     [JJRequest updateRequest:@"addUserCar" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} fileConfig:fileArray progress:^(int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
         
         
@@ -324,8 +323,9 @@
             
             [PublicClass showHUD:messageStr view:self.view];
         }else{
-        
-            strongSelf.updateViewBlock(@"update");
+    
+            DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+            [delegateConfiguration changeaddCarNumber];
             [self.navigationController popViewControllerAnimated:YES];
         }
     } complete:^(id  _Nullable dataObj, NSError * _Nullable error) {

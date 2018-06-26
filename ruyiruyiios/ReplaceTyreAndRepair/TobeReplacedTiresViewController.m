@@ -10,8 +10,9 @@
 #import "TobeReplacedTableViewCell.h"
 #import "TobeReplaceTireInfo.h"
 #import "FirstUpdateViewController.h"
+#import "DelegateConfiguration.h"
 
-@interface TobeReplacedTiresViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface TobeReplacedTiresViewController ()<UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate>
 
 @property(nonatomic, strong)UITableView *replacedTableV;
 @property(nonatomic, strong)UIButton *replaceBtn;
@@ -82,9 +83,19 @@
     [super viewDidLoad];
     self.title = @"待更换轮胎";
     
+    DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+    [delegateConfiguration registerLoginStatusChangedListener:self];
+    
     [self addViews];
     [self getUnusedShoeOrder];
     // Do any additional setup after loading the view.
+}
+
+- (IBAction)backButtonAction:(id)sender{
+    
+    DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+    [delegateConfiguration unregisterLoginStatusChangedListener:self];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)addViews{
@@ -105,6 +116,9 @@
             
             //            NSLog(@"%@", data);
             [self analysizeArray:data];
+        }else if ([statusStr isEqualToString:@"-999"]){
+            
+            [self alertIsequallyTokenView];
         }else{
             
             [PublicClass showHUD:messageStr view:self.view];
@@ -155,6 +169,12 @@
     TobeReplaceTireInfo *tireInfo = [self.replaceTireNumberMutableA objectAtIndex:indexPath.row];
     [cell setDatatoSubviews:tireInfo];
     return cell;
+}
+
+//LoginStatusDelegate
+- (void)updateLoginStatus{
+    
+    [self getUnusedShoeOrder];
 }
 
 - (void)didReceiveMemoryWarning {
