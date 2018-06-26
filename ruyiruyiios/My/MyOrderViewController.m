@@ -9,8 +9,9 @@
 #import "MyOrderViewController.h"
 #import "MyOrderTableViewCell.h"
 #import "OrderInfo.h"
+#import "DelegateConfiguration.h"
 
-@interface MyOrderViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface MyOrderViewController ()<UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate>
 
 @property(nonatomic, strong)UIView *underBtnView;
 @property(nonatomic, strong)NSArray *btnNameArray;
@@ -109,11 +110,21 @@
     [super viewDidLoad];
     self.title = @"我的订单";
     
+    DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+    [delegateConfiguration registerLoginStatusChangedListener:self];
+    
     _btnNameArray = @[@"全部", @"待支付", @"待发货", @"待服务", @"已完成"];
     [self addStatusBtn:_btnNameArray];
     [self addViews];
     [self getUserGeneralOrderByStateFromInternet];
     // Do any additional setup after loading the view.
+}
+
+- (IBAction)backButtonAction:(id)sender{
+    
+    DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+    [delegateConfiguration unregisterLoginStatusChangedListener:self];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)getUserGeneralOrderByStateFromInternet{
@@ -128,6 +139,9 @@
             
 //            YLog(@"相应的数据：%@", data);
             [self analysizeData:data];
+        }else if ([codeStr isEqualToString:@"-999"]){
+            
+            [self alertIsequallyTokenView];
         }else{
             
             [PublicClass showHUD:messageStr view:self.view];
@@ -284,6 +298,12 @@
         [self jumpControllerView:buttonName];
     };
     return cell;
+}
+
+//LoginStatusDelegate
+- (void)updateLoginStatus{
+    
+    [self getUserGeneralOrderByStateFromInternet];
 }
 
 - (void)jumpControllerView:(NSString *)name{

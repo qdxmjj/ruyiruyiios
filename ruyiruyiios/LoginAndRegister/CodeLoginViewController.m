@@ -288,10 +288,12 @@
             
         case 1003:
             
-            if ([getCodeBtn.titleLabel.text isEqualToString:@"获取验证码"]) {
-                [self chickLoginBtn];
-            }else{
+            if ([getCodeBtn.titleLabel.text isEqualToString:@""]) {
+                
                 [self chickPassLoginBtn];
+            }else{
+                
+                [self chickLoginBtn];
             }
             break;
             
@@ -386,6 +388,7 @@
             if ([statusStr isEqualToString:@"111111"]) {
                 
                 //保存数据库操作
+                NSLog(@"%@", data);
                 MainTabBarViewController *mainTabVC = [[MainTabBarViewController alloc] init];
                 [self.navigationController pushViewController:mainTabVC animated:YES];
             }else if ([statusStr isEqualToString:@"-1"]){
@@ -481,7 +484,6 @@
     [UserConfig userDefaultsSetObject:userInfo.updateTime key:@"updateTime"];
     [UserConfig userDefaultsSetObject:userInfo.version key:@"version"];
     [UserConfig userDefaultsSetObject:userInfo.wxInfoId key:@"wxInfoId"];
-    [UserConfig userDefaultsSetObject:[NSNumber numberWithInt:0] key:@"userCarId"];
 }
 
 - (void)didReceiveMemoryWarning {

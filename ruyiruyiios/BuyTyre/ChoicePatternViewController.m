@@ -14,16 +14,18 @@
 #import "BuyTireViewController.h"
 #import "CodeLoginViewController.h"
 #import "DelegateConfiguration.h"
+#import "ChoiceTableHeadView.h"
 
-@interface ChoicePatternViewController ()<YUFoldingTableViewDelegate, LoginStatusDelegate>
+@interface ChoicePatternViewController ()<UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate>
 
 @property(nonatomic, strong)UIView *headView;
 @property(nonatomic, strong)UILabel *category_seleLabel;
-@property(nonatomic, weak)YUFoldingTableView *foldingTableView;
+@property(nonatomic, strong)UITableView *choicePatternTableV;
 @property(nonatomic, strong)UIButton *nextBtn;
 @property(nonatomic, strong)NSMutableArray *shoeMutableA;
 @property(nonatomic, strong)NSMutableDictionary *shoeFlgureNameDic;
 @property(nonatomic, strong)ShoeSpeedLoadResult *shoeSpeedLoadResult;
+@property(nonatomic, strong)UIButton *choiceTmpBtn;
 
 @end
 
@@ -63,6 +65,19 @@
         _category_seleLabel.textColor = TEXTCOLOR64;
     }
     return _category_seleLabel;
+}
+
+- (UITableView *)choicePatternTableV{
+    
+    if (_choicePatternTableV == nil) {
+        
+        _choicePatternTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, MAINSCREEN.width, MAINSCREEN.height - 64 - 40 - 40) style:UITableViewStylePlain];
+        _choicePatternTableV.delegate = self;
+        _choicePatternTableV.dataSource = self;
+        _choicePatternTableV.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _choicePatternTableV.bounces = NO;
+    }
+    return _choicePatternTableV;
 }
 
 - (UIButton *)nextBtn{
@@ -117,6 +132,8 @@
         [PublicClass showHUD:@"没有选择轮胎" view:self.view];
     }else{
         
+        DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+        [delegateConfiguration unregisterLoginStatusChangedListener:self];
         BuyTireViewController *buyTireVC = [[BuyTireViewController alloc] init];
         buyTireVC.shoeSpeedLoadResult = self.shoeSpeedLoadResult;
         NSLog(@"%@", fontRearFlag);
@@ -147,19 +164,8 @@
 - (void)addView{
     
     [self.view addSubview:self.headView];
-    [self setupFoldingTableView];
+    [self.view addSubview:self.choicePatternTableV];
     [self.view addSubview:self.nextBtn];
-}
-
-- (void)setupFoldingTableView{
-    
-    YUFoldingTableView *foldingTableView = [[YUFoldingTableView alloc] initWithFrame:CGRectMake(0, 40, MAINSCREEN.width, MAINSCREEN.height - 144)];
-    _foldingTableView = foldingTableView;
-//    _foldingTableView.bounces = NO;
-    _foldingTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _foldingTableView.backgroundColor = [PublicClass colorWithHexString:@"#fafafa"];
-    [self.view addSubview:foldingTableView];
-    foldingTableView.foldingDelegate = self;
 }
 
 - (void)getDataFromInternet:(NSString *)size{
@@ -181,7 +187,7 @@
             
 //            NSLog(@"getShoeBySize:%@", data);
             [self analySize:data];
-            [self.foldingTableView reloadData];
+            [self.choicePatternTableV reloadData];
         }else if ([statusStr isEqualToString:@"-999"]){
             
             [self alertIsequallyTokenView];
@@ -214,38 +220,46 @@
         }
         [self.shoeFlgureNameDic setValue:resultListMutableA forKey:tirePattern.shoeFlgureName];
     }
-//    NSLog(@"%@---%@", self.shoeMutableA, self.shoeFlgureNameDic);
 }
 
-#pragma mark - YUFoldingTableViewDelegate
-- (NSInteger)numberOfSectionForYUFoldingTableView:(YUFoldingTableView *)yuTableView{
+#pragma mark - TableViewDelegate
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
     return self.shoeMutableA.count;
 }
 
-- (NSInteger)yuFoldingTableView:(YUFoldingTableView *)yuTableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 1;
-//    TirePattern *tirePattern = [self.shoeMutableA objectAtIndex:section];
-//    NSString *nameKey = tirePattern.shoeFlgureName;
-//    return [[self.shoeFlgureNameDic objectForKey:nameKey] count];
+    if (_choiceTmpBtn.tag == (1000+section)) {
+        
+        if (_choiceTmpBtn.selected == YES) {
+            
+            return 1;
+        }else{
+            
+            return 0;
+        }
+    }else{
+        
+        return 0;
+    }
 }
 
-- (CGFloat)yuFoldingTableView:(YUFoldingTableView *)yuTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     TirePattern *tirePattern = [self.shoeMutableA objectAtIndex:indexPath.section];
     return 300 + [[self.shoeFlgureNameDic objectForKey:tirePattern.shoeFlgureName] count] * 40 + 10;
 }
 
-- (CGFloat)yuFoldingTableView:(YUFoldingTableView *)yuTableView heightForHeaderInSection:(NSInteger)section{
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
     return 50.0;
 }
 
-- (UITableViewCell *)yuFoldingTableView:(YUFoldingTableView *)yuTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     static NSString *cellIdentifier = @"cellIdentifier";
-    ChoicePatternTableViewCell *choiceCell = [yuTableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    ChoicePatternTableViewCell *choiceCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     TirePattern *tirePattern = [self.shoeMutableA objectAtIndex:indexPath.section];
     if (choiceCell == nil) {
         
@@ -263,25 +277,58 @@
 }
 
 #pragma mark - YUFoldingTableViewDelegate / optional
-- (NSString *)yuFoldingTableView:(YUFoldingTableView *)yuTableView titleForHeaderInSection:(NSInteger)section{
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     
     TirePattern *tirePattern = [self.shoeMutableA objectAtIndex:section];
     return tirePattern.shoeFlgureName;
 }
 
-- (void)yuFoldingTableView:(YUFoldingTableView *)yuTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
-    [yuTableView deselectRowAtIndexPath:indexPath animated:YES];
+    TirePattern *tirePattern = [self.shoeMutableA objectAtIndex:section];
+    ChoiceTableHeadView *choiceHeadView = [[ChoiceTableHeadView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, 50)];
+    choiceHeadView.backgroundColor = [UIColor whiteColor];
+    choiceHeadView.tag = 1000 + section;
+    choiceHeadView.statusBtn.tag = 1000 + section;
+    [choiceHeadView.statusBtn addTarget:self action:@selector(chickStatusBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [choiceHeadView setdatatoViews:tirePattern.shoeFlgureName img:@"ic_right"];
+    if (_choiceTmpBtn.tag == (1000 + section)) {
+        
+        if (_choiceTmpBtn.selected == YES) {
+            
+            [choiceHeadView setbackgroundAndTitleColorAndRightImg:@"1"];
+        }else{
+            
+            [choiceHeadView setbackgroundAndTitleColorAndRightImg:@"0"];
+        }
+    }else{
+        
+        [choiceHeadView setbackgroundAndTitleColorAndRightImg:@"0"];
+    }
+    return choiceHeadView;
 }
 
-- (YUFoldingSectionHeaderArrowPosition)perferedArrowPositionForYUFoldingTableView:(YUFoldingTableView *)yuTableView{
+- (void)chickStatusBtn:(UIButton *)button{
     
-    return YUFoldingSectionHeaderArrowPositionRight;
+    if (_choiceTmpBtn == nil) {
+
+        button.selected = !button.selected;
+        _choiceTmpBtn = button;
+    }else if (_choiceTmpBtn != nil && _choiceTmpBtn.tag == button.tag){
+
+        _choiceTmpBtn.selected = !_choiceTmpBtn.selected;
+    }else if (_choiceTmpBtn.tag != button.tag && _choiceTmpBtn != nil){
+
+        _choiceTmpBtn.selected = NO;
+        button.selected = YES;
+        _choiceTmpBtn = button;
+    }
+    [self.choicePatternTableV reloadData];
 }
 
-- (NSString *)yuFoldingTableView:(YUFoldingTableView *)yuTableView descriptionForHeaderInSection:(NSInteger)section{
-
-    return @"";
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    [self.choicePatternTableV deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 //loginStatusDelegate

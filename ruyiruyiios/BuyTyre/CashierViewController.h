@@ -8,8 +8,9 @@
 
 #import "RootViewController.h"
 #import "ShoeOrderInfo.h"
+#import "WXApi.h"
 
-@interface CashierViewController : RootViewController
+@interface CashierViewController : RootViewController<WXApiDelegate>
 
 @property(nonatomic, strong)NSString *orderNoStr;
 @property(nonatomic, strong)NSString *totalPriceStr;

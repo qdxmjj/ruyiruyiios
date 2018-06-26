@@ -69,7 +69,7 @@
     
 }
 
-+ (void)postRequest:(NSString *)url params:(NSDictionary *)params success:(requestSuccessBlock)successHandler failure:(requestFailureBlock)failureHandler {
++ (void)commonPostRequest:(NSString *)url params:(NSDictionary *)params hostNameStr:(NSString *)hostStr success:(requestSuccessBlock)successHandler failure:(requestFailureBlock)failureHandler {
     
     if ([self checkNetworkStatus] == NO) {
         successHandler(nil,nil,nil);
@@ -85,10 +85,45 @@
     
     AFHTTPSessionManager *manager = [self getRequestManager];
     
-    [manager POST:[NSString stringWithFormat:@"%@/%@",SERVERPREFIX,url] parameters:params progress:nil
+    [manager POST:[NSString stringWithFormat:@"%@/%@",hostStr,url] parameters:params progress:nil
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject){
             
 //              NSLog(@"%@", responseObject);
+              NSString *code = [responseObject objectForKey:@"status"];
+              NSString *message = [responseObject objectForKey:@"msg"];
+              id data = [responseObject objectForKey:@"data"];
+              
+              successHandler(code,message,data);
+              
+          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+              NSLog(@"------请求失败-------%@",error);
+              
+              [self requestErrorCode:error.code];
+              
+              failureHandler(error);
+          }];
+}
+
++ (void)postRequest:(NSString *)url params:(NSDictionary *)params success:(requestSuccessBlock)successHandler failure:(requestFailureBlock)failureHandler {
+    
+    if ([self checkNetworkStatus] == NO) {
+        successHandler(nil,nil,nil);
+        failureHandler(nil);
+        return;
+    }
+    
+    AFNetworkReachabilityManager *reachabilityManager = [AFNetworkReachabilityManager sharedManager];
+    if (!reachabilityManager.isReachableViaWiFi) {
+        
+        
+    }
+    
+    AFHTTPSessionManager *manager = [self getRequestManager];
+    
+    [manager POST:[NSString stringWithFormat:@"%@/%@",SERVERPREFIX,url] parameters:params progress:nil
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject){
+              
+              //              NSLog(@"%@", responseObject);
               NSString *code = [responseObject objectForKey:@"status"];
               NSString *message = [responseObject objectForKey:@"msg"];
               id data = [responseObject objectForKey:@"data"];
@@ -126,11 +161,9 @@
     [manager POST:[NSString stringWithFormat:@"%@/%@",hostAddress,url] parameters:params progress:nil
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject){
               
-              //              NSLog(@"%@", responseObject);
+              NSLog(@"%@", responseObject);
               NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-              
               successHandler(@"",responseStr,@"");
-              
           } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
               NSLog(@"------请求失败-------%@",error);
               

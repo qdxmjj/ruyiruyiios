@@ -10,8 +10,9 @@
 #import "PassImpededTableViewCell.h"
 #import "BuyPassViewController.h"
 #import "CarCXWYInfo.h"
+#import "DelegateConfiguration.h"
 
-@interface PassImpededViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface PassImpededViewController ()<UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate>
 
 @property(nonatomic, strong)UITableView *passTableView;
 @property(nonatomic, strong)UIButton *buyPassImpededBtn;
@@ -80,10 +81,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+    [delegateConfiguration registerLoginStatusChangedListener:self];
+    
     self.title = @"畅行无忧";
     [self addViews];
     [self queryCarCxwyInfo];
     // Do any additional setup after loading the view.
+}
+
+- (IBAction)backButtonAction:(id)sender{
+    
+    DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+    [delegateConfiguration unregisterLoginStatusChangedListener:self];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)addViews{
@@ -94,24 +105,34 @@
 
 - (void)queryCarCxwyInfo{
     
-    NSDictionary *queryPostDic = @{@"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]], @"userCarId": [NSString stringWithFormat:@"%@", [UserConfig userCarId]]};
-    NSString *reqJson = [PublicClass convertToJsonData:queryPostDic];
-    [JJRequest postRequest:@"userCarInfo/queryCarCxwyInfo" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+    if ([UserConfig userCarId] == NULL) {
         
-        NSString *statusStr = [NSString stringWithFormat:@"%@", code];
-        NSString *messageStr = [NSString stringWithFormat:@"%@", message];
-        if ([statusStr isEqualToString:@"1"]) {
-            
-            NSLog(@"%@", data);
-            [self ananysize:data];
-        }else{
-            
-            [PublicClass showHUD:messageStr view:self.view];
-        }
-    } failure:^(NSError * _Nullable error) {
+        [PublicClass showHUD:@"请添加默认车辆" view:self.view];
+    }else{
         
-        NSLog(@"查询用户车辆畅行无忧信息:%@", error);
-    }];
+        NSDictionary *queryPostDic = @{@"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]], @"userCarId": [NSString stringWithFormat:@"%@", [UserConfig userCarId]]};
+        NSLog(@"%@", queryPostDic);
+        NSString *reqJson = [PublicClass convertToJsonData:queryPostDic];
+        [JJRequest postRequest:@"userCarInfo/queryCarCxwyInfo" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+            
+            NSString *statusStr = [NSString stringWithFormat:@"%@", code];
+            NSString *messageStr = [NSString stringWithFormat:@"%@", message];
+            if ([statusStr isEqualToString:@"1"]) {
+                
+                //            NSLog(@"%@", data);
+                [self ananysize:data];
+            }else if ([statusStr isEqualToString:@"-999"]){
+                
+                [self alertIsequallyTokenView];
+            }else{
+                
+                [PublicClass showHUD:messageStr view:self.view];
+            }
+        } failure:^(NSError * _Nullable error) {
+            
+            NSLog(@"查询用户车辆畅行无忧信息:%@", error);
+        }];
+    }
 }
 
 - (void)ananysize:(NSArray *)dataArray{
@@ -154,6 +175,12 @@
 
     [cell setdatatoCellViews:[self.carCXWYMutableA objectAtIndex:indexPath.row]];
     return cell;
+}
+
+//LoginStatusDelegate
+- (void)updateLoginStatus{
+    
+    [self queryCarCxwyInfo];
 }
 
 - (void)didReceiveMemoryWarning {

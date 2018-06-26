@@ -11,7 +11,6 @@
 @interface CarInfoViewController : RootViewController
 
 @property(copy, nonatomic)void(^block)(NSString *);
-@property(copy, nonatomic)void(^updateViewBlock)(NSString *);
 @property(nonatomic, strong)NSString *user_car_idStr;
 @property(nonatomic, assign)BOOL is_alter;
 

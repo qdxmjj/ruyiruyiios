@@ -28,12 +28,22 @@
 - (void)updateTypeStatus:(FMDBCarTireInfo *)carTireInfo;
 @end
 
+@protocol UpdateAddCarDelegate
+- (void)updateAddCarNumber;
+@end
+
+@protocol SetDefaultCarDelegate
+- (void)updateDefaultCar;
+@end;
+
 @interface DelegateConfiguration : NSObject
 
 @property(nonatomic, strong)NSMutableArray *loginStatusListeners;
 @property(nonatomic, strong)NSMutableArray *roadStatusListeners;
 @property(nonatomic, strong)NSMutableArray *CartypeStatusListeners;
 @property(nonatomic, strong)NSMutableArray *cityNameListers;
+@property(nonatomic, strong)NSMutableArray *addCarListers;
+@property(nonatomic, strong)NSMutableArray *defaultCarListers;
 
 + (DelegateConfiguration *)sharedConfiguration;
 + (void)setSharedConfiguration:(DelegateConfiguration *)configuration;
@@ -53,5 +63,15 @@
 - (void)registercityNameListers:(id<CityNameDelegate>)delegate;
 - (void)unregistercityNameListers:(id<CityNameDelegate>)delegate;
 - (void)changecityNameNumber:(NSString *)city_Str;
+
+- (void)registeraddCarListers:(id<UpdateAddCarDelegate>)delegate;
+- (void)unregisteraddCarListers:(id<UpdateAddCarDelegate>)delegate;
+- (void)changeaddCarNumber;
+
+- (void)registerdefaultCarListers:(id<SetDefaultCarDelegate>)delegate;
+- (void)unregisterdefaultCarListers:(id<SetDefaultCarDelegate>)delegate;
+- (void)changedefaultCarNumber;
+
+- (void)removeAllDelegateMutableA;
 
 @end

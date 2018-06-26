@@ -15,7 +15,7 @@
 #import "CodeLoginViewController.h"
 #import "DelegateConfiguration.h"
 
-@interface ManageCarViewController ()<UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate>
+@interface ManageCarViewController ()<UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate, UpdateAddCarDelegate>
 
 @property(nonatomic, strong)UIButton *addCarBtn;
 @property(nonatomic, strong)UITableView *addCarTableV;
@@ -67,10 +67,6 @@
     
     CarInfoViewController *carInfoVC = [[CarInfoViewController alloc] init];
     carInfoVC.is_alter = YES;
-    carInfoVC.updateViewBlock = ^(NSString *text) {
-        
-        [self getDataFromInternet];
-    };
     [self.navigationController pushViewController:carInfoVC animated:YES];
 }
 
@@ -89,6 +85,7 @@
     [super viewDidLoad];
     DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
     [delegateConfiguration registerLoginStatusChangedListener:self];
+    [delegateConfiguration registeraddCarListers:self];
     [self getDataFromInternet];
     self.title = @"管理车辆";
     
@@ -100,6 +97,7 @@
     
     DelegateConfiguration *delegateConfig = [DelegateConfiguration sharedConfiguration];
     [delegateConfig unregisterLoginStatusChangedListener:self];
+    [delegateConfig unregisteraddCarListers:self];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -231,13 +229,14 @@
         
         NSString *statusStr = [NSString stringWithFormat:@"%@", code];
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
-        if ([statusStr isEqualToString:@"-1"]) {
+        if ([statusStr isEqualToString:@"1"]) {
             
-            [PublicClass showHUD:messageStr view:self.view];
+            DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+            [delegateConfiguration changedefaultCarNumber];
+            [self getDataFromInternet];
         }else{
             
-            self.updateDefaultBlock(@"updateDefaultBlock");
-            [self getDataFromInternet];
+            [PublicClass showHUD:messageStr view:self.view];
         }
     } failure:^(NSError * _Nullable error) {
         
@@ -251,31 +250,16 @@
         
         return;
     }
-//    if (editingStyle == UITableViewCellEditingStyleDelete) {
-//
-//        FMDBUserInfo *userInfo = [[DBRecorder getAllUserInfoData] objectAtIndex:0];
-//        ManageCar *manageCar = [self.carMutableA objectAtIndex:indexPath.row];
-//        NSDictionary *deleteDic = @{@"userId":[NSString stringWithFormat:@"%@", userInfo.userId], @"userCarId":[NSString stringWithFormat:@"%@", manageCar.user_car_id]};
-//        NSString *deleteReqJson = [PublicClass convertToJsonData:deleteDic];
-//        [JJRequest postRequest:@"deleteCar" params:@{@"reqJson":deleteReqJson, @"token":userInfo.token} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
-//
-//            NSString *statusStr = [NSString stringWithFormat:@"%@", code];
-//            NSString *messageStr = [NSString stringWithFormat:@"%@", message];
-//            if ([statusStr isEqualToString:@"-1"]) {
-//
-//                [PublicClass showHUD:messageStr view:self.view];
-//            }else{
-//
-//                [self getDataFromInternet];
-//            }
-//        } failure:^(NSError * _Nullable error) {
-//
-//
-//        }];
-//    }
 }
 
+//LoginStatusDelegate
 - (void)updateLoginStatus{
+    
+    [self getDataFromInternet];
+}
+
+//UpdateAddCarDelegate
+- (void)updateAddCarNumber{
     
     [self getDataFromInternet];
 }

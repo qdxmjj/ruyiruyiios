@@ -101,7 +101,7 @@
             if (![db tableExists:@"carBrand"]) {
                 
                 [db executeUpdate:@"CREATE TABLE carBrand(Id INTEGER PRIMARY KEY, icon TEXT, brandId INTEGER, imgUrl TEXT, name TEXT, system INTEGER, time TEXT)"];
-                NSLog(@"车辆品牌数据库创建完成!");
+                NSLog(@"车辆图标数据库创建完成!");
             }
             NSString *brandId_Str, *system_Str;
             for (NSDictionary *dataDic in dataArray) {

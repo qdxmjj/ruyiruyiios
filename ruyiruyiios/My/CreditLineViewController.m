@@ -9,8 +9,9 @@
 #import "CreditLineViewController.h"
 #import "CreditLineCarInfo.h"
 #import "CreditLineTableViewCell.h"
+#import "DelegateConfiguration.h"
 
-@interface CreditLineViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface CreditLineViewController ()<UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate>
 
 @property(nonatomic, strong)UITableView *creditTableV;
 @property(nonatomic, strong)NSMutableArray *creditCarMutableA;
@@ -55,10 +56,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+    [delegateConfiguration registerLoginStatusChangedListener:self];
+    
     self.title = @"信用额度";
     [self addViews];
     [self queryCarCreditInfoFromInternet];
     // Do any additional setup after loading the view.
+}
+
+- (IBAction)backButtonAction:(id)sender{
+    
+    DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+    [delegateConfiguration unregisterLoginStatusChangedListener:self];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)addViews{
@@ -78,6 +89,9 @@
             
 //            NSLog(@"%@", data);
             [self analysizeArray:data];
+        }else if ([statusStr isEqualToString:@"-999"]){
+            
+            [self alertIsequallyTokenView];
         }else{
             
             [PublicClass showHUD:messageStr view:self.view];
@@ -128,6 +142,12 @@
     CreditLineCarInfo *creditCarInfo = self.creditCarMutableA[indexPath.row];
     [cell setdatatoViews:creditCarInfo];
     return cell;
+}
+
+//LoginStatusDelegate
+- (void)updateLoginStatus{
+    
+    [self queryCarCreditInfoFromInternet];
 }
 
 - (void)didReceiveMemoryWarning {

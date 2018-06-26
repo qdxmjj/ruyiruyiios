@@ -10,6 +10,4 @@
 
 @interface ManageCarViewController : RootViewController
 
-@property(nonatomic, copy)void(^updateDefaultBlock)(NSString *);
-
 @end

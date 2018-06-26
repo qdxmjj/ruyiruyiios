@@ -15,6 +15,7 @@
 #import "WXZCustomPickView.h"
 #import "MainTabBarViewController.h"
 #import "DBRecorder.h"
+#import "DelegateConfiguration.h"
 
 @interface RegisterViewController ()<UITableViewDelegate, UITableViewDataSource, PickerDateViewDelegate, CustomPickViewDelegate>{
     
@@ -45,6 +46,11 @@
 
     [self.navigationController.navigationBar setHidden:NO];
     self.tabBarController.tabBar.hidden = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    
+    self.navigationController.navigationBar.hidden = YES;
 }
 
 - (UITableView *)registerTabV{
@@ -252,6 +258,7 @@
                 NSLog(@"注册成功返回的数据:%@", data);
                 //保存数据库操作
                 [self insertDatabase:data];
+                [self removeDelegates];
                 MainTabBarViewController *mainTabVC = [[MainTabBarViewController alloc] init];
                 [self.navigationController pushViewController:mainTabVC animated:YES];
             }
@@ -295,6 +302,12 @@
     [UserConfig userDefaultsSetObject:userInfo.updateTime key:@"updateTime"];
     [UserConfig userDefaultsSetObject:userInfo.version key:@"version"];
     [UserConfig userDefaultsSetObject:userInfo.wxInfoId key:@"wxInfoId"];
+}
+
+- (void)removeDelegates{
+    
+    DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+    [delegateConfiguration removeAllDelegateMutableA];
 }
 
 - (void)viewDidLoad {

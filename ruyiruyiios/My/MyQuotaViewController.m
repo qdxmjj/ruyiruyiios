@@ -13,8 +13,9 @@
 #import "PaymentMethodView.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import "PaySuccessViewController.h"
+#import "DelegateConfiguration.h"
 
-@interface MyQuotaViewController ()<UIScrollViewDelegate>{
+@interface MyQuotaViewController ()<UIScrollViewDelegate, LoginStatusDelegate>{
     
     NSString *payFlagStr;
 }
@@ -194,12 +195,22 @@
     [super viewDidLoad];
     self.title = @"我的额度";
     
+    DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+    [delegateConfiguration registerLoginStatusChangedListener:self];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chickPayResult) name:@"payStatus" object:nil];
     
     payFlagStr = @"1";
     [self addViews];
     [self queryCarCreditMyQuota];
     // Do any additional setup after loading the view.
+}
+
+- (IBAction)backButtonAction:(id)sender{
+    
+    DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+    [delegateConfiguration unregisterLoginStatusChangedListener:self];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)addViews{
@@ -230,6 +241,9 @@
             
 //            NSLog(@"%@", data);
             [self analySizeData:data];
+        }else if ([statusStr isEqualToString:@"-999"]){
+            
+            [self alertIsequallyTokenView];
         }else{
             
             [PublicClass showHUD:messageStr view:self.view];
@@ -255,6 +269,12 @@
 //    PaySuccessViewController *paySuccessVC = [[PaySuccessViewController alloc] init];
 //    paySuccessVC.orderTypeStr = @"5";
 //    [self.navigationController pushViewController:paySuccessVC animated:YES];
+}
+
+//LoginStatusDelegate
+- (void)updateLoginStatus{
+    
+    [self queryCarCreditMyQuota];
 }
 
 - (void)dealloc{
