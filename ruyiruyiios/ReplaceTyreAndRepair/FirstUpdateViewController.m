@@ -193,7 +193,7 @@
 
 - (void)getUserUnusedShoeNum{
     
-    NSLog(@"获取到的汽车ID:%@", [UserConfig userCarId]);
+//    NSLog(@"获取到的汽车ID:%@", [UserConfig userCarId]);
     NSDictionary *postDic = @{@"userCarId":[NSString stringWithFormat:@"%@", [UserConfig userCarId]], @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]]};
     NSString *reqJson = [PublicClass convertToJsonData:postDic];
     [JJRequest postRequest:@"getUserUnusedShoeNum" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
@@ -383,7 +383,8 @@
     
     NearbyViewController *nearbyVC = [[NearbyViewController alloc] init];
     nearbyVC.condition = @"轮胎服务";
-    nearbyVC.status = @"1";
+    nearbyVC.status = @"0";
+    nearbyVC.isLocation = @"1";
     nearbyVC.serviceType = @"5";
     nearbyVC.backBlock = ^(NSDictionary *dataDic) {
         

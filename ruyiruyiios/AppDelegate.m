@@ -15,7 +15,7 @@
 #import "FMDBCarVerhicle.h"
 #import "FMDBCarTireInfo.h"
 #import "FMDBCarTireType.h"
-#import "MyQuotaViewController.h"
+#import "TireRepairViewController.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import "MBProgressHUD+YYM_category.h"
 #import "WXApi.h"
@@ -37,7 +37,7 @@
     
     [WXApi registerApp:WEIXINID];
     
-//    MyQuotaViewController *carInfoVC = [[MyQuotaViewController alloc] init];
+//    TireRepairViewController *carInfoVC = [[TireRepairViewController alloc] init];
 //    UINavigationController *carNav = [[UINavigationController alloc] initWithRootViewController:carInfoVC];
 //    self.window.rootViewController = carNav;
     if (![[NSUserDefaults standardUserDefaults] valueForKey:@"isFirst"]) {

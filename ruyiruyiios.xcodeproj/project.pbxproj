@@ -207,6 +207,7 @@
 		4326298120E1DD2D006E2CCA /* TireRepairViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298020E1DD2D006E2CCA /* TireRepairViewController.m */; };
 		4326298420E1E2AC006E2CCA /* TireRepairHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298320E1E2AC006E2CCA /* TireRepairHeadView.m */; };
 		4326298720E1E494006E2CCA /* RepairHeadAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298620E1E494006E2CCA /* RepairHeadAlertView.m */; };
+		4326298A20E210CC006E2CCA /* TireRepairMiddleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298920E210CC006E2CCA /* TireRepairMiddleView.m */; };
 		432EFEAD20B566BF0090DEC8 /* FMDBPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 432EFEAC20B566BF0090DEC8 /* FMDBPosition.m */; };
 		432EFEB320B5A5520090DEC8 /* AddressPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 432EFEB120B5A5520090DEC8 /* AddressPickerView.m */; };
 		432EFEB820B5A5EF0090DEC8 /* Province.m in Sources */ = {isa = PBXBuildFile; fileRef = 432EFEB520B5A5EE0090DEC8 /* Province.m */; };
@@ -1041,6 +1042,8 @@
 		4326298320E1E2AC006E2CCA /* TireRepairHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TireRepairHeadView.m; sourceTree = "<group>"; };
 		4326298520E1E494006E2CCA /* RepairHeadAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RepairHeadAlertView.h; sourceTree = "<group>"; };
 		4326298620E1E494006E2CCA /* RepairHeadAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RepairHeadAlertView.m; sourceTree = "<group>"; };
+		4326298820E210CC006E2CCA /* TireRepairMiddleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TireRepairMiddleView.h; sourceTree = "<group>"; };
+		4326298920E210CC006E2CCA /* TireRepairMiddleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TireRepairMiddleView.m; sourceTree = "<group>"; };
 		432EFEAB20B566BF0090DEC8 /* FMDBPosition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMDBPosition.h; sourceTree = "<group>"; };
 		432EFEAC20B566BF0090DEC8 /* FMDBPosition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMDBPosition.m; sourceTree = "<group>"; };
 		432EFEB120B5A5520090DEC8 /* AddressPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressPickerView.m; sourceTree = "<group>"; };
@@ -3078,6 +3081,8 @@
 				4326298320E1E2AC006E2CCA /* TireRepairHeadView.m */,
 				4326298520E1E494006E2CCA /* RepairHeadAlertView.h */,
 				4326298620E1E494006E2CCA /* RepairHeadAlertView.m */,
+				4326298820E210CC006E2CCA /* TireRepairMiddleView.h */,
+				4326298920E210CC006E2CCA /* TireRepairMiddleView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3768,10 +3773,8 @@
 				43004A2520C7BF0B001BB01A /* ShoeOrderInfo.m in Sources */,
 				4306779D20AEB864003BB046 /* BottomCarInfoTableViewCell.m in Sources */,
 				438D449B20C26701008DAD97 /* ShoeSpeedLoadResult.m in Sources */,
-				4332F88520D8A19500AF386F /* MySettingViewController.m in Sources */,
 				4326298120E1DD2D006E2CCA /* TireRepairViewController.m in Sources */,
 				4326298720E1E494006E2CCA /* RepairHeadAlertView.m in Sources */,
-				36C80A6320D89C640036C14A /* StoreDetailsPhoneCell.m in Sources */,
 				432EFEAD20B566BF0090DEC8 /* FMDBPosition.m in Sources */,
 				4306782A20B0576B003BB046 /* SelectBrandViewController.m in Sources */,
 				4322A1D920A2F57C007B4037 /* SexTableViewCell.m in Sources */,
@@ -3879,6 +3882,7 @@
 				36C80A6F20D89C640036C14A /* TopBarView.m in Sources */,
 				43490C0E20D201A600BE5F8E /* PersonalInformationViewController.m in Sources */,
 				4343681720DB993D009D2657 /* CreditLineTableViewCell.m in Sources */,
+				4326298A20E210CC006E2CCA /* TireRepairMiddleView.m in Sources */,
 				4343681120DB9201009D2657 /* CreditLineViewController.m in Sources */,
 				36C80A4320D89C640036C14A /* AllAssessTableViewController.m in Sources */,
 				36C80A4E20D89C640036C14A /* HeadView.m in Sources */,

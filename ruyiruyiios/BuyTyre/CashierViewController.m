@@ -117,15 +117,21 @@
         [JJRequest commonPostRequest:@"getWeixinPaySign" params:@{@"reqJson":threeDesStr, @"token":[UserConfig token]} hostNameStr:TEXTSERVERPREFIX success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
             
 //            NSLog(@"%@", data);
-            PayReq *req = [[PayReq alloc] init];
-            req.openID = [data objectForKey:@"appid"];
-            req.partnerId = [data objectForKey:@"partnerid"];
-            req.prepayId = [data objectForKey:@"prepayid"];
-            req.package = [data objectForKey:@"package"];
-            req.nonceStr = [data objectForKey:@"noncestr"];
-            req.timeStamp = [[data objectForKey:@"timestamp"] intValue];
-            req.sign = [data objectForKey:@"sign"];
-            [WXApi sendReq:req];
+            if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi]) {
+                
+                PayReq *req = [[PayReq alloc] init];
+                req.openID = [data objectForKey:@"appid"];
+                req.partnerId = [data objectForKey:@"partnerid"];
+                req.prepayId = [data objectForKey:@"prepayid"];
+                req.package = [data objectForKey:@"package"];
+                req.nonceStr = [data objectForKey:@"noncestr"];
+                req.timeStamp = [[data objectForKey:@"timestamp"] intValue];
+                req.sign = [data objectForKey:@"sign"];
+                [WXApi sendReq:req];
+            }else{
+                
+                [PublicClass showHUD:@"未安装微信" view:self.view];
+            }
         } failure:^(NSError * _Nullable error) {
             
             NSLog(@"获取微信支付签名错误:%@", error);

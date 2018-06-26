@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RepairHeadAlertView.m"
+#import "RepairHeadAlertView.h"
 
 @interface TireRepairHeadView : UIView
 
 @property(nonatomic, strong)RepairHeadAlertView *alertView;
-@property(nonatomic, strong)UIView *freeRepireView;
+@property(nonatomic, strong)UILabel *freeRepairLabel;
+@property(nonatomic, strong)UIView *underLineView;
+
+- (void)setdatatoViews;
 
 @end
