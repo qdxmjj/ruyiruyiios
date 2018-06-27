@@ -19,7 +19,10 @@
 #define SERVERPREFIX @"http://192.168.0.167:8082/xmjj-webservice"
 #define TEXTSERVERPREFIX @"http://192.168.0.105:8060"
 #define WEIXINID @"wx407c59de8b10c601"
-
+#define kWJScreenHeight [UIScreen mainScreen].bounds.size.height
+#define SafeAreaTopHeight (kWJScreenHeight == 812.0 ? 88 : 64)
+#define Height_TabBar    (kWJScreenHeight == 812.0 ? 83.0f: 49.0f)
+#define SafeDistance (SafeAreaTopHeight + Height_TabBar - 49)
 
 #define TEXTFONT @"ArialMT"
 

@@ -36,7 +36,7 @@
     
     if (_settingTableV == nil) {
         
-        _settingTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - 104) style:UITableViewStylePlain];
+        _settingTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - SafeDistance - 40) style:UITableViewStylePlain];
         _settingTableV.delegate = self;
         _settingTableV.dataSource = self;
         _settingTableV.bounces = NO;
@@ -50,7 +50,7 @@
     if (_signOutBtn == nil) {
         
         _signOutBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _signOutBtn.frame = CGRectMake(10, MAINSCREEN.height - 64 - 40, MAINSCREEN.width - 20, 34);
+        _signOutBtn.frame = CGRectMake(10, MAINSCREEN.height - SafeDistance - 40, MAINSCREEN.width - 20, 34);
         _signOutBtn.layer.cornerRadius = 6.0;
         _signOutBtn.layer.masksToBounds = YES;
         _signOutBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];

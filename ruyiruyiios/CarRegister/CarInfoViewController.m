@@ -86,7 +86,7 @@
     
     if (_carInfoTV == nil) {
         
-        _carInfoTV = [[UITableView alloc] initWithFrame:CGRectMake(0, y+height+8, MAINSCREEN.width, MAINSCREEN.height - (y+height+8) - 114) style:UITableViewStylePlain];
+        _carInfoTV = [[UITableView alloc] initWithFrame:CGRectMake(0, y+height+8, MAINSCREEN.width, MAINSCREEN.height - (y+height+8) - SafeDistance - 50) style:UITableViewStylePlain];
         NSLog(@"%f", MAINSCREEN.height - (y+height+8) - 114);
         _carInfoTV.bounces = NO;
         _carInfoTV.delegate = self;
@@ -101,7 +101,7 @@
     
     if (_saveView == nil) {
         
-        _saveView = [[UIView alloc] initWithFrame:CGRectMake(0, MAINSCREEN.height - 114, MAINSCREEN.width, 50)];
+        _saveView = [[UIView alloc] initWithFrame:CGRectMake(0, MAINSCREEN.height - SafeDistance - 50, MAINSCREEN.width, 50)];
         _saveView.backgroundColor = [UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:0.1];
     }
     return _saveView;
@@ -169,7 +169,7 @@
     
     if (_plateLicenseView == nil) {
         
-        _plateLicenseView = [[PlateLicenseView alloc] initWithFrame:CGRectMake(20, (MAINSCREEN.height - 64)/2-100, MAINSCREEN.width - 40, 200)];
+        _plateLicenseView = [[PlateLicenseView alloc] initWithFrame:CGRectMake(20, (MAINSCREEN.height - SafeDistance)/2-100, MAINSCREEN.width - 40, 200)];
         _plateLicenseView.backgroundColor = [UIColor whiteColor];
         _plateLicenseView.layer.cornerRadius = 4.0;
         _plateLicenseView.layer.masksToBounds = YES;

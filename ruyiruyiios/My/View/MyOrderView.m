@@ -7,6 +7,7 @@
 //
 
 #import "MyOrderView.h"
+#define OrderWidth (MAINSCREEN.width - 40)
 
 @implementation MyOrderView
 
@@ -21,8 +22,8 @@
         [_topayBtn setTitle:@"待支付" forState:UIControlStateNormal];
         [_topayBtn setTitleColor:TEXTCOLOR64 forState:UIControlStateNormal];
         [_topayBtn setImage:[UIImage imageNamed:@"m_ic_wait"] forState:UIControlStateNormal];
-        [_topayBtn setTitleEdgeInsets:UIEdgeInsetsMake(30, -((MAINSCREEN.width - 40)/4 - 30)/2, 0, 0)];
-        [_topayBtn setImageEdgeInsets:UIEdgeInsetsMake(5, ((MAINSCREEN.width-40)/4 - 32)/2, 0, 0)];
+        [_topayBtn setTitleEdgeInsets:UIEdgeInsetsMake(30, -(OrderWidth/4 - OrderWidth*0.13)/2, 0, 0)];
+        [_topayBtn setImageEdgeInsets:UIEdgeInsetsMake(5, (OrderWidth/4 - 32)/2, 0, 0)];
     }
     return _topayBtn;
 }
@@ -38,8 +39,8 @@
         [_todeliveryBtn setTitle:@"待发货" forState:UIControlStateNormal];
         [_todeliveryBtn setTitleColor:TEXTCOLOR64 forState:UIControlStateNormal];
         [_todeliveryBtn setImage:[UIImage imageNamed:@"ic_fahuo"] forState:UIControlStateNormal];
-        [_todeliveryBtn setTitleEdgeInsets:UIEdgeInsetsMake(30, -((MAINSCREEN.width - 40)/4 - 30)/2, 0, 0)];
-        [_todeliveryBtn setImageEdgeInsets:UIEdgeInsetsMake(5, ((MAINSCREEN.width-40)/4 - 32)/2, 0, 0)];
+        [_todeliveryBtn setTitleEdgeInsets:UIEdgeInsetsMake(30, -(OrderWidth/4 - OrderWidth*0.13)/2, 0, 0)];
+        [_todeliveryBtn setImageEdgeInsets:UIEdgeInsetsMake(5, (OrderWidth/4 - 32)/2, 0, 0)];
     }
     return _todeliveryBtn;
 }
@@ -55,8 +56,8 @@
         [_toserviceBtn setTitle:@"待服务" forState:UIControlStateNormal];
         [_toserviceBtn setTitleColor:TEXTCOLOR64 forState:UIControlStateNormal];
         [_toserviceBtn setImage:[UIImage imageNamed:@"ic_fuwu"] forState:UIControlStateNormal];
-        [_toserviceBtn setTitleEdgeInsets:UIEdgeInsetsMake(30, -((MAINSCREEN.width - 40)/4 - 30)/2, 0, 0)];
-        [_toserviceBtn setImageEdgeInsets:UIEdgeInsetsMake(5, ((MAINSCREEN.width-40)/4 - 32)/2, 0, 0)];
+        [_toserviceBtn setTitleEdgeInsets:UIEdgeInsetsMake(30, -(OrderWidth/4 - OrderWidth*0.13)/2, 0, 0)];
+        [_toserviceBtn setImageEdgeInsets:UIEdgeInsetsMake(5, (OrderWidth/4 - 32)/2, 0, 0)];
     }
     return _toserviceBtn;
 }
@@ -72,8 +73,8 @@
         [_completedBtn setTitle:@"已完成" forState:UIControlStateNormal];
         [_completedBtn setTitleColor:TEXTCOLOR64 forState:UIControlStateNormal];
         [_completedBtn setImage:[UIImage imageNamed:@"ic_done"] forState:UIControlStateNormal];
-        [_completedBtn setTitleEdgeInsets:UIEdgeInsetsMake(30, -((MAINSCREEN.width - 40)/4 - 30)/2, 0, 0)];
-        [_completedBtn setImageEdgeInsets:UIEdgeInsetsMake(5, ((MAINSCREEN.width-40)/4 - 32)/2, 0, 0)];
+        [_completedBtn setTitleEdgeInsets:UIEdgeInsetsMake(30, -(OrderWidth/4 - OrderWidth*0.13)/2, 0, 0)];
+        [_completedBtn setImageEdgeInsets:UIEdgeInsetsMake(5, (OrderWidth/4 - 32)/2, 0, 0)];
     }
     return _completedBtn;
 }

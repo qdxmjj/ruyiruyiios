@@ -7,8 +7,11 @@
 //
 
 #import "MyEvaluationViewController.h"
+#import "MyEvaluationTableViewCell.h"
 
-@interface MyEvaluationViewController ()
+@interface MyEvaluationViewController ()<UITableViewDelegate, UITableViewDataSource>
+
+@property(nonatomic, strong)UITableView *myevaluationTableV;
 
 @end
 
@@ -25,11 +28,27 @@
     self.tabBarController.tabBar.hidden = NO;
 }
 
+- (UITableView *)myevaluationTableV{
+    
+    if (_myevaluationTableV == nil) {
+        
+        _myevaluationTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - SafeDistance) style:UITableViewStylePlain];
+        _myevaluationTableV.bounces = NO;
+        _myevaluationTableV.showsVerticalScrollIndicator = NO;
+        _myevaluationTableV.showsHorizontalScrollIndicator = NO;
+        _myevaluationTableV.delegate = self;
+        _myevaluationTableV.dataSource = self;
+        _myevaluationTableV.separatorStyle = UITableViewCellSeparatorStyleNone;
+    }
+    return _myevaluationTableV;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"我的评价";
     
-    [self getCommitByConditionFromInternet];
+    [self.view addSubview:self.myevaluationTableV];
+//    [self getCommitByConditionFromInternet];
     // Do any additional setup after loading the view.
 }
 
@@ -52,6 +71,35 @@
         
         NSLog(@"获取评论错误:%@", error);
     }];
+}
+
+//UITableViewDelegate and UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    return 4;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    static NSString *reuseIndentifier = @"cell";
+    MyEvaluationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIndentifier];
+    if (cell == nil) {
+        
+        cell = [[MyEvaluationTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIndentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    [cell setdatatoEvaluationCell];
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return 270;
 }
 
 - (void)didReceiveMemoryWarning {

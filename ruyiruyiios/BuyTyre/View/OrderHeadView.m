@@ -83,11 +83,11 @@
 
 - (void)setHeadViewData:(BuyTireData *)buyTireData{
     
-    NSLog(@"%@", buyTireData.userName);
+//    NSLog(@"%@", buyTireData.userName);
     self.nameLabel.text = buyTireData.userName;
     self.telephoneLabel.text = buyTireData.userPhone;
     self.platNumberLabel.text = buyTireData.platNumber;
-    NSLog(@"%@", self.nameLabel.text);
+//    NSLog(@"%@", self.nameLabel.text);
 }
 
 /*

@@ -35,7 +35,7 @@
     
     if (_mainScrollV == nil) {
         
-        _mainScrollV = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - 64-90)];
+        _mainScrollV = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - SafeDistance - 90)];
         _mainScrollV.showsVerticalScrollIndicator = NO;
         _mainScrollV.showsHorizontalScrollIndicator = NO;
         _mainScrollV.bounces = NO;
@@ -70,7 +70,7 @@
     
     if (_buypassBottomV == nil) {
         
-        _buypassBottomV = [[BuyPassBottomView alloc] initWithFrame:CGRectMake(0, MAINSCREEN.height - 64 - 90, MAINSCREEN.width, 90)];
+        _buypassBottomV = [[BuyPassBottomView alloc] initWithFrame:CGRectMake(0, MAINSCREEN.height - SafeDistance - 90, MAINSCREEN.width, 90)];
         [_buypassBottomV.sureBuyBtn setBackgroundColor:LOGINBACKCOLOR forState:UIControlStateNormal];
         [_buypassBottomV.sureBuyBtn addTarget:self action:@selector(chickSureBuyBtn:) forControlEvents:UIControlEventTouchUpInside];
         [_buypassBottomV.agreementLabel yb_addAttributeTapActionWithStrings:@[@"《如驿如意畅行无忧使用协议》"] delegate:self];

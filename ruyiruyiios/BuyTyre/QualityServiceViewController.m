@@ -53,7 +53,7 @@
     if (_mainScrollV == nil) {
         
         _mainScrollV = [[UIScrollView alloc] init];
-        _mainScrollV.frame = CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - 104);
+        _mainScrollV.frame = CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - 40 - SafeDistance);
         _mainScrollV.backgroundColor = [UIColor clearColor];
         _mainScrollV.showsVerticalScrollIndicator = NO;
         _mainScrollV.showsHorizontalScrollIndicator = NO;
@@ -240,7 +240,7 @@
     
     if (_processImageV == nil) {
         
-        _processImageV = [[UIImageView alloc] initWithFrame:CGRectMake(10, self.replaceBtn.frame.size.height + self.replaceBtn.frame.origin.y + 15, MAINSCREEN.width - 20, 50)];
+        _processImageV = [[UIImageView alloc] initWithFrame:CGRectMake(10, self.replaceBtn.frame.size.height + self.replaceBtn.frame.origin.y + 15, MAINSCREEN.width - 20, 60)];
         _processImageV.image = [UIImage imageNamed:@"ic_procedure"];
     }
     return _processImageV;
@@ -251,7 +251,7 @@
     if (_nextBtn == nil) {
         
         _nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _nextBtn.frame = CGRectMake(10, MAINSCREEN.height - 104, MAINSCREEN.width - 20, 34);
+        _nextBtn.frame = CGRectMake(10, MAINSCREEN.height - 40 - SafeDistance, MAINSCREEN.width - 20, 34);
         [_nextBtn setTitle:@"下一步" forState:UIControlStateNormal];
         [_nextBtn setBackgroundColor:LOGINBACKCOLOR forState:UIControlStateNormal];
         [_nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

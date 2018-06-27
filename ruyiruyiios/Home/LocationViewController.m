@@ -104,7 +104,7 @@
     
     if (_locationTableV == nil) {
         
-        _locationTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, headH, MAINSCREEN.width, MAINSCREEN.height - 64 - headH) style:UITableViewStylePlain];
+        _locationTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, headH, MAINSCREEN.width, MAINSCREEN.height - SafeDistance - headH) style:UITableViewStylePlain];
         _locationTableV.separatorStyle = UITableViewCellSeparatorStyleNone;
         _locationTableV.backgroundColor = [UIColor clearColor];
         _locationTableV.delegate = self;

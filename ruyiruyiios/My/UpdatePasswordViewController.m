@@ -37,7 +37,7 @@
     if (_completeBtn == nil) {
         
         _completeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _completeBtn.frame = CGRectMake(10, MAINSCREEN.height - 64 - 40, MAINSCREEN.width - 20, 34);
+        _completeBtn.frame = CGRectMake(10, MAINSCREEN.height - SafeDistance - 40, MAINSCREEN.width - 20, 34);
         _completeBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
         _completeBtn.layer.cornerRadius = 6.0;
         _completeBtn.layer.masksToBounds = YES;

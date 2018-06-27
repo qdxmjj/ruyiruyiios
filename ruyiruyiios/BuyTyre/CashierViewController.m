@@ -64,7 +64,7 @@
     if (_surePayBtn == nil) {
         
         _surePayBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _surePayBtn.frame = CGRectMake(10, MAINSCREEN.height - 104, MAINSCREEN.width - 20, 34);
+        _surePayBtn.frame = CGRectMake(10, MAINSCREEN.height - 40 - SafeDistance, MAINSCREEN.width - 20, 34);
         _surePayBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:16.0];
         _surePayBtn.layer.cornerRadius = 4.0;
         _surePayBtn.layer.masksToBounds = YES;

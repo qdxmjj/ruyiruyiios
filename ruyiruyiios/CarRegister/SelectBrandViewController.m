@@ -63,9 +63,9 @@
     
     if (_brandNameTableV == nil) {
         
-        _brandNameTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, headH, MAINSCREEN.width, MAINSCREEN.height - headH - 64) style:UITableViewStylePlain];
-        _brandNameTableV.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _brandNameTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, headH, MAINSCREEN.width, MAINSCREEN.height - headH - SafeDistance) style:UITableViewStylePlain];
         _brandNameTableV.backgroundColor = [UIColor clearColor];
+        _brandNameTableV.separatorStyle = UITableViewCellSeparatorStyleNone;
         _brandNameTableV.delegate = self;
         _brandNameTableV.dataSource = self;
     }

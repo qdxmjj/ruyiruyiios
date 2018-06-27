@@ -19,8 +19,6 @@
 @property(nonatomic, strong)OrderHeadView *orderheadView;
 @property(nonatomic, strong)OderMiddleView *oderMiddleView;
 @property(nonatomic, strong)OderBottomView *oderBottomView;
-@property(nonatomic, strong)UILabel *totalPriceLabel;
-@property(nonatomic, strong)UIButton *sureBtn;
 @property(nonatomic, strong)NSString *allTotalPriceStr;
 @property(nonatomic, strong)NSString *tireTotalPriceStr;
 @property(nonatomic, strong)NSString *cxwyTotalPriceStr;
@@ -51,7 +49,7 @@
     if (_mainScrollView == nil) {
         
         _mainScrollView = [[UIScrollView alloc] init];
-        _mainScrollView.frame = CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - 64);
+        _mainScrollView.frame = CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - SafeDistance - 125);
         _mainScrollView.backgroundColor = [UIColor clearColor];
         _mainScrollView.showsVerticalScrollIndicator = NO;
         _mainScrollView.showsHorizontalScrollIndicator = NO;
@@ -84,36 +82,11 @@
     
     if (_oderBottomView == nil) {
         
-        _oderBottomView = [[OderBottomView alloc] initWithFrame:CGRectMake(0, 382, MAINSCREEN.width, 85)];
+        _oderBottomView = [[OderBottomView alloc] initWithFrame:CGRectMake(0, MAINSCREEN.height - SafeDistance - 125, MAINSCREEN.width, 125)];
+        [_oderBottomView.sureBtn setBackgroundColor:LOGINBACKCOLOR forState:UIControlStateNormal];
+        [_oderBottomView.sureBtn addTarget:self action:@selector(chickSureBtn) forControlEvents:UIControlEventTouchUpInside];
     }
     return _oderBottomView;
-}
-
-- (UILabel *)totalPriceLabel{
-    
-    if (_totalPriceLabel == nil) {
-        
-        _totalPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 478, MAINSCREEN.width - 120, 20)];
-        _totalPriceLabel.font = [UIFont fontWithName:TEXTFONT size:16.0];
-        _totalPriceLabel.textColor = LOGINBACKCOLOR;
-        _totalPriceLabel.textAlignment = NSTextAlignmentRight;
-    }
-    return _totalPriceLabel;
-}
-
-- (UIButton *)sureBtn{
-    
-    if (_sureBtn == nil) {
-        
-        _sureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _sureBtn.frame = CGRectMake(MAINSCREEN.width - 110, 465, 110, 40);
-        _sureBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:16.0];
-        [_sureBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_sureBtn setTitle:@"确认购买" forState:UIControlStateNormal];
-        [_sureBtn setBackgroundColor:LOGINBACKCOLOR forState:UIControlStateNormal];
-        [_sureBtn addTarget:self action:@selector(chickSureBtn) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _sureBtn;
 }
 
 - (ShoeOrderInfo *)shoeOrderInfo{
@@ -127,7 +100,7 @@
 
 - (void)chickSureBtn{
     
-    self.sureBtn.enabled = NO;
+    self.oderBottomView.sureBtn.enabled = NO;
     NSString *shoeIdStr = [NSString stringWithFormat:@"%@", shoeSpeedLoadResult.shoeId];
 //    NSLog(@"%@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@", buyTireData.shoeDownImg, [NSString stringWithFormat:@"%@", [UserConfig user_id]], fontRearFlag, tireCount, buyTireData.detailStr, self.oderBottomView.tireTotalPriceLabel.text, shoeSpeedLoadResult.price, cxwyCount, buyTireData.cxwyMaxPrice, self.oderBottomView.cxwyTotalPriceLabel.text, self.allTotalPriceStr);
     NSDictionary *surePostDic = @{@"shoeId":shoeIdStr, @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]], @"fontRearFlag":fontRearFlag, @"amount":tireCount, @"shoeName":buyTireData.detailStr, @"shoeTotalPrice":self.tireTotalPriceStr, @"shoePrice":shoeSpeedLoadResult.price, @"cxwyAmount":cxwyCount, @"cxwyPrice":buyTireData.cxwyMaxPrice, @"cxwyTotalPrice":self.cxwyTotalPriceStr, @"totalPrice":self.allTotalPriceStr, @"orderImg":buyTireData.shoeDownImg};
@@ -138,7 +111,7 @@
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
         if ([statusStr isEqualToString:@"1"]) {
             
-            NSLog(@"提交订单获取到的值:%@", data);
+//            NSLog(@"提交订单获取到的值:%@", data);
             [self.shoeOrderInfo setValuesForKeysWithDictionary:data];
             CashierViewController *cashierVC = [[CashierViewController alloc] init];
             cashierVC.totalPriceStr = [NSString stringWithFormat:@"%@", self.shoeOrderInfo.totalPrice];
@@ -149,7 +122,7 @@
             
             [PublicClass showHUD:messageStr view:self.view];
         }
-        self.sureBtn.enabled = YES;
+        self.oderBottomView.sureBtn.enabled = YES;
     } failure:^(NSError * _Nullable error) {
         
         NSLog(@"提交轮胎购买订单错误:%@", error);
@@ -161,6 +134,7 @@
     
     self.title = @"订单确认";
     [self.view addSubview:self.mainScrollView];
+    [self.view addSubview:self.oderBottomView];
     [self addView];
     // Do any additional setup after loading the view.
 }
@@ -169,10 +143,7 @@
     
     [_mainScrollView addSubview:self.orderheadView];
     [_mainScrollView addSubview:self.oderMiddleView];
-    [_mainScrollView addSubview:self.oderBottomView];
-    [_mainScrollView addSubview:self.totalPriceLabel];
-    [_mainScrollView addSubview:self.sureBtn];
-    [_mainScrollView setContentSize:CGSizeMake(MAINSCREEN.width, self.sureBtn.frame.size.height + self.sureBtn.frame.origin.y)];
+    [_mainScrollView setContentSize:CGSizeMake(MAINSCREEN.width, self.oderMiddleView.frame.size.height + self.oderMiddleView.frame.origin.y)];
     [self setDataToView];
 }
 
@@ -181,11 +152,9 @@
     NSString *tiretotalPrice = [NSString stringWithFormat:@"%.2f", ([tireCount integerValue]*[shoeSpeedLoadResult.price floatValue])];
     NSString *cxwyTotalPrice = [NSString stringWithFormat:@"%.2f", ([cxwyCount integerValue]*[buyTireData.cxwyMaxPrice floatValue])];
     NSString *allTotalPrice = [NSString stringWithFormat:@"%.2f", ([tiretotalPrice floatValue] + [cxwyTotalPrice floatValue])];
-    NSLog(@"%@", buyTireData.userPhone);
     [_orderheadView setHeadViewData:buyTireData];
     [_oderMiddleView setMiddleViewData:buyTireData cxwyCount:cxwyCount priceCount:tireCount price:shoeSpeedLoadResult.price];
     [_oderBottomView setBottomViewData:tiretotalPrice cxwyTotalPrice:cxwyTotalPrice];
-    _totalPriceLabel.text = [NSString stringWithFormat:@"合计: ¥%@ 元", allTotalPrice];
     self.allTotalPriceStr = allTotalPrice;
     self.tireTotalPriceStr = tiretotalPrice;
     self.cxwyTotalPriceStr = cxwyTotalPrice;

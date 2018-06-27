@@ -37,7 +37,7 @@
     
     if (_replacedTableV == nil) {
         
-        _replacedTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - 104) style:UITableViewStylePlain];
+        _replacedTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - SafeDistance - 40) style:UITableViewStylePlain];
         _replacedTableV.bounces = NO;
         _replacedTableV.backgroundColor = [UIColor clearColor];
         _replacedTableV.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -52,7 +52,7 @@
     if (_replaceBtn == nil) {
         
         _replaceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _replaceBtn.frame = CGRectMake(10, MAINSCREEN.height - 104, MAINSCREEN.width - 20, 34);
+        _replaceBtn.frame = CGRectMake(10, MAINSCREEN.height - SafeDistance - 40, MAINSCREEN.width - 20, 34);
         _replaceBtn.layer.cornerRadius = 6.0;
         _replaceBtn.layer.masksToBounds = YES;
         _replaceBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];

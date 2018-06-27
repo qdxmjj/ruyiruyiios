@@ -27,9 +27,10 @@
     if (_backBtn == nil) {
         
         _backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _backBtn.frame = CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - 64);
-        [_backBtn setImage:[UIImage imageNamed:@"ic_m_kefu"] forState:UIControlStateNormal];
-        [_backBtn setImage:[UIImage imageNamed:@"ic_m_kefu"] forState:UIControlStateHighlighted];
+        _backBtn.frame = CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - SafeDistance);
+        [_backBtn setBackgroundImage:[UIImage imageNamed:@"ic_m_kefu"] forState:UIControlStateNormal];
+//        [_backBtn setImage:[UIImage imageNamed:@"ic_m_kefu"] forState:UIControlStateNormal];
+//        [_backBtn setImage:[UIImage imageNamed:@"ic_m_kefu"] forState:UIControlStateHighlighted];
         [_backBtn addTarget:self action:@selector(chickBackBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _backBtn;;
@@ -39,7 +40,7 @@
     
     [UIView animateWithDuration:1.0 animations:^{
         
-        self.callPhoneBtn.frame = CGRectMake(MAINSCREEN.width - 40, MAINSCREEN.height - 64 - 60, 40, 40);
+        self.callPhoneBtn.frame = CGRectMake(MAINSCREEN.width - 40, MAINSCREEN.height - SafeDistance - 60, 40, 40);
         [self.callPhoneBtn setImage:[UIImage imageNamed:@"ic_m_first"] forState:UIControlStateNormal];
     }];
 }
@@ -49,7 +50,7 @@
     if (_callPhoneBtn == nil) {
         
         _callPhoneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _callPhoneBtn.frame = CGRectMake(MAINSCREEN.width - 40, MAINSCREEN.height - 64 - 60, 40, 40);
+        _callPhoneBtn.frame = CGRectMake(MAINSCREEN.width - 40, MAINSCREEN.height - SafeDistance - 60, 40, 40);
         [_callPhoneBtn setImage:[UIImage imageNamed:@"ic_m_first"] forState:UIControlStateNormal];
         [_callPhoneBtn addTarget:self action:@selector(chickCallPhoneBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -66,7 +67,7 @@
         
         [UIView animateWithDuration:1.0 animations:^{
             
-            button.frame = CGRectMake(MAINSCREEN.width - 162, MAINSCREEN.height - 64 - 60, 162, 40);
+            button.frame = CGRectMake(MAINSCREEN.width - 162, MAINSCREEN.height - SafeDistance - 60, 162, 40);
             [button setImage:[UIImage imageNamed:@"ic_m_two"] forState:UIControlStateNormal];
         }];
     }

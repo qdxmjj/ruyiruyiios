@@ -12,6 +12,7 @@
 #import "InstallStoreTableViewCell.h"
 #import "StoreInfo.h"
 #import "NearbyViewController.h"
+#import "MyOrderViewController.h"
 
 @interface TireRepairViewController ()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
@@ -43,7 +44,7 @@
     
     if (_mainScrollV == nil) {
         
-        _mainScrollV = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - 64 - 40)];
+        _mainScrollV = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - SafeDistance - 40)];
         _mainScrollV.showsVerticalScrollIndicator = NO;
         _mainScrollV.showsHorizontalScrollIndicator = NO;
         _mainScrollV.delegate = self;
@@ -108,7 +109,7 @@
     if (_submitBtn == nil) {
         
         _submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _submitBtn.frame = CGRectMake(10, MAINSCREEN.height - 64 - 40, MAINSCREEN.width - 20, 34);
+        _submitBtn.frame = CGRectMake(10, MAINSCREEN.height - SafeDistance - 40, MAINSCREEN.width - 20, 34);
         _submitBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
         _submitBtn.layer.cornerRadius = 6.0;
         _submitBtn.layer.masksToBounds = YES;
@@ -122,7 +123,24 @@
 
 - (void)chickSubmitBtn:(UIButton *)button{
     
-    
+    NSDictionary *tireRepairPostDic = @{@"storeId":[NSString stringWithFormat:@"%@", self.storeInfo.storeId], @"userCarId":[NSString stringWithFormat:@"%@", [UserConfig userCarId]], @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]]};
+    NSString *reqJson = [PublicClass convertToJsonData:tireRepairPostDic];
+    [JJRequest postRequest:@"addShoeRepairOrder" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+        
+        NSString *statusStr = [NSString stringWithFormat:@"%@", code];
+        NSString *messageStr = [NSString stringWithFormat:@"%@", message];
+        if ([statusStr isEqualToString:@"1"]) {
+            
+            MyOrderViewController *myorderVC = [[MyOrderViewController alloc] init];
+            [self.navigationController pushViewController:myorderVC animated:YES];
+        }else{
+            
+            [PublicClass showHUD:messageStr view:self.view];
+        }
+    } failure:^(NSError * _Nullable error) {
+        
+        NSLog(@"添加轮胎修补订单:%@", error);
+    }];
 }
 
 - (void)viewDidLoad {
@@ -179,24 +197,30 @@
 
 - (void)selectStoreByCondition{
     
-    NSDictionary *postDic = @{@"page":@"1", @"rows":@"1", @"cityName":[[NSUserDefaults standardUserDefaults] objectForKey:@"currentCity"], @"storeName":@"", @"storeType":@"", @"serviceType":@"5", @"longitude":[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"], @"latitude":[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"], @"rankType":@"1"};
-    NSString *reqJson = [PublicClass convertToJsonData:postDic];
-    [JJRequest postRequest:@"selectStoreByCondition" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"currentCity"] == NULL) {
         
-        NSString *statusStr = [NSString stringWithFormat:@"%@", code];
-        NSString *messageStr = [NSString stringWithFormat:@"%@", message];
-        if ([statusStr isEqualToString:@"1"]) {
-            
-            //            NSLog(@"%@", data);
-            [self analysizeDic:data];
-        }else{
-            
-            [PublicClass showHUD:messageStr view:self.view];
-        }
-    } failure:^(NSError * _Nullable error) {
+        [PublicClass showHUD:@"定位失败" view:self.view];
+    }else{
         
-        NSLog(@"获取筛选店铺错误:%@", error);
-    }];
+        NSDictionary *postDic = @{@"page":@"1", @"rows":@"1", @"cityName":[[NSUserDefaults standardUserDefaults] objectForKey:@"currentCity"], @"storeName":@"", @"storeType":@"", @"serviceType":@"5", @"longitude":[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"], @"latitude":[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"], @"rankType":@"1"};
+        NSString *reqJson = [PublicClass convertToJsonData:postDic];
+        [JJRequest postRequest:@"selectStoreByCondition" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+            
+            NSString *statusStr = [NSString stringWithFormat:@"%@", code];
+            NSString *messageStr = [NSString stringWithFormat:@"%@", message];
+            if ([statusStr isEqualToString:@"1"]) {
+                
+                //            NSLog(@"%@", data);
+                [self analysizeDic:data];
+            }else{
+                
+                [PublicClass showHUD:messageStr view:self.view];
+            }
+        } failure:^(NSError * _Nullable error) {
+            
+            NSLog(@"获取筛选店铺错误:%@", error);
+        }];
+    }
 }
 
 - (void)analysizeDic:(NSDictionary *)dataDic{

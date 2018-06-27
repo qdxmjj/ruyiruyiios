@@ -30,7 +30,7 @@
     if (_addCarBtn == nil) {
         
         _addCarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _addCarBtn.frame = CGRectMake(10, MAINSCREEN.height - 99, MAINSCREEN.width- 20, 30);
+        _addCarBtn.frame = CGRectMake(10, MAINSCREEN.height - SafeDistance - 40, MAINSCREEN.width- 20, 34);
         _addCarBtn.layer.cornerRadius = 6.0;
         _addCarBtn.layer.masksToBounds = YES;
         [_addCarBtn setTitle:@"添加车辆" forState:UIControlStateNormal];
@@ -45,7 +45,7 @@
     
     if (_addCarTableV == nil) {
         
-        _addCarTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - 64 - 35) style:UITableViewStylePlain];
+        _addCarTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - SafeDistance - 40) style:UITableViewStylePlain];
         _addCarTableV.separatorStyle = UITableViewCellSeparatorStyleNone;
         _addCarTableV.bounces = NO;
         _addCarTableV.delegate = self;

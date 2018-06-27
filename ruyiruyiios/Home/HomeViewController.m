@@ -156,7 +156,8 @@
     if (_mainScrollV == nil) {
 
         _mainScrollV = [[UIScrollView alloc] init];
-        _mainScrollV.frame = CGRectMake(0, -20, MAINSCREEN.width, MAINSCREEN.height - 20);
+        _mainScrollV.frame = CGRectMake(0, (SafeAreaTopHeight - 64)+20, MAINSCREEN.width, MAINSCREEN.height - 20 - (SafeAreaTopHeight - 64) - Height_TabBar);
+        _mainScrollV.backgroundColor = [UIColor clearColor];
         _mainScrollV.showsHorizontalScrollIndicator = NO;
         _mainScrollV.showsVerticalScrollIndicator = NO;
         _mainScrollV.bounces = NO;
@@ -346,6 +347,9 @@
      ];
     [delegateCF registerdefaultCarListers:self];
     
+    UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20+(SafeAreaTopHeight - 64))];
+    statusBarView.backgroundColor = LOGINBACKCOLOR;
+    
     [self locateMap];
     self.navigationController.delegate = self;
     //消除iOS7自带侧翻的效果
@@ -355,6 +359,7 @@
         self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     }
     self.view.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:statusBarView];
     [self.view addSubview:self.mainScrollV];
     [_mainScrollV addSubview:self.sdcycleScrollV];
     [_sdcycleScrollV addSubview:self.centerLabel];
@@ -404,7 +409,7 @@
         midBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
         midBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         [midBtn setImageEdgeInsets:UIEdgeInsetsMake(-20, 8, 0, 0)];
-        [midBtn setTitleEdgeInsets:UIEdgeInsetsMake(midBtn.frame.size.height, -btnW + 12, 25, 0)];
+        [midBtn setTitleEdgeInsets:UIEdgeInsetsMake(midBtn.frame.size.height, -btnW + btnW*0.30, 25, 0)];
         [midBtn addTarget:self action:@selector(chickMidBtn:) forControlEvents:UIControlEventTouchUpInside];
         [_mainScrollV addSubview:midBtn];
     }
@@ -413,20 +418,21 @@
 - (void)addThreeButtons{
     
     NSArray *threeNameArray = @[@"畅行无忧", @"汽车保养", @"美容清洗"];
-    for (int t = 0; t<3; t++) {
+    for (int t = 0; t<threeNameArray.count; t++) {
         
         UIButton *button = [[UIButton alloc] init];
         button.tag = 2000+t;
-        [button setImage:[UIImage imageNamed:[threeNameArray objectAtIndex:t]] forState:UIControlStateNormal];
+        [button setBackgroundImage:[UIImage imageNamed:[threeNameArray objectAtIndex:t]] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(chickMidBtn:) forControlEvents:UIControlEventTouchUpInside];
+        
         if (t == 0) {
-            
+
             button.frame = CGRectMake(0, 1, tviewW/3, tviewH-2);
         }else if (t == 1){
-            
+
             button.frame = CGRectMake(tviewW/3, 1, tviewW*2/3, tviewH/2-2.0);
         }else{
-            
+
             button.frame = CGRectMake(tviewW/3, tviewH/2, tviewW*2/3, tviewH/2-1);
         }
         [_threeBtnView addSubview:button];

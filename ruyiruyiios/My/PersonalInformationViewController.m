@@ -46,7 +46,7 @@
     
     if (_personTableV == nil) {
         
-        _personTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - 104) style:UITableViewStylePlain];
+        _personTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - 40 - SafeDistance) style:UITableViewStylePlain];
         _personTableV.delegate = self;
         _personTableV.dataSource = self;
         _personTableV.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -102,7 +102,7 @@
     if (_inforSaveBtn == nil) {
         
         _inforSaveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _inforSaveBtn.frame = CGRectMake(10, MAINSCREEN.height - 104, MAINSCREEN.width - 20, 34);
+        _inforSaveBtn.frame = CGRectMake(10, MAINSCREEN.height - SafeDistance - 40, MAINSCREEN.width - 20, 34);
         _inforSaveBtn.layer.cornerRadius = 6.0;
         _inforSaveBtn.layer.masksToBounds = YES;
         _inforSaveBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];

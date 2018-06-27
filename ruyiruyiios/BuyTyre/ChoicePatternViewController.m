@@ -71,7 +71,7 @@
     
     if (_choicePatternTableV == nil) {
         
-        _choicePatternTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, MAINSCREEN.width, MAINSCREEN.height - 64 - 40 - 40) style:UITableViewStylePlain];
+        _choicePatternTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, MAINSCREEN.width, MAINSCREEN.height - SafeAreaTopHeight - 40 - 40 - (Height_TabBar - 49)) style:UITableViewStylePlain];
         _choicePatternTableV.delegate = self;
         _choicePatternTableV.dataSource = self;
         _choicePatternTableV.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -85,7 +85,7 @@
     if (_nextBtn == nil) {
         
         _nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _nextBtn.frame = CGRectMake(10, MAINSCREEN.height - 104, MAINSCREEN.width - 20, 34);
+        _nextBtn.frame = CGRectMake(10, MAINSCREEN.height - 40 - SafeAreaTopHeight - (Height_TabBar - 49), MAINSCREEN.width - 20, 34);
         [_nextBtn setTitle:@"下一步" forState:UIControlStateNormal];
         [_nextBtn setBackgroundColor:LOGINBACKCOLOR forState:UIControlStateNormal];
         [_nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

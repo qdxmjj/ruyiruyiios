@@ -37,7 +37,7 @@
     
     if (_passTableView == nil) {
         
-        _passTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - 104) style:UITableViewStylePlain];
+        _passTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - SafeDistance - 40) style:UITableViewStylePlain];
         _passTableView.delegate = self;
         _passTableView.dataSource = self;
         _passTableView.bounces = NO;
@@ -51,7 +51,7 @@
     if (_buyPassImpededBtn == nil) {
         
         _buyPassImpededBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _buyPassImpededBtn.frame = CGRectMake(10, MAINSCREEN.height - 104, MAINSCREEN.width - 20, 34);
+        _buyPassImpededBtn.frame = CGRectMake(10, MAINSCREEN.height - SafeDistance - 40, MAINSCREEN.width - 20, 34);
         _buyPassImpededBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
         _buyPassImpededBtn.layer.cornerRadius = 6.0;
         _buyPassImpededBtn.layer.masksToBounds = YES;
