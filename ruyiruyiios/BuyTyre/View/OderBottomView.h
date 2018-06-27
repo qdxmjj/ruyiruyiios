@@ -13,6 +13,8 @@
 @property(nonatomic, strong)UILabel *tireTotalPriceLabel;
 @property(nonatomic, strong)UILabel *cxwyTotalPriceLabel;
 @property(nonatomic, strong)UIView *underView;
+@property(nonatomic, strong)UILabel *totalPriceLabel;
+@property(nonatomic, strong)UIButton *sureBtn;
 
 - (void)setBottomViewData:(NSString *)tireTotalPriceStr cxwyTotalPrice:(NSString *)cxwyTotalPriceStr;
 

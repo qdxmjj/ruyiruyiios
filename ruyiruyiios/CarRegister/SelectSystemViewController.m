@@ -61,9 +61,9 @@
     
     if (_systemTableV == nil) {
         
-        _systemTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, headH, MAINSCREEN.width, MAINSCREEN.height - headH - 64) style:UITableViewStylePlain];
-        _systemTableV.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _systemTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, headH, MAINSCREEN.width, MAINSCREEN.height - headH - SafeDistance) style:UITableViewStylePlain];
         _systemTableV.backgroundColor = [UIColor clearColor];
+        _systemTableV.separatorStyle = UITableViewCellSeparatorStyleNone;
         _systemTableV.delegate = self;
         _systemTableV.dataSource = self;
     }

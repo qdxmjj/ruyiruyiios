@@ -55,7 +55,7 @@
     
     if (_mainScrollV == nil) {
         
-        _mainScrollV = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - 64 - 40)];
+        _mainScrollV = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - SafeDistance - 40)];
         _mainScrollV.delegate = self;
         _mainScrollV.showsVerticalScrollIndicator = NO;
         _mainScrollV.showsHorizontalScrollIndicator = NO;
@@ -71,7 +71,7 @@
     if (_repayBtn == nil) {
         
         _repayBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _repayBtn.frame = CGRectMake(10, MAINSCREEN.height - 64 - 40, MAINSCREEN.width - 20, 34);
+        _repayBtn.frame = CGRectMake(10, MAINSCREEN.height - SafeDistance - 40, MAINSCREEN.width - 20, 34);
         _repayBtn.layer.cornerRadius = 6.0;
         _repayBtn.layer.masksToBounds = YES;
         _repayBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];

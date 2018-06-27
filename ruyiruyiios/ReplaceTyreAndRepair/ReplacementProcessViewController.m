@@ -25,7 +25,7 @@
     
     if (_mainImageV == nil) {
         
-        _mainImageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - 64)];
+        _mainImageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - SafeDistance)];
         _mainImageV.image = [UIImage imageNamed:@"ic_five_change"];
     }
     return _mainImageV;

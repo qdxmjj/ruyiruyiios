@@ -41,7 +41,7 @@
     
     if (_roadTableV == nil) {
         
-        _roadTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, MAINSCREEN.width, MAINSCREEN.height - 64 - 85) style:UITableViewStylePlain];
+        _roadTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, MAINSCREEN.width, MAINSCREEN.height - SafeDistance - 85) style:UITableViewStylePlain];
         _roadTableV.separatorStyle = UITableViewCellSeparatorStyleNone;
         _roadTableV.bounces = NO;
         _roadTableV.delegate = self;
@@ -55,7 +55,7 @@
     if (_nextBtn == nil) {
         
         _nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _nextBtn.frame = CGRectMake(10, MAINSCREEN.height - 99, MAINSCREEN.width- 20, 30);
+        _nextBtn.frame = CGRectMake(10, MAINSCREEN.height - 35 - SafeDistance, MAINSCREEN.width- 20, 30);
         _nextBtn.layer.cornerRadius = 6.0;
         _nextBtn.layer.masksToBounds = YES;
         [_nextBtn setTitle:@"下一步" forState:UIControlStateNormal];

@@ -92,9 +92,9 @@
     
     if (_yearTableV == nil) {
         
-        _yearTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, headH, MAINSCREEN.width, MAINSCREEN.height - headH - 64) style:UITableViewStylePlain];
-        _yearTableV.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _yearTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, headH, MAINSCREEN.width, MAINSCREEN.height - headH - SafeDistance) style:UITableViewStylePlain];
         _yearTableV.backgroundColor = [UIColor clearColor];
+        _yearTableV.separatorStyle = UITableViewCellSeparatorStyleNone;
         _yearTableV.delegate = self;
         _yearTableV.dataSource = self;
     }

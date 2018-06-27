@@ -15,7 +15,7 @@
 #import "FMDBCarVerhicle.h"
 #import "FMDBCarTireInfo.h"
 #import "FMDBCarTireType.h"
-#import "TireRepairViewController.h"
+#import "QualityServiceViewController.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import "MBProgressHUD+YYM_category.h"
 #import "WXApi.h"
@@ -37,7 +37,7 @@
     
     [WXApi registerApp:WEIXINID];
     
-//    TireRepairViewController *carInfoVC = [[TireRepairViewController alloc] init];
+//    QualityServiceViewController *carInfoVC = [[QualityServiceViewController alloc] init];
 //    UINavigationController *carNav = [[UINavigationController alloc] initWithRootViewController:carInfoVC];
 //    self.window.rootViewController = carNav;
     if (![[NSUserDefaults standardUserDefaults] valueForKey:@"isFirst"]) {
@@ -53,7 +53,7 @@
         MainTabBarViewController *mainTabVC = [[MainTabBarViewController alloc] init];
         self.window.rootViewController = mainTabVC;
     }
-    NSLog(@"开始执行请求数据和插入数据库操作");
+//    NSLog(@"开始执行请求数据和插入数据库操作");
     return YES;
 }
 

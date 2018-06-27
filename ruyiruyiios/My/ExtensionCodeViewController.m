@@ -69,7 +69,7 @@
     if (_mainScrollV == nil) {
         
         _mainScrollV = [[UIScrollView alloc] init];
-        _mainScrollV.frame = CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - 64);
+        _mainScrollV.frame = CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - SafeDistance);
         _mainScrollV.showsVerticalScrollIndicator = NO;
         _mainScrollV.showsHorizontalScrollIndicator = NO;
         _mainScrollV.bounces = NO;
@@ -84,7 +84,7 @@
     
     if (_backImageV == nil) {
         
-        _backImageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, (MAINSCREEN.height - 64)*8/9)];
+        _backImageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, (MAINSCREEN.height - SafeDistance)*8/9)];
         _backImageV.image = [UIImage imageNamed:@"ic_background"];
     }
     return _backImageV;
@@ -105,7 +105,7 @@
     
     if (_extensionMiddleView == nil) {
         
-        _extensionMiddleView = [[ExtensionMiddleView alloc] initWithFrame:CGRectMake(65, (MAINSCREEN.height - 64)*8/9 - 100, MAINSCREEN.width - 80, 90) award:self.extensionInfo.award mode:self.extensionInfo.rule];
+        _extensionMiddleView = [[ExtensionMiddleView alloc] initWithFrame:CGRectMake(65, (MAINSCREEN.height - SafeDistance)*8/9 - 100, MAINSCREEN.width - 80, 90) award:self.extensionInfo.award mode:self.extensionInfo.rule];
     }
     return _extensionMiddleView;
 }
@@ -116,10 +116,10 @@
         
         if ([self.flageStr isEqualToString:@"1"]) {
             
-            _extensionBottomView = [[ExtensionBottomView alloc] initWithFrame:CGRectMake(0, ((MAINSCREEN.height - 64)*8/9), MAINSCREEN.width, 90) sharePersons:self.sharePersonMutableA viewFlage:self.flageStr];
+            _extensionBottomView = [[ExtensionBottomView alloc] initWithFrame:CGRectMake(0, ((MAINSCREEN.height - SafeDistance)*8/9), MAINSCREEN.width, 90) sharePersons:self.sharePersonMutableA viewFlage:self.flageStr];
         }else{
             
-            _extensionBottomView = [[ExtensionBottomView alloc] initWithFrame:CGRectMake(0, ((MAINSCREEN.height - 64)*8/9), MAINSCREEN.width, (self.sharePersonMutableA.count+1)*30+40) sharePersons:self.sharePersonMutableA viewFlage:self.flageStr];
+            _extensionBottomView = [[ExtensionBottomView alloc] initWithFrame:CGRectMake(0, ((MAINSCREEN.height - SafeDistance)*8/9), MAINSCREEN.width, (self.sharePersonMutableA.count+1)*30+40) sharePersons:self.sharePersonMutableA viewFlage:self.flageStr];
         }
         _extensionBottomView.backgroundColor = [PublicClass colorWithHexString:@"#fece44"];
     }
@@ -130,7 +130,7 @@
     
     if (_wxShareView == nil) {
         
-        _wxShareView = [[WXShareView alloc] initWithFrame:CGRectMake(20, MAINSCREEN.height - 64 - 120, MAINSCREEN.width - 40, 100)];
+        _wxShareView = [[WXShareView alloc] initWithFrame:CGRectMake(20, MAINSCREEN.height - SafeDistance - 120, MAINSCREEN.width - 40, 100)];
         _wxShareView.backgroundColor = [UIColor whiteColor];
         _wxShareView.layer.cornerRadius = 6.0;
         _wxShareView.layer.masksToBounds = YES;
@@ -145,7 +145,7 @@
     if (_backBtn == nil) {
         
         _backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _backBtn.frame = CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - 64);
+        _backBtn.frame = CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - SafeDistance);
         _backBtn.backgroundColor = [UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:0.2];
         [_backBtn addTarget:self action:@selector(chickBackBtn:) forControlEvents:UIControlEventTouchUpInside];
     }

@@ -35,7 +35,8 @@
     
     if (_creditTableV == nil) {
         
-        _creditTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - 64) style:UITableViewStylePlain];
+        _creditTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - SafeDistance) style:UITableViewStylePlain];
+        _creditTableV.backgroundColor = [UIColor clearColor];
         _creditTableV.delegate = self;
         _creditTableV.dataSource = self;
         _creditTableV.bounces = NO;

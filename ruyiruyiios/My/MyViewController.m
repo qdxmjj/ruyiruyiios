@@ -54,7 +54,7 @@
     if (_mainScrollV == nil) {
         
         _mainScrollV = [[UIScrollView alloc] init];
-        _mainScrollV.frame = CGRectMake(0, -20, MAINSCREEN.width, MAINSCREEN.height - 20);
+        _mainScrollV.frame = CGRectMake(0, (SafeAreaTopHeight - 64)+20, MAINSCREEN.width, MAINSCREEN.height - 20 - (SafeAreaTopHeight - 64) - Height_TabBar);
         _mainScrollV.showsVerticalScrollIndicator = NO;
         _mainScrollV.showsHorizontalScrollIndicator = NO;
         _mainScrollV.bounces = NO;
@@ -204,6 +204,10 @@
     self.titleArray = @[@"带更换轮胎", @"畅行无忧", @"我的宝驹", @"优惠券", @"推广码", @"评价", @"设置"];
     self.imgArray = @[@"ic_daigenghuan", @"ic_changxing", @"ic_wodeche", @"ic_youhuiquan", @"ic_tuiguang", @"ic_pingjia", @"ic_shezhi"];
     
+    UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20+(SafeAreaTopHeight - 64))];
+    statusBarView.backgroundColor = LOGINBACKCOLOR;
+    
+    [self.view addSubview:statusBarView];
     [self.view addSubview:self.mainScrollV];
     [self addView];
     // Do any additional setup after loading the view.

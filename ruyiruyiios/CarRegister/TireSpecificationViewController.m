@@ -111,7 +111,7 @@
     
     if (_bottomView == nil) {
         
-        _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 305, MAINSCREEN.width, MAINSCREEN.height - 64 - 305)];
+        _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 305, MAINSCREEN.width, MAINSCREEN.height - SafeDistance - 305)];
         _bottomView.backgroundColor = [UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:0.1];
     }
     return _bottomView;

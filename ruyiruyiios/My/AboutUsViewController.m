@@ -75,7 +75,7 @@
     if (_bottomLabel == nil) {
         
         _bottomLabel = [[UILabel alloc] init];
-        _bottomLabel.frame = CGRectMake(0, MAINSCREEN.height - 64 - 30, MAINSCREEN.width, 20);
+        _bottomLabel.frame = CGRectMake(0, MAINSCREEN.height - SafeDistance - 30, MAINSCREEN.width, 20);
         _bottomLabel.text = @"青岛小马驾驾信息科技有限公司 版权所有";
         _bottomLabel.font = [UIFont fontWithName:TEXTFONT size:12.0];
         _bottomLabel.textColor = TEXTCOLOR64;
@@ -99,9 +99,9 @@
     
     [_mainScrollV addSubview:self.aboutUsHeadView];
     [_mainScrollV addSubview:self.detailLabel];
-    if ((self.detailLabel.frame.origin.y+self.detailLabel.frame.size.height)>(MAINSCREEN.height - 64 - 30)) {
+    if ((self.detailLabel.frame.origin.y+self.detailLabel.frame.size.height)>(MAINSCREEN.height - SafeDistance - 30)) {
         
-        _mainScrollV.frame = CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - 64-30);
+        _mainScrollV.frame = CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - SafeDistance-30);
     }else{
         
         _mainScrollV.frame = CGRectMake(0, 0, MAINSCREEN.width, self.detailLabel.frame.size.height+self.detailLabel.frame.origin.y+20);

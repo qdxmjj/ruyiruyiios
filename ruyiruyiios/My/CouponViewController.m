@@ -49,7 +49,8 @@
     
     if (_couponTableView == nil) {
         
-        _couponTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, MAINSCREEN.width, MAINSCREEN.height - 64 - 40) style:UITableViewStylePlain];
+        _couponTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, MAINSCREEN.width, MAINSCREEN.height - SafeDistance - 40) style:UITableViewStylePlain];
+        _couponTableView.backgroundColor = [UIColor clearColor];
         _couponTableView.delegate = self;
         _couponTableView.dataSource = self;
         _couponTableView.bounces = NO;

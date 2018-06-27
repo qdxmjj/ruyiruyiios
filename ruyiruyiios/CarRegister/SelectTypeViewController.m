@@ -99,9 +99,9 @@
     
     if (_typeTableV == nil) {
         
-        _typeTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, headH, MAINSCREEN.width, MAINSCREEN.height - headH - 64) style:UITableViewStylePlain];
-        _typeTableV.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _typeTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, headH, MAINSCREEN.width, MAINSCREEN.height - headH - SafeDistance) style:UITableViewStylePlain];
         _typeTableV.backgroundColor = [UIColor clearColor];
+        _typeTableV.separatorStyle = UITableViewCellSeparatorStyleNone;
         _typeTableV.delegate = self;
         _typeTableV.dataSource = self;
     }

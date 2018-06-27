@@ -69,7 +69,7 @@
     
     if (_tirePositionTV == nil) {
         
-        _tirePositionTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 45, MAINSCREEN.width, MAINSCREEN.height - 45 - 64) style:UITableViewStylePlain];
+        _tirePositionTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 45, MAINSCREEN.width, MAINSCREEN.height - 45 - SafeDistance) style:UITableViewStylePlain];
         _tirePositionTV.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tirePositionTV.bounces = NO;
         _tirePositionTV.delegate = self;

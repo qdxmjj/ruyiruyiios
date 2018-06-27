@@ -28,7 +28,7 @@
     
     if (_backView == nil) {
         
-        _backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - 64)];
+        _backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - SafeDistance)];
         _backView.backgroundColor = [UIColor blackColor];
     }
     return _backView;
@@ -38,7 +38,7 @@
     
     if (_mycodeView == nil) {
         
-        _mycodeView = [[MyCodeView alloc] initWithFrame:CGRectMake(15, 40, MAINSCREEN.width - 30, MAINSCREEN.height - 64 - 40 - 40)];
+        _mycodeView = [[MyCodeView alloc] initWithFrame:CGRectMake(15, 40, MAINSCREEN.width - 30, MAINSCREEN.height - SafeDistance - 40 - 40)];
         _mycodeView.layer.cornerRadius = 4.0;
         _mycodeView.layer.masksToBounds = YES;
         _mycodeView.backgroundColor = [UIColor whiteColor];

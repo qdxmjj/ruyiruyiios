@@ -52,7 +52,7 @@
     
     if (_myorderTableV == nil) {
         
-        _myorderTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 45, MAINSCREEN.width, MAINSCREEN.height - 45 - 64) style:UITableViewStylePlain];
+        _myorderTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 45, MAINSCREEN.width, MAINSCREEN.height - 45 - SafeDistance) style:UITableViewStylePlain];
         _myorderTableV.bounces = NO;
         _myorderTableV.delegate = self;
         _myorderTableV.dataSource = self;

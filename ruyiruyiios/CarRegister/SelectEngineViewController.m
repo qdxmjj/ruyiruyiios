@@ -62,9 +62,9 @@
     
     if (_engineTableV == nil) {
         
-        _engineTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, headH, MAINSCREEN.width, MAINSCREEN.height - headH - 64) style:UITableViewStylePlain];
-        _engineTableV.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _engineTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, headH, MAINSCREEN.width, MAINSCREEN.height - headH - SafeDistance) style:UITableViewStylePlain];
         _engineTableV.backgroundColor = [UIColor clearColor];
+        _engineTableV.separatorStyle = UITableViewCellSeparatorStyleNone;
         _engineTableV.delegate = self;
         _engineTableV.dataSource = self;
     }

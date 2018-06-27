@@ -43,7 +43,7 @@
     
     if (_notOfenTableV == nil) {
         
-        _notOfenTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, MAINSCREEN.width, MAINSCREEN.height - 64 - 85) style:UITableViewStylePlain];
+        _notOfenTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, MAINSCREEN.width, MAINSCREEN.height - SafeDistance - 85) style:UITableViewStylePlain];
         _notOfenTableV.separatorStyle = UITableViewCellSeparatorStyleNone;
         _notOfenTableV.bounces = NO;
         _notOfenTableV.delegate = self;
@@ -57,7 +57,7 @@
     if (_saveBtn == nil) {
         
         _saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _saveBtn.frame = CGRectMake(10, MAINSCREEN.height - 99, MAINSCREEN.width- 20, 30);
+        _saveBtn.frame = CGRectMake(10, MAINSCREEN.height - 35 - SafeDistance, MAINSCREEN.width - 20, 30);
         _saveBtn.layer.cornerRadius = 6.0;
         _saveBtn.layer.masksToBounds = YES;
         [_saveBtn setTitle:@"保存" forState:UIControlStateNormal];
