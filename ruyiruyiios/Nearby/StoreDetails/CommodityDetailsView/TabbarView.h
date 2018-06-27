@@ -18,4 +18,6 @@ typedef void (^selelctSubServiceListBlock)(NSInteger row);
 
 -(void)changeBadgeNumberWithButton:(NSInteger )buttonTag status:(BOOL)badgeStatus;
 
+-(void)emptyBadgeNumer;
+
 @end

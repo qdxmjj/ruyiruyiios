@@ -34,7 +34,7 @@
                         <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="n9Z-47-6ET">
+                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_gaishoujihao.png" translatesAutoresizingMaskIntoConstraints="NO" id="n9Z-47-6ET">
                         <rect key="frame" x="274" y="7" width="30" height="30"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="30" id="hRa-A6-7d7"/>
@@ -59,4 +59,7 @@
             <point key="canvasLocation" x="14" y="36"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="ic_gaishoujihao.png" width="13" height="19"/>
+    </resources>
 </document>

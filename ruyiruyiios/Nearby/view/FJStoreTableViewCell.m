@@ -47,7 +47,7 @@
     
     if (![model.distance isEqualToString:@""]) {
         
-        self.storeDistance.text = [NSString stringWithFormat:@"%@km", model.distance];
+        self.storeDistance.text = [NSString stringWithFormat:@"%ldkm", [model.distance integerValue]/1000];
     }
     self.serviceListArr = model.serviceList;
     if (self.serviceListArr.count>0) {

@@ -139,6 +139,18 @@
     
 }
 
+-(void)emptyBadgeNumer{
+    
+    for (int i = 0; i<=3; i++) {
+        
+        UIButton *btn = [self viewWithTag:100100+i];
+        
+        btn.badgeLable.hidden = YES;
+        btn.badgeLable.text = @"0";
+    }
+
+    
+}
 
 -(void)topBtnPressed:(UIButton *)sender{
     

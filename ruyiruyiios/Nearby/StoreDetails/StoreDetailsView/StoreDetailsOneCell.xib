@@ -39,21 +39,26 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wsm-5T-NIV">
-                        <rect key="frame" x="266.5" y="11" width="37.5" height="18"/>
+                        <rect key="frame" x="258" y="11" width="46" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="3"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8kS-zj-4fk">
-                        <rect key="frame" x="266.5" y="37" width="23" height="21"/>
-                        <color key="backgroundColor" red="0.66422420739999999" green="0.66424006219999998" blue="0.66423153879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_daohang.png" translatesAutoresizingMaskIntoConstraints="NO" id="8kS-zj-4fk">
+                        <rect key="frame" x="258" y="37" width="23" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="hYo-Nm-xjU"/>
                             <constraint firstAttribute="width" constant="23" id="rNG-kB-xjY"/>
                         </constraints>
                     </imageView>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="aTX-Ee-She">
-                        <rect key="frame" x="16" y="71" width="242.5" height="33"/>
+                        <rect key="frame" x="16" y="71" width="234" height="33"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" priority="750" constant="33" id="Dwn-2a-dL5"/>
@@ -66,7 +71,7 @@
                         </collectionViewFlowLayout>
                     </collectionView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6d9-ey-N1g">
-                        <rect key="frame" x="266.5" y="66" width="37.5" height="13"/>
+                        <rect key="frame" x="258" y="66" width="46" height="13"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="13" id="ywS-xv-e2a"/>
                         </constraints>
@@ -75,11 +80,11 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AAG-6n-fFd">
-                        <rect key="frame" x="266.5" y="84" width="41.5" height="14"/>
+                        <rect key="frame" x="258" y="84" width="50" height="14"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="14" id="xN9-kx-tMd"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <state key="normal" title="进入导航">
                             <color key="titleColor" red="0.4756349325" green="0.47564673419999998" blue="0.47564041610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
@@ -120,4 +125,7 @@
             <point key="canvasLocation" x="21" y="80.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="ic_daohang.png" width="21" height="21"/>
+    </resources>
 </document>

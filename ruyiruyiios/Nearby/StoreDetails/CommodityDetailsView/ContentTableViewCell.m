@@ -25,7 +25,7 @@
 }
 - (IBAction)selectCommodityWithNumber:(UIButton *)sender {
     
-    if ([sender.titleLabel.text isEqualToString:@"一"]) {
+    if (sender == self.lessBtn) {
         
         if (self.number==0) {
             

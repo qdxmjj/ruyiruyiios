@@ -19,7 +19,7 @@
     
     self.number = [self.countLab.text integerValue];
     
-    if ([sender.titleLabel.text isEqualToString:@"一"]) {
+    if (sender == self.lessBtn) {
         
         if (self.number==0) {
             
@@ -27,13 +27,13 @@
         }
         self.number--;
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ShopCartLessNotification" object:@[[NSString stringWithFormat:@"%@",self.shopCartModel.price],self.shopCartModel.commodityID,@(self.number)]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ShopCartLessNotification" object:@[[NSString stringWithFormat:@"%@",self.shopCartModel.price],self.shopCartModel.commodityID,@(self.number),self.shopCartModel.serviceId,self.shopCartModel.serviceTypeId]];
         
     }else{
         
         self.number++;
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ShopCartPlusNotification" object:@[[NSString stringWithFormat:@"%@",self.shopCartModel.price],self.shopCartModel.commodityID,@(self.number)]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ShopCartPlusNotification" object:@[[NSString stringWithFormat:@"%@",self.shopCartModel.price],self.shopCartModel.commodityID,@(self.number),self.shopCartModel.serviceId,self.shopCartModel.serviceTypeId]];
 
     }
     

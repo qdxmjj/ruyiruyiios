@@ -52,10 +52,9 @@
     if (!_shopCartBtn) {
         
         _shopCartBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_shopCartBtn setImage:[UIImage imageNamed:@"ic_dianpu"] forState:UIControlStateNormal];
+        [_shopCartBtn setImage:[UIImage imageNamed:@"ic_car"] forState:UIControlStateNormal];
         _shopCartBtn.layer.cornerRadius = 25;
         _shopCartBtn.layer.masksToBounds = YES;
-        [_shopCartBtn setBackgroundColor:[UIColor colorWithRed:255.f/255.f green:102.f/255.f blue:35.f/255.f alpha:1.f]];
         [_shopCartBtn setFrame:CGRectMake(20, -10, 50, 50)];
         [_shopCartBtn addTarget:self action:@selector(showShopCartViewEvent) forControlEvents:UIControlEventTouchUpInside];
     }

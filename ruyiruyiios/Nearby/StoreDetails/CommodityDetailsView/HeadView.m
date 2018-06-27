@@ -74,6 +74,8 @@
             [btn setFrame:CGRectMake(btnX, btnY, (self.width-self.storeImg.right-40)/3, 20)];
             
             [btn.titleLabel setFont:[UIFont systemFontOfSize:13.f]];
+            btn.layer.cornerRadius = 3;
+            btn.layer.masksToBounds = YES;
             [self addSubview:btn];
         }
     }

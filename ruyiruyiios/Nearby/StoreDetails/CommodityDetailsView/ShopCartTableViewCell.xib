@@ -21,7 +21,6 @@
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x8x-TK-Kdt">
                         <rect key="frame" x="16" y="10" width="150" height="23.5"/>
-                        <color key="backgroundColor" red="0.89724392361111116" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="150" id="pLg-yh-FfR"/>
                         </constraints>
@@ -31,18 +30,17 @@
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ytr-9t-pEl">
                         <rect key="frame" x="179" y="14" width="33" height="16"/>
-                        <color key="backgroundColor" red="0.89724392361111116" green="0.88739691840277779" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qzx-LW-gIA">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qzx-LW-gIA">
                         <rect key="frame" x="234" y="12" width="20" height="20"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="20" id="Pg2-fn-6HF"/>
                             <constraint firstAttribute="height" constant="20" id="i7s-sP-q4q"/>
                         </constraints>
-                        <state key="normal" title="一"/>
+                        <state key="normal" image="ic_cut.png"/>
                         <connections>
                             <action selector="selectCommodityWithNumber:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="RPk-UU-B3u"/>
                         </connections>
@@ -57,13 +55,13 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vli-r4-ODX">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vli-r4-ODX">
                         <rect key="frame" x="284" y="11" width="20" height="20"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="20" id="HgQ-hN-cG0"/>
                             <constraint firstAttribute="height" constant="20" id="cSa-Tw-JdL"/>
                         </constraints>
-                        <state key="normal" title="十"/>
+                        <state key="normal" image="ic_add.png"/>
                         <connections>
                             <action selector="selectCommodityWithNumber:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="nTX-yS-tyN"/>
                         </connections>
@@ -95,4 +93,8 @@
             <point key="canvasLocation" x="25" y="53"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="ic_add.png" width="20" height="20"/>
+        <image name="ic_cut.png" width="20" height="20"/>
+    </resources>
 </document>

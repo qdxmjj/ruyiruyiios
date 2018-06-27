@@ -10,6 +10,7 @@
 
 #import "StoreDetailsRequest.h"
 #import <UIImageView+WebCache.h>
+#import "UIButton+Subscript.h"
 #import "MBProgressHUD+YYM_category.h"
 #import "UserConfig.h"
 #import "HeadView.h"
@@ -141,7 +142,7 @@ static NSInteger const HeadViewH = 150;
         weakSelf.directoryVC.subScript = row;
     };
     
-    //删除购物车商品
+    //清空购物车
     self.shopCartView.removeBlock = ^(BOOL isRemove) {
         
         for (NSDictionary *commodityDic in weakSelf.contentVCDataArr) {
@@ -151,6 +152,25 @@ static NSInteger const HeadViewH = 150;
                 [commodityDic setValue:@"0" forKey:@"commodityNumber"];
             }
         }
+//        NSArray *arr = weakSelf.directoryVC.sevrviceGroup;
+//        NSLog(@"目录：%@",arr);
+        //清除角标
+        for (NSMutableArray *arr in weakSelf.directoryVC.sevrviceGroup) {
+            
+            for (id dic in arr) {
+                
+                if ([dic isKindOfClass:[NSDictionary class]]) {
+                    
+                    if ([[dic objectForKey:@"badgeNumber"] longLongValue] !=0) {
+                        
+                        [dic setValue:@"0" forKey:@"badgeNumber"];
+                    }
+                }
+            }
+        }
+        [weakSelf.directoryVC.tableView reloadData];
+
+        [weakSelf.tabbarV emptyBadgeNumer];
         
         weakSelf.shopCartView.commodityList = @[];
         [weakSelf.shopCartView reloadTableView];
@@ -158,7 +178,6 @@ static NSInteger const HeadViewH = 150;
         weakSelf.bootV.numberLab.text = [NSString stringWithFormat:@"合计：0 元"];
         weakSelf.bootV.isDisplay = YES;
         weakSelf.bootV.totalPrice = @"0";
-        
         [weakSelf.shopCartView removeFromSuperview];
     };
     

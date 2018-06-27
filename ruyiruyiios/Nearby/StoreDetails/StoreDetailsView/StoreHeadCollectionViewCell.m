@@ -17,7 +17,8 @@
     if (self) {
         
         _itemLab = [[UILabel alloc] init];
-        
+        _itemLab.layer.cornerRadius = 5;
+        _itemLab.layer.masksToBounds = YES;
         [self.contentView addSubview:_itemLab];
     
         [_itemLab mas_makeConstraints:^(MASConstraintMaker *make) {

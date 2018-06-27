@@ -66,7 +66,7 @@
 -(void)setModel:(StoreDetailsModel *)model{
     
     self.storeName.text = model.storeName;
-    self.storeAddress.text = model.storeAddress;
+    self.storeAddress.text = [NSString stringWithFormat:@"地址：%@",model.storeAddress];
     self.storetype.text = model.storeType;
     self.storetype.backgroundColor = [PublicClass colorWithHexString:model.storeTypeColor];
     self.serviceList = model.storeServcieList;

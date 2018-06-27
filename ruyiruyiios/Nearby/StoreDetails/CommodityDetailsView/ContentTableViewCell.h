@@ -15,6 +15,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *commodityStock;
 @property (weak, nonatomic) IBOutlet UILabel *commodityPrice;
 @property (weak, nonatomic) IBOutlet UILabel *numeberLab;
+@property (weak, nonatomic) IBOutlet UIButton *plusBtn;
+@property (weak, nonatomic) IBOutlet UIButton *lessBtn;
 
 @property(nonatomic,strong)CommodityModel *model;
 
