@@ -11,7 +11,7 @@
 #import "WinterTyreRequeset.h"
 #import "WinterTyreStockModel.h"
 #import <MJRefresh.h>
-
+#import "MBProgressHUD+YYM_category.h"
 #import "StoreDetailsRequest.h"
 
 #import "CommdoityDetailsViewController.h"
@@ -103,6 +103,12 @@
     NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
     NSString *cityName = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentCity"];
     NSInteger serviceid = [self.serviceID integerValue];
+    
+    if (cityName == NULL ||!cityName ||cityName==nil) {
+        
+        [MBProgressHUD showTextMessage:@"定位异常!"];
+        return;
+    }
     
     [WinterTyreRequeset getStockListByServiceWithInfo:@{@"serviceId":@(serviceid),@"serviceName":self.serviceName,@"cityName":cityName,@"longi":longitude,@"lati":latitude,@"sort":self.sort,@"order":self.order,@"page":@(number),@"rows":@(10)} succrss:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
        

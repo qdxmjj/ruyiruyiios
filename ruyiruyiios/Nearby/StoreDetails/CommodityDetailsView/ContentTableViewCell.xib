@@ -55,24 +55,24 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zlb-se-nBJ">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zlb-se-nBJ">
                         <rect key="frame" x="284" y="60" width="20" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="KcO-zp-g3g"/>
                             <constraint firstAttribute="width" constant="20" id="e2E-qG-Ac6"/>
                         </constraints>
-                        <state key="normal" title="十"/>
+                        <state key="normal" image="ic_add.png"/>
                         <connections>
                             <action selector="selectCommodityWithNumber:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="QVh-Wz-T1z"/>
                         </connections>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aq2-st-myb">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aq2-st-myb">
                         <rect key="frame" x="224" y="60" width="20" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="FG3-Zg-kYw"/>
                             <constraint firstAttribute="width" constant="20" id="eFP-m5-ULa"/>
                         </constraints>
-                        <state key="normal" title="一"/>
+                        <state key="normal" image="ic_cut.png"/>
                         <connections>
                             <action selector="selectCommodityWithNumber:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="B8Y-85-ZGW"/>
                         </connections>
@@ -102,9 +102,15 @@
                 <outlet property="commodityName" destination="kmj-AU-qee" id="Icw-gC-8ne"/>
                 <outlet property="commodityPrice" destination="Zjz-nI-og8" id="4Bf-DO-uBz"/>
                 <outlet property="commodityStock" destination="Jed-Pu-28c" id="SGm-tV-FCk"/>
+                <outlet property="lessBtn" destination="aq2-st-myb" id="Aeg-LU-k8q"/>
                 <outlet property="numeberLab" destination="jGN-kV-iAy" id="sHh-iy-p49"/>
+                <outlet property="plusBtn" destination="Zlb-se-nBJ" id="jnI-Y8-SJR"/>
             </connections>
             <point key="canvasLocation" x="25" y="75.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="ic_add.png" width="20" height="20"/>
+        <image name="ic_cut.png" width="20" height="20"/>
+    </resources>
 </document>

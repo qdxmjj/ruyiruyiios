@@ -40,6 +40,7 @@
 - (void)viewWillDisappear:(BOOL)animated{
 
     self.tabBarController.tabBar.hidden = NO;
+    self.navigationController.navigationBar.hidden = NO;
 }
 
 - (void)viewDidLoad {
@@ -174,9 +175,14 @@
             cashierVC.orderTypeStr = @"1";
             [self.navigationController pushViewController:cashierVC animated:YES];
             
-        }else{
+        }else if([code longLongValue] == -999){
         
+            [self alertIsequallyTokenView];
+            
+        }else{
+            
             [MBProgressHUD showTextMessage:message];
+
         }
         
     } failure:^(NSError * _Nullable error) {

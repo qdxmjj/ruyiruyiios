@@ -52,8 +52,6 @@
 	<string>是否允许此app永久访问你的位置？</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>是否允许此app在使用期间访问你的位置？</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

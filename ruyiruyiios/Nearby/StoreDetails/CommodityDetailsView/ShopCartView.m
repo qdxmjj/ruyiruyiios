@@ -24,17 +24,17 @@
     
     if (self = [super initWithFrame:frame]) {
         
-        self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.3f];
+        self.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:.3f];
         
         [self addSubview:self.tableView];
         [self addSubview:self.removeMptyBtn];
 
         [self.removeMptyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
            
-            make.right.mas_equalTo(self.tableView.mas_right);
-            make.bottom.mas_equalTo(self.tableView.mas_top);
-            make.height.mas_equalTo(@30);
-            make.width.mas_equalTo(@30);
+            make.right.mas_equalTo(self.tableView.mas_right).inset(16);
+            make.bottom.mas_equalTo(self.tableView.mas_top).inset(3);
+            make.height.mas_equalTo(@20);
+            make.width.mas_equalTo(@20);
         }];
         
     }
@@ -106,6 +106,7 @@
         
         _removeMptyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_removeMptyBtn setImage:[UIImage imageNamed:@"ic_delete"] forState:UIControlStateNormal];
+        [_removeMptyBtn setBackgroundColor:[UIColor whiteColor]];
         [_removeMptyBtn addTarget:self action:@selector(removeShopCartContentWithAll) forControlEvents:UIControlEventTouchUpInside];
     }
     
