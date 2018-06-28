@@ -101,6 +101,7 @@
             NSArray *imgArray = [data objectForKey:@"lunbo_infos"];
             if (_data_carDic == nil || [_data_carDic isKindOfClass:[NSNull class]]) {
                 
+                [UserConfig userDefaultsSetObject:@"0" key:@"userCarId"];
             }else{
                 
                 [self setuserDatacarData:_data_carDic];

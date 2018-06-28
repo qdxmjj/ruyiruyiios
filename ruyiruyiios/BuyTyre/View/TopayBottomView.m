@@ -157,18 +157,34 @@
     
     if ([shoeOrdervo.fontRearFlag isEqualToString:@"0"] || [shoeOrdervo.fontRearFlag isEqualToString:@"1"]) {
         
-        [self.downImageV sd_setImageWithURL:[NSURL URLWithString:tobePayinfo.orderImg]];
-        self.detailLabel.text = shoeOrdervo.fontShoeName;
-        self.piceLabel.text = [NSString stringWithFormat:@"¥ %@", shoeOrdervo.fontPrice];
-        self.countLabel.text = [NSString stringWithFormat:@"x%@", shoeOrdervo.fontAmount];
-        [self.cxwyBtn setTitle:[NSString stringWithFormat:@"畅行无忧 ¥ %@", shoeOrdervo.cxwyPrice] forState:UIControlStateNormal];
-        self.cxwyCountLabel.text = [NSString stringWithFormat:@"x%@", shoeOrdervo.cxwyAmount];
-        if ([shoeOrdervo.fontRearFlag isEqualToString:@"0"]) {
+        if ([shoeOrdervo.fontAmount intValue] == 0) {
             
-            self.tirePositionLabel.text = [NSString stringWithFormat:@"位置: 前轮/后轮"];
+            self.downImageV.hidden = YES;
+            self.detailLabel.hidden = YES;
+            self.piceLabel.hidden = YES;
+            self.countLabel.hidden = YES;
+            self.tirePositionLabel.hidden = YES;
+            self.b_lineView.hidden = YES;
+            self.cxwyBtn.frame = CGRectMake(20, 15, MAINSCREEN.width - 80, 20);
+            self.cxwyCountLabel.frame = CGRectMake(MAINSCREEN.width - 60, 15, 40, 20);
+            self.cb_underView.frame = CGRectMake(0, 48, MAINSCREEN.width, 0.5);
+            [self.cxwyBtn setTitle:[NSString stringWithFormat:@"畅行无忧 ¥ %@", shoeOrdervo.cxwyPrice] forState:UIControlStateNormal];
+            self.cxwyCountLabel.text = [NSString stringWithFormat:@"x%@", shoeOrdervo.cxwyAmount];
         }else{
             
-            self.tirePositionLabel.text = [NSString stringWithFormat:@"位置: 前轮"];
+            [self.downImageV sd_setImageWithURL:[NSURL URLWithString:tobePayinfo.orderImg]];
+            self.detailLabel.text = shoeOrdervo.fontShoeName;
+            self.piceLabel.text = [NSString stringWithFormat:@"¥ %@", shoeOrdervo.fontPrice];
+            self.countLabel.text = [NSString stringWithFormat:@"x%@", shoeOrdervo.fontAmount];
+            [self.cxwyBtn setTitle:[NSString stringWithFormat:@"畅行无忧 ¥ %@", shoeOrdervo.cxwyPrice] forState:UIControlStateNormal];
+            self.cxwyCountLabel.text = [NSString stringWithFormat:@"x%@", shoeOrdervo.cxwyAmount];
+            if ([shoeOrdervo.fontRearFlag isEqualToString:@"0"]) {
+                
+                self.tirePositionLabel.text = [NSString stringWithFormat:@"位置: 前轮/后轮"];
+            }else{
+                
+                self.tirePositionLabel.text = [NSString stringWithFormat:@"位置: 前轮"];
+            }
         }
     }else{
         

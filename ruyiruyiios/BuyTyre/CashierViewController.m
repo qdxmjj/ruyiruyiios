@@ -114,7 +114,7 @@
         NSString *reqJson = [PublicClass convertToJsonData:wxPostDic];
         NSString *threeDesStr = [PublicClass doEncryptStr:reqJson key:[[UserConfig token] substringWithRange:NSMakeRange(24, 24)]];
 //        NSLog(@"%@", @{@"reqJson":threeDesStr, @"token":[UserConfig token]});
-        [JJRequest commonPostRequest:@"getWeixinPaySign" params:@{@"reqJson":threeDesStr, @"token":[UserConfig token]} hostNameStr:TEXTSERVERPREFIX success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+        [JJRequest commonPostRequest:@"getWeixinPaySign" params:@{@"reqJson":threeDesStr, @"token":[UserConfig token]} hostNameStr:SERVERPREFIX success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
             
 //            NSLog(@"%@", data);
             if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi]) {
@@ -215,7 +215,13 @@
     [super viewDidLoad];
     self.title =@"收银台";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chickPayResult) name:@"payStatus" object:nil];
-    self.payTypeStr = @"1";
+    if (![orderTypeStr isEqualToString:@"1"]) {
+        
+        self.payTypeStr = @"2";
+    }else{
+        
+        self.payTypeStr = @"1";
+    }
     [self addView];
     // Do any additional setup after loading the view.
 }
@@ -258,6 +264,7 @@
     [self.view addSubview:self.moneyLabel];
     [self.view addSubview:self.surePayBtn];
     [self.view addSubview:self.cashierPayView];
+    [_cashierPayView setdatoViews:orderTypeStr];
 }
 
 - (void)dealloc{

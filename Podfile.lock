@@ -26,6 +26,7 @@ PODS:
   - SDWebImage (4.3.3):
     - SDWebImage/Core (= 4.3.3)
   - SDWebImage/Core (4.3.3)
+  - SVProgressHUD (2.2.5)
 
 DEPENDENCIES:
   - AFNetworking
@@ -36,6 +37,7 @@ DEPENDENCIES:
   - MJRefresh
   - SDCycleScrollView
   - SDWebImage
+  - SVProgressHUD
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -47,6 +49,7 @@ SPEC REPOS:
     - MJRefresh
     - SDCycleScrollView
     - SDWebImage
+    - SVProgressHUD
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
@@ -57,7 +60,8 @@ SPEC CHECKSUMS:
   MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
   SDCycleScrollView: 884b88f0266dd4708a0e1934975c69cb971707b1
   SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: ba834e737dd3bec891ccf0a9cd04c5b8b605e561
+PODFILE CHECKSUM: 77ac94681a39410791aad136a2443abad094036b
 
 COCOAPODS: 1.5.0

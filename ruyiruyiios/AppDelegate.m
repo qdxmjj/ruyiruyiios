@@ -15,13 +15,12 @@
 #import "FMDBCarVerhicle.h"
 #import "FMDBCarTireInfo.h"
 #import "FMDBCarTireType.h"
-#import "QualityServiceViewController.h"
+#import "CodeLoginViewController.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import "MBProgressHUD+YYM_category.h"
-#import "WXApi.h"
 #import "MBProgressHUD+YYM_category.h"
 
-@interface AppDelegate ()<WXApiDelegate>
+@interface AppDelegate ()
 
 @end
 
@@ -37,7 +36,7 @@
     
     [WXApi registerApp:WEIXINID];
     
-//    QualityServiceViewController *carInfoVC = [[QualityServiceViewController alloc] init];
+//    CodeLoginViewController *carInfoVC = [[CodeLoginViewController alloc] init];
 //    UINavigationController *carNav = [[UINavigationController alloc] initWithRootViewController:carInfoVC];
 //    self.window.rootViewController = carNav;
     if (![[NSUserDefaults standardUserDefaults] valueForKey:@"isFirst"]) {
@@ -53,7 +52,7 @@
         MainTabBarViewController *mainTabVC = [[MainTabBarViewController alloc] init];
         self.window.rootViewController = mainTabVC;
     }
-//    NSLog(@"开始执行请求数据和插入数据库操作");
+    NSLog(@"开始执行请求数据和插入数据库操作");
     return YES;
 }
 
@@ -75,7 +74,8 @@
             }
         }];
     }
-    return [WXApi handleOpenURL:url delegate:self];
+    [WXApi handleOpenURL:url delegate:self];
+    return YES;
 }
 
 // NOTE: 9.0以后使用新API接口
@@ -94,12 +94,14 @@
             }
         }];
     }
-    return [WXApi handleOpenURL:url delegate:self];
+    [WXApi handleOpenURL:url delegate:self];
+    return YES;
 }
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
     
-    return [WXApi handleOpenURL:url delegate:self];
+    [WXApi handleOpenURL:url delegate:self];
+    return YES;
 }
 
 #pragma mark WXApiDelegate
@@ -111,24 +113,39 @@
     //WXErrCodeSentFail   = -3,   /**< 发送失败    */
     //WXErrCodeAuthDeny   = -4,   /**< 授权失败    */
     //WXErrCodeUnsupport  = -5,   /**< 微信不支持    */
-    if (resp.errCode == 0) {
+    
+    if ([resp isKindOfClass:[SendAuthResp class]]) {
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"payStatus" object:nil];
-    }else if (resp.errCode == -1){
+        if (resp.errCode == 0) {
+            
+            SendAuthResp *resp2 = (SendAuthResp *)resp;
+            NSDictionary *dict = @{@"key":resp2.code};
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"weiXinLoginCallBack" object:nil userInfo:dict];
+        }else{
+            
+            [MBProgressHUD showTextMessage:@"微信登录失败!"];
+        }
+    }else{
         
-        [MBProgressHUD showTextMessage:@"普通错误类型"];
-    }else if (resp.errCode == -2){
-        
-        [MBProgressHUD showTextMessage:@"用户点击取消并返回"];
-    }else if (resp.errCode == -3){
-        
-        [MBProgressHUD showTextMessage:@"发送失败"];
-    }else if (resp.errCode == -4){
-        
-        [MBProgressHUD showTextMessage:@"授权失败"];
-    }else if (resp.errCode == -5){
-        
-        [MBProgressHUD showTextMessage:@"微信不支持"];
+        if (resp.errCode == 0) {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"payStatus" object:nil];
+        }else if (resp.errCode == -1){
+            
+            [MBProgressHUD showTextMessage:@"普通错误类型"];
+        }else if (resp.errCode == -2){
+            
+            [MBProgressHUD showTextMessage:@"用户点击取消并返回"];
+        }else if (resp.errCode == -3){
+            
+            [MBProgressHUD showTextMessage:@"发送失败"];
+        }else if (resp.errCode == -4){
+            
+            [MBProgressHUD showTextMessage:@"授权失败"];
+        }else if (resp.errCode == -5){
+            
+            [MBProgressHUD showTextMessage:@"微信不支持"];
+        }
     }
 }
 

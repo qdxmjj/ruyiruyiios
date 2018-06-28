@@ -15,5 +15,6 @@ target 'ruyiruyiios' do
   pod 'FMDB'
   pod 'SDCycleScrollView'
   pod 'GTMBase64'
+  pod 'SVProgressHUD'
 
 end

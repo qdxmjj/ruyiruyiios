@@ -129,6 +129,7 @@
 - (void)yb_attributeTapReturnString:(NSString *)string range:(NSRange)range index:(NSInteger)index{
     
     UserProtocolViewController *userProtocolVC = [[UserProtocolViewController alloc] init];
+    userProtocolVC.dealIdStr = @"3";
     [self.navigationController pushViewController:userProtocolVC animated:YES];
 }
 
