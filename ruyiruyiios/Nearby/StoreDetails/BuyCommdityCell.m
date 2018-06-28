@@ -29,9 +29,16 @@
     self.commodityName.text = model.name;
     self.commodityPrice.text =[NSString stringWithFormat:@"¥%@", model.price];
     self.commodityNumber.text =[NSString stringWithFormat:@"x%@", model.commodityNumber];
-    
 }
 
+-(void)setWaitPaymentModel:(WaitPaymentModel *)model{
+    
+    [self.commodityPhoto sd_setImageWithURL:[NSURL URLWithString:model.detailImage] placeholderImage:[UIImage imageNamed:@"ic_my_shibai"]];
+    self.commodityName.text = model.detailName;
+    self.commodityPrice.text =[NSString stringWithFormat:@"¥%@", model.detailPrice];
+    self.commodityNumber.text =[NSString stringWithFormat:@"x%@", model.amount];
+    
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

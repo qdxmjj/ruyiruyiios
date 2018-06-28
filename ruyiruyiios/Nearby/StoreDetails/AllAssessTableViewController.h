@@ -10,6 +10,6 @@
 
 @interface AllAssessTableViewController : UITableViewController
 
-@property(nonatomic,copy)NSString *storeId;
+@property(nonatomic,copy,nonnull)NSString *storeId;
 
 @end

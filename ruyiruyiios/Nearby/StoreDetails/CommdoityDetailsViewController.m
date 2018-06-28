@@ -545,8 +545,8 @@ static NSInteger const HeadViewH = 150;
 -(BootView *)bootV{
     
     if (!_bootV) {
-        
-        _bootV = [[BootView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-45, self.view.frame.size.width, 45)];
+    
+        _bootV = [[BootView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-45-(Height_TabBar-49), self.view.frame.size.width, 45)];
         [_bootV.submitBtn addTarget:self action:@selector(pushBuyCommdityWithPayingViewController) forControlEvents:UIControlEventTouchUpInside];
     }
     

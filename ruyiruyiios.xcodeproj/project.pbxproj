@@ -98,6 +98,9 @@
 		36C80A9920D89C6A0036C14A /* YMDetailedServiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36C80A8A20D89C6A0036C14A /* YMDetailedServiceCell.xib */; };
 		36C80A9A20D89C6A0036C14A /* YMDetailedServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C80A8C20D89C6A0036C14A /* YMDetailedServiceViewController.m */; };
 		36C80A9B20D89C6A0036C14A /* YMDetailedServiceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36C80A8D20D89C6A0036C14A /* YMDetailedServiceViewController.xib */; };
+		36E2810420E4C46F00192BC9 /* WaitPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36E2810220E4C46F00192BC9 /* WaitPaymentViewController.m */; };
+		36E2810520E4C46F00192BC9 /* WaitPaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36E2810320E4C46F00192BC9 /* WaitPaymentViewController.xib */; };
+		36E2810820E4DACF00192BC9 /* WaitPaymentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 36E2810720E4DACF00192BC9 /* WaitPaymentModel.m */; };
 		43004A1F20C78317001BB01A /* CashierPayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43004A1E20C78317001BB01A /* CashierPayView.m */; };
 		43004A2220C7BBE4001BB01A /* TopayMiddleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43004A2120C7BBE4001BB01A /* TopayMiddleView.m */; };
 		43004A2520C7BF0B001BB01A /* ShoeOrderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 43004A2420C7BF0B001BB01A /* ShoeOrderInfo.m */; };
@@ -904,6 +907,11 @@
 		36C80A8B20D89C6A0036C14A /* YMDetailedServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMDetailedServiceViewController.h; sourceTree = "<group>"; };
 		36C80A8C20D89C6A0036C14A /* YMDetailedServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMDetailedServiceViewController.m; sourceTree = "<group>"; };
 		36C80A8D20D89C6A0036C14A /* YMDetailedServiceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YMDetailedServiceViewController.xib; sourceTree = "<group>"; };
+		36E2810120E4C46F00192BC9 /* WaitPaymentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WaitPaymentViewController.h; sourceTree = "<group>"; };
+		36E2810220E4C46F00192BC9 /* WaitPaymentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WaitPaymentViewController.m; sourceTree = "<group>"; };
+		36E2810320E4C46F00192BC9 /* WaitPaymentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WaitPaymentViewController.xib; sourceTree = "<group>"; };
+		36E2810620E4DACF00192BC9 /* WaitPaymentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WaitPaymentModel.h; sourceTree = "<group>"; };
+		36E2810720E4DACF00192BC9 /* WaitPaymentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WaitPaymentModel.m; sourceTree = "<group>"; };
 		43004A1D20C78317001BB01A /* CashierPayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CashierPayView.h; sourceTree = "<group>"; };
 		43004A1E20C78317001BB01A /* CashierPayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CashierPayView.m; sourceTree = "<group>"; };
 		43004A2020C7BBE4001BB01A /* TopayMiddleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopayMiddleView.h; sourceTree = "<group>"; };
@@ -1830,6 +1838,9 @@
 				36C809E420D89C640036C14A /* BuyCommdityViewController.h */,
 				36C809E520D89C640036C14A /* BuyCommdityViewController.m */,
 				36C809E620D89C640036C14A /* BuyCommdityViewController.xib */,
+				36E2810120E4C46F00192BC9 /* WaitPaymentViewController.h */,
+				36E2810220E4C46F00192BC9 /* WaitPaymentViewController.m */,
+				36E2810320E4C46F00192BC9 /* WaitPaymentViewController.xib */,
 				36C809E120D89C640036C14A /* BuyCommdityCell.h */,
 				36C809E220D89C640036C14A /* BuyCommdityCell.m */,
 				36C809E320D89C640036C14A /* BuyCommdityCell.xib */,
@@ -1872,6 +1883,8 @@
 				36C80A0120D89C640036C14A /* StoreAssessModel.m */,
 				36C80A0220D89C640036C14A /* StoreDetailsModel.h */,
 				36C80A0320D89C640036C14A /* StoreDetailsModel.m */,
+				36E2810620E4DACF00192BC9 /* WaitPaymentModel.h */,
+				36E2810720E4DACF00192BC9 /* WaitPaymentModel.m */,
 			);
 			path = DetailsModel;
 			sourceTree = "<group>";
@@ -3732,6 +3745,7 @@
 				4332F8C820D9047700AF386F /* ic_icon4@2x.png in Resources */,
 				4306781A20AED839003BB046 /* 规格示例.png in Resources */,
 				439D069A20BE980400379414 /* ic_plus@2x.png in Resources */,
+				36E2810520E4C46F00192BC9 /* WaitPaymentViewController.xib in Resources */,
 				439D068720BE980400379414 /* ic_wait@2x.png in Resources */,
 				4343680120DB53AB009D2657 /* ic_qr_woman.png in Resources */,
 				439D069120BE980400379414 /* ic_yes@2x.png in Resources */,
@@ -3873,6 +3887,7 @@
 				434DB64620BD41820077234D /* CarInfo.m in Sources */,
 				4332362A20B2BF3E008F45FD /* RoadConditionViewController.m in Sources */,
 				435E594820A18BEF005C8BDA /* MyViewController.m in Sources */,
+				36E2810420E4C46F00192BC9 /* WaitPaymentViewController.m in Sources */,
 				433EECF820ADBD6A0051DF9F /* UILabel+YBAttributeTextTapAction.m in Sources */,
 				43A7B1C820CF5CE40002B756 /* PassImpededTableViewCell.m in Sources */,
 				36C80A9120D89C6A0036C14A /* WinterTyreStockModel.m in Sources */,
@@ -3886,6 +3901,7 @@
 				4332361E20B2752C008F45FD /* SelectTypeViewController.m in Sources */,
 				4322A1D320A29863007B4037 /* PasswordTableViewCell.m in Sources */,
 				4311E99F20D9F09500F74960 /* CouponLeftView.m in Sources */,
+				36E2810820E4DACF00192BC9 /* WaitPaymentModel.m in Sources */,
 				434DB64120BCE6B80077234D /* LocationTableViewCell.m in Sources */,
 				36C80A9420D89C6A0036C14A /* WinterTyreServiceTypeCell.m in Sources */,
 				36C80A5420D89C640036C14A /* CommodityModel.m in Sources */,

@@ -8,8 +8,6 @@
 
 #import "RootViewController.h"
 
-typedef void (^popBuyCommodityBlock)(NSString *orderNo,NSString *status);
-
 @interface BuyCommdityViewController : RootViewController
 
 @property(strong,nonatomic)NSArray *commodityList;//数据源
@@ -17,31 +15,28 @@ typedef void (^popBuyCommodityBlock)(NSString *orderNo,NSString *status);
 /**
  *用户名
  */
-@property(copy,nonatomic)NSString *userName;
+@property(copy,nonatomic,nonnull)NSString *userName;
 
 /**
  *用户联系方式
  */
-@property(copy,nonatomic)NSString *userPhone;
+@property(copy,nonatomic,nonnull)NSString *userPhone;
 
 /**
  * 购买的商店名
  */
-@property(copy,nonatomic)NSString *storeName;
+@property(copy,nonatomic,nonnull)NSString *storeName;
 
 /**
  *总价
  */
-@property(copy,nonatomic)NSString *totalPrice;
+@property(copy,nonatomic,nonnull)NSString *totalPrice;
 
 /**
  *购买的商店ID
  */
-@property(copy,nonatomic)NSString *storeID;
+@property(copy,nonatomic,nonnull)NSString *storeID;
 
-/**
- *pop回当前vc
- */
-@property(copy,nonatomic)popBuyCommodityBlock popSelfBlock;
+
 
 @end

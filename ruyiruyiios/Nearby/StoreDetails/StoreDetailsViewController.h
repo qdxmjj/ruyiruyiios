@@ -9,6 +9,6 @@
 #import "RootViewController.h"
 @interface StoreDetailsViewController : RootViewController
 
-@property(nonatomic,copy)NSString *storeID;
+@property(nonatomic,copy,nonnull)NSString *storeID;
 
 @end

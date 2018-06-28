@@ -9,7 +9,7 @@
 #import "CashierViewController.h"
 #import "CashierPayView.h"
 #import "ToBePaidViewController.h"
-#import "BuyCommdityViewController.h"
+#import "WaitPaymentViewController.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import "PaySuccessViewController.h"
 
@@ -234,18 +234,14 @@
             [self.navigationController pushViewController:tobePaidVC animated:YES];
             
         }else if ([orderTypeStr isEqualToString:@"1"]){
-
-            for (UIViewController *popVC in self.navigationController.viewControllers) {
-                
-                if ([popVC isKindOfClass:[BuyCommdityViewController class]]) {
-                    
-                    BuyCommdityViewController *buyCommodityVc = (BuyCommdityViewController *)popVC;
-                    
-                    buyCommodityVc.popSelfBlock(self.orderNoStr, self.orderTypeStr);
-                    
-                    [self.navigationController popToViewController:popVC animated:YES];
-                }
-            }
+            
+            WaitPaymentViewController *waitPaymentVC = [[WaitPaymentViewController alloc] init];
+            
+            waitPaymentVC.orderType = orderTypeStr;
+            waitPaymentVC.orderNo = orderNoStr;
+            waitPaymentVC.backStatus = @"0";
+            
+            [self.navigationController pushViewController:waitPaymentVC animated:YES];
         }
     }];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {

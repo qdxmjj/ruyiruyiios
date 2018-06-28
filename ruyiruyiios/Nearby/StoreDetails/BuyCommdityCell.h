@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "CommodityModel.h"
+#import "WaitPaymentModel.h"
 @interface BuyCommdityCell : UITableViewCell
 
 -(void)setModel:(CommodityModel *)model;
 
+-(void)setWaitPaymentModel:(WaitPaymentModel *)model;
 @end

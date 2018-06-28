@@ -35,7 +35,7 @@
         
         _backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_backBtn setImage:[UIImage imageNamed:@"ic_back"] forState:UIControlStateNormal];
-        [_backBtn setFrame:CGRectMake(10, 10, 30, 50)];
+        [_backBtn setFrame:CGRectMake(10, 20, 30, 50)];
     }
     
     

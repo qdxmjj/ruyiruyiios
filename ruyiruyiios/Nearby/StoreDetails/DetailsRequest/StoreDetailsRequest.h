@@ -25,4 +25,9 @@
  */
 
 +(void)generateOrdersWithCommodityInfo:(NSDictionary *)info succrss:(_Nullable requestSuccessBlock )succrsshandler failure:(_Nullable requestFailureBlock)failureHandler;
+
+//查询订单详情
++(void)getUserOrderWithInfo:(NSDictionary *)info  succrss:(_Nullable requestSuccessBlock )succrsshandler failure:(_Nullable requestFailureBlock)failureHandler;
+
+
 @end

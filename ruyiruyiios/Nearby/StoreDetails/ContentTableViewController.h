@@ -13,6 +13,6 @@
 /**
  * 商品详细内容
  */
-@property(nonatomic,strong)NSArray *dataArr;
+@property(nonatomic,strong,nonnull)NSArray *dataArr;
 
 @end

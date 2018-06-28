@@ -14,6 +14,7 @@
 #import "YMTools.h"
 #import "CashierViewController.h"
 #import "NearbyViewController.h"
+#import "UIView+extension.h"
 @interface BuyCommdityViewController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *priceLabLab;
@@ -22,11 +23,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *storePhoneLab;
 @property (weak, nonatomic) IBOutlet UILabel *storeNameLab;
 @property (weak, nonatomic) IBOutlet UIButton *defineBtn;
-
-@property(strong,nonatomic)UIButton *goOnPayingBtn;
-
-@property(copy,nonatomic)NSString *status;//pop回当前视图、状态
-@property(copy,nonatomic)NSString *orderNo;//
 
 @end
 
@@ -57,29 +53,10 @@
 
     [self.tableVIew registerNib:[UINib nibWithNibName:NSStringFromClass([BuyCommdityCell class]) bundle:nil] forCellReuseIdentifier:@"buyCommodityListCellID"];
     
-    JJWeakSelf
-    self.popSelfBlock = ^(NSString *orderNo, NSString *status) {
-      
-        [weakSelf.defineBtn removeFromSuperview];
-        [weakSelf.priceLabLab removeFromSuperview];
-        
-        [weakSelf.view addSubview:weakSelf.goOnPayingBtn];
-        
-        weakSelf.navigationItem.leftBarButtonItem = [weakSelf barButtonItemWithRect:CGRectMake(0, 0, 60, 30) image:[UIImage imageNamed:@"返回"] highlighted:nil target:weakSelf action:@selector(popNearbyViewController)];
-    };
 }
 
 
--(void)popNearbyViewController{
-    
-    for (UIViewController *nearbyVC in self.navigationController.viewControllers) {
-            
-        if ([nearbyVC isKindOfClass:[NearbyViewController class]]) {
-                
-            [self.navigationController popToViewController:nearbyVC animated:YES];
-        }
-    }
-}
+
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
@@ -117,6 +94,52 @@
     return 100.5;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    
+    return 40;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
+    
+    return 2;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    
+    return [UIView new];
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    
+    CGFloat h = [self tableView:tableView heightForFooterInSection:section];
+    
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, h)];
+    footerView.backgroundColor = [UIColor whiteColor];
+    
+    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(16, 0, 60, footerView.height)];
+    
+    lab.text = @"优惠券";
+    [footerView addSubview:lab];
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+    
+    [btn setFrame:CGRectMake(footerView.width-100-16, 0, 80, footerView.height)];
+    
+    [btn setTitle:@"选择优惠券" forState:UIControlStateNormal];
+    [btn.titleLabel setFont:[UIFont systemFontOfSize:14.f]];
+    [btn setTintColor:[UIColor lightGrayColor]];
+    [btn addTarget:self action:@selector(pushCouponVC:) forControlEvents:UIControlEventTouchUpInside];
+    [footerView addSubview:btn];
+    
+    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(footerView.width-20-16, 0, 20, footerView.height)];
+    imgView.image = [UIImage imageNamed:@"ic_right"];
+    imgView.contentMode = UIViewContentModeCenter;
+    [footerView addSubview:imgView];
+    return footerView;
+}
+
 -(void)setCommodityList:(NSArray *)commodityList{
     
     _commodityList = commodityList;
@@ -124,9 +147,41 @@
     [self.tableVIew reloadData];
 }
 
+-(void)pushCouponVC:(UIButton *)btn{
+    
+    NSInteger staus = 0 ;
+    for (NSMutableDictionary *dic in self.commodityList) {
+        
+        if ([[dic objectForKey:@"name"] isEqualToString:@"精致洗车"]){
+         
+            staus ++;
+        }
+        if ([[dic objectForKey:@"name"] isEqualToString:@"四轮定位"]) {
+            staus += 2;
+        }
+    }
+    
+    NSLog(@"%ld",staus);
+    
+}
+
+
 - (IBAction)definiteBuyEvent:(UIButton *)sender {
     
-
+    for (NSMutableDictionary *dic in self.commodityList) {
+        
+        if ([[dic objectForKey:@"name"] isEqualToString:@"精致洗车"]
+            ||
+            [[dic objectForKey:@"name"] isEqualToString:@"四轮定位"]
+            ) {
+            
+            if ([UserConfig userCarId] == 0 ) {
+                
+                [MBProgressHUD showTextMessage:@"请先添加车辆！"];
+                return;
+            }
+        }
+    }
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.label.text = @"正在生成订单...";
@@ -187,35 +242,9 @@
         
     } failure:^(NSError * _Nullable error) {
         
+        [hud hideAnimated:YES];
+
     }];
-}
-
--(void)goOnPayingEvent{
-    
-    CashierViewController *cashierVC = [[CashierViewController alloc] init];
-    
-    cashierVC.orderNoStr = self.orderNo;
-    cashierVC.totalPriceStr = self.totalPrice;
-    cashierVC.orderTypeStr = @"1";
-    [self.navigationController pushViewController:cashierVC animated:YES];
-    
-    
-}
-
--(UIButton *)goOnPayingBtn{
-    
-    if (!_goOnPayingBtn) {
-        
-        _goOnPayingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_goOnPayingBtn setFrame:CGRectMake(0, self.view.frame.size.height-40, MAINSCREEN.width, 40)];
-        [_goOnPayingBtn setTitle:@"继续支付" forState:UIControlStateNormal];
-        [_goOnPayingBtn setBackgroundColor:[UIColor colorWithRed:255.f/255.f green:102.f/255.f blue:35.f/255.f alpha:1.f] forState:UIControlStateNormal];
-        [_goOnPayingBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_goOnPayingBtn addTarget:self action:@selector(goOnPayingEvent) forControlEvents:UIControlEventTouchUpInside];
-    }
-    
-    
-    return _goOnPayingBtn;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
