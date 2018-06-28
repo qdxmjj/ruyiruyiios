@@ -16,6 +16,6 @@
 @property(nonatomic, strong)UIView *midView;
 @property(nonatomic, strong)UILabel *useStateLabel;
 
-- (void)setdatatoViews:(CouponInfo *)counponInfo;
+- (void)setdatatoViews:(CouponInfo *)counponInfo couponType:(NSString *)couponTypeStr;
 
 @end

@@ -15,6 +15,8 @@
 #import "CashierViewController.h"
 #import "NearbyViewController.h"
 #import "UIView+extension.h"
+#import "CouponViewController.h"
+
 @interface BuyCommdityViewController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *priceLabLab;
@@ -161,6 +163,13 @@
         }
     }
     
+    CouponViewController *couponVC = [[CouponViewController alloc] init];
+    couponVC.couponTypeStr = [NSString stringWithFormat:@"%ld", staus];
+    couponVC.callBuyStore = ^(NSString *couponIdStr, NSString *couponNameStr) {
+        
+        NSLog(@"%@---%@", couponIdStr, couponNameStr);
+    };
+    [self.navigationController pushViewController:couponVC animated:YES];
     NSLog(@"%ld",staus);
     
 }

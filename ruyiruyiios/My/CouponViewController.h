@@ -10,4 +10,7 @@
 
 @interface CouponViewController : RootViewController
 
+@property(nonatomic, strong)NSString *couponTypeStr;
+@property(nonatomic, copy)void(^callBuyStore)(NSString *couponIdStr, NSString *couponNameStr);
+
 @end

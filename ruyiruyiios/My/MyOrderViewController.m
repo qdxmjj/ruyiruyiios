@@ -12,6 +12,7 @@
 #import "DelegateConfiguration.h"
 #import "ToBePaidViewController.h"
 #import "AllOrderDetialViewController.h"
+#import "WaitPaymentViewController.h"
 
 @interface MyOrderViewController ()<UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate>
 
@@ -332,7 +333,11 @@
             [self.navigationController pushViewController:tobePayVC animated:YES];
         }else if ([orderInfo.orderType isEqualToString:@"1"]){
             
-            
+            WaitPaymentViewController *waitpayVC = [[WaitPaymentViewController alloc] init];
+            waitpayVC.backStatus = @"1";
+            waitpayVC.orderNo = orderInfo.orderNo;
+            waitpayVC.orderType = orderInfo.orderType;
+            [self.navigationController pushViewController:waitpayVC animated:YES];
         }else if ([orderInfo.orderType isEqualToString:@"5"]){
             
             
