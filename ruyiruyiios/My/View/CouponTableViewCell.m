@@ -47,11 +47,11 @@
     self.rightView.frame = CGRectMake(self.leftView.frame.size.width+self.leftView.frame.origin.x, 10, (MAINSCREEN.width - 40)*2/3, 120);
 }
 
-- (void)setdatatoViews:(CouponInfo *)couponInfo{
+- (void)setdatatoViews:(CouponInfo *)couponInfo couponType:(NSString *)couponTypeStr{
     
     self.leftView.backgroundColor = [UIColor whiteColor];
     self.rightView.backgroundColor = [UIColor whiteColor];
-    [self.leftView setdatatoViews:couponInfo];
+    [self.leftView setdatatoViews:couponInfo couponType:couponTypeStr];
     [self.rightView setdatatoViews:couponInfo];
 }
 

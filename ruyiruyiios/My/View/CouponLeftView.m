@@ -74,7 +74,7 @@
     self.useStateLabel.frame = CGRectMake(0, 90, self.backImageV.frame.size.width, 20);
 }
 
-- (void)setdatatoViews:(CouponInfo *)counponInfo{
+- (void)setdatatoViews:(CouponInfo *)counponInfo couponType:(NSString *)couponTypeStr{
     
     self.titleLabel.text = counponInfo.couponName;
     self.midView.backgroundColor = [UIColor whiteColor];
@@ -85,13 +85,51 @@
     }else if ([counponInfo.status isEqualToNumber:[NSNumber numberWithInt:2]]){
         
         self.useStateLabel.text = @"未使用";
-        self.backImageV.image = [UIImage imageNamed:@"ic_blue"];
-        if ([counponInfo.viewTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
+        if ([counponInfo.userCarId isEqualToNumber:[UserConfig userCarId]]) {
             
-            self.backImageV.image = [UIImage imageNamed:@"ic_blue"];
+            if ([couponTypeStr isEqualToString:@"0"]) {
+                
+                self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+            }else if ([couponTypeStr isEqualToString:@"1"]){
+                
+                if ([counponInfo.couponName isEqualToString:@"精致洗车券"]) {
+                    
+                    self.backImageV.image = [UIImage imageNamed:@"ic_blue"];
+                }else{
+                    
+                    self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+                }
+            }else if ([couponTypeStr isEqualToString:@"2"]){
+                
+                if ([counponInfo.couponName isEqualToString:@"四轮定位券"]) {
+                    
+                    self.backImageV.image = [UIImage imageNamed:@"ic_blue"];
+                }else{
+                    
+                    self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+                }
+            }else if ([couponTypeStr isEqualToString:@"3"]){
+                
+                if ([counponInfo.viewTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
+                    
+                    self.backImageV.image = [UIImage imageNamed:@"ic_blue"];
+                }else{
+                    
+                    self.backImageV.image = [UIImage imageNamed:@"ic_red"];
+                }
+            }else{
+                
+                if ([counponInfo.viewTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
+                    
+                    self.backImageV.image = [UIImage imageNamed:@"ic_blue"];
+                }else{
+                    
+                    self.backImageV.image = [UIImage imageNamed:@"ic_red"];
+                }
+            }
         }else{
             
-            self.backImageV.image = [UIImage imageNamed:@"ic_red"];
+            self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
         }
     }else{
         

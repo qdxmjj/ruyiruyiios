@@ -18,11 +18,12 @@
 @property(nonatomic, strong)UITableView *couponTableView;
 @property(nonatomic, strong)NSMutableArray *availableMutableA;
 @property(nonatomic, strong)NSMutableArray *historyMutableA;
-@property(nonatomic, strong)NSString *statusStr; //1---available,  2---history
+@property(nonatomic, strong)NSString *couponStatusStr; //1---available,  2---history
 
 @end
 
 @implementation CouponViewController
+@synthesize couponTypeStr;
 
 - (void)viewWillAppear:(BOOL)animated{
     
@@ -84,7 +85,7 @@
     DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
     [delegateConfiguration registerLoginStatusChangedListener:self];
     
-    self.statusStr = @"1";
+    self.couponStatusStr = @"1";
     [self addViews];
     [self getUserCouponsFromInternet];
     // Do any additional setup after loading the view.
@@ -139,10 +140,10 @@
     }
     if (button.tag == 1000) {
         
-        self.statusStr = @"1";
+        self.couponStatusStr = @"1";
     }else{
         
-        self.statusStr = @"2";
+        self.couponStatusStr = @"2";
     }
     self.btnUnderView.frame = CGRectMake(MAINSCREEN.width/2*(button.tag - 1000), 39, MAINSCREEN.width/2, 1);
     [self.couponTableView reloadData];
@@ -197,7 +198,7 @@
 //UITableViewDelegate and UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    if ([self.statusStr isEqualToString:@"1"]) {
+    if ([self.couponStatusStr isEqualToString:@"1"]) {
         
         return self.availableMutableA.count;
     }else{
@@ -226,15 +227,57 @@
         couponCell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     CouponInfo *couponInfo = [[CouponInfo alloc] init];
-    if ([self.statusStr isEqualToString:@"1"]) {
+    if ([self.couponStatusStr isEqualToString:@"1"]) {
         
         couponInfo = [self.availableMutableA objectAtIndex:indexPath.row];
     }else{
         
         couponInfo = [self.historyMutableA objectAtIndex:indexPath.row];
     }
-    [couponCell setdatatoViews:couponInfo];
+    [couponCell setdatatoViews:couponInfo couponType:couponTypeStr];
     return couponCell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if ([self.couponStatusStr isEqualToString:@"1"]) {
+        
+        CouponInfo *couponInfo = [[CouponInfo alloc] init];
+        couponInfo = [self.availableMutableA objectAtIndex:indexPath.row];
+//        NSLog(@"%@--%@",couponInfo.userCarId, [UserConfig userCarId]);
+        if ([couponInfo.userCarId intValue] == [[UserConfig userCarId] intValue]) {
+            
+            if ([couponTypeStr isEqualToString:@"0"]) {
+                
+                if ([couponInfo.couponName isEqualToString:@"现金卷"]) {
+                    
+                    self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.salesId], couponInfo.couponName);
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+            }else if ([couponTypeStr isEqualToString:@"1"]){
+                
+                if ([couponInfo.couponName isEqualToString:@"精致洗车券"]) {
+                    
+                    self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.salesId], couponInfo.couponName);
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+            }else if ([couponTypeStr isEqualToString:@"2"]){
+                
+                if ([couponInfo.couponName isEqualToString:@"四轮定位券"]) {
+                    
+                    self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.salesId], couponInfo.couponName);
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+            }else if ([couponTypeStr isEqualToString:@"3"]){
+                
+                if ([couponInfo.couponName isEqualToString:@"精致洗车券"] || [couponInfo.couponName isEqualToString:@"四轮定位券"]) {
+                    
+                    self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.salesId], couponInfo.couponName);
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+            }
+        }
+    }
 }
 
 //LoginStatusDelegate
