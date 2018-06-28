@@ -18,7 +18,7 @@
 
 @property(nonatomic,assign)NSInteger index;
 
-
+@property(nonatomic,strong)NSIndexPath *cellPath;
 @end
 
 @implementation DirectoryTableViewController
@@ -39,7 +39,15 @@
 
 }
 
-
+-(void)viewWillAppear:(BOOL)animated{
+    
+    //防止push到别的页面 再回到此页面 cell选中状态丢失
+    if (self.indexpath) {
+        
+        [self.tableView selectRowAtIndexPath:self.indexpath animated:YES scrollPosition:UITableViewScrollPositionNone];
+    }
+    
+}
 /**
    * pramer 页面数据处理流程
    *  sevrviceGroup 接收到四个大类所有的商品
@@ -150,7 +158,7 @@
         cell.contentView.backgroundColor = [UIColor whiteColor];
         cell.orangeLable.hidden = NO;
         self.refreshBlock(indexPath.row,[currentPageData[indexPath.row] objectForKey:@"serviceId"]);
-
+        self.indexpath = indexPath;//记录选中的cell
     } else {
         
         cell.contentView.backgroundColor = backgroundLightGrayColor;
@@ -169,10 +177,10 @@
     
     [self.sevrviceGroup[self.index] replaceObjectAtIndex:rows-1 withObject:[NSString stringWithFormat:@"%ld",indexPath.row]];
 
+    self.indexpath = indexPath;//记录选中的cell
     NSArray *currentPage = self.sevrviceGroup[self.index];
 
     self.refreshBlock(indexPath.row,[currentPage[indexPath.row] objectForKey:@"serviceId"]);
-
 }
 
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -185,7 +193,7 @@
         
         cell.backgroundColor =  backgroundLightGrayColor;
     }
-    
+    //bug push到另一个页面再回到此页面 选择状态就没了
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

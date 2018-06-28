@@ -38,7 +38,8 @@
     
     pageNumber = 1;
 
-
+    self.title = @"评价";
+    
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([StoreDetailsCell class]) bundle:nil] forCellReuseIdentifier:@"allAssessCellID"];
     
     //上拉更多
@@ -53,8 +54,14 @@
         [self loadNewData];
     }];
     
+    self.navigationItem.leftBarButtonItem = [self barButtonItemWithRect:CGRectMake(0, 0, 60, 30) image:[UIImage imageNamed:@"返回"] highlighted:nil target:self action:@selector(backButtonAction:)];
+
 }
 
+- (void)backButtonAction:(id)sender{
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
 -(void)loadNewData{
     
     pageNumber=1;
@@ -169,5 +176,17 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+- (UIBarButtonItem *)barButtonItemWithRect:(CGRect)frame image:(UIImage *)image highlighted:(UIImage *)imagehigh target:(id)target action:(SEL)action{
+    
+    CGFloat offset = 0.0f;
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = frame;
+    [button setImage:image forState:UIControlStateNormal];
+    [button setImage:imagehigh forState:UIControlStateHighlighted];
+    [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    UIView *buttonView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, button.frame.size.width, button.frame.size.height + offset)];
+    [buttonView addSubview:button];
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:buttonView];
+    return barButton;
+}
 @end

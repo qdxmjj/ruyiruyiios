@@ -34,9 +34,15 @@
 
 @implementation WaitPaymentViewController
 
+-(void)viewWillAppear:(BOOL)animated{
+    
+    self.tabBarController.tabBar.hidden = YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.title = @"待支付";
     if ([self.backStatus isEqualToString:@"0"]) {
         
         self.navigationItem.leftBarButtonItem = [self barButtonItemWithRect:CGRectMake(0, 0, 60, 30) image:[UIImage imageNamed:@"返回"] highlighted:nil target:self action:@selector(popNearbyViewController)];
@@ -50,13 +56,7 @@
 
 -(void)popNearbyViewController{
     
-    for (UIViewController *nearbyVC in self.navigationController.viewControllers) {
-        
-        if ([nearbyVC isKindOfClass:[NearbyViewController class]]) {
-            
-            [self.navigationController popToViewController:nearbyVC animated:YES];
-        }
-    }
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 -(void)getUserOrderInfo{

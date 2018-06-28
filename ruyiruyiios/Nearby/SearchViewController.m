@@ -55,7 +55,7 @@
     
     UIButton *delBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    [delBtn setTitle:@"删除" forState:UIControlStateNormal];
+    [delBtn setImage:[UIImage imageNamed:@"ic_delete"] forState:UIControlStateNormal];
     [delBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [delBtn setFrame:CGRectMake(self.view.frame.size.width-60, 20, 40, 30)];
     [delBtn addTarget:self action:@selector(deleteAllDataArr) forControlEvents:UIControlEventTouchUpInside];

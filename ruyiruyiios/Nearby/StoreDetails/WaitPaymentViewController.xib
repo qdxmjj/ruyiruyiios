@@ -33,7 +33,7 @@
                     </constraints>
                 </imageView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="73D-TF-L7a">
-                    <rect key="frame" x="0.0" y="187" width="375" height="440"/>
+                    <rect key="frame" x="0.0" y="187" width="375" height="446"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <view key="tableHeaderView" contentMode="scaleToFill" id="rIH-qi-cOa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="159"/>
@@ -139,14 +139,20 @@
                     </connections>
                 </tableView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w63-Yo-0su">
-                    <rect key="frame" x="16" y="627" width="343" height="40"/>
+                    <rect key="frame" x="16" y="633" width="343" height="34"/>
                     <color key="backgroundColor" red="1" green="0.40000000000000002" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="40" id="xEE-2g-b41"/>
+                        <constraint firstAttribute="height" constant="34" id="xEE-2g-b41"/>
                     </constraints>
                     <state key="normal" title="前往支付">
                         <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="6"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="goOnPayingEvent:" destination="-1" eventType="touchUpInside" id="2f6-Of-c9s"/>
                     </connections>
