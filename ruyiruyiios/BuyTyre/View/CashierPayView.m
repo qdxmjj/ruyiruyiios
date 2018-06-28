@@ -68,7 +68,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-        [self addBlanceView];
         [self addOtherPayView];
         [self addView];
     }
@@ -102,11 +101,11 @@
 
 - (void)addOtherPayView{
     
-    UILabel *otherLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 65, MAINSCREEN.width-20, 20)];
-    otherLabel.text = @"其他支付方式";
-    otherLabel.font = [UIFont fontWithName:TEXTFONT size:20.0];
-    otherLabel.textColor = [UIColor blackColor];
-    [self addSubview:otherLabel];
+    self.otherLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 65, MAINSCREEN.width-20, 20)];
+    self.otherLabel.text = @"其他支付方式";
+    self.otherLabel.font = [UIFont fontWithName:TEXTFONT size:20.0];
+    self.otherLabel.textColor = [UIColor blackColor];
+    [self addSubview:self.otherLabel];
     
     NSArray *nameArray = @[@"微信支付", @"支付宝支付"];
     NSArray *imgArray = @[@"ic_wechat", @"ic_pay"];
@@ -129,6 +128,20 @@
     [self addSubview:self.blanceBtn];
     [self addSubview:self.wxBtn];
     [self addSubview:self.alipayBtn];
+}
+
+- (void)setdatoViews:(NSString *)orderTypeStr{
+    
+    if (![orderTypeStr isEqualToString:@"1"]) {
+        
+        self.otherLabel.hidden = YES;
+        self.blanceLabel.hidden = YES;
+        self.blanceBtn.hidden = YES;
+        self.wxBtn.selected = YES;
+    }else{
+        
+        [self addBlanceView];
+    }
 }
 
 /*

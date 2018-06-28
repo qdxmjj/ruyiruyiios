@@ -16,8 +16,13 @@
 #import "UserProtocolViewController.h"
 #import "JJUILabel.h"
 #import "DelegateConfiguration.h"
+#import "WXApi.h"
+#import "AppDelegate.h"
+#import <AFNetworking.h>
+#import "BindingPhoneViewController.h"
+#import "DelegateConfiguration.h"
 
-@interface CodeLoginViewController ()<UITextFieldDelegate, YBAttributeTapActionDelegate>{
+@interface CodeLoginViewController ()<UITextFieldDelegate, YBAttributeTapActionDelegate, WXApiDelegate>{
     
     UITextField *telephoneTF;
     UITextField *codeTF;
@@ -61,20 +66,10 @@
     
     if (_headImageView == nil) {
         
-        _headImageView = [[UIImageView alloc] initWithFrame:CGRectMake((MAINSCREEN.width/2 - 50), 36, 100, 100)];
+        _headImageView = [[UIImageView alloc] initWithFrame:CGRectMake((MAINSCREEN.width/2 - 50), 36+(SafeAreaTopHeight - 64), 100, 100)];
         _headImageView.image = [UIImage imageNamed:@"icon"];
     }
     return _headImageView;
-}
-
-- (UIView *)bottomView{
-    
-    if (_bottomView == nil) {
-        
-       _bottomView = [[UIView alloc] initWithFrame:CGRectMake(35, (_headImageView.frame.origin.y + _headImageView.frame.size.height + offset), MAINSCREEN.width - 70, 140)];
-        _bottomView.backgroundColor = [UIColor clearColor];
-    }
-    return _bottomView;
 }
 
 - (UILabel *)promptLabel{
@@ -97,9 +92,20 @@
     return _promptLabel;
 }
 
+- (UIView *)bottomView{
+    
+    if (_bottomView == nil) {
+        
+        _bottomView = [[UIView alloc] initWithFrame:CGRectMake(35, (_headImageView.frame.origin.y + _headImageView.frame.size.height + offset), MAINSCREEN.width - 70, 140)];
+        _bottomView.backgroundColor = [UIColor clearColor];
+    }
+    return _bottomView;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(weiXinLoginCallBack:) name:@"weiXinLoginCallBack" object:nil];
     self.navigationItem.title = @"登录";
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height)];
     backBtn.tag = 1001;
@@ -175,12 +181,13 @@
 - (void)yb_attributeTapReturnString:(NSString *)string range:(NSRange)range index:(NSInteger)index{
     
     UserProtocolViewController *userProtocolVC = [[UserProtocolViewController alloc] init];
+    userProtocolVC.dealIdStr = @"1";
     [self.navigationController pushViewController:userProtocolVC animated:YES];
 }
 
 - (void)addButtons{
     
-    UIButton *loginButton = [[UIButton alloc] initWithFrame:CGRectMake(45, 331, MAINSCREEN.width - 90, 40)];
+    UIButton *loginButton = [[UIButton alloc] initWithFrame:CGRectMake(45, 331 + (SafeAreaTopHeight - 64), MAINSCREEN.width - 90, 40)];
     loginButton.tag = 1003;
     loginButton.layer.cornerRadius = 22.0;
     loginButton.layer.masksToBounds = YES;
@@ -192,7 +199,7 @@
     [loginButton setBackgroundColor:LOGINBACKCOLOR forState:UIControlStateNormal];
     [self.view addSubview:loginButton];
     
-    passwordBtn = [[UIButton alloc] initWithFrame:CGRectMake(MAINSCREEN.width/2 - 40, 381, 80, 20)];
+    passwordBtn = [[UIButton alloc] initWithFrame:CGRectMake(MAINSCREEN.width/2 - 40, 381+(SafeAreaTopHeight - 64), 80, 20)];
     passwordBtn.tag = 1004;
     passwordBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:12.0];
     [passwordBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
@@ -232,7 +239,7 @@
 
 - (void)addthridView{
     
-    UIView *thridView = [[UIView alloc] initWithFrame:CGRectMake(15, MAINSCREEN.height - 169, MAINSCREEN.width - 30, 115)];
+    UIView *thridView = [[UIView alloc] initWithFrame:CGRectMake(15, MAINSCREEN.height - 105 - SafeDistance, MAINSCREEN.width - 30, 115)];
     thridView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:thridView];
     
@@ -327,6 +334,7 @@
             break;
         case 1005:
             
+            [self chickWeiXinBtn];
             break;
             
         default:
@@ -388,7 +396,11 @@
             if ([statusStr isEqualToString:@"111111"]) {
                 
                 //保存数据库操作
-                NSLog(@"%@", data);
+                NSLog(@"验证码登录返回数据:%@", data);
+                [self insertDatabase:data];
+                
+                DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+                [delegateConfiguration removeAllDelegateMutableA];
                 MainTabBarViewController *mainTabVC = [[MainTabBarViewController alloc] init];
                 [self.navigationController pushViewController:mainTabVC animated:YES];
             }else if ([statusStr isEqualToString:@"-1"]){
@@ -452,6 +464,80 @@
     }
 }
 
+- (void)chickWeiXinBtn{
+    
+    if ([WXApi isWXAppInstalled]) {
+        
+        SendAuthReq *req = [[SendAuthReq alloc] init];
+        req.scope = @"snsapi_userinfo";
+        req.openID = WEIXINID;
+        req.state = @"12345";
+        [WXApi sendReq:req];
+    }else{
+        
+        [PublicClass showHUD:@"微信未安装" view:self.view];
+    }
+}
+
+//weixin Login success
+- (void)weiXinLoginCallBack:(NSNotification *)notification{
+    
+    NSString *codeStr = notification.userInfo[@"key"];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"application/json", @"text/json",@"text/plain", nil, nil];
+    [manager GET:[NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code",WEIXINID,@"62a20f41249091afa6075d3cfb7ea93f",codeStr] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {  //获得access_token，然后根据access_token获取用户信息请求。
+        
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"dic %@",dic);
+        
+        [self checkWXInfoIdToInternet:dic];
+        /*
+         access_token   接口调用凭证
+         expires_in access_token接口调用凭证超时时间，单位（秒）
+         refresh_token  用户刷新access_token
+         openid 授权用户唯一标识
+         scope  用户授权的作用域，使用逗号（,）分隔
+         unionid     当且仅当该移动应用已获得该用户的userinfo授权时，才会出现该字段
+         */
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"error %@",error.localizedFailureReason);
+    }];
+}
+
+- (void)checkWXInfoIdToInternet:(NSDictionary *)wxDic{
+    
+    NSDictionary *postDic = @{@"wxInfoId":[wxDic objectForKey:@"openid"]};
+//    NSLog(@"%@", [wxDic objectForKey:@"openid"]);
+    NSString *reqJson = [PublicClass convertToJsonData:postDic];
+    [JJRequest postRequest:@"checkWXInfoId" params:@{@"reqJson":reqJson} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+        
+        NSString *statusStr = [NSString stringWithFormat:@"%@", code];
+        NSString *messageStr = [NSString stringWithFormat:@"%@", message];
+        if ([statusStr isEqualToString:@"1"]) {
+            
+            NSLog(@"微信授权登录的返回数据:%@", data);
+            [self insertDatabase:data];
+            [self.navigationController popViewControllerAnimated:YES];
+        }else if ([statusStr isEqualToString:@"2"]){
+            
+            BindingPhoneViewController *bindingVC = [[BindingPhoneViewController alloc] init];
+            bindingVC.weixinIDStr = [wxDic objectForKey:@"openid"];
+            [self.navigationController pushViewController:bindingVC animated:YES];
+        }else{
+            
+            [PublicClass showHUD:messageStr view:self.view];
+        }
+    } failure:^(NSError * _Nullable error) {
+        
+        NSLog(@"查询用户是否绑定微信错误:%@", error);
+    }];
+}
+
 - (void)insertDatabase:(NSDictionary *)dataDic{
     
     FMDBUserInfo *userInfo = [[FMDBUserInfo alloc] init];
@@ -484,6 +570,11 @@
     [UserConfig userDefaultsSetObject:userInfo.updateTime key:@"updateTime"];
     [UserConfig userDefaultsSetObject:userInfo.version key:@"version"];
     [UserConfig userDefaultsSetObject:userInfo.wxInfoId key:@"wxInfoId"];
+}
+
+- (void)dealloc{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"weiXinLoginCallBack" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {

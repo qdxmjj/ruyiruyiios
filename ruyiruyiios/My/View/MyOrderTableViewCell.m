@@ -88,24 +88,19 @@
     return _priceLabel;
 }
 
-- (UIButton *)orderStatusBtn{
+- (UILabel *)orderStatusLabel{
     
-    if (_orderStatusBtn == nil) {
+    if (_orderStatusLabel == nil) {
         
-        _orderStatusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _orderStatusBtn.layer.cornerRadius = 4.0;
-        _orderStatusBtn.layer.masksToBounds = YES;
-        _orderStatusBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
-        [_orderStatusBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_orderStatusBtn setBackgroundColor:LOGINBACKCOLOR forState:UIControlStateNormal];
-        [_orderStatusBtn addTarget:self action:@selector(chickOrderStatusBtn:) forControlEvents:UIControlEventTouchUpInside];
+        _orderStatusLabel = [[UILabel alloc] init];
+        _orderStatusLabel.layer.cornerRadius = 4.0;
+        _orderStatusLabel.layer.masksToBounds = YES;
+        _orderStatusLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
+        _orderStatusLabel.textColor = [UIColor whiteColor];
+        _orderStatusLabel.backgroundColor = LOGINBACKCOLOR;
+        _orderStatusLabel.textAlignment = NSTextAlignmentCenter;
     }
-    return _orderStatusBtn;
-}
-
-- (void)chickOrderStatusBtn:(UIButton *)button{
-    
-    self.orderBlock(button.titleLabel.text);
+    return _orderStatusLabel;
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
@@ -125,7 +120,7 @@
     [self.contentView addSubview:self.orderNumberLabel];
     [self.contentView addSubview:self.orderTimeLabel];
     [self.contentView addSubview:self.priceLabel];
-    [self.contentView addSubview:self.orderStatusBtn];
+    [self.contentView addSubview:self.orderStatusLabel];
 }
 
 - (void)layoutSubviews{
@@ -135,7 +130,7 @@
     self.orderNumberLabel.frame = CGRectMake(self.nameLabel.frame.origin.x, 75, self.nameLabel.frame.size.width, 20);
     self.orderTimeLabel.frame = CGRectMake(self.nameLabel.frame.origin.x, 100, self.nameLabel.frame.size.width, 20);
     self.priceLabel.frame = CGRectMake(self.nameLabel.frame.origin.x, 125, (MAINSCREEN.width - (15+MAINSCREEN.width/4+10))/2, 20);
-    self.orderStatusBtn.frame = CGRectMake(self.priceLabel.frame.origin.x+self.priceLabel.frame.size.width, 125, self.priceLabel.frame.size.width, 20);
+    self.orderStatusLabel.frame = CGRectMake(self.priceLabel.frame.origin.x+self.priceLabel.frame.size.width, 125, self.priceLabel.frame.size.width, 20);
 }
 
 - (void)setCellviewData:(OrderInfo *)orderInfo{
@@ -164,11 +159,21 @@
         }else if ([orderInfo.orderState isEqualToString:@"5"]){
             
             statusStr = @"待支付";
-        }else{
+        }else if ([orderInfo.orderState isEqualToString:@"6"]){
             
             statusStr = @"已退货";
+        }else if ([orderInfo.orderState isEqualToString:@"7"]){
+            
+            statusStr = @"退款中";
+        }else if ([orderInfo.orderState isEqualToString:@"8"]){
+            
+            statusStr = @"退款成功";
+        }else{
+            
+            statusStr = @"订单已取消";
         }
-        if ([self.priceLabel.text isEqualToString:@"0.00"]) {
+        
+        if ([[NSString stringWithFormat:@"¥ %@", orderInfo.orderPrice] isEqualToString:@"0.00"]) {
             
             self.priceLabel.hidden = YES;
         }else{
@@ -188,13 +193,13 @@
             statusStr = @"待商家确认服务";
         }else if ([orderInfo.orderState isEqualToString:@"4"]){
             
-            statusStr = @"作废";
+            statusStr = @"订单已取消";
         }else if ([orderInfo.orderState isEqualToString:@"5"]){
             
             statusStr = @"待发货";
         }else if ([orderInfo.orderState isEqualToString:@"6"]){
             
-            statusStr = @"待车主确认服务";
+            statusStr = @"确认服务";
         }else if ([orderInfo.orderState isEqualToString:@"7"]){
             
             statusStr = @"待评价";
@@ -204,7 +209,7 @@
             statusStr = @" 待支付";
         }
     }
-    [self.orderStatusBtn setTitle:statusStr forState:UIControlStateNormal];
+    self.orderStatusLabel.text = statusStr;
 }
 
 - (void)awakeFromNib {

@@ -10,4 +10,6 @@
 
 @interface UserProtocolViewController : RootViewController
 
+@property(nonatomic, strong)NSString *dealIdStr;   //1--user,  2--store, 3--userPassNotWorry
+
 @end

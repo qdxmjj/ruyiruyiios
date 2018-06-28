@@ -26,6 +26,7 @@
 @end
 
 @implementation ToBePaidViewController
+@synthesize statusStr;
 @synthesize totalPriceStr;
 @synthesize orderNoStr;
 @synthesize orderTypeStr;
@@ -117,7 +118,17 @@
 
 - (void)chickTopayBtn:(UIButton *)button{
     
-    [self.navigationController popViewControllerAnimated:YES];
+    if ([statusStr isEqualToString:@"1"]) {
+        
+        CashierViewController *cashierVC = [[CashierViewController alloc] init];
+        cashierVC.orderNoStr = orderNoStr;
+        cashierVC.totalPriceStr = totalPriceStr;
+        cashierVC.orderTypeStr = orderTypeStr;
+        [self.navigationController pushViewController:cashierVC animated:YES];
+    }else{
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 //    CashierViewController *cashierVC = [[CashierViewController alloc] init];
 //    cashierVC.orderNoStr = orderNoStr;
 //    cashierVC.totalPriceStr = totalPriceStr;
@@ -129,11 +140,46 @@
     [super viewDidLoad];
     self.title = @"待支付";
     
+    [self addRightBtn];
     [self.view addSubview:self.mainScrollV];
     [self.view addSubview:self.topayBtn];
     [self addView];
     [self getUserOrderInfoByNoAndType];
     // Do any additional setup after loading the view.
+}
+
+- (void)addRightBtn{
+    
+    UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 70, 30)];
+    rightBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14];
+    [rightBtn setTitle:@"取消订单" forState:UIControlStateNormal];
+    [rightBtn addTarget:self action:@selector(chickRightBtn:) forControlEvents:UIControlEventTouchUpInside];
+    UIView *rightBtnView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, rightBtn.frame.size.width, rightBtn.frame.size.height)];
+    [rightBtnView addSubview:rightBtn];
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:rightBtnView];
+    self.navigationItem.rightBarButtonItem = barButton;
+}
+
+- (void)chickRightBtn:(UIButton *)button{
+    
+    NSDictionary *cancelPostDic = @{@"orderNo":orderNoStr, @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]]};
+    NSString *reqJson = [PublicClass convertToJsonData:cancelPostDic];
+    [JJRequest postRequest:@"cancelShoeCxwyOrder" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+        
+        NSString *statusStr = [NSString stringWithFormat:@"%@", code];
+        NSString *messageStr = [NSString stringWithFormat:@"%@", message];
+        if ([statusStr isEqualToString:@"1"]) {
+            
+            self.tabBarController.tabBar.hidden = NO;
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }else{
+            
+            [PublicClass showHUD:messageStr view:self.view];
+        }
+    } failure:^(NSError * _Nullable error) {
+        
+        NSLog(@"取消购买轮胎订单错误:%@", error);
+    }];
 }
 
 - (void)getUserOrderInfoByNoAndType{
@@ -146,7 +192,7 @@
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
         if ([statusStr isEqualToString:@"1"]) {
             
-            NSLog(@"%@", data);
+//            NSLog(@"%@", data);
             [self analysizeData:data];
         }else{
             
@@ -167,8 +213,14 @@
 
 - (IBAction)backButtonAction:(id)sender{
     
-    self.tabBarController.tabBar.hidden = NO;
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    if ([statusStr isEqualToString:@"1"]) {
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        
+        self.tabBarController.tabBar.hidden = NO;
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
 }
 
 - (void)addView{

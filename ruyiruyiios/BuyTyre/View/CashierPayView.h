@@ -14,5 +14,8 @@
 @property(nonatomic, strong)UIButton *blanceBtn;
 @property(nonatomic, strong)UIButton *wxBtn;
 @property(nonatomic, strong)UIButton *alipayBtn;
+@property(nonatomic, strong)UILabel *otherLabel;
+
+- (void)setdatoViews:(NSString *)orderTypeStr;
 
 @end

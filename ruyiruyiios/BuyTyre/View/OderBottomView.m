@@ -111,6 +111,7 @@
 - (void)setBottomViewData:(NSString *)tireTotalPriceStr cxwyTotalPrice:(NSString *)cxwyTotalPriceStr{
     
     self.tireTotalPriceLabel.text = [NSString stringWithFormat:@"¥ %@", tireTotalPriceStr];
+//    NSLog(@"%@", self.tireTotalPriceLabel.text);
     self.cxwyTotalPriceLabel.text = [NSString stringWithFormat:@"¥ %@", cxwyTotalPriceStr];
     self.totalPriceLabel.text = [NSString stringWithFormat:@"¥ %.2f", ([tireTotalPriceStr floatValue] + [cxwyTotalPriceStr floatValue])];
 }

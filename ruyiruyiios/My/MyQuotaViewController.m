@@ -14,10 +14,11 @@
 #import <AlipaySDK/AlipaySDK.h>
 #import "PaySuccessViewController.h"
 #import "DelegateConfiguration.h"
+#import "WXApi.h"
 
 @interface MyQuotaViewController ()<UIScrollViewDelegate, LoginStatusDelegate>{
     
-    NSString *payFlagStr;
+    NSString *payFlagStr;   //weixin--1, alipay--2
 }
 
 @property(nonatomic, strong)CreditLineCarInfo *creditCarInfo;
@@ -98,13 +99,7 @@
             [PublicClass showHUD:@"您不需要还款" view:self.view];
         }else{
 
-            if ([payFlagStr isEqualToString:@"1"]) {
-
-
-            }else{
-
-                [self addRechargeCreditOrder];
-            }
+            [self addRechargeCreditOrder];
         }
     }
 }
@@ -120,7 +115,13 @@
         if ([statusStr isEqualToString:@"1"]) {
             
 //            NSLog(@"%@", data);
-            [self getSignFromThridPay:data];
+            if ([payFlagStr isEqualToString:@"1"]) {
+                
+                [self getSignFromWeiXin:data];
+            }else{
+                
+                [self getSignFromThridPay:data];
+            }
         }else{
             
             [PublicClass showHUD:messageStr view:self.view];
@@ -128,6 +129,36 @@
     } failure:^(NSError * _Nullable error) {
         
         NSLog(@"添加信用充值收费订单:%@", error);
+    }];
+}
+
+- (void)getSignFromWeiXin:(NSString *)orderNumber{
+    
+    NSDictionary *wxPostDic = @{@"orderNo":orderNumber, @"orderName":@"充值信用订单", @"orderPrice":@"0.01", @"orderType":@"5", @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]]};
+    NSString *reqJson = [PublicClass convertToJsonData:wxPostDic];
+    NSString *threeDesStr = [PublicClass doEncryptStr:reqJson key:[[UserConfig token] substringWithRange:NSMakeRange(24, 24)]];
+    //        NSLog(@"%@", @{@"reqJson":threeDesStr, @"token":[UserConfig token]});
+    [JJRequest commonPostRequest:@"getWeixinPaySign" params:@{@"reqJson":threeDesStr, @"token":[UserConfig token]} hostNameStr:SERVERPREFIX success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+        
+        //            NSLog(@"%@", data);
+        if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi]) {
+            
+            PayReq *req = [[PayReq alloc] init];
+            req.openID = [data objectForKey:@"appid"];
+            req.partnerId = [data objectForKey:@"partnerid"];
+            req.prepayId = [data objectForKey:@"prepayid"];
+            req.package = [data objectForKey:@"package"];
+            req.nonceStr = [data objectForKey:@"noncestr"];
+            req.timeStamp = [[data objectForKey:@"timestamp"] intValue];
+            req.sign = [data objectForKey:@"sign"];
+            [WXApi sendReq:req];
+        }else{
+            
+            [PublicClass showHUD:@"未安装微信" view:self.view];
+        }
+    } failure:^(NSError * _Nullable error) {
+        
+        NSLog(@"获取微信支付签名错误:%@", error);
     }];
 }
 

@@ -10,6 +10,7 @@
 
 @interface ToBePaidViewController : RootViewController
 
+@property(nonatomic, strong)NSString *statusStr;   //1---myOrder  or OtherViewControlView
 @property(nonatomic, strong)NSString *orderNoStr;
 @property(nonatomic, strong)NSString *totalPriceStr;
 @property(nonatomic, strong)NSString *orderTypeStr;

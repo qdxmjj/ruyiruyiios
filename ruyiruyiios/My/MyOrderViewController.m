@@ -10,6 +10,8 @@
 #import "MyOrderTableViewCell.h"
 #import "OrderInfo.h"
 #import "DelegateConfiguration.h"
+#import "ToBePaidViewController.h"
+#import "AllOrderDetialViewController.h"
 
 @interface MyOrderViewController ()<UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate>
 
@@ -293,22 +295,65 @@
         orderInfo = [self.completedMutableA objectAtIndex:indexPath.row];
     }
     [cell setCellviewData:orderInfo];
-    cell.orderBlock = ^(NSString *buttonName) {
-        
-        [self jumpControllerView:buttonName];
-    };
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+//    DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+//    [delegateConfiguration unregisterLoginStatusChangedListener:self];
+    OrderInfo *orderInfo = [[OrderInfo alloc] init];
+    if ([statusStr intValue] == 0) {
+        
+        orderInfo = [self.allMutableA objectAtIndex:indexPath.row];
+        if ([orderInfo.orderType isEqualToString:@"0"]) {
+            
+        }else{
+            
+            //待评价
+            if ([orderInfo.orderState isEqualToString:@"7"]) {
+                
+                
+            }else{
+                
+                
+            }
+        }
+    }else if ([statusStr intValue] == 1){
+        
+        orderInfo = [self.topayMutableA objectAtIndex:indexPath.row];
+        if ([orderInfo.orderType isEqualToString:@"0"]) {
+            
+            ToBePaidViewController *tobePayVC = [[ToBePaidViewController alloc] init];
+            tobePayVC.statusStr = @"1";
+            tobePayVC.orderNoStr = orderInfo.orderNo;
+            tobePayVC.totalPriceStr = orderInfo.orderPrice;
+            tobePayVC.orderTypeStr = orderInfo.orderType;
+            [self.navigationController pushViewController:tobePayVC animated:YES];
+        }else if ([orderInfo.orderType isEqualToString:@"1"]){
+            
+            
+        }else if ([orderInfo.orderType isEqualToString:@"5"]){
+            
+            
+        }
+    }else if ([statusStr intValue] == 2){
+        
+        orderInfo = [self.todeliverMutableA objectAtIndex:indexPath.row];
+    }else if ([statusStr intValue] == 3){
+        
+        orderInfo = [self.toserviceMutableA objectAtIndex:indexPath.row];
+    }else{
+        
+        orderInfo = [self.completedMutableA objectAtIndex:indexPath.row];
+    }
+    NSLog(@"%@", orderInfo.orderPrice);
 }
 
 //LoginStatusDelegate
 - (void)updateLoginStatus{
     
     [self getUserGeneralOrderByStateFromInternet];
-}
-
-- (void)jumpControllerView:(NSString *)name{
-    
-    NSLog(@"点击订单:%@", name);
 }
 
 - (void)didReceiveMemoryWarning {

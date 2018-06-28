@@ -23,8 +23,7 @@
 @property(nonatomic, strong)UILabel *orderNumberLabel;
 @property(nonatomic, strong)UILabel *orderTimeLabel;
 @property(nonatomic, strong)UILabel *priceLabel;
-@property(nonatomic, strong)UIButton *orderStatusBtn;
-@property(nonatomic, copy)void(^orderBlock)(NSString *);
+@property(nonatomic, strong)UILabel *orderStatusLabel;
 
 - (void)setCellviewData:(OrderInfo *)orderInfo;
 
