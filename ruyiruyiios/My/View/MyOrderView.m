@@ -36,7 +36,7 @@
         _todeliveryBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
         _todeliveryBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
         _todeliveryBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-        [_todeliveryBtn setTitle:@"待发货" forState:UIControlStateNormal];
+        [_todeliveryBtn setTitle:@"进行中" forState:UIControlStateNormal];
         [_todeliveryBtn setTitleColor:TEXTCOLOR64 forState:UIControlStateNormal];
         [_todeliveryBtn setImage:[UIImage imageNamed:@"ic_fahuo"] forState:UIControlStateNormal];
         [_todeliveryBtn setTitleEdgeInsets:UIEdgeInsetsMake(30, -(OrderWidth/4 - OrderWidth*0.13)/2, 0, 0)];

@@ -176,6 +176,10 @@
 		4306782A20B0576B003BB046 /* SelectBrandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4306782920B0576B003BB046 /* SelectBrandViewController.m */; };
 		4307036820CA1E030044EBCE /* MyOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4307036720CA1E030044EBCE /* MyOrderViewController.m */; };
 		4307036B20CA29700044EBCE /* MyOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4307036A20CA29700044EBCE /* MyOrderTableViewCell.m */; };
+		430FAB9A20E5CE3C00EB27F7 /* ToDeliveryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 430FAB9920E5CE3C00EB27F7 /* ToDeliveryView.m */; };
+		430FAB9D20E5D2C500EB27F7 /* FirstUpdateOrFreeChangeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 430FAB9C20E5D2C500EB27F7 /* FirstUpdateOrFreeChangeInfo.m */; };
+		430FABA020E5D49400EB27F7 /* TireChaneOrderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 430FAB9F20E5D49400EB27F7 /* TireChaneOrderInfo.m */; };
+		430FABA320E5DBD600EB27F7 /* ToDeliveryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 430FABA220E5DBD600EB27F7 /* ToDeliveryTableViewCell.m */; };
 		4311E99920D9E54F00F74960 /* CouponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4311E99820D9E54F00F74960 /* CouponViewController.m */; };
 		4311E99C20D9F07A00F74960 /* CouponTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4311E99B20D9F07A00F74960 /* CouponTableViewCell.m */; };
 		4311E99F20D9F09500F74960 /* CouponLeftView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4311E99E20D9F09500F74960 /* CouponLeftView.m */; };
@@ -1003,6 +1007,14 @@
 		4307036720CA1E030044EBCE /* MyOrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyOrderViewController.m; sourceTree = "<group>"; };
 		4307036920CA29700044EBCE /* MyOrderTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyOrderTableViewCell.h; sourceTree = "<group>"; };
 		4307036A20CA29700044EBCE /* MyOrderTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyOrderTableViewCell.m; sourceTree = "<group>"; };
+		430FAB9820E5CE3C00EB27F7 /* ToDeliveryView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToDeliveryView.h; sourceTree = "<group>"; };
+		430FAB9920E5CE3C00EB27F7 /* ToDeliveryView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToDeliveryView.m; sourceTree = "<group>"; };
+		430FAB9B20E5D2C500EB27F7 /* FirstUpdateOrFreeChangeInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstUpdateOrFreeChangeInfo.h; sourceTree = "<group>"; };
+		430FAB9C20E5D2C500EB27F7 /* FirstUpdateOrFreeChangeInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstUpdateOrFreeChangeInfo.m; sourceTree = "<group>"; };
+		430FAB9E20E5D49400EB27F7 /* TireChaneOrderInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TireChaneOrderInfo.h; sourceTree = "<group>"; };
+		430FAB9F20E5D49400EB27F7 /* TireChaneOrderInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TireChaneOrderInfo.m; sourceTree = "<group>"; };
+		430FABA120E5DBD600EB27F7 /* ToDeliveryTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToDeliveryTableViewCell.h; sourceTree = "<group>"; };
+		430FABA220E5DBD600EB27F7 /* ToDeliveryTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToDeliveryTableViewCell.m; sourceTree = "<group>"; };
 		4311E99720D9E54F00F74960 /* CouponViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CouponViewController.h; sourceTree = "<group>"; };
 		4311E99820D9E54F00F74960 /* CouponViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CouponViewController.m; sourceTree = "<group>"; };
 		4311E99A20D9F07A00F74960 /* CouponTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CouponTableViewCell.h; sourceTree = "<group>"; };
@@ -3077,6 +3089,10 @@
 				434367F420DB39E0009D2657 /* SharePersonInfo.m */,
 				4343681220DB960A009D2657 /* CreditLineCarInfo.h */,
 				4343681320DB960A009D2657 /* CreditLineCarInfo.m */,
+				430FAB9B20E5D2C500EB27F7 /* FirstUpdateOrFreeChangeInfo.h */,
+				430FAB9C20E5D2C500EB27F7 /* FirstUpdateOrFreeChangeInfo.m */,
+				430FAB9E20E5D49400EB27F7 /* TireChaneOrderInfo.h */,
+				430FAB9F20E5D49400EB27F7 /* TireChaneOrderInfo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3140,6 +3156,10 @@
 				4326299120E23FE0006E2CCA /* MyEvaluationTableViewCell.m */,
 				4326299320E26998006E2CCA /* MyEvaluateCollectionViewCell.h */,
 				4326299420E26998006E2CCA /* MyEvaluateCollectionViewCell.m */,
+				430FAB9820E5CE3C00EB27F7 /* ToDeliveryView.h */,
+				430FAB9920E5CE3C00EB27F7 /* ToDeliveryView.m */,
+				430FABA120E5DBD600EB27F7 /* ToDeliveryTableViewCell.h */,
+				430FABA220E5DBD600EB27F7 /* ToDeliveryTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3896,6 +3916,7 @@
 				36C80A5E20D89C640036C14A /* StoreDetailsOneCell.m in Sources */,
 				434A552720E4B3F700E0856B /* AllOrderDetialViewController.m in Sources */,
 				435E594120A17084005C8BDA /* UITextField+HL.m in Sources */,
+				430FAB9A20E5CE3C00EB27F7 /* ToDeliveryView.m in Sources */,
 				4332362D20B2C1F2008F45FD /* RoadConditionTableViewCell.m in Sources */,
 				36C80A8F20D89C6A0036C14A /* WinterTyreFlowLayout.m in Sources */,
 				439D060C20BE443700379414 /* BuyTireViewController.m in Sources */,
@@ -4007,6 +4028,7 @@
 				43F5794920C8CF5D00E0B588 /* MyHeadView.m in Sources */,
 				4332361820B26A71008F45FD /* SelectSystemViewController.m in Sources */,
 				434DB63E20BCE3C10077234D /* LocationViewController.m in Sources */,
+				430FABA320E5DBD600EB27F7 /* ToDeliveryTableViewCell.m in Sources */,
 				4358CAAD20A3EEAF006B456F /* WXZCustomPickView.m in Sources */,
 				4319BD1E20DE22F500CBA46C /* ChoiceTableHeadView.m in Sources */,
 				4319D9DE20ABFCB900893026 /* FMDBCarVerhicle.m in Sources */,
@@ -4016,6 +4038,7 @@
 				43BBC3A320C68AE4002C2FE6 /* OderBottomView.m in Sources */,
 				43E2830720DC9CFF0080D3FD /* MyQuotaMiddleView.m in Sources */,
 				4311E9C320DA30B800F74960 /* ExtensionMiddleView.m in Sources */,
+				430FAB9D20E5D2C500EB27F7 /* FirstUpdateOrFreeChangeInfo.m in Sources */,
 				438D44AC20C2672D008DAD97 /* ChoicePatternTableViewCell.m in Sources */,
 				36C80A6020D89C640036C14A /* storeDetailsOneFlowLayout.m in Sources */,
 				43F874D520CE4802007D1C2E /* TobeReplaceTireInfo.m in Sources */,
@@ -4037,6 +4060,7 @@
 				4343EB8E20A01C49003AD5FE /* CodeLoginViewController.m in Sources */,
 				36C80A3A20D89C640036C14A /* YM_FjStoreModel.m in Sources */,
 				36C80A5720D89C640036C14A /* StoreDetailsRequest.m in Sources */,
+				430FABA020E5D49400EB27F7 /* TireChaneOrderInfo.m in Sources */,
 				438D449A20C26701008DAD97 /* TirePattern.m in Sources */,
 				36C80A6520D89C640036C14A /* StoreHeadCollectionViewCell.m in Sources */,
 				43F955CB20CA57DD00B0E056 /* OrderInfo.m in Sources */,
