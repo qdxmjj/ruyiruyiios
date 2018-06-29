@@ -49,12 +49,11 @@
                 <constraints>
                     <constraint firstItem="lVY-wo-5vd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="1D8-Ua-oMv"/>
                     <constraint firstItem="Abk-4Q-AUp" firstAttribute="leading" secondItem="lVY-wo-5vd" secondAttribute="trailing" constant="20" id="20V-Zr-DFx"/>
+                    <constraint firstItem="lVY-wo-5vd" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="6Z0-xy-Wvr"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fQU-Ya-8VM" secondAttribute="bottom" priority="750" constant="10" id="9YL-Ka-ohf"/>
-                    <constraint firstAttribute="bottom" secondItem="lVY-wo-5vd" secondAttribute="bottom" constant="10" id="ABa-fL-eJ2"/>
                     <constraint firstItem="hwm-0s-P5O" firstAttribute="centerY" secondItem="fQU-Ya-8VM" secondAttribute="centerY" id="Ar2-U9-0rX"/>
                     <constraint firstItem="fQU-Ya-8VM" firstAttribute="top" secondItem="Abk-4Q-AUp" secondAttribute="bottom" constant="9" id="LHB-j2-Xip"/>
                     <constraint firstAttribute="trailing" secondItem="hwm-0s-P5O" secondAttribute="trailing" constant="16" id="TiE-Cp-UjZ"/>
-                    <constraint firstItem="lVY-wo-5vd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="eHz-B3-eP5"/>
                     <constraint firstItem="fQU-Ya-8VM" firstAttribute="leading" secondItem="lVY-wo-5vd" secondAttribute="trailing" constant="20" id="nTa-Yb-PzD"/>
                     <constraint firstAttribute="trailing" secondItem="Abk-4Q-AUp" secondAttribute="trailing" constant="16" id="ogG-GU-kVO"/>
                     <constraint firstItem="Abk-4Q-AUp" firstAttribute="top" secondItem="lVY-wo-5vd" secondAttribute="top" id="zFA-PG-Iha"/>

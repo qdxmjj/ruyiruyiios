@@ -28,6 +28,8 @@
 
 @property(nonatomic,copy,nonnull)NSString *salesIdStr;
 
+@property(nonatomic,assign)CGFloat n_TotalPrice;
+
 @end
 
 @implementation BuyCommdityViewController
@@ -55,6 +57,9 @@
     
     self.priceLabLab.attributedText = [YMTools priceWithRedString:self.totalPrice];
 
+    //使用优惠券后的价格，默认跟原价一致
+    self.n_TotalPrice = [self.totalPrice floatValue];
+    
     [self.tableVIew registerNib:[UINib nibWithNibName:NSStringFromClass([BuyCommdityCell class]) bundle:nil] forCellReuseIdentifier:@"buyCommodityListCellID"];
     
 }
@@ -153,32 +158,87 @@
 
 -(void)pushCouponVC:(UIButton *)btn{
     
+    JJWeakSelf
+    
+    /**push CouponViewController 需要传入的状态
+     *  0无可以使用优惠券的商品
+     *  1 精致洗车
+     *  2 四轮定位
+     *  3 全都有
+     *  逐级递增 所有只需要 增加相应值即可 默认为0
+     */
     NSInteger staus = 0 ;
+    
+    //精致洗车价格
+    __block NSString *xichePrice;
+    
+    //四轮定位价格
+    __block NSString *dingweiPrice;
+    
     for (NSMutableDictionary *dic in self.commodityList) {
         
         if ([[dic objectForKey:@"name"] isEqualToString:@"精致洗车"]){
          
+            //赋值洗车单价
+            xichePrice = [dic objectForKey:@"price"];
+            
+            //优惠券状态递增
             staus ++;
         }
         if ([[dic objectForKey:@"name"] isEqualToString:@"四轮定位"]) {
+            
+            //赋值定位单价
+            dingweiPrice = [dic objectForKey:@"price"];
+            
+            //优惠券状态递增
             staus += 2;
         }
     }
     
     CouponViewController *couponVC = [[CouponViewController alloc] init];
+    
     couponVC.couponTypeStr = [NSString stringWithFormat:@"%ld", staus];
+    
     couponVC.callBuyStore = ^(NSString *couponIdStr, NSString *typeIdStr, NSString *couponNameStr) {
+        
+        //再次选择优惠券，重新赋值新价格为原价 减 新优惠券价格  只允许一张优惠券生效
+        self.n_TotalPrice = [self.totalPrice floatValue];
         
         [btn setTitle:couponNameStr forState:UIControlStateNormal];
         
         if (couponIdStr) {
-            self.salesIdStr = couponIdStr;
+            //设置优惠券ID
+            weakSelf.salesIdStr = couponIdStr;
         }
-        NSLog(@"%@---%@", couponIdStr, couponNameStr);
+        
+        //选择了优惠卷  修改总价
+        if ([couponNameStr isEqualToString:@"精致洗车券"]) {
+            
+            weakSelf.n_TotalPrice =  weakSelf.n_TotalPrice - [xichePrice floatValue];
+        }
+        
+        if ([couponNameStr isEqualToString:@"四轮定位券"]) {
+            
+            weakSelf.n_TotalPrice =  weakSelf.n_TotalPrice - [dingweiPrice floatValue];
+        }
+        if ([typeIdStr isEqualToString:@"2"]) {
+            
+            //元现金券
+            if (![couponNameStr containsString:@"元现金券"]) {
+                
+                [MBProgressHUD showTextMessage:@"优惠券异常（格式错误）！"];
+                return ;
+            }
+            NSArray *arr = [couponNameStr componentsSeparatedByString:@"元现金券"];
+            
+            weakSelf.n_TotalPrice =  weakSelf.n_TotalPrice - [arr[0] floatValue];
+        }
+        
+        //赋值新的价格
+        weakSelf.priceLabLab.attributedText = [YMTools priceWithRedString:[NSString stringWithFormat:@"%.2f",weakSelf.n_TotalPrice]];
     };
-    [self.navigationController pushViewController:couponVC animated:YES];
-    NSLog(@"%ld",staus);
     
+    [self.navigationController pushViewController:couponVC animated:YES];
 }
 
 
@@ -237,7 +297,7 @@
         self.salesIdStr = @"0";
     }
     
-    [StoreDetailsRequest generateOrdersWithCommodityInfo:@{@"goodsInfoList":commodityInfoArr,@"userId":[NSString stringWithFormat:@"%@",[UserConfig user_id]],@"salesId":self.salesIdStr,@"storeId":self.storeID,@"storeName":self.storeName,@"totalPrice":self.totalPrice}succrss:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+    [StoreDetailsRequest generateOrdersWithCommodityInfo:@{@"goodsInfoList":commodityInfoArr,@"userId":[NSString stringWithFormat:@"%@",[UserConfig user_id]],@"salesId":self.salesIdStr,@"storeId":self.storeID,@"storeName":self.storeName,@"totalPrice":self.totalPrice,@"actuallyPrice":[NSString stringWithFormat:@"%.2f",self.n_TotalPrice]}succrss:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
        
         [hud hideAnimated:YES];
 
@@ -247,7 +307,7 @@
             CashierViewController *cashierVC = [[CashierViewController alloc] init];
             
             cashierVC.orderNoStr = data;
-            cashierVC.totalPriceStr = self.totalPrice;
+            cashierVC.totalPriceStr = [NSString stringWithFormat:@"%f",self.n_TotalPrice];
             cashierVC.orderTypeStr = @"1";
             [self.navigationController pushViewController:cashierVC animated:YES];
             
@@ -258,7 +318,6 @@
         }else{
             
             [MBProgressHUD showTextMessage:message];
-
         }
         
     } failure:^(NSError * _Nullable error) {

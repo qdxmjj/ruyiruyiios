@@ -50,7 +50,7 @@
 
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([BuyCommdityCell class]) bundle:nil] forCellReuseIdentifier:@"WaitPaymentViewCellID"];
 
-    
+    [self addRightBtn];
     [self getUserOrderInfo];
 }
 
@@ -58,6 +58,49 @@
     
     self.tabBarController.tabBar.hidden = NO;
     [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+
+- (void)addRightBtn{
+    
+    UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 70, 30)];
+    rightBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14];
+    [rightBtn setTitle:@"取消订单" forState:UIControlStateNormal];
+    [rightBtn addTarget:self action:@selector(chickRightBtn:) forControlEvents:UIControlEventTouchUpInside];
+    UIView *rightBtnView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, rightBtn.frame.size.width, rightBtn.frame.size.height)];
+    [rightBtnView addSubview:rightBtn];
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:rightBtnView];
+    self.navigationItem.rightBarButtonItem = barButton;
+}
+
+- (void)chickRightBtn:(UIButton *)button{
+    
+    NSDictionary *cancelPostDic = @{@"orderNo":self.orderNo, @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]]};
+    NSString *reqJson = [PublicClass convertToJsonData:cancelPostDic];
+    [JJRequest postRequest:@"cancelStockOrder" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+        
+        NSString *statusStr = [NSString stringWithFormat:@"%@", code];
+        NSString *messageStr = [NSString stringWithFormat:@"%@", message];
+        if ([statusStr isEqualToString:@"1"]) {
+            
+            if ([self.backStatus isEqualToString:@"0"]) {
+                
+                self.tabBarController.tabBar.hidden = NO;
+                [self.navigationController popToRootViewControllerAnimated:YES];
+                
+            }else{
+                
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+
+        }else{
+            
+            [PublicClass showHUD:messageStr view:self.view];
+        }
+    } failure:^(NSError * _Nullable error) {
+        
+        NSLog(@"取消购买轮胎订单错误:%@", error);
+    }];
 }
 
 -(void)getUserOrderInfo{
@@ -80,7 +123,7 @@
             self.orderTotalPriceLab.text = [NSString stringWithFormat:@"¥%@",[data objectForKey:@"orderTotalPrice"]];
             
             self.commodityList = [data objectForKey:@"stockOrderVoList"];
-            self.orderTotalPrice = [data objectForKey:@"orderTotalPrice"];
+            self.orderTotalPrice = [data objectForKey:@"orderActuallyPrice"];
             self.storeID = [data objectForKey:@"storeId"];
             [self.tableView reloadData];
         }
@@ -120,6 +163,12 @@
     [cell setWaitPaymentModel:model];
     
     return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    return 100.5;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
