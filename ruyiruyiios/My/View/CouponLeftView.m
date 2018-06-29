@@ -78,6 +78,7 @@
     
     self.titleLabel.text = counponInfo.couponName;
     self.midView.backgroundColor = [UIColor whiteColor];
+//    NSLog(@"%@", counponInfo.type);
     if ([counponInfo.status isEqualToNumber:[NSNumber numberWithInt:1]]) {
         
         self.useStateLabel.text = @"已使用";
@@ -87,37 +88,49 @@
         self.useStateLabel.text = @"未使用";
         if ([counponInfo.userCarId isEqualToNumber:[UserConfig userCarId]]) {
             
-            if ([couponTypeStr isEqualToString:@"0"]) {
+            if ([counponInfo.type intValue] == 1) {
                 
-                self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
-            }else if ([couponTypeStr isEqualToString:@"1"]){
-                
-                if ([counponInfo.couponName isEqualToString:@"精致洗车券"]) {
-                    
-                    self.backImageV.image = [UIImage imageNamed:@"ic_blue"];
-                }else{
+                if ([couponTypeStr isEqualToString:@"0"]) {
                     
                     self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
-                }
-            }else if ([couponTypeStr isEqualToString:@"2"]){
-                
-                if ([counponInfo.couponName isEqualToString:@"四轮定位券"]) {
+                }else if ([couponTypeStr isEqualToString:@"1"]){
                     
-                    self.backImageV.image = [UIImage imageNamed:@"ic_blue"];
+                    if ([counponInfo.couponName isEqualToString:@"精致洗车券"]) {
+                        
+                        self.backImageV.image = [UIImage imageNamed:@"ic_blue"];
+                    }else{
+                        
+                        self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+                    }
+                }else if ([couponTypeStr isEqualToString:@"2"]){
+                    
+                    if ([counponInfo.couponName isEqualToString:@"四轮定位券"]) {
+                        
+                        self.backImageV.image = [UIImage imageNamed:@"ic_blue"];
+                    }else{
+                        
+                        self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+                    }
+                }else if ([couponTypeStr isEqualToString:@"3"]){
+                    
+                    if ([counponInfo.viewTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
+                        
+                        self.backImageV.image = [UIImage imageNamed:@"ic_blue"];
+                    }else{
+                        
+                        self.backImageV.image = [UIImage imageNamed:@"ic_red"];
+                    }
                 }else{
                     
-                    self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+                    if ([counponInfo.viewTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
+                        
+                        self.backImageV.image = [UIImage imageNamed:@"ic_blue"];
+                    }else{
+                        
+                        self.backImageV.image = [UIImage imageNamed:@"ic_red"];
+                    }
                 }
-            }else if ([couponTypeStr isEqualToString:@"3"]){
-                
-                if ([counponInfo.viewTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
-                    
-                    self.backImageV.image = [UIImage imageNamed:@"ic_blue"];
-                }else{
-                    
-                    self.backImageV.image = [UIImage imageNamed:@"ic_red"];
-                }
-            }else{
+            }else if ([counponInfo.type intValue] == 2){
                 
                 if ([counponInfo.viewTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
                     

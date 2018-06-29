@@ -151,6 +151,7 @@
 
 - (void)getUserCouponsFromInternet{
     
+//    NSLog(@"%@---%@", [UserConfig user_id], [UserConfig userCarId]);
     NSDictionary *userCouponsDic = @{@"userId":[UserConfig user_id]};
     NSString *reqJson = [PublicClass convertToJsonData:userCouponsDic];
     [JJRequest postRequest:@"preferentialInfo/selectsUserCoupons" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
@@ -249,30 +250,30 @@
             
             if ([couponTypeStr isEqualToString:@"0"]) {
                 
-                if ([couponInfo.couponName isEqualToString:@"现金卷"]) {
+                if ([couponInfo.type intValue] == 2) {
                     
-                    self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.salesId], couponInfo.couponName);
+                    self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.salesId], [NSString stringWithFormat:@"%@", couponInfo.type], couponInfo.couponName);
                     [self.navigationController popViewControllerAnimated:YES];
                 }
             }else if ([couponTypeStr isEqualToString:@"1"]){
                 
-                if ([couponInfo.couponName isEqualToString:@"精致洗车券"]) {
+                if ([couponInfo.couponName isEqualToString:@"精致洗车券"] || [couponInfo.type intValue] == 2) {
                     
-                    self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.salesId], couponInfo.couponName);
+                    self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.salesId], [NSString stringWithFormat:@"%@", couponInfo.type], couponInfo.couponName);
                     [self.navigationController popViewControllerAnimated:YES];
                 }
             }else if ([couponTypeStr isEqualToString:@"2"]){
                 
-                if ([couponInfo.couponName isEqualToString:@"四轮定位券"]) {
+                if ([couponInfo.couponName isEqualToString:@"四轮定位券"] || [couponInfo.type intValue] == 2) {
                     
-                    self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.salesId], couponInfo.couponName);
+                    self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.salesId], [NSString stringWithFormat:@"%@", couponInfo.type], couponInfo.couponName);
                     [self.navigationController popViewControllerAnimated:YES];
                 }
             }else if ([couponTypeStr isEqualToString:@"3"]){
                 
-                if ([couponInfo.couponName isEqualToString:@"精致洗车券"] || [couponInfo.couponName isEqualToString:@"四轮定位券"]) {
+                if ([couponInfo.couponName isEqualToString:@"精致洗车券"] || [couponInfo.couponName isEqualToString:@"四轮定位券"] || [couponInfo.type intValue] == 2) {
                     
-                    self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.salesId], couponInfo.couponName);
+                    self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.salesId], [NSString stringWithFormat:@"%@", couponInfo.type], couponInfo.couponName);
                     [self.navigationController popViewControllerAnimated:YES];
                 }
             }

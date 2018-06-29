@@ -165,7 +165,7 @@
     
     CouponViewController *couponVC = [[CouponViewController alloc] init];
     couponVC.couponTypeStr = [NSString stringWithFormat:@"%ld", staus];
-    couponVC.callBuyStore = ^(NSString *couponIdStr, NSString *couponNameStr) {
+    couponVC.callBuyStore = ^(NSString *couponIdStr, NSString *typeIdStr, NSString *couponNameStr) {
         
         NSLog(@"%@---%@", couponIdStr, couponNameStr);
     };
