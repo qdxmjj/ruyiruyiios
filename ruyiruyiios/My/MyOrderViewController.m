@@ -116,7 +116,7 @@
     DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
     [delegateConfiguration registerLoginStatusChangedListener:self];
     
-    _btnNameArray = @[@"全部", @"待支付", @"待发货", @"待服务", @"已完成"];
+    _btnNameArray = @[@"全部", @"待支付", @"进行中", @"待服务", @"已完成"];
     [self addStatusBtn:_btnNameArray];
     [self addViews];
     [self getUserGeneralOrderByStateFromInternet];
@@ -174,7 +174,7 @@
             }
         }else{
             
-            if ([orderInfo.orderState isEqualToString:@"5"]) {
+            if ([orderInfo.orderState isEqualToString:@"5"] || [orderInfo.orderState isEqualToString:@"2"]) {
                 
                 [self.todeliverMutableA addObject:orderInfo];
             }else if ([orderInfo.orderState isEqualToString:@"4"] || [orderInfo.orderState isEqualToString:@"1"] || [orderInfo.orderState isEqualToString:@"7"]){
@@ -183,7 +183,7 @@
             }else if ([orderInfo.orderState isEqualToString:@"8"]){
                 
                 [self.topayMutableA addObject:orderInfo];
-            }else if ([orderInfo.orderState isEqualToString:@"2"] || [orderInfo.orderState isEqualToString:@"3"] || [orderInfo.orderState isEqualToString:@"6"]){
+            }else if ([orderInfo.orderState isEqualToString:@"3"] || [orderInfo.orderState isEqualToString:@"6"]){
                 
                 [self.toserviceMutableA addObject:orderInfo];
             }
@@ -345,14 +345,37 @@
     }else if ([statusStr intValue] == 2){
         
         orderInfo = [self.todeliverMutableA objectAtIndex:indexPath.row];
+        if ([orderInfo.orderState isEqualToString:@"2"]) {
+            
+            [self jumpToAllorderDetailVC:@"待收货" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+        }else{
+            
+            [self jumpToAllorderDetailVC:@"待发货" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+        }
     }else if ([statusStr intValue] == 3){
         
         orderInfo = [self.toserviceMutableA objectAtIndex:indexPath.row];
+        if ([orderInfo.orderState isEqualToString:@"3"]) {
+            
+            [self jumpToAllorderDetailVC:@"待商家确认服务" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+        }else{
+            
+            [self jumpToAllorderDetailVC:@"确认服务" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+        }
     }else{
         
         orderInfo = [self.completedMutableA objectAtIndex:indexPath.row];
     }
     NSLog(@"%@", orderInfo.orderPrice);
+}
+
+- (void)jumpToAllorderDetailVC:(NSString *)titleStr orderNo:(NSString *)orderNoStr orderType:(NSString *)orderTypeStr{
+    
+    AllOrderDetialViewController *allOrderDetialVC = [[AllOrderDetialViewController alloc] init];
+    allOrderDetialVC.titleStr = titleStr;
+    allOrderDetialVC.orderNoStr = orderNoStr;
+    allOrderDetialVC.orderTypeStr = orderTypeStr;
+    [self.navigationController pushViewController:allOrderDetialVC animated:YES];
 }
 
 //LoginStatusDelegate
