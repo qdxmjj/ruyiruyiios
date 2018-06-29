@@ -56,6 +56,7 @@
 
 -(void)popNearbyViewController{
     
+    self.tabBarController.tabBar.hidden = NO;
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
@@ -83,8 +84,7 @@
             self.storeID = [data objectForKey:@"storeId"];
             [self.tableView reloadData];
         }
-        
-        
+          
     } failure:^(NSError * _Nullable error) {
         
         [hud hideAnimated:YES];

@@ -26,6 +26,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *storeNameLab;
 @property (weak, nonatomic) IBOutlet UIButton *defineBtn;
 
+@property(nonatomic,copy,nonnull)NSString *salesIdStr;
+
 @end
 
 @implementation BuyCommdityViewController
@@ -167,6 +169,11 @@
     couponVC.couponTypeStr = [NSString stringWithFormat:@"%ld", staus];
     couponVC.callBuyStore = ^(NSString *couponIdStr, NSString *typeIdStr, NSString *couponNameStr) {
         
+        [btn setTitle:couponNameStr forState:UIControlStateNormal];
+        
+        if (couponIdStr) {
+            self.salesIdStr = couponIdStr;
+        }
         NSLog(@"%@---%@", couponIdStr, couponNameStr);
     };
     [self.navigationController pushViewController:couponVC animated:YES];
@@ -225,7 +232,12 @@
         
     }
     
-    [StoreDetailsRequest generateOrdersWithCommodityInfo:@{@"goodsInfoList":commodityInfoArr,@"userId":[NSString stringWithFormat:@"%@",[UserConfig user_id]],@"salesId":@"0",@"storeId":self.storeID,@"storeName":self.storeName,@"totalPrice":self.totalPrice}succrss:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+    if (!self.salesIdStr) {
+        
+        self.salesIdStr = @"0";
+    }
+    
+    [StoreDetailsRequest generateOrdersWithCommodityInfo:@{@"goodsInfoList":commodityInfoArr,@"userId":[NSString stringWithFormat:@"%@",[UserConfig user_id]],@"salesId":self.salesIdStr,@"storeId":self.storeID,@"storeName":self.storeName,@"totalPrice":self.totalPrice}succrss:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
        
         [hud hideAnimated:YES];
 
