@@ -89,6 +89,12 @@
     cell.logoView.hidden = YES;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    return 44;
+}
+
 -(void)getServiceListInfo:(NSString *)serviceTypeID{
     
     NSNumber *serviceID = @([serviceTypeID integerValue]);
