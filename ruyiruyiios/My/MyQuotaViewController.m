@@ -94,7 +94,7 @@
         [PublicClass showHUD:@"输入的数值不能太小" view:self.view];
     }else{
 
-        if ([self.myquotaMiddleV.realRepayTF.text isEqualToString:@"0.00"]) {
+        if ([self.myquotaHeadV.realShouldLabel.text integerValue] == 0) {
 
             [PublicClass showHUD:@"您不需要还款" view:self.view];
         }else{

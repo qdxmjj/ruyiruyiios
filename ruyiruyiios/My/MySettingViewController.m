@@ -11,6 +11,7 @@
 #import "UpdatePasswordViewController.h"
 #import "ContactCustomerViewController.h"
 #import "AboutUsViewController.h"
+#import "CodeLoginViewController.h"
 
 @interface MySettingViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -64,7 +65,42 @@
 
 - (void)chickSignOutBtn:(UIButton *)button{
     
+    [self setdataEmptying];
+    CodeLoginViewController *codeLoginVC = [[CodeLoginViewController alloc] init];
+    codeLoginVC.homeTologinStr = @"2";
+    [self.navigationController pushViewController:codeLoginVC animated:YES];
+}
+
+- (void)setdataEmptying{
     
+    [UserConfig userDefaultsSetObject:@"" key:@"age"];
+    [UserConfig userDefaultsSetObject:@"" key:@"birthday"];
+    [UserConfig userDefaultsSetObject:@"" key:@"createTime"];
+    [UserConfig userDefaultsSetObject:@"" key:@"createdBy"];
+    [UserConfig userDefaultsSetObject:@"" key:@"createdTime"];
+    [UserConfig userDefaultsSetObject:@"" key:@"deletedBy"];
+    [UserConfig userDefaultsSetObject:@"" key:@"deletedFlag"];
+    [UserConfig userDefaultsSetObject:@"" key:@"deletedTime"];
+    [UserConfig userDefaultsSetObject:@"" key:@"email"];
+    [UserConfig userDefaultsSetObject:@"" key:@"firstAddCar"];
+    [UserConfig userDefaultsSetObject:@"" key:@"gender"];
+    [UserConfig userDefaultsSetObject:@"" key:@"headimgurl"];
+    [UserConfig userDefaultsSetObject:@"" key:@"user_id"];
+    [UserConfig userDefaultsSetObject:@"" key:@"invitationCode"];
+    [UserConfig userDefaultsSetObject:@"" key:@"lastUpdatedBy"];
+    [UserConfig userDefaultsSetObject:@"" key:@"lastUpdatedTime"];
+    [UserConfig userDefaultsSetObject:@"" key:@"ml"];
+    [UserConfig userDefaultsSetObject:@"" key:@"nick"];
+    [UserConfig userDefaultsSetObject:@"" key:@"password"];
+    [UserConfig userDefaultsSetObject:@"" key:@"payPwd"];
+    [UserConfig userDefaultsSetObject:@"" key:@"phone"];
+    [UserConfig userDefaultsSetObject:@"" key:@"qqInfoId"];
+    [UserConfig userDefaultsSetObject:@"" key:@"remark"];
+    [UserConfig userDefaultsSetObject:@"" key:@"status"];
+    [UserConfig userDefaultsSetObject:@"" key:@"token"];
+    [UserConfig userDefaultsSetObject:@"" key:@"updateTime"];
+    [UserConfig userDefaultsSetObject:@"" key:@"version"];
+    [UserConfig userDefaultsSetObject:@"" key:@"wxInfoId"];
 }
 
 - (void)viewDidLoad {

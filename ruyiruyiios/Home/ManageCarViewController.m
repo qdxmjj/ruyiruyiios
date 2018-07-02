@@ -211,6 +211,7 @@
         [self sendInternetUpdate:deleteDic requestStr:@"deleteCar" token:[UserConfig token]];
         NSLog(@"点击了删除");
     }];
+    deleteAction.backgroundColor = LOGINBACKCOLOR;
     UITableViewRowAction *editAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"设为默认" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         
         ManageCar *manageCar = [self.carMutableA objectAtIndex:indexPath.row];

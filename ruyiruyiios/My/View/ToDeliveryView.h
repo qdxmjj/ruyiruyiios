@@ -9,19 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "FirstUpdateOrFreeChangeInfo.h"
 
-@interface ToDeliveryView : UIView<UITableViewDelegate, UITableViewDataSource>
+@interface ToDeliveryView : UIView
 
 @property(nonatomic, strong)UILabel *userNameLabel;
 @property(nonatomic, strong)UILabel *userPhoneLabel;
 @property(nonatomic, strong)UILabel *userPlatNumberLabel;
 @property(nonatomic, strong)UILabel *serviceLabel;
+@property(nonatomic, strong)UILabel *typeLabel;
 @property(nonatomic, strong)UIButton *storeNameBtn;
 @property(nonatomic, strong)UIView *underView;
-@property(nonatomic, strong)UITableView *tireChangeTableview;
-@property(nonatomic, strong)NSMutableArray *changeShoeMutableA;
-@property(nonatomic, strong)NSString *tireImgUrlStr;
 
-- (instancetype)initWithFrame:(CGRect)frame change:(NSMutableArray *)changeMutableA;
 - (void)setDatatoDeliveryViews:(FirstUpdateOrFreeChangeInfo *)firstUpdateOrFreeChaneInfo;
 
 @end

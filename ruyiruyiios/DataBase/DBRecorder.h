@@ -19,14 +19,17 @@
 //factory
 + (void)insertFactoryArray:(NSArray *)dataArray;
 + (NSArray *)getFactoryData:(NSNumber *)brandId;
++ (NSString *)getFactoryTime;
 
 //brand
 + (void)insertBrandArray:(NSArray *)dataArray;
 + (NSArray *)getAllBrandData;
++ (NSString *)getBrandTime;
 
 //Verhicle
 + (void)insertVerhicleArray:(NSArray *)dataArray;
 + (NSArray *)getVerhicleData:(NSNumber *)factoryId;
++ (NSString *)getVerhicleTime;
 
 //TireInfo
 + (void)insertTireInfoArray:(NSArray *)dataArray;
@@ -38,6 +41,7 @@
 //TireType
 + (void)insertTireTypeArray:(NSArray *)dataArray;
 + (NSArray *)getAllTiretypeData;
++ (NSString *)getTiretypeTime;
 + (NSArray *)getTiretypeDataByflatWidth:(NSString *)tireFlatWidth;
 + (NSArray *)getTiretypeDataByflatRatio:(NSString *)flatRatio;
 
@@ -46,4 +50,5 @@
 + (NSArray *)getProvinceArray:(NSNumber *)definition;
 + (NSArray *)getCityArray:(NSNumber *)positionId;
 + (NSArray *)getPro_City_id:(NSString *)name;
++ (NSString *)getPositionTime;
 @end

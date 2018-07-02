@@ -8,17 +8,19 @@
 
 #import "AllOrderDetialViewController.h"
 #import "ToDeliveryView.h"
+#import "ToDeliveryTableViewCell.h"
 #import "FirstUpdateOrFreeChangeInfo.h"
 #import "StoreDetailsViewController.h"
 #import "TireChaneOrderInfo.h"
 
-@interface AllOrderDetialViewController ()<UIScrollViewDelegate>
+@interface AllOrderDetialViewController ()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property(nonatomic, strong)UIScrollView *mainScrollV;
 @property(nonatomic, strong)ToDeliveryView *todeliveryView;
+@property(nonatomic, strong)UITableView *tireChangeTableview;
+@property(nonatomic, strong)NSMutableArray *changeTireNumberMutableA;
 @property(nonatomic, strong)UIButton *submitBtn;
 @property(nonatomic, strong)FirstUpdateOrFreeChangeInfo *firstUpdateInfo;
-@property(nonatomic, strong)NSMutableArray *changeTireNumberMutableA;
 
 @end
 
@@ -51,10 +53,23 @@
     
     if (_todeliveryView == nil) {
         
-        _todeliveryView = [[ToDeliveryView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, 190+150*self.changeTireNumberMutableA.count) change:self.changeTireNumberMutableA];
+        _todeliveryView = [[ToDeliveryView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, 190)];
         [_todeliveryView.storeNameBtn addTarget:self action:@selector(chickDeliveryStoreNameBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _todeliveryView;
+}
+
+- (UITableView *)tireChangeTableview{
+    
+    if (_tireChangeTableview == nil) {
+        
+        _tireChangeTableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 190, MAINSCREEN.width, self.changeTireNumberMutableA.count*150) style:UITableViewStylePlain];
+        _tireChangeTableview.delegate = self;
+        _tireChangeTableview.dataSource = self;
+        _tireChangeTableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tireChangeTableview.bounces = NO;
+    }
+    return _tireChangeTableview;
 }
 
 - (void)chickDeliveryStoreNameBtn:(UIButton *)button{
@@ -124,9 +139,24 @@
 
 - (void)chickRightBtn:(UIButton *)button{
     
+    NSString *postStr = @"";
+    //0轮胎购买，1普通商品，2首次更换，3免费更换，4轮胎修补，5充值信用
+    if ([orderTypeStr isEqualToString:@"0"]) {
+        
+        postStr = @"cancelShoeCxwyOrder";
+    }else if ([orderTypeStr isEqualToString:@"1"]){
+        
+        postStr = @"cancelStockOrder";
+    }else if ([orderTypeStr isEqualToString:@"2"]){
+        
+        postStr = @"cancelFirstChangeOrder";
+    }else if ([orderTypeStr isEqualToString:@"3"]){
+        
+         postStr = @"cancelShoeRepairOrder";
+    }
     NSDictionary *cancelPostDic = @{@"orderNo":orderNoStr, @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]]};
     NSString *reqJson = [PublicClass convertToJsonData:cancelPostDic];
-    [JJRequest postRequest:@"cancelShoeCxwyOrder" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+    [JJRequest postRequest:postStr params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         
         NSString *statusStr = [NSString stringWithFormat:@"%@", code];
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
@@ -147,6 +177,7 @@
 - (void)addViews{
     
     [self.view addSubview:self.mainScrollV];
+    [_mainScrollV addSubview:self.todeliveryView];
     [self.view addSubview:self.submitBtn];
 }
 
@@ -160,7 +191,7 @@
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
         if ([statusStr isEqualToString:@"1"]) {
             
-            YLog(@"%@", data);
+//            YLog(@"%@", data);
             [self analySizeData:data];
         }else{
             
@@ -197,13 +228,43 @@
             [self.changeTireNumberMutableA addObject:tireInfo];
         }
     }
-    [_mainScrollV addSubview:self.todeliveryView];
+    [_mainScrollV addSubview:self.tireChangeTableview];
     [self setdatatoViews];
 }
 
 - (void)setdatatoViews{
     
     [_todeliveryView setDatatoDeliveryViews:self.firstUpdateInfo];
+}
+
+//UITableViewDelegate and UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    return self.changeTireNumberMutableA.count;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return 150.0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    static NSString *reuseIndentifier = @"cell";
+    ToDeliveryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIndentifier];
+    if (cell == nil) {
+        
+        cell = [[ToDeliveryTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIndentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    TireChaneOrderInfo *tireInfo = [self.changeTireNumberMutableA objectAtIndex:indexPath.row];
+    [cell setdatatoCellViews:tireInfo img:self.firstUpdateInfo.orderImg];
+    return cell;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -90,6 +90,62 @@
     return factoryArray;
 }
 
++ (NSString *)getFactoryTime{
+    
+    LosDatabaseHelper *helper = [LosDatabaseHelper sharedInstance];
+    __block NSArray *factoryPaixArray = [[NSArray alloc] init];
+    [helper inTransaction:^(FMDatabase *db, BOOL rollback) {
+        
+        if ([db open]) {
+            
+            [db setShouldCacheStatements:YES];
+            if (![db tableExists:@"carFactory"]) {
+                
+                [db executeUpdate:@"CREATE TABLE carFactory(Id INTEGER PRIMARY KEY, carBrandId INTEGER, factory TEXT, factoryId INTEGER, system INTEGER, time TEXT)"];
+                NSLog(@"车辆品牌数据库创建完成!");
+            }
+            FMResultSet *factoryRs = [db executeQuery:@"select * from carFactory"];
+            NSMutableArray *timeArray = [[NSMutableArray alloc] init];
+            while ([factoryRs next]) {
+                
+                FMDBCarFactory *carFactory = [[FMDBCarFactory alloc] init];
+                carFactory.carBrandId = [NSNumber numberWithInt:[factoryRs intForColumn:@"carBrandId"]];
+                carFactory.factory = [factoryRs stringForColumn:@"factory"];
+                carFactory.factoryId = [NSNumber numberWithInt:[factoryRs intForColumn:@"factoryId"]];
+                carFactory.system = [NSNumber numberWithInt:[factoryRs intForColumn:@"system"]];
+                carFactory.time = [factoryRs stringForColumn:@"time"];
+                NSString *timeStr = [PublicClass timestampSwitchTime:[carFactory.time integerValue] andFormatter:@"YYYY-MM-dd HH:mm:ss"];
+                [timeArray addObject:timeStr];
+            }
+            factoryPaixArray = [timeArray sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+                if (obj1 == [NSNull null]) {
+                    obj1 = @"0000-00-00 00:00:00";
+                }
+                if (obj2 == [NSNull null]) {
+                    obj2 = @"0000-00-00 00:00:00";
+                }
+                NSDate *date1 = [formatter dateFromString:obj1];
+                NSDate *date2 = [formatter dateFromString:obj2];
+                NSComparisonResult result = [date1 compare:date2];
+                return result = NSOrderedAscending;
+            }];
+            [factoryRs close];
+        }else{
+            
+            NSLog(@"车辆品牌数据库打开失败");
+        }
+    }];
+    if (factoryPaixArray.count == 0) {
+        
+        return NULL;
+    }else{
+        
+        return [factoryPaixArray objectAtIndex:0];
+    }
+}
+
 + (void)insertBrandArray:(NSArray *)dataArray{
     
     LosDatabaseHelper *helper = [LosDatabaseHelper sharedInstance];
@@ -159,6 +215,62 @@
         }
     }];
     return brandArray;
+}
+
++ (NSString *)getBrandTime{
+    
+    LosDatabaseHelper *helper = [LosDatabaseHelper sharedInstance];
+    __block NSArray *brandPaixArray = [[NSArray alloc] init];
+    [helper inTransaction:^(FMDatabase *db, BOOL rollback) {
+        if ([db open]) {
+            
+            [db setShouldCacheStatements:YES];
+            if (![db tableExists:@"carBrand"]) {
+                
+                [db executeUpdate:@"CREATE TABLE carBrand(Id INTEGER PRIMARY KEY, icon TEXT, brandId INTEGER, imgUrl TEXT, name TEXT, system INTEGER, time TEXT)"];
+                NSLog(@"车辆图标数据库创建完成!");
+            }
+            FMResultSet *brandRs = [db executeQuery:@"select * from carBrand"];
+            NSMutableArray *brandTimeArray = [[NSMutableArray alloc] init];
+            while ([brandRs next]) {
+                
+                FMDBCarBrand *carBrand = [[FMDBCarBrand alloc] init];
+                carBrand.icon = [brandRs stringForColumn:@"icon"];
+                carBrand.brandId = [NSNumber numberWithInt:[brandRs intForColumn:@"brandId"]];
+                carBrand.imgUrl = [brandRs stringForColumn:@"imgUrl"];
+                carBrand.name = [brandRs stringForColumn:@"name"];
+                carBrand.system = [NSNumber numberWithInt:[brandRs intForColumn:@"system"]];
+                carBrand.time = [brandRs stringForColumn:@"time"];
+                NSString *timeStr = [PublicClass timestampSwitchTime:[carBrand.time integerValue] andFormatter:@"YYYY-MM-dd HH:mm:ss"];
+                [brandTimeArray addObject:timeStr];
+            }
+            brandPaixArray = [brandTimeArray sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+                if (obj1 == [NSNull null]) {
+                    obj1 = @"0000-00-00 00:00:00";
+                }
+                if (obj2 == [NSNull null]) {
+                    obj2 = @"0000-00-00 00:00:00";
+                }
+                NSDate *brandDate1 = [formatter dateFromString:obj1];
+                NSDate *brandDate2 = [formatter dateFromString:obj2];
+                NSComparisonResult result = [brandDate1 compare:brandDate2];
+                return result == NSOrderedAscending;
+            }];
+            [brandRs close];
+        }else{
+            
+            NSLog(@"车辆品牌数据库创建失败");
+        }
+    }];
+    if (brandPaixArray.count == 0) {
+        
+        return NULL;
+    }else{
+        
+        return [brandPaixArray objectAtIndex:0];
+    }
 }
 
 + (void)insertVerhicleArray:(NSArray *)dataArray{
@@ -235,6 +347,65 @@
         }
     }];
     return verhicleArray;
+}
+
++ (NSString *)getVerhicleTime{
+    
+    LosDatabaseHelper *helper = [LosDatabaseHelper sharedInstance];
+    __block NSArray *verhiclePaixArray = [[NSArray alloc] init];
+    [helper inTransaction:^(FMDatabase *db, BOOL rollback) {
+        
+        if ([db open]) {
+            
+            [db setShouldCacheStatements:YES];
+            if (![db tableExists:@"carVerhicle"]) {
+                
+                [db executeUpdate:@"CREATE TABLE carVerhicle(Id INTEGER PRIMARY KEY, carBrandId INTEGER, carVersion TEXT, factoryId INTEGER, verhicleId INTEGER, system INTEGER, time TEXT, verhicle TEXT, verify INTEGER)"];
+                NSLog(@"车辆型号数据库创建完成!");
+            }
+            FMResultSet *verhicleRs = [db executeQuery:@"select * from carVerhicle"];
+            NSMutableArray *verhicleTimeArry = [[NSMutableArray alloc] init];
+            while ([verhicleRs next]) {
+                
+                FMDBCarVerhicle *carVerhicle = [[FMDBCarVerhicle alloc] init];
+                carVerhicle.carBrandId = [NSNumber numberWithInt:[verhicleRs intForColumn:@"carBrandId"]];
+                carVerhicle.carVersion = [verhicleRs stringForColumn:@"carVersion"];
+                carVerhicle.factoryId = [NSNumber numberWithInt:[verhicleRs intForColumn:@"factoryId"]];
+                carVerhicle.verhicleId = [NSNumber numberWithInt:[verhicleRs intForColumn:@"verhicleId"]];
+                carVerhicle.system = [NSNumber numberWithInt:[verhicleRs intForColumn:@"system"]];
+                carVerhicle.time = [verhicleRs stringForColumn:@"time"];
+                carVerhicle.verhicle = [verhicleRs stringForColumn:@"verhicle"];
+                carVerhicle.verify = [NSNumber numberWithInt:[verhicleRs intForColumn:@"verify"]];
+                NSString *timeStr = [PublicClass timestampSwitchTime:[carVerhicle.time integerValue] andFormatter:@"YYYY-MM-dd HH:mm:ss"];
+                [verhicleTimeArry addObject:timeStr];
+            }
+            verhiclePaixArray = [verhicleTimeArry sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+                if (obj1 == [NSNull null]) {
+                    obj1 = @"0000-00-00 00:00:00";
+                }
+                if (obj2 == [NSNull null]) {
+                    obj2 = @"0000-00-00 00:00:00";
+                }
+                NSDate *date1 = [formatter dateFromString:obj1];
+                NSDate *date2 = [formatter dateFromString:obj2];
+                NSComparisonResult result = [date1 compare:date2];
+                return result == NSOrderedAscending;
+            }];
+            [verhicleRs close];
+        }else{
+            
+            NSLog(@"车辆型号数据库打开失败");
+        }
+    }];
+    if (verhiclePaixArray.count == 0) {
+        
+        return NULL;
+    }else{
+        
+        return [verhiclePaixArray objectAtIndex:0];
+    }
 }
 
 + (void)insertTireInfoArray:(NSArray *)dataArray{
@@ -496,6 +667,63 @@
     return tireTypeArray;
 }
 
++ (NSString *)getTiretypeTime{
+    
+    LosDatabaseHelper *helper = [LosDatabaseHelper sharedInstance];
+    __block NSArray *tiretypePaixArray = [[NSArray alloc] init];
+    [helper inTransaction:^(FMDatabase *db, BOOL rollback) {
+        
+        if ([db open]) {
+            
+            [db setShouldCacheStatements:YES];
+            if (![db tableExists:@"carTireType"]) {
+                
+                [db executeUpdate:@"CREATE TABLE carTireType(Id INTEGER PRIMARY KEY, time TEXT, tireDiameter TEXT, tireFlatWidth TEXT, tireFlatnessRatio TEXT, tireState INTEGER, tireTypeId INTEGER)"];
+                NSLog(@"轮胎类型数据库创建完成!");
+            }
+            FMResultSet *tireTypeRs = [db executeQuery:@"select * from carTireType"];
+            NSMutableArray *tireTypeTimeArray = [[NSMutableArray alloc] init];
+            while ([tireTypeRs next]) {
+                
+                FMDBCarTireType *carTireType = [[FMDBCarTireType alloc] init];
+                carTireType.time = [tireTypeRs stringForColumn:@"time"];
+                carTireType.tireDiameter = [tireTypeRs stringForColumn:@"tireDiameter"];
+                carTireType.tireFlatWidth = [tireTypeRs stringForColumn:@"tireFlatWidth"];
+                carTireType.tireFlatnessRatio = [tireTypeRs stringForColumn:@"tireFlatnessRatio"];
+                carTireType.tireState = [NSNumber numberWithInt:[tireTypeRs intForColumn:@"tireState"]];
+                carTireType.tireTypeId = [NSNumber numberWithInt:[tireTypeRs intForColumn:@"tireTypeId"]];
+                NSString *timeStr = [PublicClass timestampSwitchTime:[carTireType.time integerValue] andFormatter:@"YYYY-MM-dd HH:mm:ss"];
+                [tireTypeTimeArray addObject:timeStr];
+            }
+            tiretypePaixArray = [tireTypeTimeArray sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+                if (obj1 == [NSNull null]) {
+                    obj1 = @"0000-00-00 00:00:00";
+                }
+                if (obj2 == [NSNull null]) {
+                    obj2 = @"0000-00-00 00:00:00";
+                }
+                NSDate *date1 = [formatter dateFromString:obj1];
+                NSDate *date2 = [formatter dateFromString:obj2];
+                NSComparisonResult result = [date1 compare:date2];
+                return result == NSOrderedAscending;
+            }];
+            [tireTypeRs close];
+        }else{
+            
+            NSLog(@"轮胎类型数据库打开失败");
+        }
+    }];
+    if (tiretypePaixArray.count == 0) {
+        
+        return NULL;
+    }else{
+        
+        return [tiretypePaixArray objectAtIndex:0];
+    }
+}
+
 + (NSArray *)getTiretypeDataByflatWidth:(NSString *)tireFlatWidth{
     
     LosDatabaseHelper *helper = [LosDatabaseHelper sharedInstance];
@@ -699,6 +927,64 @@
         }
     }];
     return cityArray;
+}
+
++ (NSString *)getPositionTime{
+    
+    LosDatabaseHelper *helper = [LosDatabaseHelper sharedInstance];
+    __block NSArray *positionPaixArrray = [[NSArray alloc] init];
+    [helper inTransaction:^(FMDatabase *db, BOOL rollback) {
+        
+        if ([db open]) {
+            
+            [db setShouldCacheStatements:YES];
+            if (![db tableExists:@"position"]) {
+                
+                [db executeUpdate:@"CREATE TABLE position(Id INTEGER PRIMARY KEY, definition INTEGER, fid INTEGER, icon TEXT, positionId INTEGER, level INTEGER, name TEXT, time TEXT)"];
+                NSLog(@"省市区位置数据库创建完成!");
+            }
+            FMResultSet *provinceRs = [db executeQuery:@"select * from position"];
+            NSMutableArray *positionTimeArray = [[NSMutableArray alloc] init];
+            while ([provinceRs next]) {
+                
+                FMDBPosition *position = [[FMDBPosition alloc] init];
+                position.definition = [NSNumber numberWithInt:[provinceRs intForColumn:@"definition"]];
+                position.fid = [NSNumber numberWithInt:[provinceRs intForColumn:@"fid"]];
+                position.icon = [provinceRs stringForColumn:@"icon"];
+                position.positionId = [NSNumber numberWithInt:[provinceRs intForColumn:@"positionId"]];
+                position.level = [NSNumber numberWithInt:[provinceRs intForColumn:@"level"]];
+                position.name = [provinceRs stringForColumn:@"name"];
+                position.time = [provinceRs stringForColumn:@"time"];
+                NSString *timeStr = [PublicClass timestampSwitchTime:[position.time integerValue] andFormatter:@"YYYY-MM-dd HH:mm:ss"];
+                [positionTimeArray addObject:timeStr];
+            }
+            positionPaixArrray = [positionTimeArray sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+                if (obj1 == [NSNull null]) {
+                    obj1 = @"0000-00-00 00:00:00";
+                }
+                if (obj2 == [NSNull null]) {
+                    obj2 = @"0000-00-00 00:00:00";
+                }
+                NSDate *date1 = [formatter dateFromString:obj1];
+                NSDate *date2 = [formatter dateFromString:obj2];
+                NSComparisonResult result = [date1 compare:date2];
+                return result == NSOrderedAscending;
+            }];
+            [provinceRs close];
+        }else{
+            
+            NSLog(@"地理位置数据库打开失败!");
+        }
+    }];
+    if (positionPaixArrray.count == 0) {
+        
+        return NULL;
+    }else{
+        
+        return [positionPaixArrray objectAtIndex:0];
+    }
 }
 
 @end

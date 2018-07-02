@@ -447,7 +447,16 @@
                 NSLog(@"登录返回的数据:%@", data);
                 [self insertDatabase:data];
                 [delegateConfiguation changeLoginStatus];
-                [self.navigationController popViewControllerAnimated:YES];
+                
+                //从修改密码的页面跳转
+                if ([homeTologinStr isEqualToString:@"2"]) {
+                    
+                    self.tabBarController.tabBar.hidden = NO;
+                    [self.navigationController popToRootViewControllerAnimated:YES];
+                }else{
+                    
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
 //                MainTabBarViewController *mainTabVC = [[MainTabBarViewController alloc] init];
 //                [self.navigationController pushViewController:mainTabVC animated:YES];
             }else if ([statusStr isEqualToString:@"100001"]){

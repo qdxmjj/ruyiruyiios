@@ -8,6 +8,7 @@
 
 #import "UpdatePasswordViewController.h"
 #import "UpdatePasswordView.h"
+#import "CodeLoginViewController.h"
 
 @interface UpdatePasswordViewController ()
 
@@ -71,7 +72,9 @@
                 NSString *messageStr = [NSString stringWithFormat:@"%@", message];
                 if ([statusStr isEqualToString:@"1"]) {
                     
-                    [self.navigationController popViewControllerAnimated:YES];
+                    CodeLoginViewController *codeLoginVC = [[CodeLoginViewController alloc] init];
+                    codeLoginVC.homeTologinStr = @"2";
+                    [self.navigationController pushViewController:codeLoginVC animated:YES];
                 }else{
                     
                     [PublicClass showHUD:messageStr view:self.view];

@@ -333,6 +333,7 @@
         _homeTableV.dataSource = self;
         _homeTableV.delegate = self;
         _homeTableV.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _homeTableV.bounces = NO;
     }
     return _homeTableV;
 }

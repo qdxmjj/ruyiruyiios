@@ -170,8 +170,14 @@
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
         if ([statusStr isEqualToString:@"1"]) {
             
-            self.tabBarController.tabBar.hidden = NO;
-            [self.navigationController popToRootViewControllerAnimated:YES];
+            if ([self.statusStr isEqualToString:@"1"]) {
+                
+                [self.navigationController popViewControllerAnimated:YES];
+            }else{
+                
+                self.tabBarController.tabBar.hidden = NO;
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }
         }else{
             
             [PublicClass showHUD:messageStr view:self.view];

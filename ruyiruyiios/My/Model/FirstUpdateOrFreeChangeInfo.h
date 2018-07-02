@@ -18,5 +18,9 @@
 @property(nonatomic, strong)NSString *storeName;
 @property(nonatomic, strong)NSString *orderImg;
 @property(nonatomic, strong)NSNumber *storeId;
+@property(nonatomic, strong)NSString *orderTotalPrice;
+@property(nonatomic, strong)NSString *shoeOrderVoList;
+@property(nonatomic, strong)NSString *stockOrderVoList;
+@property(nonatomic, strong)NSString *userCarShoeBarCodeList;
 
 @end

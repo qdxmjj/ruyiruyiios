@@ -51,7 +51,7 @@
         
         _engineheadView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, headH)];
         _engineheadView.backgroundColor = LOGINBACKCOLOR;
-        UIImageView *headImageV = [[UIImageView alloc] initWithFrame:CGRectMake(20, 25, MAINSCREEN.width-40, 50)];
+        UIImageView *headImageV = [[UIImageView alloc] initWithFrame:CGRectMake(20, 25, MAINSCREEN.width-40, 70)];
         headImageV.image = [UIImage imageNamed:@"ic_jincheng3"];
         [_engineheadView addSubview:headImageV];
     }
@@ -79,26 +79,51 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self getDataFromDatabase];
     self.title = @"车型选择";
-    headH = 100.0;
+    headH = 120.0;
     _firstLitter = @[@"选择发动机排量"];
     [self.view addSubview:self.engineheadView];
     [self.view addSubview:self.engineTableV];
+    [self getDataFromInternet];
     // Do any additional setup after loading the view.
 }
 
-- (void)getDataFromDatabase{
+- (void)getDataFromInternet{
     
-    self.tireInfoArray = [DBRecorder getTireInfoData:verhicleId];
-    for (int i = 0; i<self.tireInfoArray.count; i++) {
+    NSDictionary *postDic = @{@"verhicleId":[NSString stringWithFormat:@"%@", verhicleId]};
+    NSString *reqJson = [PublicClass convertToJsonData:postDic];
+    [JJRequest postRequest:@"getCarTireInfoByCondition" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         
-        FMDBCarTireInfo *tireInfo = [self.tireInfoArray objectAtIndex:i];
-        if (![self.pailiangMutableA containsObject:tireInfo.pailiang]) {
+        NSString *statusStr = [NSString stringWithFormat:@"%@", code];
+        NSString *messageStr = [NSString stringWithFormat:@"%@", message];
+        if ([statusStr isEqualToString:@"1"]) {
             
+//            NSLog(@"%@", data);
+            [self analySize:data];
+        }else{
+            
+            [PublicClass showHUD:messageStr view:self.view];
+        }
+    } failure:^(NSError * _Nullable error) {
+        
+        NSLog(@"根据verhicleId条件筛选车辆:%@", error);
+    }];
+}
+
+- (void)analySize:(NSArray *)dataArray{
+    
+    self.tireInfoArray = dataArray;
+    for (int i = 0; i<self.tireInfoArray.count; i++) {
+
+        NSDictionary *dic = [self.tireInfoArray objectAtIndex:i];
+        FMDBCarTireInfo *tireInfo = [[FMDBCarTireInfo alloc] init];
+        [tireInfo setValuesForKeysWithDictionary:dic];
+        if (![self.pailiangMutableA containsObject:tireInfo.pailiang]) {
+
             [self.pailiangMutableA addObject:tireInfo.pailiang];
         }
     }
+    [self.engineTableV reloadData];
 }
 
 //delegate
