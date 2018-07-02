@@ -142,7 +142,13 @@
             }
         }else{
             
-            self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+            if ([counponInfo.type integerValue] == 2) {
+                
+                self.backImageV.image = [UIImage imageNamed:@"ic_red"];
+            }else{
+                
+                self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+            }
         }
     }else{
         

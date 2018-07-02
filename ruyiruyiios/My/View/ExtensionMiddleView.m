@@ -20,7 +20,7 @@
         [_awardLabel setNumberOfLines:0];
         _awardLabel.text = self.awardStr;
         _awardLabel.textColor = TEXTCOLOR64;
-        _awardLabel.font = [UIFont fontWithName:TEXTFONT size:10.0];
+        _awardLabel.font = [UIFont fontWithName:TEXTFONT size:12.0];
         NSMutableParagraphStyle *paragrephStyle = [[NSMutableParagraphStyle alloc] init];
         paragrephStyle.lineBreakMode = NSLineBreakByWordWrapping;
         NSDictionary *attributes = @{NSFontAttributeName:_awardLabel.font, NSParagraphStyleAttributeName:paragrephStyle.copy};
@@ -38,11 +38,11 @@
         [_modeLabel setNumberOfLines:0];
         _modeLabel.text = self.modeStr;
         _modeLabel.textColor = TEXTCOLOR64;
-        _modeLabel.font = [UIFont fontWithName:TEXTFONT size:10.0];
+        _modeLabel.font = [UIFont fontWithName:TEXTFONT size:12.0];
         NSMutableParagraphStyle *paragrephStyle = [[NSMutableParagraphStyle alloc] init];
         NSDictionary *attributes = @{NSFontAttributeName:_modeLabel.font, NSParagraphStyleAttributeName:paragrephStyle.copy};
         CGSize modeSize = [_modeLabel.text boundingRectWithSize:CGSizeMake(MAINSCREEN.width - 90, MAINSCREEN.height) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
-        _modeLabel.frame = CGRectMake(0, self.awardLabel.frame.size.height+self.awardLabel.frame.origin.y+3, modeSize.width, modeSize.height);
+        _modeLabel.frame = CGRectMake(0, self.awardLabel.frame.size.height+self.awardLabel.frame.origin.y+8, modeSize.width, modeSize.height);
     }
     return _modeLabel;
 }

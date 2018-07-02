@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MyEvaluationInfo.h"
 
 @interface MyEvaluationTableViewCell : UITableViewCell<UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -19,7 +20,10 @@
 @property(nonatomic, strong)UILabel *storeNameLabel;
 @property(nonatomic, strong)UILabel *storeAddressLabel;
 @property(nonatomic, strong)UIView *underLineView;
+@property(nonatomic, strong)NSString *contentStr;
+@property(nonatomic, strong)NSMutableArray *imgMutableA;
 
-- (void)setdatatoEvaluationCell;
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier content:(NSString *)contentStr imgUrl:(NSMutableArray *)imgUrlMutableA;
+- (void)setdatatoEvaluationCell:(MyEvaluationInfo *)myEvaluationInfo;
 
 @end

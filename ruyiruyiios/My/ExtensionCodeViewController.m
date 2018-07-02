@@ -105,7 +105,8 @@
     
     if (_extensionMiddleView == nil) {
         
-        _extensionMiddleView = [[ExtensionMiddleView alloc] initWithFrame:CGRectMake(65, (MAINSCREEN.height - SafeDistance)*8/9 - 100, MAINSCREEN.width - 80, 90) award:self.extensionInfo.award mode:self.extensionInfo.rule];
+        _extensionMiddleView = [[ExtensionMiddleView alloc] initWithFrame:CGRectMake(80, (MAINSCREEN.height - SafeDistance)*8/9 - 130, MAINSCREEN.width - 95, 110) award:self.extensionInfo.award mode:self.extensionInfo.rule];
+        _extensionMiddleView.backgroundColor = [UIColor clearColor];
     }
     return _extensionMiddleView;
 }

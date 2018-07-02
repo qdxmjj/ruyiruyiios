@@ -145,12 +145,6 @@
     if (_customMutableA == nil) {
         
         _customMutableA = [[NSMutableArray alloc] init];
-        int compeleYear = nowYear - selectYear;
-        for (int i = 1; i<16 - compeleYear; i++) {
-            
-            NSString *yearStr = [NSString stringWithFormat:@"服务年限为 %d 年", i];
-            [self.customMutableA addObject:yearStr];
-        }
     }
     return _customMutableA;
 }
@@ -255,7 +249,7 @@
                 
                 if (self.plateLicenseView.inputTF.text.length == 6) {
                     
-                    self.commitPostDic =@{@"userId":useridStr, @"car_id":self.car_carTireInfo.tireInfoId, @"xinnengyuan":@"true", @"plat_number":resultPlateStr, @"pro_city_id":pro_city_id, @"font":fontStr, @"rear":rearStr, @"driving_license_date":dateStr, @"serviceYearLength":[serviceCutoffStr substringWithRange:NSMakeRange(0, 1)], @"type_i_rate":oftenId, @"type_ii_rate":onceId, @"type_iii_rate":notId, @"traveled":bottomCell.kilometerTF.text, @"invite_code":@"", @"car_name":self.car_carTireInfo.verhicle, @"proCityName":addressStr, @"road_txt":carroadStr};
+                    self.commitPostDic =@{@"userId":useridStr, @"car_id":self.car_carTireInfo.tireInfoId, @"xinnengyuan":@"true", @"plat_number":resultPlateStr, @"pro_city_id":pro_city_id, @"font":fontStr, @"rear":rearStr, @"driving_license_date":dateStr, @"serviceYearLength":[serviceCutoffStr substringWithRange:NSMakeRange(0, 1)], @"type_i_rate":oftenId, @"type_ii_rate":onceId, @"type_iii_rate":notId, @"traveled":bottomCell.kilometerTF.text, @"invite_code":bottomCell.codeTF.text, @"car_name":self.car_carTireInfo.verhicle, @"proCityName":addressStr, @"road_txt":carroadStr};
                     [self commitInternetWithDic:self.commitPostDic];
                 }else{
                     
@@ -265,7 +259,7 @@
                 
                 if (self.plateLicenseView.inputTF.text.length == 5){
                     
-                    self.commitPostDic =@{@"userId":useridStr, @"car_id":self.car_carTireInfo.tireInfoId, @"xinnengyuan":@"false", @"plat_number":resultPlateStr, @"pro_city_id":pro_city_id, @"font":fontStr, @"rear":rearStr, @"driving_license_date":dateStr, @"serviceYearLength":[serviceCutoffStr substringWithRange:NSMakeRange(0, 1)], @"type_i_rate":oftenId, @"type_ii_rate":onceId, @"type_iii_rate":notId, @"traveled":bottomCell.kilometerTF.text, @"invite_code":@"", @"car_name":self.car_carTireInfo.verhicle, @"proCityName":addressStr, @"road_txt":carroadStr};
+                    self.commitPostDic =@{@"userId":useridStr, @"car_id":self.car_carTireInfo.tireInfoId, @"xinnengyuan":@"false", @"plat_number":resultPlateStr, @"pro_city_id":pro_city_id, @"font":fontStr, @"rear":rearStr, @"driving_license_date":dateStr, @"serviceYearLength":[serviceCutoffStr substringWithRange:NSMakeRange(0, 1)], @"type_i_rate":oftenId, @"type_ii_rate":onceId, @"type_iii_rate":notId, @"traveled":bottomCell.kilometerTF.text, @"invite_code":bottomCell.codeTF.text, @"car_name":self.car_carTireInfo.verhicle, @"proCityName":addressStr, @"road_txt":carroadStr};
                     [self commitInternetWithDic:self.commitPostDic];
                 }else{
                     
@@ -284,7 +278,7 @@
                 
                 if (self.plateLicenseView.inputTF.text.length == 6) {
                     
-                    self.commitPostDic =@{@"userId":useridStr, @"car_id":self.car_carTireInfo.tireInfoId, @"xinnengyuan":@"true", @"plat_number":resultPlateStr, @"pro_city_id":pro_city_id, @"font":fontStr, @"rear":rearStr, @"driving_license_date":dateStr, @"serviceYearLength":[serviceCutoffStr substringWithRange:NSMakeRange(0, 1)], @"type_i_rate":oftenId, @"type_ii_rate":onceId, @"type_iii_rate":notId, @"traveled":bottomCell.kilometerTF.text, @"invite_code":@"", @"car_name":self.car_carTireInfo.verhicle, @"proCityName":addressStr, @"road_txt":carroadStr};
+                    self.commitPostDic =@{@"userId":useridStr, @"car_id":self.car_carTireInfo.tireInfoId, @"xinnengyuan":@"true", @"plat_number":resultPlateStr, @"pro_city_id":pro_city_id, @"font":fontStr, @"rear":rearStr, @"driving_license_date":dateStr, @"serviceYearLength":[serviceCutoffStr substringWithRange:NSMakeRange(0, 1)], @"type_i_rate":oftenId, @"type_ii_rate":onceId, @"type_iii_rate":notId, @"traveled":bottomCell.kilometerTF.text, @"invite_code":bottomCell.codeTF.text, @"car_name":self.car_carTireInfo.verhicle, @"proCityName":addressStr, @"road_txt":carroadStr};
                     [self commitInternetWithDic:self.commitPostDic];
                 }else{
                     
@@ -295,7 +289,7 @@
                 if (self.plateLicenseView.inputTF.text.length == 5) {
                 
                     NSLog(@"%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@", useridStr, self.car_carTireInfo.tireInfoId, resultPlateStr, pro_city_id, fontStr, rearStr, dateStr, serviceCutoffStr, oftenId, onceId, notId, bottomCell.kilometerTF.text, self.car_carTireInfo.verhicle);
-                    self.commitPostDic =@{@"userId":useridStr, @"car_id":self.car_carTireInfo.tireInfoId, @"xinnengyuan":@"false", @"plat_number":resultPlateStr, @"pro_city_id":pro_city_id, @"font":fontStr, @"rear":rearStr, @"driving_license_date":dateStr, @"serviceYearLength":[serviceCutoffStr substringWithRange:NSMakeRange(0, serviceCutoffStr.length - 2)], @"type_i_rate":oftenId, @"type_ii_rate":onceId, @"type_iii_rate":notId, @"traveled":bottomCell.kilometerTF.text, @"invite_code":@"", @"car_name":self.car_carTireInfo.verhicle, @"proCityName":addressStr, @"road_txt":carroadStr};
+                    self.commitPostDic =@{@"userId":useridStr, @"car_id":self.car_carTireInfo.tireInfoId, @"xinnengyuan":@"false", @"plat_number":resultPlateStr, @"pro_city_id":pro_city_id, @"font":fontStr, @"rear":rearStr, @"driving_license_date":dateStr, @"serviceYearLength":[serviceCutoffStr substringWithRange:NSMakeRange(0, serviceCutoffStr.length - 2)], @"type_i_rate":oftenId, @"type_ii_rate":onceId, @"type_iii_rate":notId, @"traveled":bottomCell.kilometerTF.text, @"invite_code":bottomCell.codeTF.text, @"car_name":self.car_carTireInfo.verhicle, @"proCityName":addressStr, @"road_txt":carroadStr};
                     [self commitInternetWithDic:self.commitPostDic];
                 }else{
                     
@@ -315,6 +309,7 @@
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
         if ([statusStr isEqualToString:@"1"]) {
 
+            [UserConfig userDefaultsSetObject:@"1" key:@"firstAddCar"];
             DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
             [delegateConfiguration changeaddCarNumber];
             [self.navigationController popViewControllerAnimated:YES];
@@ -417,7 +412,7 @@
             [PublicClass showHUD:mesgStr view:self.view];
         }else{
             
-            NSLog(@"%@", data);
+//            NSLog(@"%@", data);
             [self.carInfo setValuesForKeysWithDictionary:data];
             if ([self.carInfo.maturityImg isEqualToString:@""]) {
                 
@@ -489,7 +484,7 @@
         return 325.0;
     }else{
 
-        return 90.0;
+        return 120.0;
     }
 }
 
@@ -565,7 +560,7 @@
             [topCell.frontBtn setTitle:self.carInfo.font forState:UIControlStateNormal];
             [topCell.rearBtn setTitle:self.carInfo.rear forState:UIControlStateNormal];
             NSString *drivingDateStr = [PublicClass timestampSwitchTime:[self.carInfo.drivingLicenseDate integerValue] andFormatter:@"YYYY-MM-dd"];
-            NSString *serviceEndStr = [PublicClass timestampSwitchTime:[self.carInfo.serviceEndDate integerValue] andFormatter:@"YYYY-MM-dd"];
+            NSString *serviceEndStr = [NSString stringWithFormat:@"%ld 年", [self.carInfo.serviceYearLength integerValue]];
 //            NSLog(@"%@---%@---%@---%@", self.carInfo.drivingLicenseDate, self.carInfo.serviceEndDate, drivingDateStr, serviceEndStr);
             [topCell.drivingBtn setTitle:drivingDateStr forState:UIControlStateNormal];
             [topCell.serviceBtn setTitle:serviceEndStr forState:UIControlStateNormal];
@@ -709,9 +704,14 @@
         [PublicClass showHUD:@"请选择行驶证注册日期" view:self.view];
     }else{
         
-        NSString *getSelectdateStr = [topCell.drivingBtn.titleLabel.text substringWithRange:NSMakeRange(0, 4)];
-        selectYear = [getSelectdateStr intValue];
         WXZCustomPickView *pickerSingle = [[WXZCustomPickView alloc] init];
+        [self.customMutableA removeAllObjects];
+        int compeleYear = nowYear - selectYear;
+        for (int i = 1; i<16 - compeleYear; i++) {
+            
+            NSString *yearStr = [NSString stringWithFormat:@"服务年限为 %d 年", i];
+            [self.customMutableA addObject:yearStr];
+        }
         [pickerSingle setDataArray:self.customMutableA];
         [pickerSingle setDefalutSelectRowStr:self.customMutableA[0]];
         [pickerSingle setDelegate:self];
@@ -757,6 +757,7 @@
 //PickerDateViewDelegate
 - (void)pickerDateView:(WXZBasePickView *)pickerDateView selectYear:(NSInteger)year selectMonth:(NSInteger)month selectDay:(NSInteger)day{
     
+    selectYear = (int)year;
     dateStr = [PublicClass returnDateStrselectYear:year selectMonth:month selectDay:day];
     self.block(dateStr);
 }

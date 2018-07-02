@@ -61,6 +61,33 @@
     return _roadConditionBtn;
 }
 
+- (UILabel *)codeLabel{
+    
+    if (_codeLabel == nil) {
+        
+        _codeLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 95, MAINSCREEN.width/2 - 20, 20)];
+        _codeLabel.text = @"别人的邀请码";
+        _codeLabel.textColor = [UIColor blackColor];
+        _codeLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
+        _codeLabel.textAlignment = NSTextAlignmentLeft;
+    }
+    return _codeLabel;
+}
+
+- (UITextField *)codeTF{
+    
+    if (_codeTF == nil) {
+        
+        _codeTF = [[UITextField alloc] initWithFrame:CGRectMake(MAINSCREEN.width/2, 95, MAINSCREEN.width/2 - 20, 20)];
+        _codeTF.delegate = self;
+        _codeTF.textColor = [UIColor lightGrayColor];
+        _codeTF.font = [UIFont fontWithName:TEXTFONT size:14.0];
+        _codeTF.textAlignment = NSTextAlignmentRight;
+        _codeTF.placeholder = @"请输入邀请码";
+    }
+    return _codeTF;
+}
+
 //- (UITextField *)invitationTF{
 //
 //    if (_invitationTF == nil) {
@@ -84,8 +111,14 @@
         self.contentView.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:self.firstView];
         [_firstView addSubview:self.kilometerTF];
-        [self addbackView];
         [_firstView addSubview:self.roadConditionBtn];
+        
+        if ([[UserConfig firstAddCar] integerValue] == 0) {
+            
+            [_firstView addSubview:self.codeLabel];
+            [_firstView addSubview:self.codeTF];
+        }
+        [self addbackView];
     }
     return self;
 }

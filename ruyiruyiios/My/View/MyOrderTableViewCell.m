@@ -206,7 +206,7 @@
         }
         else{
             
-            statusStr = @" 待支付";
+            statusStr = @"待支付";
         }
     }
     self.orderStatusLabel.text = statusStr;

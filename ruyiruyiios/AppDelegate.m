@@ -15,7 +15,7 @@
 #import "FMDBCarVerhicle.h"
 #import "FMDBCarTireInfo.h"
 #import "FMDBCarTireType.h"
-#import "CarInfoViewController.h"
+#import "TobeEvaluatedViewController.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import "MBProgressHUD+YYM_category.h"
 #import "MBProgressHUD+YYM_category.h"
@@ -43,13 +43,13 @@
         UITableView.appearance.estimatedSectionHeaderHeight = 0;
     }
     
-//    CarInfoViewController *carInfoVC = [[CarInfoViewController alloc] init];
+//    TobeEvaluatedViewController *carInfoVC = [[TobeEvaluatedViewController alloc] init];
 //    UINavigationController *carNav = [[UINavigationController alloc] initWithRootViewController:carInfoVC];
 //    self.window.rootViewController = carNav;
-    NSString *timeStr = @"1970-01-01 11:31:03";
-    [self databaseOperation:timeStr];
     if (![[NSUserDefaults standardUserDefaults] valueForKey:@"isFirst"]) {
 
+        NSString *timeStr = @"1970-01-01 11:31:03";
+        [self databaseOperation:timeStr];
         WelcomeViewController *welcomeVC = [[WelcomeViewController alloc] init];
         UINavigationController *welNav = [[UINavigationController alloc] initWithRootViewController:welcomeVC];
         welNav.delegate = self;

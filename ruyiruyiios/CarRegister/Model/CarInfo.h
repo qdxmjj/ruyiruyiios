@@ -41,5 +41,6 @@
 @property (nonatomic, strong)NSString *traveledImgInverse;
 @property (nonatomic, strong)NSString *traveledImgObverse;
 @property (nonatomic, strong)NSNumber *userId;
+@property (nonatomic, strong)NSNumber *serviceYearLength;
 
 @end

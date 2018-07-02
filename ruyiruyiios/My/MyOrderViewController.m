@@ -14,6 +14,8 @@
 #import "AllOrderDetialViewController.h"
 #import "ToServiceViewController.h"
 #import "WaitPaymentViewController.h"
+#import "TobeEvaluatedViewController.h"
+#import "CompleteViewController.h"
 
 @interface MyOrderViewController ()<UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate>
 
@@ -367,12 +369,32 @@
             [self jumpToServiceVC:@"待商家确认服务" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
         }else{
             
-            
             [self jumpToServiceVC:@"确认服务" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
         }
     }else{
         
         orderInfo = [self.completedMutableA objectAtIndex:indexPath.row];
+        if ([orderInfo.orderState isEqualToString:@"7"]) {
+            
+            [self jumpTobeEvaluatedVCorderNo:orderInfo.orderNo storeId:[NSString stringWithFormat:@"%@", orderInfo.storeId]];
+        }else{
+            
+            NSString *completeStr = @"";
+            if ([orderInfo.orderState isEqualToString:@"3"]) {
+                
+                completeStr = @"交易完成";
+            }else if ([orderInfo.orderState isEqualToString:@"6"]){
+                
+                completeStr = @"已退货";
+            }else if ([orderInfo.orderState isEqualToString:@"9"]){
+                
+                completeStr = @"订单已取消";
+            }else if ([orderInfo.orderState isEqualToString:@"1"]){
+                
+                completeStr = @"交易完成";
+            }
+            [self jumpcompleteVC:completeStr orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+        }
     }
     NSLog(@"%@", orderInfo.orderPrice);
 }
@@ -397,6 +419,23 @@
     allOrderDetialVC.orderNoStr = orderNoStr;
     allOrderDetialVC.orderTypeStr = orderTypeStr;
     [self.navigationController pushViewController:allOrderDetialVC animated:YES];
+}
+
+- (void)jumpTobeEvaluatedVCorderNo:(NSString *)orderNoStr storeId:(NSString *)storeIdStr{
+    
+    TobeEvaluatedViewController *tobeEvaluatedVC = [[TobeEvaluatedViewController alloc] init];
+    tobeEvaluatedVC.orderNo = orderNoStr;
+    tobeEvaluatedVC.storeIdStr = storeIdStr;
+    [self.navigationController pushViewController:tobeEvaluatedVC animated:YES];
+}
+
+- (void)jumpcompleteVC:(NSString *)titleStr orderNo:(NSString *)orderNoStr orderType:(NSString *)orderTypeStr{
+    
+    CompleteViewController *completeVC = [[CompleteViewController alloc] init];
+    completeVC.titleStr = titleStr;
+    completeVC.orderNoStr = orderNoStr;
+    completeVC.orderTypeStr = orderTypeStr;
+    [self.navigationController pushViewController:completeVC animated:YES];
 }
 
 //LoginStatusDelegate

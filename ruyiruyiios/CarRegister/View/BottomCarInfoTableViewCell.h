@@ -13,6 +13,8 @@
 @property(nonatomic, strong)UITextField *kilometerTF;
 @property(nonatomic, strong)UIView *firstView;
 @property(nonatomic, strong)UIButton *roadConditionBtn;
+@property(nonatomic, strong)UILabel *codeLabel;
+@property(nonatomic, strong)UITextField *codeTF;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 

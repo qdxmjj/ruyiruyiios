@@ -8,10 +8,13 @@
 
 #import "MyEvaluationViewController.h"
 #import "MyEvaluationTableViewCell.h"
+#import "MyEvaluationInfo.h"
 
 @interface MyEvaluationViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property(nonatomic, strong)UITableView *myevaluationTableV;
+@property(nonatomic, strong)NSMutableArray *evaluationMutableA;
+@property(nonatomic, strong)NSMutableArray *evalutionImgMutableA;
 
 @end
 
@@ -43,12 +46,30 @@
     return _myevaluationTableV;
 }
 
+- (NSMutableArray *)evaluationMutableA{
+    
+    if (_evaluationMutableA == nil) {
+        
+        _evaluationMutableA = [[NSMutableArray alloc] init];
+    }
+    return _evaluationMutableA;
+}
+
+- (NSMutableArray *)evalutionImgMutableA{
+    
+    if (_evalutionImgMutableA == nil) {
+        
+        _evalutionImgMutableA = [[NSMutableArray alloc] init];
+    }
+    return _evalutionImgMutableA;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"我的评价";
     
     [self.view addSubview:self.myevaluationTableV];
-//    [self getCommitByConditionFromInternet];
+    [self getCommitByConditionFromInternet];
     // Do any additional setup after loading the view.
 }
 
@@ -62,7 +83,8 @@
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
         if ([statusStr isEqualToString:@"1"]) {
             
-            NSLog(@"%@", data);
+//            NSLog(@"%@", data);
+            [self analySize:[data objectForKey:@"rows"]];
         }else{
             
             [PublicClass showHUD:messageStr view:self.view];
@@ -73,10 +95,36 @@
     }];
 }
 
+- (void)analySize:(NSArray *)dataArray{
+    
+    for (int i = 0; i<dataArray.count; i++) {
+        
+        NSMutableArray *everyImgArray = [[NSMutableArray alloc] init];
+        NSDictionary *dic = [dataArray objectAtIndex:i];
+        for (int i = 1; i<6; i++) {
+            
+            NSString *imgStr = [NSString stringWithFormat:@"img%dUrl", i];
+            imgStr = [dic objectForKey:imgStr];
+            if (![imgStr isEqualToString:@""]) {
+                
+                [everyImgArray addObject:imgStr];
+            }
+        }
+        MyEvaluationInfo *evaluation = [[MyEvaluationInfo alloc] init];
+        [evaluation setValuesForKeysWithDictionary:dic];
+        [self.evaluationMutableA addObject:evaluation];
+        if (![everyImgArray isEqual:@[]]) {
+            
+            [self.evalutionImgMutableA addObject:everyImgArray];
+        }
+    }
+    [self.myevaluationTableV reloadData];
+}
+
 //UITableViewDelegate and UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 4;
+    return self.evaluationMutableA.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -88,18 +136,27 @@
     
     static NSString *reuseIndentifier = @"cell";
     MyEvaluationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIndentifier];
+    MyEvaluationInfo *info = [self.evaluationMutableA objectAtIndex:indexPath.row];
     if (cell == nil) {
         
-        cell = [[MyEvaluationTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIndentifier];
+        if (self.evalutionImgMutableA.count == 0) {
+    
+            cell = [[MyEvaluationTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIndentifier content:info.content imgUrl:[[NSMutableArray alloc] init]];
+        }else{
+            
+            cell = [[MyEvaluationTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIndentifier content:info.content imgUrl:[self.evalutionImgMutableA objectAtIndex:indexPath.row]];
+        }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    [cell setdatatoEvaluationCell];
+    
+    [cell setdatatoEvaluationCell:info];
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 270;
+    UITableViewCell *cell = [self tableView:self.myevaluationTableV cellForRowAtIndexPath:indexPath];
+    return cell.frame.size.height;
 }
 
 - (void)didReceiveMemoryWarning {

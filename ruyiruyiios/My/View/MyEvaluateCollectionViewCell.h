@@ -12,6 +12,6 @@
 
 @property(nonatomic, strong)UIImageView *imgview;
 
-- (void)setdatatoCollectionCell;
+- (void)setdatatoCollectionCell:(NSString *)imgStr;
 
 @end

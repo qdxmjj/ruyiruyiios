@@ -7,6 +7,7 @@
 //
 
 #import "MyEvaluateCollectionViewCell.h"
+#import <UIImageView+WebCache.h>
 
 @implementation MyEvaluateCollectionViewCell
 
@@ -35,9 +36,9 @@
     self.imgview.frame = CGRectMake(0, 0, (MAINSCREEN.width - 80)/5, 60);
 }
 
-- (void)setdatatoCollectionCell{
+- (void)setdatatoCollectionCell:(NSString *)imgStr{
     
-    self.imgview.image = [UIImage imageNamed:@"banner1"];
+    [self.imgview sd_setImageWithURL:[NSURL URLWithString:imgStr]];
 }
 
 @end

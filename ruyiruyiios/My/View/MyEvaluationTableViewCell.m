@@ -52,9 +52,16 @@
     if (_detialLabel == nil) {
         
         _detialLabel = [[UILabel alloc] init];
-        _detialLabel.textColor = TEXTCOLOR64;
+        _detialLabel.numberOfLines = 0;
+        _detialLabel.text = self.contentStr;
         _detialLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+        NSDictionary *attributes = @{NSFontAttributeName:_detialLabel.font, NSParagraphStyleAttributeName:paragraphStyle.copy};
+        CGSize detailSize = [_detialLabel.text boundingRectWithSize:CGSizeMake(MAINSCREEN.width - 40, MAINSCREEN.height) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
+        _detialLabel.textColor = TEXTCOLOR64;
         _detialLabel.textAlignment = NSTextAlignmentLeft;
+        [_detialLabel setFrame:CGRectMake(20, 60, detailSize.width, detailSize.height)];
     }
     return _detialLabel;
 }
@@ -65,7 +72,7 @@
         
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
         [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
-        _imgCollectionV = [[UICollectionView alloc] initWithFrame:CGRectMake(20, 120, MAINSCREEN.width - 40, 60) collectionViewLayout:flowLayout];
+        _imgCollectionV = [[UICollectionView alloc] initWithFrame:CGRectMake(20, self.detialLabel.frame.size.height + self.detialLabel.frame.origin.y + 15, MAINSCREEN.width - 40, 60) collectionViewLayout:flowLayout];
         _imgCollectionV.backgroundColor = [UIColor clearColor];
         _imgCollectionV.dataSource = self;
         _imgCollectionV.delegate = self;
@@ -116,24 +123,45 @@
     return _underLineView;
 }
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
+- (NSMutableArray *)imgMutableA{
+    
+    if (_imgMutableA == nil) {
+        
+        _imgMutableA = [[NSMutableArray alloc] init];
+    }
+    return _imgMutableA;
+}
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier content:(NSString *)contentStr imgUrl:(NSMutableArray *)imgUrlMutableA{
     
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-        [self addUnchangeViews];
+        self.imgMutableA = imgUrlMutableA;
+        self.contentStr = contentStr;
         [self addChangeViews];
     }
     return self;
 }
 
-- (void)addUnchangeViews{
+- (void)addUnchangeViews:(int)number{
     
-    for (int i = 0; i<5; i++) {
+    for (int i = 0; i<number; i++) {
         
-        UIImageView *starImageV = [[UIImageView alloc] initWithFrame:CGRectMake(MAINSCREEN.width/2 - 24 + 17*i, 17, 16, 15)];
-        starImageV.image = [UIImage imageNamed:@"ic_star"];
-        [self addSubview:starImageV];
+//        UIImageView *starImageV = [[UIImageView alloc] initWithFrame:CGRectMake(MAINSCREEN.width/2 - 24 + 17*i, 17, 16, 15)];
+//        starImageV.image = [UIImage imageNamed:@"ic_star"];
+        UIButton *selectButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        selectButton.frame = CGRectMake(MAINSCREEN.width/2 - 24 + 17*i, 17, 16, 15);
+        [selectButton setBackgroundImage:[UIImage imageNamed:@"ic_star"] forState:UIControlStateSelected];
+        selectButton.selected = YES;
+        [self addSubview:selectButton];
+    }
+    for (int j = number; j<5; j++) {
+        
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(MAINSCREEN.width/2 - 24 + 17*j, 17, 16, 15);
+        [button setBackgroundImage:[UIImage imageNamed:@"ic_huistar"] forState:UIControlStateNormal];
+        [self addSubview:button];
     }
 }
 
@@ -143,7 +171,6 @@
     [self.contentView addSubview:self.userNameLabel];
     [self.contentView addSubview:self.timeLabel];
     [self.contentView addSubview:self.detialLabel];
-    [self.contentView addSubview:self.imgCollectionV];
     [self.contentView addSubview:self.storeImageV];
     [self.contentView addSubview:self.storeNameLabel];
     [self.contentView addSubview:self.storeAddressLabel];
@@ -156,22 +183,33 @@
     self.headImageV.frame = CGRectMake(20, 10, 30, 30);
     self.userNameLabel.frame = CGRectMake(60, 15, 70, 20);
     self.timeLabel.frame = CGRectMake(MAINSCREEN.width - 90, 15, 80, 20);
-    self.detialLabel.frame = CGRectMake(20, 60, MAINSCREEN.width - 20, 50);
-    self.storeImageV.frame = CGRectMake(20, 190, 70, 70);
-    self.storeNameLabel.frame = CGRectMake(100, 190, MAINSCREEN.width - 100, 20);
-    self.storeAddressLabel.frame = CGRectMake(100, 240, MAINSCREEN.width - 100, 20);
-    self.underLineView.frame = CGRectMake(0, 267, MAINSCREEN.width, 3);
+    if (self.imgMutableA.count != 0) {
+        
+        self.storeImageV.frame = CGRectMake(20, self.imgCollectionV.frame.origin.y + self.imgCollectionV.frame.size.height + 15, 70, 70);
+    }else{
+        
+        self.storeImageV.frame = CGRectMake(20, self.detialLabel.frame.origin.y + self.detialLabel.frame.size.height + 15, 70, 70);
+    }
+    self.storeNameLabel.frame = CGRectMake(100, self.storeImageV.frame.origin.y, MAINSCREEN.width - 100, 20);
+    self.storeAddressLabel.frame = CGRectMake(100, self.storeImageV.frame.origin.y + 50, MAINSCREEN.width - 100, 20);
+    self.underLineView.frame = CGRectMake(0, self.storeAddressLabel.frame.origin.y + 27, MAINSCREEN.width, 3);
 }
 
-- (void)setdatatoEvaluationCell{
+- (void)setdatatoEvaluationCell:(MyEvaluationInfo *)myEvaluationInfo{
     
-    [self.headImageV sd_setImageWithURL:[NSURL URLWithString:[UserConfig headimgurl]]];
-    self.userNameLabel.text = [UserConfig nick];
-    self.timeLabel.text = @"2018-04-28";
-    self.storeImageV.image = [UIImage imageNamed:@"icon"];
-    self.detialLabel.text = @"都是环境法谁俄空军纳斯达克卡店面管理规范看没看过开的饭店考虑对方看来是大哥";
-    self.storeNameLabel.text = @"小马驾驾22";
-    self.storeAddressLabel.text = @"地址：天安数码城";
+    [self addUnchangeViews:[myEvaluationInfo.starNo intValue]];
+    NSString *timeStr = [PublicClass timestampSwitchTime:[myEvaluationInfo.time integerValue] andFormatter:@"YYYY-MM-dd"];
+    [self.headImageV sd_setImageWithURL:[NSURL URLWithString:myEvaluationInfo.storeCommitUserHeadImg]];
+    self.userNameLabel.text = myEvaluationInfo.storeCommitUserName;
+    self.timeLabel.text = timeStr;
+    [self.storeImageV sd_setImageWithURL:[NSURL URLWithString:myEvaluationInfo.storeImg]];
+    self.detialLabel.text = myEvaluationInfo.content;
+    self.storeNameLabel.text = myEvaluationInfo.storeName;
+    self.storeAddressLabel.text = [NSString stringWithFormat:@"地址：%@", myEvaluationInfo.storeLocation];
+    if (self.imgMutableA.count != 0) {
+        
+        [self.contentView addSubview:self.imgCollectionV];
+    }
     self.underLineView.backgroundColor = [PublicClass colorWithHexString:@"#ececec"];
 }
 
@@ -183,14 +221,14 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    return 5;
+    return [self.imgMutableA count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     static NSString *identify = @"imgCell";
     MyEvaluateCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identify forIndexPath:indexPath];
-    [cell setdatatoCollectionCell];
+    [cell setdatatoCollectionCell:[self.imgMutableA objectAtIndex:indexPath.row]];
     return cell;
 }
 
