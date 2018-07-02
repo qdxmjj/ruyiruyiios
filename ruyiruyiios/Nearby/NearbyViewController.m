@@ -58,16 +58,15 @@
     _leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     
     if ([self.isLocation isEqualToString: @"1"]) {
-        
         [_leftBtn setImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
     }else{
-        
         [_leftBtn setImage:[UIImage imageNamed:@"定位"] forState:UIControlStateNormal];
     }
     
     [_leftBtn setFrame:CGRectMake(20, 0, 60, 30)];
     [_leftBtn setImageEdgeInsets:UIEdgeInsetsMake(0.0, -10, 0.0, 0.0)];
     [_leftBtn addTarget:self action:@selector(chickLeftBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_leftBtn];
     
     UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -75,16 +74,12 @@
     [rightBtn addTarget:self action:@selector(pushSearchVC) forControlEvents:UIControlEventTouchUpInside];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
-
-    
+    self.view.backgroundColor = [UIColor whiteColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    
     self.navigationItem.title = @"附近的门店";
     
     [self.view addSubview:self.topBarView];
-    
     [self.view addSubview:self.tableView];
-    
     
     if ([self.isLocation isEqualToString:@"1"]) {
         
@@ -446,7 +441,17 @@
     
     if (!_tableView) {
         
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 50, self.view.frame.size.width, self.view.frame.size.height-50-64-49) style:UITableViewStyleGrouped];
+        CGRect frame;
+        
+        if ([self.isLocation isEqualToString: @"1"]) {
+            
+            frame = CGRectMake(0, 50, self.view.frame.size.width, self.view.frame.size.height-50-SafeAreaTopHeight);
+        }else{
+            
+            frame = CGRectMake(0, 50, self.view.frame.size.width, self.view.frame.size.height-50-SafeAreaTopHeight-Height_TabBar);
+        }
+        
+        _tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStyleGrouped];
         
         _tableView.delegate = self;
         _tableView.dataSource = self;
