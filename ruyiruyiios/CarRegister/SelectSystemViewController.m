@@ -50,7 +50,7 @@
         
         _systemheadView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, headH)];
         _systemheadView.backgroundColor = LOGINBACKCOLOR;
-        UIImageView *headImageV = [[UIImageView alloc] initWithFrame:CGRectMake(20, 25, MAINSCREEN.width-40, 50)];
+        UIImageView *headImageV = [[UIImageView alloc] initWithFrame:CGRectMake(20, 25, MAINSCREEN.width-40, 70)];
         headImageV.image = [UIImage imageNamed:@"ic_jincheng2"];
         [_systemheadView addSubview:headImageV];
     }
@@ -77,25 +77,33 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self getDataFromDatabase];
     self.title = @"车型选择";
-    headH = 100.0;
+    headH = 120.0;
     [self.view addSubview:self.systemheadView];
     [self.view addSubview:self.systemTableV];
+    [self getDataFromDatabase];
     // Do any additional setup after loading the view.
 }
 
 - (void)getDataFromDatabase{
     
-    self.factoryA = [DBRecorder getFactoryData:btosId];
-    NSLog(@"从数据库中查询到的值:%@", self.factoryA);
-    for (int i = 0; i<self.factoryA.count; i++) {
+    dispatch_queue_t getFactoryQueue = dispatch_queue_create("getFactoryQueue", NULL);
+    dispatch_async(getFactoryQueue, ^{
         
-        FMDBCarFactory *carFactory = [self.factoryA objectAtIndex:i];
-        NSArray *verhicleA = [DBRecorder getVerhicleData:carFactory.factoryId];
-        NSNumber *key = [NSNumber numberWithInt:i];
-        [self.dataMutableDic setValue:verhicleA forKey:[NSString stringWithFormat:@"%@", key]];
-    }
+        self.factoryA = [DBRecorder getFactoryData:btosId];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            NSLog(@"从数据库中查询到的值:%@", self.factoryA);
+            for (int i = 0; i<self.factoryA.count; i++) {
+                
+                FMDBCarFactory *carFactory = [self.factoryA objectAtIndex:i];
+                NSArray *verhicleA = [DBRecorder getVerhicleData:carFactory.factoryId];
+                NSNumber *key = [NSNumber numberWithInt:i];
+                [self.dataMutableDic setValue:verhicleA forKey:[NSString stringWithFormat:@"%@", key]];
+            }
+            [self.systemTableV reloadData];
+        });
+    });
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

@@ -7,8 +7,6 @@
 //
 
 #import "ToDeliveryView.h"
-#import "ToDeliveryTableViewCell.h"
-#import "TireChaneOrderInfo.h"
 
 @implementation ToDeliveryView
 
@@ -60,6 +58,18 @@
     return _serviceLabel;
 }
 
+- (UILabel *)typeLabel{
+    
+    if (_typeLabel == nil) {
+        
+        _typeLabel = [[UILabel alloc] init];
+        _typeLabel.font = [UIFont fontWithName:TEXTFONT size:16.0];
+        _typeLabel.textColor = TEXTCOLOR64;
+        _typeLabel.textAlignment = NSTextAlignmentLeft;
+    }
+    return _typeLabel;
+}
+
 - (UIButton *)storeNameBtn{
     
     if (_storeNameBtn == nil) {
@@ -81,35 +91,12 @@
     return _underView;
 }
 
-- (UITableView *)tireChangeTableview{
-    
-    if (_tireChangeTableview == nil) {
-        
-        _tireChangeTableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 190, MAINSCREEN.width, self.changeShoeMutableA.count*150) style:UITableViewStylePlain];
-        _tireChangeTableview.delegate = self;
-        _tireChangeTableview.dataSource = self;
-        _tireChangeTableview.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tireChangeTableview.bounces = NO;
-    }
-    return _tireChangeTableview;
-}
-
-- (NSMutableArray *)changeShoeMutableA{
-    
-    if (_changeShoeMutableA == nil) {
-        
-        _changeShoeMutableA = [[NSMutableArray alloc] init];
-    }
-    return _changeShoeMutableA;
-}
-
-- (instancetype)initWithFrame:(CGRect)frame change:(NSMutableArray *)changeMutableA{
+- (instancetype)initWithFrame:(CGRect)frame{
     
     self = [super initWithFrame:frame];
     if (self) {
         
-        self.changeShoeMutableA = changeMutableA;
-        NSArray *nameArray = @[@"联系人", @"联系电话", @"车牌号", @"服务项目", @"店铺名称"];
+        NSArray *nameArray = @[@"联系人", @"联系电话", @"车牌号", @"服务项目"];
         [self addUnchangeViews:nameArray];
         [self addChangeViews];
     }
@@ -135,9 +122,9 @@
     [self addSubview:self.userPhoneLabel];
     [self addSubview:self.userPlatNumberLabel];
     [self addSubview:self.serviceLabel];
+    [self addSubview:self.typeLabel];
     [self addSubview:self.storeNameBtn];
     [self addSubview:self.underView];
-    [self addSubview:self.tireChangeTableview];
 }
 
 - (void)layoutSubviews{
@@ -147,60 +134,48 @@
     self.userPhoneLabel.frame = CGRectMake(MAINSCREEN.width/2, 50, MAINSCREEN.width/2 - 20, 20);
     self.userPlatNumberLabel.frame = CGRectMake(MAINSCREEN.width/2, 85, MAINSCREEN.width/2 - 20, 20);
     self.serviceLabel.frame = CGRectMake(MAINSCREEN.width/2, 120, MAINSCREEN.width/2 - 20, 20);
+    self.typeLabel.frame = CGRectMake(20, 15+35*4, MAINSCREEN.width/2 - 20, 20);
     self.storeNameBtn.frame = CGRectMake(MAINSCREEN.width/2, 155, MAINSCREEN.width/2 - 20, 20);
     self.underView.frame = CGRectMake(0, 188, MAINSCREEN.width, 1);
 }
 
 - (void)setDatatoDeliveryViews:(FirstUpdateOrFreeChangeInfo *)firstUpdateOrFreeChaneInfo{
     
-    self.tireImgUrlStr = firstUpdateOrFreeChaneInfo.orderImg;
     self.userNameLabel.text = firstUpdateOrFreeChaneInfo.userName;
     self.userPhoneLabel.text = firstUpdateOrFreeChaneInfo.userPhone;
     self.userPlatNumberLabel.text = firstUpdateOrFreeChaneInfo.platNumber;
     if (firstUpdateOrFreeChaneInfo.firstChangeOrderVoList != NULL) {
         
         self.serviceLabel.text = @"首次更换";
+    }else if (![firstUpdateOrFreeChaneInfo.shoeOrderVoList  isEqual: @[]]){
+        
+        self.serviceLabel.text = @"轮胎购买";
+    }else if (![firstUpdateOrFreeChaneInfo.stockOrderVoList  isEqual: @[]]){
+        
+        self.serviceLabel.text = @"普通商品购买";
+    }else if (firstUpdateOrFreeChaneInfo.freeChangeOrderVoList != NULL){
+        
+        self.serviceLabel.text = @"免费再换";
     }else{
         
         self.serviceLabel.text = @"免费再换";
     }
     
-    [self.storeNameBtn setTitle:firstUpdateOrFreeChaneInfo.storeName forState:UIControlStateNormal];
-    [self.storeNameBtn setImage:[UIImage imageNamed:@"ic_right"] forState:UIControlStateNormal];
-    [self.storeNameBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 20)];
-    [self.storeNameBtn setImageEdgeInsets:UIEdgeInsetsMake(0, MAINSCREEN.width/2-20-10, 0, 0)];
-    self.underView.backgroundColor = [PublicClass colorWithHexString:@"#ececec"];
-    [self.tireChangeTableview reloadData];
-}
-
-//UITableViewDelegate and UITableViewDataSource
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
-    return self.changeShoeMutableA.count;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    
-    return 1;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    return 150.0;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    static NSString *reuseIndentifier = @"cell";
-    ToDeliveryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIndentifier];
-    if (cell == nil) {
+    if ([self.serviceLabel.text isEqualToString:@"轮胎购买"]) {
         
-        cell = [[ToDeliveryTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIndentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        NSString *nameStr = [NSString stringWithFormat:@"¥ %@", firstUpdateOrFreeChaneInfo.orderTotalPrice];
+        [self.storeNameBtn setTitle:nameStr forState:UIControlStateNormal];
+        self.storeNameBtn.enabled = NO;
+        self.typeLabel.text = @"订单总价";
+    }else{
+        
+        [self.storeNameBtn setTitle:firstUpdateOrFreeChaneInfo.storeName forState:UIControlStateNormal];
+        [self.storeNameBtn setImage:[UIImage imageNamed:@"ic_right"] forState:UIControlStateNormal];
+        [self.storeNameBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 20)];
+        [self.storeNameBtn setImageEdgeInsets:UIEdgeInsetsMake(0, MAINSCREEN.width/2-20-10, 0, 0)];
+        self.typeLabel.text = @"店铺名称";
     }
-    TireChaneOrderInfo *tireInfo = [self.changeShoeMutableA objectAtIndex:indexPath.row];
-    [cell setdatatoCellViews:tireInfo img:self.tireImgUrlStr];
-    return cell;
+    self.underView.backgroundColor = [PublicClass colorWithHexString:@"#ececec"];
 }
 
 /*

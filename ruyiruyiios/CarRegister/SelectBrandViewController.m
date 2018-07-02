@@ -34,7 +34,7 @@
         
         _headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, headH)];
         _headView.backgroundColor = LOGINBACKCOLOR;
-        UIImageView *headImageV = [[UIImageView alloc] initWithFrame:CGRectMake(20, 25, MAINSCREEN.width-40, 50)];
+        UIImageView *headImageV = [[UIImageView alloc] initWithFrame:CGRectMake(20, 25, MAINSCREEN.width-40, 70)];
         headImageV.image = [UIImage imageNamed:@"ic_jincheng"];
         [_headView addSubview:headImageV];
     }
@@ -79,33 +79,41 @@
 
 - (void)getDataFromDB{
     
-    self.carBrandArray = [DBRecorder getAllBrandData];
-//    YLog(@"%@",self.carBrandArray);
-    for (int i = 0; i<self.numberArray.count; i++) {
+    dispatch_queue_t getAllBrandQueue = dispatch_queue_create("getAllBrandQueue", NULL);
+    dispatch_async(getAllBrandQueue, ^{
         
-        NSString *icon = [self.numberArray objectAtIndex:i];
-        NSMutableArray *nameA = [[NSMutableArray alloc] init];
-        for (int j = 0; j<self.carBrandArray.count; j++) {
+        self.carBrandArray = [DBRecorder getAllBrandData];
+        dispatch_async(dispatch_get_main_queue(), ^{
             
-            FMDBCarBrand *carBrand = [self.carBrandArray objectAtIndex:j];
-            if ([carBrand.icon isEqualToString:icon]) {
+            for (int i = 0; i<self.numberArray.count; i++) {
                 
-                [nameA addObject:carBrand];
+                NSString *icon = [self.numberArray objectAtIndex:i];
+                NSMutableArray *nameA = [[NSMutableArray alloc] init];
+                for (int j = 0; j<self.carBrandArray.count; j++) {
+                    
+                    FMDBCarBrand *carBrand = [self.carBrandArray objectAtIndex:j];
+                    if ([carBrand.icon isEqualToString:icon]) {
+                        
+                        [nameA addObject:carBrand];
+                    }
+                }
+                [self.dataDic setValue:nameA forKey:icon];
             }
-        }
-        [self.dataDic setValue:nameA forKey:icon];
-    }
+            [self.brandNameTableV reloadData];
+        });
+    });
+//    YLog(@"%@",self.carBrandArray);
 //    YLog(@"结束生成字典%@", self.dataDic);
 //    [_brandNameTableV reloadData];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self getDataFromDB];
     self.title = @"车型选择";
-    headH = 100.0;
+    headH = 120.0;
     [self.view addSubview:self.headView];
     [self.view addSubview:self.brandNameTableV];
+    [self getDataFromDB];
     // Do any additional setup after loading the view.
 }
 

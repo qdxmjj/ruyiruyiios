@@ -23,7 +23,7 @@
         
         _topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, 325)];
         _topView.backgroundColor = [UIColor whiteColor];
-        NSArray *leftNameArray = @[@"车型", @"是否是新能源汽车", @"车牌号码", @"常驻地区", @"前轮型号", @"后轮型号", @"行驶证注册日期", @"服务截止日期"];
+        NSArray *leftNameArray = @[@"车型", @"是否是新能源汽车", @"车牌号码", @"常驻地区", @"前轮型号", @"后轮型号", @"行驶证注册日期", @"服务年限"];
         for (int i = 0; i<leftNameArray.count; i++) {
             
             CGFloat gap = i*40;
@@ -32,10 +32,13 @@
             nameLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
             nameLabel.textColor = [UIColor blackColor];
             nameLabel.text = leftNameArray[i];
-            UIView *underLineView = [[UIView alloc] initWithFrame:CGRectMake(20, 38+gap, MAINSCREEN.width - 20, 0.5)];
-            underLineView.backgroundColor = [UIColor lightGrayColor];
+            if (i != leftNameArray.count - 1) {
+                
+                UIView *underLineView = [[UIView alloc] initWithFrame:CGRectMake(20, 38+gap, MAINSCREEN.width - 20, 0.5)];
+                underLineView.backgroundColor = [UIColor lightGrayColor];
+                [_topView addSubview:underLineView];
+            }
             [_topView addSubview:nameLabel];
-            [_topView addSubview:underLineView];
         }
     }
     return _topView;
@@ -205,7 +208,7 @@
         [_topView addSubview:self.drivingBtn];
         [_topView addSubview:self.serviceBtn];
         [_topView addSubview:self.residentAreaBtn];
-        [self.contentView addSubview:self.bottomView];
+//        [self.contentView addSubview:self.bottomView];
         [self addPictureView];
         [_bottomView addSubview:self.selectImgBtn];
         [self addDeleteBtn];

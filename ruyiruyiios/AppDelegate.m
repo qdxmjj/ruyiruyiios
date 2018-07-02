@@ -15,7 +15,7 @@
 #import "FMDBCarVerhicle.h"
 #import "FMDBCarTireInfo.h"
 #import "FMDBCarTireType.h"
-#import "CodeLoginViewController.h"
+#import "CarInfoViewController.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import "MBProgressHUD+YYM_category.h"
 #import "MBProgressHUD+YYM_category.h"
@@ -36,13 +36,20 @@
     
     [WXApi registerApp:WEIXINID];
     
-//    CodeLoginViewController *carInfoVC = [[CodeLoginViewController alloc] init];
+    if (@available(iOS 11.0,*)) {
+        
+        UITableView.appearance.estimatedRowHeight = 0;
+        UITableView.appearance.estimatedSectionFooterHeight = 0;
+        UITableView.appearance.estimatedSectionHeaderHeight = 0;
+    }
+    
+//    CarInfoViewController *carInfoVC = [[CarInfoViewController alloc] init];
 //    UINavigationController *carNav = [[UINavigationController alloc] initWithRootViewController:carInfoVC];
 //    self.window.rootViewController = carNav;
+    NSString *timeStr = @"1970-01-01 11:31:03";
+    [self databaseOperation:timeStr];
     if (![[NSUserDefaults standardUserDefaults] valueForKey:@"isFirst"]) {
 
-        NSString *timeStr = @"1970-01-01 11:31:03";
-        [self databaseOperation:timeStr];
         WelcomeViewController *welcomeVC = [[WelcomeViewController alloc] init];
         UINavigationController *welNav = [[UINavigationController alloc] initWithRootViewController:welcomeVC];
         welNav.delegate = self;
@@ -151,18 +158,69 @@
 
 - (void)databaseOperation:(NSString *)timeStr{
     
-    //get CarFactory Data
     [self getCarFactoryData:timeStr];
-    //get CarBrand Data
     [self getCarBrandData:timeStr];
-    //get CarType Data
     [self getCarVerhicleData:timeStr];
-    //get carTireInfo Data
-    [self getCarTireInfoData:timeStr];
-    //get carTireType
     [self getCarTireTypeData:timeStr];
-    //get all Position
     [self getAllPosition:timeStr];
+//    dispatch_queue_t getTimeQueue = dispatch_queue_create("getTimeQueue", NULL);
+//    dispatch_async(getTimeQueue, ^{
+//
+//        NSString *factoryTimeStr = [DBRecorder getFactoryTime];
+//        NSString *brandTimeStr = [DBRecorder getBrandTime];
+//        NSString *carVerhicleTimeStr = [DBRecorder getVerhicleTime];
+//        NSString *carTireTypeTimeStr = [DBRecorder getTiretypeTime];
+//        NSString *positionTimeStr = [DBRecorder getPositionTime];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//
+//            //get CarFactory Data
+//            if (factoryTimeStr == NULL) {
+//
+//                [self getCarFactoryData:timeStr];
+//            }else{
+//
+//                [self getCarFactoryData:factoryTimeStr];
+//            }
+//
+//            //get CarBrand Data
+//            if (brandTimeStr == NULL) {
+//
+//                [self getCarBrandData:timeStr];
+//            }else{
+//
+//                [self getCarBrandData:brandTimeStr];
+//            }
+//
+//            //get CarVerhicle Data
+//            if (carVerhicleTimeStr == NULL) {
+//
+//                [self getCarVerhicleData:timeStr];
+//            }else{
+//
+//                [self getCarVerhicleData:carVerhicleTimeStr];
+//            }
+//
+//            //    //get carTireInfo Data
+//            //    [self getCarTireInfoData:timeStr];
+//            //get carTireType
+//            if (carTireTypeTimeStr == NULL) {
+//
+//                [self getCarTireTypeData:timeStr];
+//            }else{
+//
+//                [self getCarTireTypeData:carTireTypeTimeStr];
+//            }
+//
+//            //get all Position
+//            if (positionTimeStr == nil) {
+//
+//                [self getAllPosition:timeStr];
+//            }else{
+//
+//                [self getAllPosition:positionTimeStr];
+//            }
+//        });
+//    });
 }
 
 - (void)getCarFactoryData:(NSString *)timeStr{
@@ -180,6 +238,7 @@
             dispatch_queue_t factoryQueue = dispatch_queue_create("insetCarFactoryData", NULL);
             dispatch_async(factoryQueue, ^{
 
+//                NSLog(@"%@", data);
                 [DBRecorder insertFactoryArray:data];
             });
         }
@@ -307,7 +366,7 @@
             dispatch_async(positionQueue, ^{
                 
                 [DBRecorder insertPositionArray:data];
-//                NSLog(@"插入数据库完成");
+                NSLog(@"数据库插入完成");
             });
         }
     } failure:^(NSError * _Nullable error) {

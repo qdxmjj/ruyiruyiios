@@ -182,7 +182,7 @@ static CGFloat CONTENTHEIGHT = 215.0;// 标题栏+选择视图高度
 - (UIPickerView *)addressPickerView{
     if (!_addressPickerView) {
         _addressPickerView = [[UIPickerView alloc]initWithFrame:
-                              CGRectMake(0, self.titleBackgroundView.frame.origin.y + TITLEHEIGHT, SELFSIZE.width, CONTENTHEIGHT - TITLEHEIGHT)];
+                              CGRectMake(0, self.titleBackgroundView.frame.origin.y + TITLEHEIGHT - 90, SELFSIZE.width, CONTENTHEIGHT - TITLEHEIGHT)];
         _addressPickerView.backgroundColor = self.pickerViewColor;
         _addressPickerView.delegate = self;
         _addressPickerView.dataSource = self;

@@ -97,7 +97,7 @@
 
 - (void)alertIsequallyTokenView{
     
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"此用户已在别的地方登录，请重新登录" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请重新登录" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         CodeLoginViewController *codeLoginVC = [[CodeLoginViewController alloc] init];

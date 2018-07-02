@@ -10,6 +10,7 @@
 
 @interface CodeLoginViewController : RootViewController
 
+//1---homeVC to Login,  2---setting or updatePassword to Login
 @property(nonatomic, strong)NSString *homeTologinStr;
 
 @end

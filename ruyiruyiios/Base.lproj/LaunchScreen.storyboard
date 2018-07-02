@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_new_1125.png" translatesAutoresizingMaskIntoConstraints="NO" id="ZQ3-ed-NLp">
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_new_Leading" translatesAutoresizingMaskIntoConstraints="NO" id="ZQ3-ed-NLp">
                                 <rect key="frame" x="0.0" y="10" width="375" height="667"/>
                             </imageView>
                         </subviews>
@@ -38,6 +38,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ic_new_1125.png" width="375" height="812"/>
+        <image name="ic_new_Leading" width="375" height="812"/>
     </resources>
 </document>

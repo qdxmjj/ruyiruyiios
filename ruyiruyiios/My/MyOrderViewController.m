@@ -12,6 +12,7 @@
 #import "DelegateConfiguration.h"
 #import "ToBePaidViewController.h"
 #import "AllOrderDetialViewController.h"
+#import "ToServiceViewController.h"
 #import "WaitPaymentViewController.h"
 
 @interface MyOrderViewController ()<UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate>
@@ -24,6 +25,7 @@
 @property(nonatomic, strong)NSMutableArray *todeliverMutableA;
 @property(nonatomic, strong)NSMutableArray *toserviceMutableA;
 @property(nonatomic, strong)NSMutableArray *completedMutableA;
+@property(nonatomic, strong)NSString *upStr;
 
 @end
 
@@ -113,13 +115,14 @@
     [super viewDidLoad];
     self.title = @"我的订单";
     
+    _upStr = @"0";
     DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
     [delegateConfiguration registerLoginStatusChangedListener:self];
     
     _btnNameArray = @[@"全部", @"待支付", @"进行中", @"待服务", @"已完成"];
     [self addStatusBtn:_btnNameArray];
     [self addViews];
-    [self getUserGeneralOrderByStateFromInternet];
+    [self getUserGeneralOrderByStateFromInternet:_upStr];
     // Do any additional setup after loading the view.
 }
 
@@ -130,9 +133,9 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)getUserGeneralOrderByStateFromInternet{
+- (void)getUserGeneralOrderByStateFromInternet:(NSString *)str{
     
-    NSDictionary *orderPostDic = @{@"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]], @"state":@"0"};
+    NSDictionary *orderPostDic = @{@"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]], @"state":str};
     NSString *reqJsonStr = [PublicClass convertToJsonData:orderPostDic];
     [JJRequest postRequest:@"getUserGeneralOrderByState" params:@{@"reqJson":reqJsonStr, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         
@@ -168,9 +171,12 @@
             if ([orderInfo.orderState isEqualToString:@"5"]) {
                 
                 [self.topayMutableA addObject:orderInfo];
-            }else if ([orderInfo.orderState isEqualToString:@"3"] || [orderInfo.orderState isEqualToString:@"6"]){
+            }else if ([orderInfo.orderState isEqualToString:@"3"] || [orderInfo.orderState isEqualToString:@"6"] || [orderInfo.orderState isEqualToString:@"9"]){
                 
                 [self.completedMutableA addObject:orderInfo];
+            }else if ([orderInfo.orderStage isEqualToString:@"7"]){
+                
+                [self.todeliverMutableA addObject:orderInfo];
             }
         }else{
             
@@ -233,6 +239,7 @@
     }
     statusStr = [NSString stringWithFormat:@"%ld", (button.tag - 1000)];
     self.underBtnView.frame = CGRectMake((button.tag - 1000)*(MAINSCREEN.width/_btnNameArray.count), 40, MAINSCREEN.width/_btnNameArray.count, 2);
+    
 //    [self.myorderTableV setContentOffset:CGPointMake(0, 5) animated:NO];
     [self.myorderTableV reloadData];
 }
@@ -357,16 +364,30 @@
         orderInfo = [self.toserviceMutableA objectAtIndex:indexPath.row];
         if ([orderInfo.orderState isEqualToString:@"3"]) {
             
-            [self jumpToAllorderDetailVC:@"待商家确认服务" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+            [self jumpToServiceVC:@"待商家确认服务" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
         }else{
             
-            [self jumpToAllorderDetailVC:@"确认服务" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+            
+            [self jumpToServiceVC:@"确认服务" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
         }
     }else{
         
         orderInfo = [self.completedMutableA objectAtIndex:indexPath.row];
     }
     NSLog(@"%@", orderInfo.orderPrice);
+}
+
+- (void)jumpToServiceVC:(NSString *)titleStr orderNo:(NSString *)orderNoStr orderType:(NSString *)orderTypeStr{
+    
+    ToServiceViewController *toServiceVC = [[ToServiceViewController alloc] init];
+    toServiceVC.titleStr = titleStr;
+    toServiceVC.orderNoStr = orderNoStr;
+    toServiceVC.orderTypeStr = orderTypeStr;
+    toServiceVC.callBackBlock = ^(NSString *updateStr) {
+        
+        [self getUserGeneralOrderByStateFromInternet:updateStr];
+    };
+    [self.navigationController pushViewController:toServiceVC animated:YES];
 }
 
 - (void)jumpToAllorderDetailVC:(NSString *)titleStr orderNo:(NSString *)orderNoStr orderType:(NSString *)orderTypeStr{
@@ -381,7 +402,7 @@
 //LoginStatusDelegate
 - (void)updateLoginStatus{
     
-    [self getUserGeneralOrderByStateFromInternet];
+    [self getUserGeneralOrderByStateFromInternet:_upStr];
 }
 
 - (void)didReceiveMemoryWarning {

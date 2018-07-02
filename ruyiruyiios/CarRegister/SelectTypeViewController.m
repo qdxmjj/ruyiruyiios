@@ -17,7 +17,7 @@
     CGFloat headH, engineW, engineX, yearW;
 }
 
-@property(nonatomic, strong)NSArray *typeVerhicleArray;
+@property(nonatomic, strong)NSMutableArray *typeVerhicleArray;
 @property(nonatomic, strong)UIView *typeheadView;
 @property(nonatomic, strong)UILabel *engineLabel;
 @property(nonatomic, strong)UILabel *yearLabel;
@@ -31,11 +31,11 @@
 @synthesize typepailiangStr;
 @synthesize typeyear;
 
-- (NSArray *)typeVerhicleArray{
+- (NSMutableArray *)typeVerhicleArray{
     
     if (_typeVerhicleArray == nil) {
         
-        _typeVerhicleArray = [[NSArray alloc] init];
+        _typeVerhicleArray = [[NSMutableArray alloc] init];
     }
     return _typeVerhicleArray;
 }
@@ -46,7 +46,7 @@
         
         _typeheadView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, headH)];
         _typeheadView.backgroundColor = LOGINBACKCOLOR;
-        UIImageView *headImageV = [[UIImageView alloc] initWithFrame:CGRectMake(20, 25, MAINSCREEN.width-40, 50)];
+        UIImageView *headImageV = [[UIImageView alloc] initWithFrame:CGRectMake(20, 25, MAINSCREEN.width-40, 70)];
         headImageV.image = [UIImage imageNamed:@"ic_jincheng3"];
         [_typeheadView addSubview:headImageV];
     }
@@ -121,18 +121,46 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self getDataFromDatabase];
+    [self getDataFromIntegerNet];
     self.title = @"车型选择";
-    headH = 100.0;
+    headH = 120.0;
     engineX = 20.0;
     [self.view addSubview:self.typeheadView];
     [self.view addSubview:self.typeTableV];
     // Do any additional setup after loading the view.
 }
 
-- (void)getDataFromDatabase{
+- (void)getDataFromIntegerNet{
     
-    self.typeVerhicleArray = [DBRecorder getTireInfoData:typeVerhicleId andpailiang:typepailiangStr andYear:typeyear];
+    NSDictionary *postDic = @{@"verhicleId":[NSString stringWithFormat:@"%@", typeVerhicleId], @"pailiang":typepailiangStr, @"year":[NSString stringWithFormat:@"%@", typeyear]};
+    NSString *reqJson = [PublicClass convertToJsonData:postDic];
+    [JJRequest postRequest:@"getCarTireInfoByCondition" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+        
+        NSString *statusStr = [NSString stringWithFormat:@"%@", code];
+        NSString *messageStr = [NSString stringWithFormat:@"%@", message];
+        if ([statusStr isEqualToString:@"1"]) {
+            
+            [self analySize:data];
+        }else{
+            
+            [PublicClass showHUD:messageStr view:self.view];
+        }
+    } failure:^(NSError * _Nullable error) {
+        
+        NSLog(@"根据verhicleId,排量,年份条件筛选车辆:%@", error);
+    }];
+}
+
+- (void)analySize:(NSArray *)dataArray{
+    
+    for (int i = 0; i<dataArray.count; i++) {
+        
+        NSDictionary *dic = [dataArray objectAtIndex:i];
+        FMDBCarTireInfo *carTireInfo = [[FMDBCarTireInfo alloc] init];
+        [carTireInfo setValuesForKeysWithDictionary:dic];
+        [self.typeVerhicleArray addObject:carTireInfo];
+    }
+    [self.typeTableV reloadData];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
