@@ -75,7 +75,7 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     self.navigationItem.title = @"附近的门店";
     
     [self.view addSubview:self.topBarView];
