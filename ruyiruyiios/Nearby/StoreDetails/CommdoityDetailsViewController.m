@@ -97,7 +97,7 @@ static NSInteger const HeadViewH = 150;
             
             [SubserviceCorrespondingGoods removeAllObjects];
         }
-        
+        //筛选全部的商品 获得对应商品目录下的商品
         for (NSDictionary *commodity in weakSelf.contentVCDataArr) {
             
             if ([[commodity objectForKey:@"serviceId"]longLongValue] ==[commodityID longLongValue]) {

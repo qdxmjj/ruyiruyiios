@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		1A3CB3004D62FF11EDC9B585 /* libPods-ruyiruyiios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D40C758474E7181E97834C56 /* libPods-ruyiruyiios.a */; };
+		36071A3F20ECCBB70089E633 /* FreeChangHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 36071A3120ECCBB10089E633 /* FreeChangHeaderView.m */; };
+		36071A4020ECCBB70089E633 /* FreeChangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36071A3320ECCBB20089E633 /* FreeChangeViewController.m */; };
+		36071A4120ECCBB70089E633 /* FreeChangeSelectPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36071A3420ECCBB20089E633 /* FreeChangeSelectPhotoCell.m */; };
+		36071A4320ECCBB70089E633 /* FreeChangUserInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36071A3720ECCBB30089E633 /* FreeChangUserInfoCell.m */; };
+		36071A4420ECCBB70089E633 /* FreeChangeSeleceNumberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36071A3920ECCBB40089E633 /* FreeChangeSeleceNumberCell.xib */; };
+		36071A4520ECCBB70089E633 /* FreeChangeSeleceNumberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36071A3A20ECCBB50089E633 /* FreeChangeSeleceNumberCell.m */; };
+		36071A4620ECCBB70089E633 /* FreeChangUserInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36071A3D20ECCBB70089E633 /* FreeChangUserInfoCell.xib */; };
+		36071A4820ECCBE80089E633 /* FreeChangeSelectPhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36071A4720ECCBE80089E633 /* FreeChangeSelectPhotoCell.xib */; };
 		360CD54220DCED8E005123B9 /* StoreDetailsPhoneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C80A1B20D89C640036C14A /* StoreDetailsPhoneCell.m */; };
 		360CD54320DCEDB8005123B9 /* MySettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4332F88420D8A19500AF386F /* MySettingViewController.m */; };
 		3618716E20E22BE500BBAE43 /* RepairHeadAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298620E1E494006E2CCA /* RepairHeadAlertView.m */; };
@@ -30,6 +38,7 @@
 		369520F720C9172F001FA48E /* ic_my_shibai@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 369520F420C9172E001FA48E /* ic_my_shibai@3x.png */; };
 		369520F820C9172F001FA48E /* ic_my_shibai.png in Resources */ = {isa = PBXBuildFile; fileRef = 369520F520C9172E001FA48E /* ic_my_shibai.png */; };
 		369520F920C9172F001FA48E /* ic_my_shibai@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 369520F620C9172E001FA48E /* ic_my_shibai@2x.png */; };
+		36B72DDE20EDB26C00A4BD67 /* FreeChangeFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 36B72DDD20EDB26C00A4BD67 /* FreeChangeFooterView.m */; };
 		36C80A3A20D89C640036C14A /* YM_FjStoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C809CD20D89C640036C14A /* YM_FjStoreModel.m */; };
 		36C80A3B20D89C640036C14A /* YM_FJStoreServiceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C809CF20D89C640036C14A /* YM_FJStoreServiceModel.m */; };
 		36C80A3C20D89C640036C14A /* NearbyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C809D120D89C640036C14A /* NearbyViewController.m */; };
@@ -822,6 +831,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		36071A3120ECCBB10089E633 /* FreeChangHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreeChangHeaderView.m; sourceTree = "<group>"; };
+		36071A3320ECCBB20089E633 /* FreeChangeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreeChangeViewController.m; sourceTree = "<group>"; };
+		36071A3420ECCBB20089E633 /* FreeChangeSelectPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreeChangeSelectPhotoCell.m; sourceTree = "<group>"; };
+		36071A3620ECCBB30089E633 /* FreeChangUserInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreeChangUserInfoCell.h; sourceTree = "<group>"; };
+		36071A3720ECCBB30089E633 /* FreeChangUserInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreeChangUserInfoCell.m; sourceTree = "<group>"; };
+		36071A3820ECCBB30089E633 /* FreeChangeSeleceNumberCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreeChangeSeleceNumberCell.h; sourceTree = "<group>"; };
+		36071A3920ECCBB40089E633 /* FreeChangeSeleceNumberCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FreeChangeSeleceNumberCell.xib; sourceTree = "<group>"; };
+		36071A3A20ECCBB50089E633 /* FreeChangeSeleceNumberCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreeChangeSeleceNumberCell.m; sourceTree = "<group>"; };
+		36071A3B20ECCBB60089E633 /* FreeChangeSelectPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreeChangeSelectPhotoCell.h; sourceTree = "<group>"; };
+		36071A3C20ECCBB60089E633 /* FreeChangeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreeChangeViewController.h; sourceTree = "<group>"; };
+		36071A3D20ECCBB70089E633 /* FreeChangUserInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FreeChangUserInfoCell.xib; sourceTree = "<group>"; };
+		36071A3E20ECCBB70089E633 /* FreeChangHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreeChangHeaderView.h; sourceTree = "<group>"; };
+		36071A4720ECCBE80089E633 /* FreeChangeSelectPhotoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FreeChangeSelectPhotoCell.xib; sourceTree = "<group>"; };
 		361CF5A520E3900A007DFA17 /* ic_car@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_car@2x.png"; sourceTree = "<group>"; };
 		361CF5A820E3900B007DFA17 /* ic_car.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_car.png; sourceTree = "<group>"; };
 		361CF5A920E3900B007DFA17 /* ic_car@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_car@3x.png"; sourceTree = "<group>"; };
@@ -840,6 +862,8 @@
 		369520F420C9172E001FA48E /* ic_my_shibai@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_my_shibai@3x.png"; sourceTree = "<group>"; };
 		369520F520C9172E001FA48E /* ic_my_shibai.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_my_shibai.png; sourceTree = "<group>"; };
 		369520F620C9172E001FA48E /* ic_my_shibai@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_my_shibai@2x.png"; sourceTree = "<group>"; };
+		36B72DDC20EDB26C00A4BD67 /* FreeChangeFooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FreeChangeFooterView.h; sourceTree = "<group>"; };
+		36B72DDD20EDB26C00A4BD67 /* FreeChangeFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FreeChangeFooterView.m; sourceTree = "<group>"; };
 		36C809CC20D89C640036C14A /* YM_FjStoreModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YM_FjStoreModel.h; sourceTree = "<group>"; };
 		36C809CD20D89C640036C14A /* YM_FjStoreModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YM_FjStoreModel.m; sourceTree = "<group>"; };
 		36C809CE20D89C640036C14A /* YM_FJStoreServiceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YM_FJStoreServiceModel.h; sourceTree = "<group>"; };
@@ -2433,6 +2457,8 @@
 				43F874EC20CE4B51007D1C2E /* ReplacementProcessViewController.m */,
 				4326297F20E1DD2D006E2CCA /* TireRepairViewController.h */,
 				4326298020E1DD2D006E2CCA /* TireRepairViewController.m */,
+				36071A3C20ECCBB60089E633 /* FreeChangeViewController.h */,
+				36071A3320ECCBB20089E633 /* FreeChangeViewController.m */,
 			);
 			path = ReplaceTyreAndRepair;
 			sourceTree = "<group>";
@@ -3426,6 +3452,19 @@
 				4326298620E1E494006E2CCA /* RepairHeadAlertView.m */,
 				4326298820E210CC006E2CCA /* TireRepairMiddleView.h */,
 				4326298920E210CC006E2CCA /* TireRepairMiddleView.m */,
+				36071A3E20ECCBB70089E633 /* FreeChangHeaderView.h */,
+				36071A3120ECCBB10089E633 /* FreeChangHeaderView.m */,
+				36B72DDC20EDB26C00A4BD67 /* FreeChangeFooterView.h */,
+				36B72DDD20EDB26C00A4BD67 /* FreeChangeFooterView.m */,
+				36071A3620ECCBB30089E633 /* FreeChangUserInfoCell.h */,
+				36071A3720ECCBB30089E633 /* FreeChangUserInfoCell.m */,
+				36071A3D20ECCBB70089E633 /* FreeChangUserInfoCell.xib */,
+				36071A3820ECCBB30089E633 /* FreeChangeSeleceNumberCell.h */,
+				36071A3A20ECCBB50089E633 /* FreeChangeSeleceNumberCell.m */,
+				36071A3920ECCBB40089E633 /* FreeChangeSeleceNumberCell.xib */,
+				36071A3B20ECCBB60089E633 /* FreeChangeSelectPhotoCell.h */,
+				36071A3420ECCBB20089E633 /* FreeChangeSelectPhotoCell.m */,
+				36071A4720ECCBE80089E633 /* FreeChangeSelectPhotoCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3867,6 +3906,7 @@
 				43F874BF20CE23CC007D1C2E /* ic_anzhuang.png in Resources */,
 				43F874C420CE23CC007D1C2E /* ic_liucheng@3x.png in Resources */,
 				4306781220AED839003BB046 /* ic_jincheng3@2x.png in Resources */,
+				36071A4620ECCBB70089E633 /* FreeChangUserInfoCell.xib in Resources */,
 				439D069020BE980400379414 /* ic_pay@2x.png in Resources */,
 				430677E020AED838003BB046 /* !@2x.png in Resources */,
 				36C80A6B20D89C640036C14A /* FJStoreTableViewCell.xib in Resources */,
@@ -3914,6 +3954,7 @@
 				36C80A4D20D89C640036C14A /* DirectoryTableViewCell.xib in Resources */,
 				4332F8AC20D8D6E900AF386F /* ic_lianxi.png in Resources */,
 				43F874BA20CE23CC007D1C2E /* ic_shop@2x.png in Resources */,
+				36071A4420ECCBB70089E633 /* FreeChangeSeleceNumberCell.xib in Resources */,
 				439D068B20BE980400379414 /* ic_free@2x.png in Resources */,
 				43F874B920CE23CC007D1C2E /* ric_done.png in Resources */,
 				435E5B0820A19088005C8BDA /* ic_pingjia@3x.png in Resources */,
@@ -3942,6 +3983,7 @@
 				435E5AB720A19088005C8BDA /* ic_done.png in Resources */,
 				439D068120BE980400379414 /* ic_buy@3x.png in Resources */,
 				430677E820AED838003BB046 /* 默认@3x.png in Resources */,
+				36071A4820ECCBE80089E633 /* FreeChangeSelectPhotoCell.xib in Resources */,
 				435E5AA720A19088005C8BDA /* ic_changxing@3x.png in Resources */,
 				435E5AD820A19088005C8BDA /* ic_yellow.png in Resources */,
 				430FA05A20EDB5D000D1DF8E /* ic_yin3@3x.png in Resources */,
@@ -4132,6 +4174,7 @@
 				438D44AB20C2672D008DAD97 /* NumberSelectView.m in Sources */,
 				431FC5D320AAAC2900EF97CA /* HomeFirstView.m in Sources */,
 				36C80A6120D89C640036C14A /* StoreDetailsOvervieCell.m in Sources */,
+				36071A4320ECCBB70089E633 /* FreeChangUserInfoCell.m in Sources */,
 				36C80A4C20D89C640036C14A /* DirectoryTableViewCell.m in Sources */,
 				43CE0A7520A93ABF00D7FACF /* JJUILabel.m in Sources */,
 				434367F520DB39E0009D2657 /* SharePersonInfo.m in Sources */,
@@ -4208,6 +4251,7 @@
 				43A7B1D120CF69060002B756 /* BuyPassBottomView.m in Sources */,
 				439D061520BE44EB00379414 /* SureOrderViewController.m in Sources */,
 				36C80A4420D89C640036C14A /* BuyCommdityCell.m in Sources */,
+				36071A4020ECCBB70089E633 /* FreeChangeViewController.m in Sources */,
 				4332361E20B2752C008F45FD /* SelectTypeViewController.m in Sources */,
 				4322A1D320A29863007B4037 /* PasswordTableViewCell.m in Sources */,
 				4311E99F20D9F09500F74960 /* CouponLeftView.m in Sources */,
@@ -4258,11 +4302,13 @@
 				4347BF7A20B3AA8C002F13E8 /* NotofenRoadViewController.m in Sources */,
 				4319311B20E8B229006005C8 /* ToserviceStoreTableViewCell.m in Sources */,
 				4311E9BA20DA234100F74960 /* CouponInfo.m in Sources */,
+				36071A4520ECCBB70089E633 /* FreeChangeSeleceNumberCell.m in Sources */,
 				4318693020D14B7D0051F16D /* CarCXWYInfo.m in Sources */,
 				43B1BEBC20EA1D06008E3E1A /* HXFullScreenCameraPlayView.m in Sources */,
 				4332F88820D8A25600AF386F /* MySettingTableViewCell.m in Sources */,
 				4332F89120D8AD8C00AF386F /* AboutUsViewController.m in Sources */,
 				4332361B20B26CFF008F45FD /* SelectSystemTableViewCell.m in Sources */,
+				36071A4120ECCBB70089E633 /* FreeChangeSelectPhotoCell.m in Sources */,
 				4343680B20DB8659009D2657 /* MyEvaluationViewController.m in Sources */,
 				4343EB8A209FFE4D003AD5FE /* RootViewController.m in Sources */,
 				433EECF020ADAC500051DF9F /* Data_cars.m in Sources */,
@@ -4287,6 +4333,7 @@
 				36C80A9A20D89C6A0036C14A /* YMDetailedServiceViewController.m in Sources */,
 				435E5B2D20A1CA76005C8BDA /* PublicClass.m in Sources */,
 				43CE0A6C20A91F7E00D7FACF /* UserProtocolViewController.m in Sources */,
+				36071A3F20ECCBB70089E633 /* FreeChangHeaderView.m in Sources */,
 				43B1BEAF20EA1D06008E3E1A /* HXAlbumListViewController.m in Sources */,
 				438D449C20C26701008DAD97 /* BuyTireData.m in Sources */,
 				36C80A7320D89C640036C14A /* YMTools.m in Sources */,
@@ -4298,6 +4345,7 @@
 				430677A020AED59F003BB046 /* ZZYPhotoHelper.m in Sources */,
 				43F874ED20CE4B51007D1C2E /* ReplacementProcessViewController.m in Sources */,
 				4358CAAA20A3DC3D006B456F /* WXZPickDateView.m in Sources */,
+				36B72DDE20EDB26C00A4BD67 /* FreeChangeFooterView.m in Sources */,
 				439D061E20BE860800379414 /* UserConfig.m in Sources */,
 				4332362420B29BF0008F45FD /* SelectProductYearViewController.m in Sources */,
 				36C80A9620D89C6A0036C14A /* WinterTyreViewController.m in Sources */,
