@@ -92,6 +92,13 @@
         
         [self.sevrviceGroup[_subScript] replaceObjectAtIndex:[self.sevrviceGroup[_subScript] count]-1 withObject:[NSString stringWithFormat:@"%ld",row]];//修改源数据
         
+        if ([self.sevrviceGroup[_subScript] count]<=1) {
+            
+            //如果没有商品目录，要刷新一下商品页面内容，传空
+            self.refreshBlock(10086, @"");
+            return;
+        }
+        
         [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] animated:YES scrollPosition:UITableViewScrollPositionNone];//默认选中效果
     }
 }

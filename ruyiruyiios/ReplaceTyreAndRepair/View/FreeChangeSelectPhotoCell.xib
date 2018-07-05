@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="106" id="hmD-xu-9TY" customClass="FreeChangeSelectPhotoCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="110"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hmD-xu-9TY" id="dBj-3M-wZq">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="109.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pDX-6S-ONh">
+                        <rect key="frame" x="16" y="10" width="125" height="89.5"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="添加照片.png" translatesAutoresizingMaskIntoConstraints="NO" id="MFn-0A-9JX">
+                                <rect key="frame" x="45" y="15" width="35" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="fan-kO-mPI"/>
+                                    <constraint firstAttribute="width" constant="35" id="zzu-60-9Bz"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="轮胎条码" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tDY-1r-Djk">
+                                <rect key="frame" x="38" y="50" width="49.5" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="tDY-1r-Djk" firstAttribute="centerX" secondItem="pDX-6S-ONh" secondAttribute="centerX" id="2Aw-Rn-kmT"/>
+                            <constraint firstItem="MFn-0A-9JX" firstAttribute="centerX" secondItem="pDX-6S-ONh" secondAttribute="centerX" id="Lw3-as-NRr"/>
+                            <constraint firstItem="MFn-0A-9JX" firstAttribute="top" secondItem="pDX-6S-ONh" secondAttribute="top" constant="15" id="bst-5T-Zuj"/>
+                            <constraint firstItem="tDY-1r-Djk" firstAttribute="top" secondItem="MFn-0A-9JX" secondAttribute="bottom" id="lJW-9r-JU7"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pwK-pb-onP">
+                        <rect key="frame" x="234" y="10" width="125" height="89.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="轮胎磨损线" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0fg-EK-bIe">
+                                <rect key="frame" x="32.5" y="50" width="61.5" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="添加照片.png" translatesAutoresizingMaskIntoConstraints="NO" id="szb-Dj-qbN">
+                                <rect key="frame" x="45.5" y="15" width="35" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="ceo-NL-Ouc"/>
+                                    <constraint firstAttribute="width" constant="35" id="qZ0-eB-mxO"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="0fg-EK-bIe" firstAttribute="centerX" secondItem="pwK-pb-onP" secondAttribute="centerX" id="AOO-DL-8F0"/>
+                            <constraint firstItem="0fg-EK-bIe" firstAttribute="top" secondItem="szb-Dj-qbN" secondAttribute="bottom" id="I7x-O8-Jbd"/>
+                            <constraint firstItem="szb-Dj-qbN" firstAttribute="top" secondItem="pwK-pb-onP" secondAttribute="top" constant="15" id="jaU-wy-Qcd"/>
+                            <constraint firstItem="szb-Dj-qbN" firstAttribute="centerX" secondItem="pwK-pb-onP" secondAttribute="centerX" id="s08-sa-x3v"/>
+                        </constraints>
+                    </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Une-f1-QzK">
+                        <rect key="frame" x="16" y="10" width="125" height="89.5"/>
+                        <connections>
+                            <action selector="selectPhotoEvent:" destination="hmD-xu-9TY" eventType="touchUpInside" id="Y4V-nl-wvZ"/>
+                        </connections>
+                    </button>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ae6-jh-bZ5">
+                        <rect key="frame" x="126" y="10" width="15" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="15" id="6wM-2x-p8O"/>
+                            <constraint firstAttribute="height" constant="15" id="GnK-aw-eSn"/>
+                        </constraints>
+                        <state key="normal" image="删除照片.png"/>
+                        <connections>
+                            <action selector="delPhoto:" destination="hmD-xu-9TY" eventType="touchUpInside" id="voV-sC-yBo"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T5a-Kl-bTK">
+                        <rect key="frame" x="234" y="10" width="125" height="89.5"/>
+                        <connections>
+                            <action selector="selectPhotoEvent:" destination="hmD-xu-9TY" eventType="touchUpInside" id="Gtl-AB-KmE"/>
+                        </connections>
+                    </button>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kp4-cm-AME">
+                        <rect key="frame" x="344" y="10" width="15" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="15" id="5d2-Rg-qmY"/>
+                            <constraint firstAttribute="height" constant="15" id="TI8-96-n04"/>
+                        </constraints>
+                        <state key="normal" title="x" image="删除照片.png"/>
+                        <connections>
+                            <action selector="delPhoto:" destination="hmD-xu-9TY" eventType="touchUpInside" id="UVp-Xz-iEe"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Ae6-jh-bZ5" firstAttribute="top" secondItem="pDX-6S-ONh" secondAttribute="top" id="5E5-Us-tUP"/>
+                    <constraint firstItem="pDX-6S-ONh" firstAttribute="leading" secondItem="dBj-3M-wZq" secondAttribute="leading" constant="16" id="DAj-3i-Qxy"/>
+                    <constraint firstItem="Une-f1-QzK" firstAttribute="centerX" secondItem="pDX-6S-ONh" secondAttribute="centerX" id="IJq-qr-38y"/>
+                    <constraint firstItem="T5a-Kl-bTK" firstAttribute="centerX" secondItem="pwK-pb-onP" secondAttribute="centerX" id="MLh-23-2Bs"/>
+                    <constraint firstItem="Une-f1-QzK" firstAttribute="width" secondItem="pDX-6S-ONh" secondAttribute="width" id="NXG-hp-ewD"/>
+                    <constraint firstItem="kp4-cm-AME" firstAttribute="top" secondItem="pwK-pb-onP" secondAttribute="top" id="QqN-Iy-rJ3"/>
+                    <constraint firstItem="kp4-cm-AME" firstAttribute="trailing" secondItem="pwK-pb-onP" secondAttribute="trailing" id="Veq-wP-CUG"/>
+                    <constraint firstItem="pwK-pb-onP" firstAttribute="top" secondItem="dBj-3M-wZq" secondAttribute="top" constant="10" id="YHL-8H-E8l"/>
+                    <constraint firstAttribute="trailing" secondItem="pwK-pb-onP" secondAttribute="trailing" constant="16" id="abU-rq-fMB"/>
+                    <constraint firstItem="Une-f1-QzK" firstAttribute="centerY" secondItem="pDX-6S-ONh" secondAttribute="centerY" id="hNg-iF-Cvn"/>
+                    <constraint firstItem="Une-f1-QzK" firstAttribute="height" secondItem="pDX-6S-ONh" secondAttribute="height" id="mh1-gt-kLg"/>
+                    <constraint firstAttribute="bottom" secondItem="pwK-pb-onP" secondAttribute="bottom" constant="10" id="sIa-cf-pum"/>
+                    <constraint firstItem="T5a-Kl-bTK" firstAttribute="height" secondItem="pwK-pb-onP" secondAttribute="height" id="tHD-Ie-eJe"/>
+                    <constraint firstItem="pDX-6S-ONh" firstAttribute="top" secondItem="dBj-3M-wZq" secondAttribute="top" constant="10" id="uzH-BR-gjc"/>
+                    <constraint firstItem="T5a-Kl-bTK" firstAttribute="centerY" secondItem="pwK-pb-onP" secondAttribute="centerY" id="vN8-9H-WRk"/>
+                    <constraint firstItem="Ae6-jh-bZ5" firstAttribute="trailing" secondItem="pDX-6S-ONh" secondAttribute="trailing" id="xMW-dk-Tf2"/>
+                    <constraint firstAttribute="bottom" secondItem="pDX-6S-ONh" secondAttribute="bottom" constant="10" id="xeF-qX-Sra"/>
+                    <constraint firstItem="T5a-Kl-bTK" firstAttribute="width" secondItem="pwK-pb-onP" secondAttribute="width" id="xvD-IH-kKF"/>
+                </constraints>
+            </tableViewCellContentView>
+            <constraints>
+                <constraint firstItem="pwK-pb-onP" firstAttribute="width" secondItem="hmD-xu-9TY" secondAttribute="width" multiplier="1:3" id="Peb-VN-6c1"/>
+                <constraint firstItem="pDX-6S-ONh" firstAttribute="width" secondItem="hmD-xu-9TY" secondAttribute="width" multiplier="1:3" id="fIG-kG-rRp"/>
+            </constraints>
+            <connections>
+                <outlet property="delBarCodePhotoBtn" destination="Ae6-jh-bZ5" id="aAe-j4-OK8"/>
+                <outlet property="delWearLinePhotoBtn" destination="kp4-cm-AME" id="6ah-pw-tre"/>
+                <outlet property="selectBarCodePhotoBtn" destination="Une-f1-QzK" id="uDP-je-7wl"/>
+                <outlet property="selectWearLinePhotoBtn" destination="T5a-Kl-bTK" id="HeV-4S-303"/>
+            </connections>
+            <point key="canvasLocation" x="63.5" y="188"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="删除照片.png" width="12" height="12"/>
+        <image name="添加照片.png" width="29" height="24"/>
+    </resources>
+</document>
