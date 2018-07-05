@@ -113,7 +113,7 @@
     self.tireTotalPriceLabel.text = [NSString stringWithFormat:@"¥ %@", tireTotalPriceStr];
 //    NSLog(@"%@", self.tireTotalPriceLabel.text);
     self.cxwyTotalPriceLabel.text = [NSString stringWithFormat:@"¥ %@", cxwyTotalPriceStr];
-    self.totalPriceLabel.text = [NSString stringWithFormat:@"¥ %.2f", ([tireTotalPriceStr floatValue] + [cxwyTotalPriceStr floatValue])];
+    self.totalPriceLabel.text = [NSString stringWithFormat:@"¥ %ld", (NSInteger)([tireTotalPriceStr floatValue] + [cxwyTotalPriceStr floatValue])];
 }
 
 /*

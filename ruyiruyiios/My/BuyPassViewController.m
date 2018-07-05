@@ -13,6 +13,7 @@
 #import "UserProtocolViewController.h"
 #import "BuyCXWYUserInfo.h"
 #import "CashierViewController.h"
+#import "CXWYPriceParamInfo.h"
 
 @interface BuyPassViewController ()<UIScrollViewDelegate, YBAttributeTapActionDelegate>
 
@@ -21,6 +22,9 @@
 @property(nonatomic, strong)BuyPassMiddleView *buypassMiddleV;
 @property(nonatomic, strong)BuyPassBottomView *buypassBottomV;
 @property(nonatomic, strong)BuyCXWYUserInfo *buyCXWYUserInfo;
+@property(nonatomic, strong)NSString *shoeBasePriceStr;
+@property(nonatomic, strong)NSString *totalPriceStr;
+@property(nonatomic, strong)NSMutableArray *cxwyPriceParamMutableA;
 
 @end
 
@@ -62,6 +66,8 @@
     if (_buypassMiddleV == nil) {
         
         _buypassMiddleV = [[BuyPassMiddleView alloc] initWithFrame:CGRectMake(0, 231, MAINSCREEN.width, 250)];
+        [_buypassMiddleV.buyNumberSelectV.leftBtn addTarget:self action:@selector(chickBuyNumberLeftBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [_buypassMiddleV.buyNumberSelectV.rightBtn addTarget:self action:@selector(chickBuyNumberRightBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _buypassMiddleV;
 }
@@ -87,55 +93,19 @@
     return _buyCXWYUserInfo;
 }
 
-- (void)chickSureBuyBtn:(UIButton *)button{
+- (NSMutableArray *)cxwyPriceParamMutableA{
     
-    if (_buypassBottomV.selectBtn.selected != YES) {
+    if (_cxwyPriceParamMutableA == nil) {
         
-        [PublicClass showHUD:@"请选择使用协议" view:self.view];
-    }else{
-        
-        if ([self.buypassMiddleV.buyNumberSelectV.numberLabel.text isEqualToString:@"0"]) {
-            
-            [PublicClass showHUD:@"请选择购买数量" view:self.view];
-        }else{
-            
-            float cxwytotalPrice = [self.buypassMiddleV.buyNumberSelectV.numberLabel.text integerValue]*[self.buyCXWYUserInfo.cxwyPrice floatValue];
-            NSString *cxwyPriceStr = [NSString stringWithFormat:@"%.2f", cxwytotalPrice];
-            NSDictionary *postDic = @{@"shoeId":@"0", @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]], @"fontRearFlag":@"0", @"amount":@"0", @"shoeName":@"", @"shoeTotalPrice":@"0", @"shoePrice":@"0", @"cxwyAmount":_buypassMiddleV.buyNumberSelectV.numberLabel.text, @"cxwyPrice":self.buyCXWYUserInfo.cxwyPrice, @"cxwyTotalPrice":cxwyPriceStr, @"totalPrice":cxwyPriceStr, @"orderImg":@""};
-            NSString *reqJson = [PublicClass convertToJsonData:postDic];
-            [JJRequest postRequest:@"addUserShoeOrder" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
-                
-                NSString *statusStr = [NSString stringWithFormat:@"%@", code];
-                NSString *messageStr = [NSString stringWithFormat:@"%@", message];
-                if ([statusStr isEqualToString:@"1"]) {
-                    
-                    CashierViewController *cashierVC = [[CashierViewController alloc] init];
-                    cashierVC.orderNoStr = [data objectForKey:@"orderNo"];
-                    cashierVC.totalPriceStr = [data objectForKey:@"totalPrice"];
-                    cashierVC.orderTypeStr = @"0";
-                    [self.navigationController pushViewController:cashierVC animated:YES];
-                }else{
-                    
-                    [PublicClass showHUD:messageStr view:self.view];
-                }
-            } failure:^(NSError * _Nullable error) {
-                
-                NSLog(@"购买畅行无忧的错误:%@", error);
-            }];
-        }
+        _cxwyPriceParamMutableA = [[NSMutableArray alloc] init];
     }
-}
-
-- (void)yb_attributeTapReturnString:(NSString *)string range:(NSRange)range index:(NSInteger)index{
-    
-    UserProtocolViewController *userProtocolVC = [[UserProtocolViewController alloc] init];
-    userProtocolVC.dealIdStr = @"3";
-    [self.navigationController pushViewController:userProtocolVC animated:YES];
+    return _cxwyPriceParamMutableA;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.totalPriceStr = @"0";
     self.title = @"畅行无忧";
     [self addViews];
     [self getCarByUserIdAndCarId];
@@ -184,6 +154,9 @@
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
         if ([statusStr isEqualToString:@"1"]) {
             
+//            YLog(@"购买畅行无忧:%@", data);
+            [self analySizePriceParam:[data objectForKey:@"cxwyPriceParamList"]];
+            self.shoeBasePriceStr = [data objectForKey:@"shoeBasePrice"];
             self.buyCXWYUserInfo.cxwyPrice = [data objectForKey:@"finalCxwyPrice"];
             self.buyCXWYUserInfo.userName = [UserConfig nick];
             self.buyCXWYUserInfo.userPhone = [UserConfig phone];
@@ -198,9 +171,89 @@
     }];
 }
 
+- (void)analySizePriceParam:(NSArray *)paramArray{
+    
+    for (int i = 0; i<paramArray.count; i++) {
+        
+        CXWYPriceParamInfo *cxwyPriceInfo = [[CXWYPriceParamInfo alloc] init];
+        [cxwyPriceInfo setValuesForKeysWithDictionary:[paramArray objectAtIndex:i]];
+        [self.cxwyPriceParamMutableA addObject:cxwyPriceInfo];
+    }
+}
+
+- (void)chickBuyNumberLeftBtn:(UIButton *)button{
+    
+    if ([self.buypassMiddleV.buyNumberSelectV.numberLabel.text isEqualToString:@"0"]) {
+        
+        self.totalPriceStr = @"0";
+        [_buypassBottomV setdatatoViews:self.totalPriceStr];
+    }else{
+        
+        NSInteger index = [self.buypassMiddleV.buyNumberSelectV.numberLabel.text integerValue] - 1;
+        CXWYPriceParamInfo *paramInfo = [self.cxwyPriceParamMutableA objectAtIndex:index];
+        NSInteger priceInteger = (NSInteger)[self.shoeBasePriceStr integerValue] * [paramInfo.rate integerValue]/100;
+        self.totalPriceStr = [NSString stringWithFormat:@"%ld", priceInteger];
+        [_buypassBottomV setdatatoViews:self.totalPriceStr];
+    }
+}
+
+- (void)chickBuyNumberRightBtn:(UIButton *)button{
+    
+    NSInteger index = [self.buypassMiddleV.buyNumberSelectV.numberLabel.text integerValue] - 1;
+    CXWYPriceParamInfo *paramInfo = [self.cxwyPriceParamMutableA objectAtIndex:index];
+    NSInteger priceInteger = (NSInteger)[self.shoeBasePriceStr integerValue] * [paramInfo.rate integerValue]/100;
+    self.totalPriceStr = [NSString stringWithFormat:@"%ld", priceInteger];
+    [_buypassBottomV setdatatoViews:self.totalPriceStr];
+}
+
+- (void)chickSureBuyBtn:(UIButton *)button{
+    
+    if (_buypassBottomV.selectBtn.selected != YES) {
+        
+        [PublicClass showHUD:@"请选择使用协议" view:self.view];
+    }else{
+        
+        if ([self.totalPriceStr isEqualToString:@"0"]) {
+            
+            [PublicClass showHUD:@"请选择购买数量" view:self.view];
+        }else{
+            
+            NSDictionary *postDic = @{@"shoeId":@"0", @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]], @"fontRearFlag":@"0", @"amount":@"0", @"shoeName":@"", @"shoeTotalPrice":@"0", @"shoePrice":@"0", @"cxwyAmount":_buypassMiddleV.buyNumberSelectV.numberLabel.text, @"cxwyPrice":self.buyCXWYUserInfo.cxwyPrice, @"cxwyTotalPrice":self.totalPriceStr, @"totalPrice":self.totalPriceStr, @"orderImg":@""};
+            NSString *reqJson = [PublicClass convertToJsonData:postDic];
+            [JJRequest postRequest:@"addUserShoeOrder" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+                
+                NSString *statusStr = [NSString stringWithFormat:@"%@", code];
+                NSString *messageStr = [NSString stringWithFormat:@"%@", message];
+                if ([statusStr isEqualToString:@"1"]) {
+                    
+                    CashierViewController *cashierVC = [[CashierViewController alloc] init];
+                    cashierVC.orderNoStr = [data objectForKey:@"orderNo"];
+                    cashierVC.totalPriceStr = [data objectForKey:@"totalPrice"];
+                    cashierVC.orderTypeStr = @"0";
+                    [self.navigationController pushViewController:cashierVC animated:YES];
+                }else{
+                    
+                    [PublicClass showHUD:messageStr view:self.view];
+                }
+            } failure:^(NSError * _Nullable error) {
+                
+                NSLog(@"购买畅行无忧的错误:%@", error);
+            }];
+        }
+    }
+}
+
+- (void)yb_attributeTapReturnString:(NSString *)string range:(NSRange)range index:(NSInteger)index{
+    
+    UserProtocolViewController *userProtocolVC = [[UserProtocolViewController alloc] init];
+    userProtocolVC.dealIdStr = @"3";
+    [self.navigationController pushViewController:userProtocolVC animated:YES];
+}
+
 - (void)setdatatoSubviews:(BuyCXWYUserInfo *)buyCXWYInfo{
     
     [_buypassMiddleV setdatatoViews:buyCXWYInfo];
+    [_buypassBottomV setdatatoViews:self.totalPriceStr];
 }
 
 - (void)didReceiveMemoryWarning {

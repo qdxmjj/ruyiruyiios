@@ -14,7 +14,7 @@
 @interface WelcomeViewController ()<UIScrollViewDelegate>
 
 @property(nonatomic, strong)UIScrollView *mainScrollV;
-@property(nonatomic, strong)UIPageControl *pageControl;
+//@property(nonatomic, strong)UIPageControl *pageControl;
 @property(nonatomic, strong)UIButton *welcomeBtn;
 
 @end
@@ -41,20 +41,20 @@
     return _mainScrollV;
 }
 
-- (UIPageControl *)pageControl{
-    
-    if (_pageControl == nil) {
-        
-        CGSize size = self.view.frame.size;
-        _pageControl = [[UIPageControl alloc] init];
-        _pageControl.center = CGPointMake(size.width*0.5, size.height*0.97);
-        _pageControl.numberOfPages = ImageCount;
-        _pageControl.currentPageIndicatorTintColor = [UIColor blueColor];
-        _pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
-        _pageControl.bounds = CGRectMake(0, 0, 25, 25);
-    }
-    return _pageControl;
-}
+//- (UIPageControl *)pageControl{
+//
+//    if (_pageControl == nil) {
+//
+//        CGSize size = self.view.frame.size;
+//        _pageControl = [[UIPageControl alloc] init];
+//        _pageControl.center = CGPointMake(size.width*0.5, size.height*0.97);
+//        _pageControl.numberOfPages = ImageCount;
+//        _pageControl.currentPageIndicatorTintColor = [UIColor blueColor];
+//        _pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
+//        _pageControl.bounds = CGRectMake(0, 0, 25, 25);
+//    }
+//    return _pageControl;
+//}
 
 - (UIButton *)welcomeBtn{
     
@@ -84,7 +84,7 @@
     
     [self.view addSubview:self.mainScrollV];
     [self addScrollImages];
-    [self.view addSubview:self.pageControl];
+//    [self.view addSubview:self.pageControl];
     [self.view addSubview:self.welcomeBtn];
     // Do any additional setup after loading the view.
 }
@@ -95,7 +95,7 @@
     for (int i = 0; i<ImageCount; i++) {
         
         UIImageView *imageView = [[UIImageView alloc] init];
-        NSString *name = [NSString stringWithFormat:@"ic_%d.png", i+1];
+        NSString *name = [NSString stringWithFormat:@"ic_yin%d.png", i+1];
         imageView.frame = CGRectMake(i*size.width, 0, size.width, size.height);
         imageView.image = [UIImage imageNamed:name];
         [_mainScrollV addSubview:imageView];
@@ -104,8 +104,8 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     
-    _pageControl.currentPage = _mainScrollV.contentOffset.x/_mainScrollV.frame.size.width;
-    if (_pageControl.currentPage == 2) {
+    NSInteger currentPage = _mainScrollV.contentOffset.x/_mainScrollV.frame.size.width;
+    if (currentPage == 2) {
         
         _welcomeBtn.hidden = NO;
     }else{

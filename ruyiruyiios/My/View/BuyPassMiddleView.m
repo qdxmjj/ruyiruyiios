@@ -46,18 +46,6 @@
     return _platNumberLabel;
 }
 
-- (UILabel *)passPriceLabel{
-    
-    if (_passPriceLabel == nil) {
-        
-        _passPriceLabel = [[UILabel alloc] init];
-        _passPriceLabel.textColor = [UIColor lightGrayColor];
-        _passPriceLabel.textAlignment = NSTextAlignmentRight;
-        _passPriceLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
-    }
-    return _passPriceLabel;
-}
-
 - (NumberSelectView *)buyNumberSelectV{
     
     if (_buyNumberSelectV == nil) {
@@ -83,7 +71,7 @@
     UIView *h_view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, 5)];
     h_view.backgroundColor = [PublicClass colorWithHexString:@"#ececec"];
     [self addSubview:h_view];
-    NSArray *titleArray = @[@"用户名", @"联系电话", @"车牌号", @"畅行无忧价格", @"购买数量"];
+    NSArray *titleArray = @[@"用户名", @"联系电话", @"车牌号", @"购买数量"];
     for (int i = 0; i<titleArray.count; i++) {
         
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20+(50*i), MAINSCREEN.width/2 - 20, 20)];
@@ -103,7 +91,6 @@
     [self addSubview:self.nameLabel];
     [self addSubview:self.phoneLabel];
     [self addSubview:self.platNumberLabel];
-    [self addSubview:self.passPriceLabel];
     [self addSubview:self.buyNumberSelectV];
 }
 
@@ -113,8 +100,7 @@
     self.nameLabel.frame = CGRectMake(MAINSCREEN.width/2, 20, MAINSCREEN.width/2-20, 20);
     self.phoneLabel.frame = CGRectMake(MAINSCREEN.width/2, 70, MAINSCREEN.width/2-20, 20);
     self.platNumberLabel.frame = CGRectMake(MAINSCREEN.width/2, 120, MAINSCREEN.width/2-20, 20);
-    self.passPriceLabel.frame = CGRectMake(MAINSCREEN.width/2, 170, MAINSCREEN.width/2-20, 20);
-    self.buyNumberSelectV.frame = CGRectMake(MAINSCREEN.width - 130, 215, 110, 30);
+    self.buyNumberSelectV.frame = CGRectMake(MAINSCREEN.width - 130, 165, 110, 30);
 }
 
 - (void)setdatatoViews:(BuyCXWYUserInfo *)buyCXWYUserInfo{
@@ -122,8 +108,7 @@
     self.nameLabel.text = buyCXWYUserInfo.userName;
     self.phoneLabel.text = buyCXWYUserInfo.userPhone;
     self.platNumberLabel.text = buyCXWYUserInfo.userPlatnumber;
-    self.passPriceLabel.text = [NSString stringWithFormat:@"¥ %@", buyCXWYUserInfo.cxwyPrice];
-    self.buyNumberSelectV.limitNumberStr = @"50";
+    self.buyNumberSelectV.limitNumberStr = @"7";
 }
 
 /*

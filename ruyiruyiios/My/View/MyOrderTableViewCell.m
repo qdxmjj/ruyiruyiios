@@ -203,10 +203,22 @@
         }else if ([orderInfo.orderState isEqualToString:@"7"]){
             
             statusStr = @"待评价";
+        }else if ([orderInfo.orderState isEqualToString:@"8"]){
+            
+            statusStr = @"待支付";
+        }else if ([orderInfo.orderState isEqualToString:@"9"]){
+            
+            statusStr = @"退款中";
+        }else if ([orderInfo.orderState isEqualToString:@"10"]){
+            
+            statusStr = @"已退款";
+        }else if ([orderInfo.orderState isEqualToString:@"11"]){
+            
+            statusStr = @"更换审核中";
         }
         else{
             
-            statusStr = @"待支付";
+            statusStr = @"更换审核未通过";
         }
     }
     self.orderStatusLabel.text = statusStr;

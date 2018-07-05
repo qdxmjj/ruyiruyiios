@@ -17,6 +17,7 @@
     if (_headImageV == nil) {
         
         _headImageV = [[UIImageView alloc] init];
+        _headImageV.frame = CGRectMake(20, 10, 30, 30);
         _headImageV.layer.cornerRadius = 15.0;
         _headImageV.layer.masksToBounds = YES;
     }
@@ -28,6 +29,7 @@
     if (_userNameLabel == nil) {
         
         _userNameLabel = [[UILabel alloc] init];
+        _userNameLabel.frame = CGRectMake(60, 15, 70, 20);
         _userNameLabel.textColor = TEXTCOLOR64;
         _userNameLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
         _userNameLabel.textAlignment = NSTextAlignmentLeft;
@@ -40,6 +42,7 @@
     if (_timeLabel == nil) {
         
         _timeLabel = [[UILabel alloc] init];
+        _timeLabel.frame = CGRectMake(MAINSCREEN.width - 90, 15, 80, 20);
         _timeLabel.textColor = TEXTCOLOR64;
         _timeLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
         _timeLabel.textAlignment = NSTextAlignmentRight;
@@ -86,6 +89,13 @@
     if (_storeImageV == nil) {
         
         _storeImageV = [[UIImageView alloc] init];
+        if (self.imgMutableA.count != 0) {
+            
+            _storeImageV.frame = CGRectMake(20, self.imgCollectionV.frame.origin.y + self.imgCollectionV.frame.size.height + 15, 70, 70);
+        }else{
+            
+            _storeImageV.frame = CGRectMake(20, self.detialLabel.frame.origin.y + self.detialLabel.frame.size.height + 15, 70, 70);
+        }
     }
     return _storeImageV;
 }
@@ -95,6 +105,7 @@
     if (_storeNameLabel == nil) {
         
         _storeNameLabel = [[UILabel alloc] init];
+        _storeNameLabel.frame = CGRectMake(100, self.storeImageV.frame.origin.y, MAINSCREEN.width - 100, 20);
         _storeNameLabel.textColor = TEXTCOLOR64;
         _storeNameLabel.font = [UIFont fontWithName:TEXTFONT size:16.0];
         _storeNameLabel.textAlignment = NSTextAlignmentLeft;
@@ -107,6 +118,7 @@
     if (_storeAddressLabel == nil) {
         
         _storeAddressLabel = [[UILabel alloc] init];
+        _storeAddressLabel.frame = CGRectMake(100, self.storeImageV.frame.origin.y + 50, MAINSCREEN.width - 100, 20);
         _storeAddressLabel.textColor = [UIColor lightGrayColor];
         _storeAddressLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
         _storeAddressLabel.textAlignment = NSTextAlignmentLeft;
@@ -132,12 +144,19 @@
     return _imgMutableA;
 }
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier content:(NSString *)contentStr imgUrl:(NSMutableArray *)imgUrlMutableA{
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier content:(NSString *)contentStr imgUrl:(NSArray *)imgUrlA{
     
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-        self.imgMutableA = imgUrlMutableA;
+        [self.imgMutableA removeAllObjects];
+        for (int i = 0; i<imgUrlA.count; i++) {
+            
+            if (![[imgUrlA objectAtIndex:i] isEqualToString:@""]) {
+                
+                [self.imgMutableA addObject:[imgUrlA objectAtIndex:i]];
+            }
+        }
         self.contentStr = contentStr;
         [self addChangeViews];
     }
@@ -180,19 +199,6 @@
 - (void)layoutSubviews{
     
     [super layoutSubviews];
-    self.headImageV.frame = CGRectMake(20, 10, 30, 30);
-    self.userNameLabel.frame = CGRectMake(60, 15, 70, 20);
-    self.timeLabel.frame = CGRectMake(MAINSCREEN.width - 90, 15, 80, 20);
-    if (self.imgMutableA.count != 0) {
-        
-        self.storeImageV.frame = CGRectMake(20, self.imgCollectionV.frame.origin.y + self.imgCollectionV.frame.size.height + 15, 70, 70);
-    }else{
-        
-        self.storeImageV.frame = CGRectMake(20, self.detialLabel.frame.origin.y + self.detialLabel.frame.size.height + 15, 70, 70);
-    }
-    self.storeNameLabel.frame = CGRectMake(100, self.storeImageV.frame.origin.y, MAINSCREEN.width - 100, 20);
-    self.storeAddressLabel.frame = CGRectMake(100, self.storeImageV.frame.origin.y + 50, MAINSCREEN.width - 100, 20);
-    self.underLineView.frame = CGRectMake(0, self.storeAddressLabel.frame.origin.y + 27, MAINSCREEN.width, 3);
 }
 
 - (void)setdatatoEvaluationCell:(MyEvaluationInfo *)myEvaluationInfo{
@@ -210,7 +216,10 @@
         
         [self.contentView addSubview:self.imgCollectionV];
     }
+    self.underLineView.frame = CGRectMake(0, self.storeAddressLabel.frame.origin.y + 27, MAINSCREEN.width, 3);
     self.underLineView.backgroundColor = [PublicClass colorWithHexString:@"#ececec"];
+    self.cellHeight = self.underLineView.frame.size.height + self.underLineView.frame.origin.y;
+//    NSLog(@"%f", self.cellHeight);
 }
 
 #pragma mark UICollectionViewDelegate and UICollectionDataSource

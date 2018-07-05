@@ -14,7 +14,6 @@
 
 @property(nonatomic, strong)UITableView *myevaluationTableV;
 @property(nonatomic, strong)NSMutableArray *evaluationMutableA;
-@property(nonatomic, strong)NSMutableArray *evalutionImgMutableA;
 
 @end
 
@@ -55,15 +54,6 @@
     return _evaluationMutableA;
 }
 
-- (NSMutableArray *)evalutionImgMutableA{
-    
-    if (_evalutionImgMutableA == nil) {
-        
-        _evalutionImgMutableA = [[NSMutableArray alloc] init];
-    }
-    return _evalutionImgMutableA;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"我的评价";
@@ -83,7 +73,7 @@
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
         if ([statusStr isEqualToString:@"1"]) {
             
-//            NSLog(@"%@", data);
+            NSLog(@"%@", data);
             [self analySize:[data objectForKey:@"rows"]];
         }else{
             
@@ -99,24 +89,10 @@
     
     for (int i = 0; i<dataArray.count; i++) {
         
-        NSMutableArray *everyImgArray = [[NSMutableArray alloc] init];
         NSDictionary *dic = [dataArray objectAtIndex:i];
-        for (int i = 1; i<6; i++) {
-            
-            NSString *imgStr = [NSString stringWithFormat:@"img%dUrl", i];
-            imgStr = [dic objectForKey:imgStr];
-            if (![imgStr isEqualToString:@""]) {
-                
-                [everyImgArray addObject:imgStr];
-            }
-        }
         MyEvaluationInfo *evaluation = [[MyEvaluationInfo alloc] init];
         [evaluation setValuesForKeysWithDictionary:dic];
         [self.evaluationMutableA addObject:evaluation];
-        if (![everyImgArray isEqual:@[]]) {
-            
-            [self.evalutionImgMutableA addObject:everyImgArray];
-        }
     }
     [self.myevaluationTableV reloadData];
 }
@@ -139,13 +115,7 @@
     MyEvaluationInfo *info = [self.evaluationMutableA objectAtIndex:indexPath.row];
     if (cell == nil) {
         
-        if (self.evalutionImgMutableA.count == 0) {
-    
-            cell = [[MyEvaluationTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIndentifier content:info.content imgUrl:[[NSMutableArray alloc] init]];
-        }else{
-            
-            cell = [[MyEvaluationTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIndentifier content:info.content imgUrl:[self.evalutionImgMutableA objectAtIndex:indexPath.row]];
-        }
+        cell = [[MyEvaluationTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIndentifier content:info.content imgUrl:@[info.img1Url, info.img2Url, info.img3Url, info.img4Url, info.img5Url]];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
@@ -155,8 +125,8 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    UITableViewCell *cell = [self tableView:self.myevaluationTableV cellForRowAtIndexPath:indexPath];
-    return cell.frame.size.height;
+    MyEvaluationTableViewCell *cell = (MyEvaluationTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+    return cell.cellHeight;
 }
 
 - (void)didReceiveMemoryWarning {

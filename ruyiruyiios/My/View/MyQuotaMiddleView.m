@@ -133,10 +133,10 @@
     
     float realRepayFoat = creditFloat - remainCreditFloat;
     self.repayLabel.text = @"还款";
-    self.realRepayTF.text = [NSString stringWithFormat:@"%.2f", realRepayFoat];
+    self.realRepayTF.text = [NSString stringWithFormat:@"%ld", (NSInteger)realRepayFoat];
     [self.removeTFBtn setImage:[UIImage imageNamed:@"删除照片"] forState:UIControlStateNormal];
     [self.updateMoneyNumberBtn setTitle:@"修改金额" forState:UIControlStateNormal];
-    self.mostRepayLabel.text = [NSString stringWithFormat:@"最多还款 %.2f 元", realRepayFoat];
+    self.mostRepayLabel.text = [NSString stringWithFormat:@"最多还款 %ld 元", (NSInteger)realRepayFoat];
     self.underLineView.backgroundColor = [PublicClass colorWithHexString:@"#eeeeee"];
 }
 

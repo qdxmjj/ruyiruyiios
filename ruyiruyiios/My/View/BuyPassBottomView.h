@@ -14,5 +14,8 @@
 @property(nonatomic, strong)UIButton *selectBtn;
 @property(nonatomic, strong)JJUILabel *agreementLabel;
 @property(nonatomic, strong)UIButton *sureBuyBtn;
+@property(nonatomic, strong)UILabel *passPriceLabel;
+
+- (void)setdatatoViews:(NSString *)priceStr;
 
 @end

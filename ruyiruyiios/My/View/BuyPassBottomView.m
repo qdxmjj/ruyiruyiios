@@ -46,13 +46,23 @@
     return _agreementLabel;
 }
 
+- (UILabel *)passPriceLabel{
+    
+    if (_passPriceLabel == nil) {
+        
+        _passPriceLabel = [[UILabel alloc] init];
+        _passPriceLabel.textAlignment = NSTextAlignmentRight;
+        _passPriceLabel.font = [UIFont fontWithName:TEXTFONT size:16.0];
+        _passPriceLabel.textColor = LOGINBACKCOLOR;
+    }
+    return _passPriceLabel;
+}
+
 - (UIButton *)sureBuyBtn{
     
     if (_sureBuyBtn == nil) {
         
         _sureBuyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _sureBuyBtn.layer.cornerRadius = 6.0;
-        _sureBuyBtn.layer.masksToBounds = YES;
         [_sureBuyBtn setTitle:@"确认购买" forState:UIControlStateNormal];
         [_sureBuyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }
@@ -66,6 +76,7 @@
         
         [self addSubview:self.selectBtn];
         [self addSubview:self.agreementLabel];
+        [self addSubview:self.passPriceLabel];
         [self addSubview:self.sureBuyBtn];
     }
     return self;
@@ -75,8 +86,14 @@
     
     [super layoutSubviews];
     self.selectBtn.frame = CGRectMake(15, 5, 25, 25);
-    self.agreementLabel.frame = CGRectMake(45, 7, MAINSCREEN.width - 45, 40);
-    self.sureBuyBtn.frame = CGRectMake(10, 50, MAINSCREEN.width - 20, 34);
+    self.agreementLabel.frame = CGRectMake(45, 10, MAINSCREEN.width - 45, 28);
+    self.passPriceLabel.frame = CGRectMake(0, 62, MAINSCREEN.width - 120, 20);
+    self.sureBuyBtn.frame = CGRectMake(MAINSCREEN.width - 100, 50, 100, 44);
+}
+
+- (void)setdatatoViews:(NSString *)priceStr{
+    
+    self.passPriceLabel.text = [NSString stringWithFormat:@"合计: %ld 元", [priceStr integerValue]];
 }
 
 /*

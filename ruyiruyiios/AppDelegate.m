@@ -20,7 +20,10 @@
 #import "MBProgressHUD+YYM_category.h"
 #import "MBProgressHUD+YYM_category.h"
 
-@interface AppDelegate ()
+@interface AppDelegate (){
+    
+    NSDictionary *_data;
+}
 
 @end
 
@@ -34,7 +37,11 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
+//    NSLog(@"%@", [DBRecorder getAllBrandData]);
     [WXApi registerApp:WEIXINID];
+    
+    //检测版本更新，新版本提醒
+//    [self checkVersion];
     
     if (@available(iOS 11.0,*)) {
         
@@ -61,6 +68,51 @@
     }
     NSLog(@"开始执行请求数据和插入数据库操作");
     return YES;
+}
+
+- (void)checkVersion{
+    
+    //app store生成的地址
+    NSString *URL = @"https://itunes.apple.com/lookup?id=1076141152";
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setURL:[NSURL URLWithString:URL]];
+    [request setHTTPMethod:@"POST"];
+    NSHTTPURLResponse *urlResponse = nil;
+    NSError *error = nil;
+    NSData *recervedData = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&error];
+    
+    NSString *results = [[NSString alloc] initWithBytes:[recervedData bytes] length:[recervedData length] encoding:NSUTF8StringEncoding];
+    //NSLog(@"%@",results);
+    NSData *data = [results dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+    //NSLog(@"%@",dic);
+    _data = dic;
+    NSArray *infoArray = [dic objectForKey:@"results"];
+    if ([infoArray count]) {
+        NSDictionary *releaseInfo = [infoArray objectAtIndex:0];
+        NSString *lastVersion = [releaseInfo objectForKey:@"version"];
+        
+        // 取当前版本的版号
+        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+        NSString *currentVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+        NSLog(@"appstorversion:%@  产品版本:%@",lastVersion,currentVersion);
+        if ([currentVersion compare:lastVersion]==NSOrderedAscending) {// 比对版本号
+            
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"新版本" message:@"是否前往更新" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+                UIApplication *application = [UIApplication sharedApplication];
+                NSString *url = _data[@"results"][0][@"trackViewUrl"];
+                [application openURL:[NSURL URLWithString:url]];
+            }];
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                
+                
+            }];
+            [alertController addAction:ok];
+            [alertController addAction:cancel];
+        }
+    }
 }
 
 - (BOOL)application:(UIApplication *)application

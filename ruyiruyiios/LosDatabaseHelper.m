@@ -18,7 +18,8 @@
     self = [super init];
     if(self){
         
-        NSString *dbFilePath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"db_CMBCC.sqlite"];
+        NSString *dbFilePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"db_CMBCC.sqlite"];
+        NSLog(@"%@", dbFilePath);
         queue = [FMDatabaseQueue databaseQueueWithPath:dbFilePath];
     }
     return self;

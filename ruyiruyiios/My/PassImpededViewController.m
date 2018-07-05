@@ -119,7 +119,7 @@
             NSString *messageStr = [NSString stringWithFormat:@"%@", message];
             if ([statusStr isEqualToString:@"1"]) {
                 
-                //            NSLog(@"%@", data);
+                NSLog(@"%@", data);
                 [self ananysize:data];
             }else if ([statusStr isEqualToString:@"-999"]){
                 

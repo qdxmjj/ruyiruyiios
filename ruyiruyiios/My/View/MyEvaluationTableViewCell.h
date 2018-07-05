@@ -22,8 +22,9 @@
 @property(nonatomic, strong)UIView *underLineView;
 @property(nonatomic, strong)NSString *contentStr;
 @property(nonatomic, strong)NSMutableArray *imgMutableA;
+@property(nonatomic, assign)CGFloat cellHeight;
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier content:(NSString *)contentStr imgUrl:(NSMutableArray *)imgUrlMutableA;
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier content:(NSString *)contentStr imgUrl:(NSArray *)imgUrlMutableA;
 - (void)setdatatoEvaluationCell:(MyEvaluationInfo *)myEvaluationInfo;
 
 @end

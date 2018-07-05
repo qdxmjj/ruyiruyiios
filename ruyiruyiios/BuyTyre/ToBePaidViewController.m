@@ -172,6 +172,8 @@
             
             if ([self.statusStr isEqualToString:@"1"]) {
                 
+                __strong typeof(self) strongSelf = self;
+                strongSelf.updateOrderVC(@"update");
                 [self.navigationController popViewControllerAnimated:YES];
             }else{
                 

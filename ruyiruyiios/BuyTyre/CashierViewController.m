@@ -52,7 +52,7 @@
         
         _moneyLabel = [[UILabel alloc] init];
         _moneyLabel.frame = CGRectMake(90, 19, MAINSCREEN.width - 90, 22);
-        _moneyLabel.text = [NSString stringWithFormat:@"%.2f元", [totalPriceStr floatValue]];
+        _moneyLabel.text = [NSString stringWithFormat:@"%ld元", [totalPriceStr integerValue]];
         _moneyLabel.textColor = [UIColor redColor];
         _moneyLabel.font = [UIFont fontWithName:TEXTFONT size:22.0];
     }

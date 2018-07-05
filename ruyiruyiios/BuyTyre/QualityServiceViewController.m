@@ -37,6 +37,7 @@
 @synthesize cxwyCount;
 @synthesize tireCount;
 @synthesize fontRearFlag;
+@synthesize cxwyAllpriceStr;
 
 - (void)viewWillAppear:(BOOL)animated{
     
@@ -271,6 +272,7 @@
     sureVC.cxwyCount = cxwyCount;
     sureVC.tireCount = tireCount;
     sureVC.fontRearFlag = fontRearFlag;
+    sureVC.cxwyAllpriceStr = cxwyAllpriceStr;
     [self.navigationController pushViewController:sureVC animated:YES];
 }
 

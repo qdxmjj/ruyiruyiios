@@ -14,5 +14,6 @@
 @property(nonatomic, strong)NSString *orderNoStr;
 @property(nonatomic, strong)NSString *totalPriceStr;
 @property(nonatomic, strong)NSString *orderTypeStr;
+@property(nonatomic, copy)void(^updateOrderVC)(NSString *update);
 
 @end

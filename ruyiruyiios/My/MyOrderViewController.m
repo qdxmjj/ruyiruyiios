@@ -60,7 +60,7 @@
     if (_myorderTableV == nil) {
         
         _myorderTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 45, MAINSCREEN.width, MAINSCREEN.height - 45 - SafeDistance) style:UITableViewStylePlain];
-        _myorderTableV.bounces = NO;
+        _myorderTableV.bounces = YES;
         _myorderTableV.delegate = self;
         _myorderTableV.dataSource = self;
         _myorderTableV.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -141,6 +141,7 @@
     NSString *reqJsonStr = [PublicClass convertToJsonData:orderPostDic];
     [JJRequest postRequest:@"getUserGeneralOrderByState" params:@{@"reqJson":reqJsonStr, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         
+        [self.myorderTableV.mj_header endRefreshing];
         NSString *codeStr = [NSString stringWithFormat:@"%@", code];
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
         if ([codeStr isEqualToString:@"1"]) {
@@ -156,12 +157,18 @@
         }
     } failure:^(NSError * _Nullable error) {
         
+        [self.myorderTableV.mj_header endRefreshing];
         NSLog(@"根据订单状态查询所有订单(轮胎订单)的错误:%@", error);
     }];
 }
 
 - (void)analysizeData:(NSArray *)dataArray{
     
+    [self.allMutableA removeAllObjects];
+    [self.topayMutableA removeAllObjects];
+    [self.todeliverMutableA removeAllObjects];
+    [self.toserviceMutableA removeAllObjects];
+    [self.completedMutableA removeAllObjects];
     for (int d = 0; d<dataArray.count; d++) {
         
         NSDictionary *dataDic = [dataArray objectAtIndex:d];
@@ -176,13 +183,13 @@
             }else if ([orderInfo.orderState isEqualToString:@"3"] || [orderInfo.orderState isEqualToString:@"6"] || [orderInfo.orderState isEqualToString:@"9"]){
                 
                 [self.completedMutableA addObject:orderInfo];
-            }else if ([orderInfo.orderStage isEqualToString:@"7"]){
+            }else if ([orderInfo.orderState isEqualToString:@"7"]){
                 
                 [self.todeliverMutableA addObject:orderInfo];
             }
         }else{
             
-            if ([orderInfo.orderState isEqualToString:@"5"] || [orderInfo.orderState isEqualToString:@"2"]) {
+            if ([orderInfo.orderState isEqualToString:@"5"] || [orderInfo.orderState isEqualToString:@"2"] || [orderInfo.orderState isEqualToString:@"9"]) {
                 
                 [self.todeliverMutableA addObject:orderInfo];
             }else if ([orderInfo.orderState isEqualToString:@"4"] || [orderInfo.orderState isEqualToString:@"1"] || [orderInfo.orderState isEqualToString:@"7"]){
@@ -250,6 +257,11 @@
     
     [self.view addSubview:self.underBtnView];
     [self.view addSubview:self.myorderTableV];
+    self.myorderTableV.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        
+        [self getUserGeneralOrderByStateFromInternet:@"0"];
+    }];
+//    [self.myorderTableV.mj_header endRefreshing];
 }
 
 //UITableViewDelegate and UITableViewDataSource
@@ -310,23 +322,90 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-//    DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
-//    [delegateConfiguration unregisterLoginStatusChangedListener:self];
+    DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+    [delegateConfiguration unregisterLoginStatusChangedListener:self];
     OrderInfo *orderInfo = [[OrderInfo alloc] init];
     if ([statusStr intValue] == 0) {
         
         orderInfo = [self.allMutableA objectAtIndex:indexPath.row];
         if ([orderInfo.orderType isEqualToString:@"0"]) {
             
+            if ([orderInfo.orderState isEqualToString:@"5"]) {
+                
+                ToBePaidViewController *tobePayVC = [[ToBePaidViewController alloc] init];
+                tobePayVC.statusStr = @"1";
+                tobePayVC.orderNoStr = orderInfo.orderNo;
+                tobePayVC.totalPriceStr = orderInfo.orderPrice;
+                tobePayVC.orderTypeStr = orderInfo.orderType;
+                tobePayVC.updateOrderVC = ^(NSString *update) {
+                    
+                    [self.myorderTableV.mj_header beginRefreshing];
+                };
+                [self.navigationController pushViewController:tobePayVC animated:YES];
+            }else if ([orderInfo.orderState isEqualToString:@"7"]){
+                
+                [self jumpToAllorderDetailVC:@"退款中" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+            }else if ([orderInfo.orderState isEqualToString:@"3"] || [orderInfo.orderState isEqualToString:@"6"] || [orderInfo.orderState isEqualToString:@"9"]){
+                
+                NSString *completeStr = @"";
+                if ([orderInfo.orderState isEqualToString:@"3"]) {
+                    
+                    completeStr = @"交易完成";
+                }else if ([orderInfo.orderState isEqualToString:@"6"]){
+                    
+                    completeStr = @"已退货";
+                }else{
+                    
+                    completeStr = @"订单已取消";
+                }
+                [self jumpcompleteVC:completeStr orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+            }
         }else{
             
-            //待评价
-            if ([orderInfo.orderState isEqualToString:@"7"]) {
+            if ([orderInfo.orderState isEqualToString:@"8"]) {
                 
+                WaitPaymentViewController *waitpayVC = [[WaitPaymentViewController alloc] init];
+                waitpayVC.backStatus = @"1";
+                waitpayVC.orderNo = orderInfo.orderNo;
+                waitpayVC.orderType = orderInfo.orderType;
+                [self.navigationController pushViewController:waitpayVC animated:YES];
                 
-            }else{
+            }else if ([orderInfo.orderState isEqualToString:@"2"] || [orderInfo.orderState isEqualToString:@"5"] || [orderInfo.orderState isEqualToString:@"9"]){
                 
+                if ([orderInfo.orderState isEqualToString:@"2"]) {
+                    
+                    [self jumpToAllorderDetailVC:@"待收货" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                }else if ([orderInfo.orderState isEqualToString:@"9"]){
+                    
+                    [self jumpToAllorderDetailVC:@"退款中" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                }else{
+                    
+                    [self jumpToAllorderDetailVC:@"待发货" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                }
+            }else if ([orderInfo.orderState isEqualToString:@"3"] || [orderInfo.orderState isEqualToString:@"6"]){
                 
+                if ([orderInfo.orderState isEqualToString:@"3"]) {
+                    
+                    [self jumpToServiceVC:@"待商家确认服务" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                }else{
+                    
+                    [self jumpToServiceVC:@"确认服务" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                }
+            }else if ([orderInfo.orderState isEqualToString:@"1"] || [orderInfo.orderState isEqualToString:@"4"] || [orderInfo.orderState isEqualToString:@"7"]){
+                
+                if ([orderInfo.orderState isEqualToString:@"7"]) {
+                    
+                    [self jumpTobeEvaluatedVCorderNo:orderInfo.orderNo storeId:[NSString stringWithFormat:@"%@", orderInfo.storeId]];
+                }else{
+                    
+                    if ([orderInfo.orderState isEqualToString:@"1"]) {
+                        
+                        [self jumpcompleteVC:@"交易完成" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                    }else{
+                        
+                        [self jumpcompleteVC:@"订单已取消" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                    }
+                }
             }
         }
     }else if ([statusStr intValue] == 1){
@@ -339,6 +418,10 @@
             tobePayVC.orderNoStr = orderInfo.orderNo;
             tobePayVC.totalPriceStr = orderInfo.orderPrice;
             tobePayVC.orderTypeStr = orderInfo.orderType;
+            tobePayVC.updateOrderVC = ^(NSString *update) {
+                
+                [self.myorderTableV.mj_header beginRefreshing];
+            };
             [self.navigationController pushViewController:tobePayVC animated:YES];
         }else if ([orderInfo.orderType isEqualToString:@"1"]){
             
@@ -349,7 +432,7 @@
             [self.navigationController pushViewController:waitpayVC animated:YES];
         }else if ([orderInfo.orderType isEqualToString:@"5"]){
             
-            
+            //充值信用订单
         }
     }else if ([statusStr intValue] == 2){
         
@@ -357,6 +440,12 @@
         if ([orderInfo.orderState isEqualToString:@"2"]) {
             
             [self jumpToAllorderDetailVC:@"待收货" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+        }else if ([orderInfo.orderState isEqualToString:@"9"] && ![orderInfo.orderType isEqualToString:@"0"]){
+            
+            [self jumpToAllorderDetailVC:@"退款中" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+        }else if ([orderInfo.orderState isEqualToString:@"7"] && [orderInfo.orderType isEqualToString:@"0"]){
+            
+            [self jumpToAllorderDetailVC:@"退款中" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
         }else{
             
             [self jumpToAllorderDetailVC:@"待发货" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
@@ -407,7 +496,7 @@
     toServiceVC.orderTypeStr = orderTypeStr;
     toServiceVC.callBackBlock = ^(NSString *updateStr) {
         
-        [self getUserGeneralOrderByStateFromInternet:updateStr];
+        [self.myorderTableV.mj_header beginRefreshing];
     };
     [self.navigationController pushViewController:toServiceVC animated:YES];
 }
@@ -426,6 +515,10 @@
     TobeEvaluatedViewController *tobeEvaluatedVC = [[TobeEvaluatedViewController alloc] init];
     tobeEvaluatedVC.orderNo = orderNoStr;
     tobeEvaluatedVC.storeIdStr = storeIdStr;
+    tobeEvaluatedVC.submitEvaluateBlock = ^(NSString *update) {
+        
+        [self.myorderTableV.mj_header beginRefreshing];
+    };
     [self.navigationController pushViewController:tobeEvaluatedVC animated:YES];
 }
 
@@ -441,7 +534,7 @@
 //LoginStatusDelegate
 - (void)updateLoginStatus{
     
-    [self getUserGeneralOrderByStateFromInternet:_upStr];
+    [self getUserGeneralOrderByStateFromInternet:@"0"];
 }
 
 - (void)didReceiveMemoryWarning {

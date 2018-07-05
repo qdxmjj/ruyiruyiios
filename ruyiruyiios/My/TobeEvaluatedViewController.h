@@ -12,5 +12,6 @@
 
 @property(nonatomic, strong)NSString *orderNo;
 @property(nonatomic, strong)NSString *storeIdStr;
+@property(nonatomic, copy)void(^submitEvaluateBlock)(NSString *update);
 
 @end

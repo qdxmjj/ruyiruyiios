@@ -142,11 +142,11 @@
     
     float shouldFloat = creditFloat - remainCreditFloat;
     self.creditLabel.text = @"信用额度";
-    self.realCreditLabel.text = [NSString stringWithFormat:@"%.2f", creditFloat];
+    self.realCreditLabel.text = [NSString stringWithFormat:@"%ld", (NSInteger)creditFloat];
     self.shouldRepayLabel.text = @"应还金额";
     self.remainPayLabel.text = @"剩余信用额度";
-    self.realRemainLabel.text = [NSString stringWithFormat:@"%.2f", remainCreditFloat];
-    self.realShouldLabel.text = [NSString stringWithFormat:@"%.2f", shouldFloat];
+    self.realRemainLabel.text = [NSString stringWithFormat:@"%ld", (NSInteger)remainCreditFloat];
+    self.realShouldLabel.text = [NSString stringWithFormat:@"%ld", (NSInteger)shouldFloat];
 }
 
 /*

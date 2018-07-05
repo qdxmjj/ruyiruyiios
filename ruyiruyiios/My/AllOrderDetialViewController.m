@@ -12,6 +12,11 @@
 #import "FirstUpdateOrFreeChangeInfo.h"
 #import "StoreDetailsViewController.h"
 #import "TireChaneOrderInfo.h"
+#import "StockOrderVoInfo.h"
+#import "ToserviceStoreTableViewCell.h"
+#import "TopayBottomView.h"
+#import "ShoeOrderVo.h"
+#import "TobepayInfo.h"
 
 @interface AllOrderDetialViewController ()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
@@ -19,6 +24,9 @@
 @property(nonatomic, strong)ToDeliveryView *todeliveryView;
 @property(nonatomic, strong)UITableView *tireChangeTableview;
 @property(nonatomic, strong)NSMutableArray *changeTireNumberMutableA;
+@property(nonatomic, strong)TopayBottomView *topayBottomView;
+@property(nonatomic, strong)ShoeOrderVo *shoeOrdervo;
+@property(nonatomic, strong)TobepayInfo *tobepayInfo;
 @property(nonatomic, strong)UIButton *submitBtn;
 @property(nonatomic, strong)FirstUpdateOrFreeChangeInfo *firstUpdateInfo;
 
@@ -113,6 +121,33 @@
     return _changeTireNumberMutableA;
 }
 
+- (TopayBottomView *)topayBottomView{
+    
+    if (_topayBottomView == nil) {
+        
+        _topayBottomView = [[TopayBottomView alloc] initWithFrame:CGRectMake(0, 190, MAINSCREEN.width, 200)];
+    }
+    return _topayBottomView;
+}
+
+- (ShoeOrderVo *)shoeOrdervo{
+    
+    if (_shoeOrdervo == nil) {
+        
+        _shoeOrdervo = [[ShoeOrderVo alloc] init];
+    }
+    return _shoeOrdervo;
+}
+
+- (TobepayInfo *)tobepayInfo{
+    
+    if (_tobepayInfo == nil) {
+        
+        _tobepayInfo = [[TobepayInfo alloc] init];
+    }
+    return _tobepayInfo;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -178,6 +213,10 @@
     
     [self.view addSubview:self.mainScrollV];
     [_mainScrollV addSubview:self.todeliveryView];
+    if ([orderTypeStr isEqualToString:@"0"]) {
+        
+        [_mainScrollV addSubview:self.topayBottomView];
+    }
     [self.view addSubview:self.submitBtn];
 }
 
@@ -206,6 +245,12 @@
 - (void)analySizeData:(NSDictionary *)dataDic{
     
     [self.firstUpdateInfo setValuesForKeysWithDictionary:dataDic];
+    [self.tobepayInfo setValuesForKeysWithDictionary:dataDic];
+    if (![self.firstUpdateInfo.shoeOrderVoList isEqual:@[]]) {
+        
+        [self.shoeOrdervo setValuesForKeysWithDictionary:[[dataDic objectForKey:@"shoeOrderVoList"] objectAtIndex:0]];
+    }
+    
     if (self.firstUpdateInfo.firstChangeOrderVoList != NULL) {
     
         NSArray *dataArray = [dataDic objectForKey:@"firstChangeOrderVoList"];
@@ -228,13 +273,34 @@
             [self.changeTireNumberMutableA addObject:tireInfo];
         }
     }
-    [_mainScrollV addSubview:self.tireChangeTableview];
+    
+    if (![self.firstUpdateInfo.stockOrderVoList isEqual:@[]]) {
+        
+        NSArray *stockArray = [dataDic objectForKey:@"stockOrderVoList"];
+        for (int p = 0; p<stockArray.count; p++) {
+            
+            NSDictionary *dic = [stockArray objectAtIndex:p];
+            StockOrderVoInfo *stockVoInfo = [[StockOrderVoInfo alloc] init];
+            [stockVoInfo setValuesForKeysWithDictionary:dic];
+            [self.changeTireNumberMutableA addObject:stockVoInfo];
+        }
+    }
+    
+    if (![orderTypeStr isEqualToString:@"0"]) {
+        
+        [_mainScrollV addSubview:self.tireChangeTableview];
+        [_mainScrollV setContentSize:CGSizeMake(MAINSCREEN.width, self.tireChangeTableview.frame.size.height + self.tireChangeTableview.frame.origin.y)];
+    }else{
+        
+        [_mainScrollV setContentSize:CGSizeMake(MAINSCREEN.width, self.topayBottomView.frame.size.height + self.topayBottomView.frame.origin.y)];
+    }
     [self setdatatoViews];
 }
 
 - (void)setdatatoViews{
     
     [_todeliveryView setDatatoDeliveryViews:self.firstUpdateInfo];
+    [_topayBottomView setTopayBottomViewData:self.shoeOrdervo tobePayinfo:self.tobepayInfo];
 }
 
 //UITableViewDelegate and UITableViewDataSource
@@ -255,16 +321,31 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    static NSString *reuseIndentifier = @"cell";
-    ToDeliveryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIndentifier];
-    if (cell == nil) {
+    if (self.firstUpdateInfo.firstChangeOrderVoList == NULL) {
         
-        cell = [[ToDeliveryTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIndentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        static NSString *reuseIndentifier = @"storeCell";
+        ToserviceStoreTableViewCell *storeCell = [tableView dequeueReusableCellWithIdentifier:reuseIndentifier];
+        if (storeCell == nil) {
+            
+            storeCell = [[ToserviceStoreTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIndentifier];
+            storeCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        StockOrderVoInfo *stockOrderInfo = [self.changeTireNumberMutableA objectAtIndex:indexPath.row];
+        [storeCell setdatatoCellViews:stockOrderInfo];
+        return storeCell;
+    }else{
+        
+        static NSString *reuseIndentifier = @"cell";
+        ToDeliveryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIndentifier];
+        if (cell == nil) {
+            
+            cell = [[ToDeliveryTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIndentifier];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        TireChaneOrderInfo *tireInfo = [self.changeTireNumberMutableA objectAtIndex:indexPath.row];
+        [cell setdatatoCellViews:tireInfo img:self.firstUpdateInfo.orderImg];
+        return cell;
     }
-    TireChaneOrderInfo *tireInfo = [self.changeTireNumberMutableA objectAtIndex:indexPath.row];
-    [cell setdatatoCellViews:tireInfo img:self.firstUpdateInfo.orderImg];
-    return cell;
 }
 
 - (void)didReceiveMemoryWarning {

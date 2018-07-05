@@ -33,6 +33,7 @@
 @synthesize buyTireData;
 @synthesize cxwyCount;
 @synthesize fontRearFlag;
+@synthesize cxwyAllpriceStr;
 
 - (void)viewWillAppear:(BOOL)animated{
     
@@ -103,7 +104,7 @@
     self.oderBottomView.sureBtn.enabled = NO;
     NSString *shoeIdStr = [NSString stringWithFormat:@"%@", shoeSpeedLoadResult.shoeId];
 //    NSLog(@"%@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@", buyTireData.shoeDownImg, [NSString stringWithFormat:@"%@", [UserConfig user_id]], fontRearFlag, tireCount, buyTireData.detailStr, self.oderBottomView.tireTotalPriceLabel.text, shoeSpeedLoadResult.price, cxwyCount, buyTireData.cxwyMaxPrice, self.oderBottomView.cxwyTotalPriceLabel.text, self.allTotalPriceStr);
-    NSDictionary *surePostDic = @{@"shoeId":shoeIdStr, @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]], @"fontRearFlag":fontRearFlag, @"amount":tireCount, @"shoeName":buyTireData.detailStr, @"shoeTotalPrice":self.tireTotalPriceStr, @"shoePrice":shoeSpeedLoadResult.price, @"cxwyAmount":cxwyCount, @"cxwyPrice":buyTireData.cxwyMaxPrice, @"cxwyTotalPrice":self.cxwyTotalPriceStr, @"totalPrice":self.allTotalPriceStr, @"orderImg":buyTireData.shoeDownImg};
+    NSDictionary *surePostDic = @{@"shoeId":shoeIdStr, @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]], @"fontRearFlag":fontRearFlag, @"amount":tireCount, @"shoeName":buyTireData.detailStr, @"shoeTotalPrice":self.tireTotalPriceStr, @"shoePrice":shoeSpeedLoadResult.price, @"cxwyAmount":cxwyCount, @"cxwyPrice":cxwyAllpriceStr, @"cxwyTotalPrice":self.cxwyTotalPriceStr, @"totalPrice":self.allTotalPriceStr, @"orderImg":buyTireData.shoeDownImg};
     NSString *reqJsonStr = [PublicClass convertToJsonData:surePostDic];
     [JJRequest postRequest:@"addUserShoeOrder" params:@{@"reqJson":reqJsonStr, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         
@@ -149,15 +150,14 @@
 
 - (void)setDataToView{
     
-    NSString *tiretotalPrice = [NSString stringWithFormat:@"%.2f", ([tireCount integerValue]*[shoeSpeedLoadResult.price floatValue])];
-    NSString *cxwyTotalPrice = [NSString stringWithFormat:@"%.2f", ([cxwyCount integerValue]*[buyTireData.cxwyMaxPrice floatValue])];
-    NSString *allTotalPrice = [NSString stringWithFormat:@"%.2f", ([tiretotalPrice floatValue] + [cxwyTotalPrice floatValue])];
+    NSString *tiretotalPrice = [NSString stringWithFormat:@"%ld", ([tireCount integerValue]*[shoeSpeedLoadResult.price integerValue])];
+    NSString *allTotalPrice = [NSString stringWithFormat:@"%ld", ([tiretotalPrice integerValue] + [cxwyAllpriceStr integerValue])];
     [_orderheadView setHeadViewData:buyTireData];
     [_oderMiddleView setMiddleViewData:buyTireData cxwyCount:cxwyCount priceCount:tireCount price:shoeSpeedLoadResult.price];
-    [_oderBottomView setBottomViewData:tiretotalPrice cxwyTotalPrice:cxwyTotalPrice];
+    [_oderBottomView setBottomViewData:tiretotalPrice cxwyTotalPrice:cxwyAllpriceStr];
     self.allTotalPriceStr = allTotalPrice;
     self.tireTotalPriceStr = tiretotalPrice;
-    self.cxwyTotalPriceStr = cxwyTotalPrice;
+    self.cxwyTotalPriceStr = cxwyAllpriceStr;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -15,7 +15,6 @@
 @property(nonatomic, strong)UILabel *nameLabel;
 @property(nonatomic, strong)UILabel *phoneLabel;
 @property(nonatomic, strong)UILabel *platNumberLabel;
-@property(nonatomic, strong)UILabel *passPriceLabel;
 @property(nonatomic, strong)NumberSelectView *buyNumberSelectV;
 
 - (void)setdatatoViews:(BuyCXWYUserInfo *)buyCXWYUserInfo;

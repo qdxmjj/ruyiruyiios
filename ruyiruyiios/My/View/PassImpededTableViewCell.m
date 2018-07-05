@@ -58,16 +58,16 @@
         
         self.backGroundImageV.image = [UIImage imageNamed:@"正常购买"];
     }
-    if ([carCXWYInfo.cxwyTypeId isEqualToNumber:[NSNumber numberWithInt:1]]) {
+    
+    if (carCXWYInfo.cxwyEndtime == NULL) {
+        
+        self.controlTimeLabel.text = @"以前的数据";
+    }else{
         
         NSString *startTimeStr = [PublicClass timestampSwitchTime:[carCXWYInfo.cxwyStarttime integerValue] andFormatter:@"YYYY-MM-dd"];
         NSString *endTimeStr = [PublicClass timestampSwitchTime:[carCXWYInfo.cxwyEndtime integerValue] andFormatter:@"YYYY-MM-dd"];
         self.controlTimeLabel.text = [NSString stringWithFormat:@"限制使用时间:%@-%@", startTimeStr, endTimeStr];
-    }else{
-        
-        self.controlTimeLabel.text = @"限制使用时间：无限制";
     }
-    
 }
 
 - (void)awakeFromNib {

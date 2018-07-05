@@ -27,13 +27,15 @@
 @property (nonatomic, assign)NSInteger yearSum;
 @end
 @implementation WXZPickDateView
+@synthesize firstFlagStr;
 
 - (void)initPickView
 {
     [super initPickView];
     
-    
-    _minShowYear = 1940;//最小年份
+    firstFlagStr = @"0";
+    NSString *yearStr = [[PublicClass gettodayDate] substringWithRange:NSMakeRange(0, 4)];
+    _minShowYear = [yearStr integerValue] - 14;//最小年份
     NSCalendar *gregorian = [[NSCalendar alloc]
                              initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     // 获取当前日期
@@ -81,17 +83,14 @@
         _defaultDay=1;
     }
    
-   
     [self.pickerView selectRow:(_defaultYear - _minShowYear) inComponent:0 animated:NO];
 
     [self.pickerView selectRow:(_defaultMonth - 1) inComponent:1 animated:NO];
         [self.pickerView reloadComponent:1];
     if (_isShowDay==YES) {
 
-        
         [self.pickerView selectRow:(_defaultDay-1) inComponent:2 animated:NO];
           [self.pickerView reloadComponent:2];
-           
     }
     [self refreshPickViewData];
     
@@ -126,8 +125,15 @@
         if (yearSelected==_currentYear+1) {
             //至今选项的时候月份信息不返回
             return 0;
+        }else if (yearSelected == _currentYear && _defaultMonth<12){
+            
+            return _defaultMonth;
         }else{
             
+            if ([firstFlagStr isEqualToString:@"0"] && _defaultMonth<12) {
+                
+                return _defaultMonth;
+            }
             return 12;
         }
     }else {
@@ -138,6 +144,13 @@
         }else{
         NSInteger yearSelected = [pickerView selectedRowInComponent:0] + self.minShowYear;
         NSInteger monthSelected = [pickerView selectedRowInComponent:1] + 1;
+            if ([firstFlagStr isEqualToString:@"0"]) {
+                
+                return _defaultDay;
+            }else if (monthSelected == _defaultMonth && yearSelected == _defaultYear){
+                
+                return _defaultDay;
+            }
         return  [self getDaysWithYear:yearSelected month:monthSelected];
         }
     }
@@ -205,6 +218,7 @@
     NSInteger selectYear;
     NSInteger selectMonth;
     
+    firstFlagStr = @"1";
     switch (component) {
         case 0:
     

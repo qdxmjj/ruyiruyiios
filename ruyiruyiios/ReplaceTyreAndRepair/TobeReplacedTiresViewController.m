@@ -11,6 +11,8 @@
 #import "TobeReplaceTireInfo.h"
 #import "FirstUpdateViewController.h"
 #import "DelegateConfiguration.h"
+#import "CompleteViewController.h"
+#import <MJRefresh.h>
 
 @interface TobeReplacedTiresViewController ()<UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate>
 
@@ -38,7 +40,7 @@
     if (_replacedTableV == nil) {
         
         _replacedTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - SafeDistance - 40) style:UITableViewStylePlain];
-        _replacedTableV.bounces = NO;
+        _replacedTableV.bounces = YES;
         _replacedTableV.backgroundColor = [UIColor clearColor];
         _replacedTableV.separatorStyle = UITableViewCellSeparatorStyleNone;
         _replacedTableV.delegate = self;
@@ -101,6 +103,10 @@
 - (void)addViews{
     
     [self.view addSubview:self.replacedTableV];
+    self.replacedTableV.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        
+        [self getUnusedShoeOrder];
+    }];
     [self.view addSubview:self.replaceBtn];
 }
 
@@ -110,6 +116,7 @@
     NSString *reqJson = [PublicClass convertToJsonData:unUseedPostDic];
     [JJRequest postRequest:@"getUnusedShoeOrder" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         
+        [self.replacedTableV.mj_header endRefreshing];
         NSString *statusStr = [NSString stringWithFormat:@"%@", code];
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
         if ([statusStr isEqualToString:@"1"]) {
@@ -125,12 +132,14 @@
         }
     } failure:^(NSError * _Nullable error) {
         
+        [self.replacedTableV.mj_header endRefreshing];
         NSLog(@"获取该用户未更换的轮胎的错误:%@", error);
     }];
 }
 
 - (void)analysizeArray:(NSArray *)dataArray{
     
+    [self.replaceTireNumberMutableA removeAllObjects];
     for (int i = 0; i<dataArray.count; i++) {
         
         NSDictionary *dataDic = [dataArray objectAtIndex:i];
@@ -169,6 +178,21 @@
     TobeReplaceTireInfo *tireInfo = [self.replaceTireNumberMutableA objectAtIndex:indexPath.row];
     [cell setDatatoSubviews:tireInfo];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    TobeReplaceTireInfo *tireInfo = [self.replaceTireNumberMutableA objectAtIndex:indexPath.row];
+    CompleteViewController *completeVC = [[CompleteViewController alloc] init];
+    completeVC.titleStr =@"交易完成";
+    completeVC.orderTypeStr = @"0";
+    completeVC.orderNoStr = tireInfo.orderNo;
+    completeVC.addRightFlageStr = @"1";
+    completeVC.backTobeReplaceBlock = ^(NSString *updateStr) {
+      
+        [self.replacedTableV.mj_header beginRefreshing];
+    };
+    [self.navigationController pushViewController:completeVC animated:YES];
 }
 
 //LoginStatusDelegate

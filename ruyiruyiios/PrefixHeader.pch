@@ -21,6 +21,7 @@
 //#define SERVERPREFIX @"http://192.168.0.190:8060"
 
 #define TEXTSERVERPREFIX @"http://192.168.0.105:8060"
+#define LINSERVERPREFIX @"http://192.168.0.190:8060"
 #define WEIXINID @"wx407c59de8b10c601"
 #define kWJScreenHeight [UIScreen mainScreen].bounds.size.height
 #define SafeAreaTopHeight (kWJScreenHeight == 812.0 ? 88 : 64)

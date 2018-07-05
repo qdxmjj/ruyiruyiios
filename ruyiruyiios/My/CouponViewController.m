@@ -160,7 +160,7 @@
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
         if ([statusStr isEqualToString:@"1"]) {
 
-//            NSLog(@"%@", data);
+            YLog(@"获取优惠券数据：%@", data);
             [self analySizeData:data];
         }else if ([statusStr isEqualToString:@"-999"]){
             
@@ -272,6 +272,17 @@
             }else if ([couponTypeStr isEqualToString:@"3"]){
                 
                 if ([couponInfo.couponName isEqualToString:@"精致洗车券"] || [couponInfo.couponName isEqualToString:@"四轮定位券"] || [couponInfo.type intValue] == 2) {
+                    
+                    self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.salesId], [NSString stringWithFormat:@"%@", couponInfo.type], couponInfo.couponName);
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+            }
+        }else{
+            
+//            NSLog(@"%@", couponTypeStr);
+            if (couponTypeStr != NULL) {
+                
+                if ([couponInfo.type intValue] == 2) {
                     
                     self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.salesId], [NSString stringWithFormat:@"%@", couponInfo.type], couponInfo.couponName);
                     [self.navigationController popViewControllerAnimated:YES];

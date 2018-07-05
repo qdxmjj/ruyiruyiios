@@ -17,5 +17,6 @@
 @property(nonatomic, strong)NSString *tireCount;
 @property(nonatomic, strong)NSString *cxwyCount;
 @property(nonatomic, strong)NSString *fontRearFlag;
+@property(nonatomic, strong)NSString *cxwyAllpriceStr;
 
 @end

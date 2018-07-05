@@ -13,5 +13,7 @@
 @property(nonatomic, strong)NSString *titleStr;
 @property(nonatomic, strong)NSString *orderNoStr;
 @property(nonatomic, strong)NSString *orderTypeStr;
+@property(nonatomic, strong)NSString *addRightFlageStr;
+@property(nonatomic, copy)void(^backTobeReplaceBlock)(NSString *updateStr);
 
 @end

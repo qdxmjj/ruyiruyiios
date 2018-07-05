@@ -127,25 +127,26 @@
         
         UIImage *image = self.imageMutableA[i];
         NSData *mainData=UIImageJPEGRepresentation(image, imgCompressionQuality);
-        JJFileParam *jjfileParam = [JJFileParam fileConfigWithfileData:mainData name:[NSString stringWithFormat:@"img%d", i] fileName:[NSString stringWithFormat:@"img%d.png", i] mimeType:@"image/jpg/png/jpeg"];
+        JJFileParam *jjfileParam = [JJFileParam fileConfigWithfileData:mainData name:[NSString stringWithFormat:@"img%d", (i+1)] fileName:[NSString stringWithFormat:@"img%d.png", (i+1)] mimeType:@"image/jpg/png/jpeg"];
         [fileArray addObject:jjfileParam];
     }
-//    fileArray = @[[JJFileParam fileConfigWithfileData:mainData name:@"jiashizhengzhuye" fileName:@"jiashizhengzhuye.png" mimeType:@"image/jpg/png/jpeg"]];
+    NSLog(@"%@", fileArray);
     [JJRequest updateRequest:@"userCommitComment" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} fileConfig:(NSArray *)fileArray progress:^(int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
-        
+
     } success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
-        
+
         NSString *statusStr = [NSString stringWithFormat:@"%@", code];
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
         if ([statusStr isEqualToString:@"1"]) {
-            
+
+            self.submitEvaluateBlock(@"update");
             [self.navigationController popViewControllerAnimated:YES];
         }else{
-            
+
             [PublicClass showHUD:messageStr view:self.view];
         }
     } complete:^(id  _Nullable dataObj, NSError * _Nullable error) {
-        
+
     }];
 }
 
@@ -183,7 +184,7 @@
         HXPhotoModel *hxPhotoModel = [photos objectAtIndex:i];
         [self.imageMutableA addObject:hxPhotoModel.thumbPhoto];
     }
-    NSLog(@"%@", self.imageMutableA);
+    NSLog(@"选择之后图片的数组：%@", self.imageMutableA);
 }
 
 - (void)photoView:(HXPhotoView *)photoView updateFrame:(CGRect)frame {

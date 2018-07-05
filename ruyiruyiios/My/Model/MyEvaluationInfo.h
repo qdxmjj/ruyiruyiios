@@ -18,5 +18,10 @@
 @property(nonatomic, strong)NSString *storeImg;
 @property(nonatomic, strong)NSString *storeName;
 @property(nonatomic, strong)NSString *storeLocation;
+@property(nonatomic, strong)NSString *img1Url;
+@property(nonatomic, strong)NSString *img2Url;
+@property(nonatomic, strong)NSString *img3Url;
+@property(nonatomic, strong)NSString *img4Url;
+@property(nonatomic, strong)NSString *img5Url;
 
 @end
