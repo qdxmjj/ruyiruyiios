@@ -449,7 +449,6 @@
     }];
 }
 
-
 - (void)getProcityIdBypStr:(NSString *)pStr cStr:(NSString *)cStr aStr:(NSString *)aStr{
     
     NSLog(@"省%@,市%@,区%@", pStr, cStr, aStr);
@@ -631,7 +630,14 @@
         [topCell.ison addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventTouchUpInside];
         topCell.ison.userInteractionEnabled = is_alter;
         topCell.platenumBtn.tag = 10001;
-        [topCell.platenumBtn setTitle:resultPlateStr forState:UIControlStateNormal];
+        if (resultPlateStr.length == 8) {
+            
+            [topCell.platenumBtn setTitle:resultPlateStr forState:UIControlStateNormal];
+        }else{
+            
+            resultPlateStr = self.carInfo.platNumber;
+            [topCell.platenumBtn setTitle:self.carInfo.platNumber forState:UIControlStateNormal];
+        }
         [topCell.platenumBtn addTarget:self action:@selector(chickTopBtn:) forControlEvents:UIControlEventTouchUpInside];
         topCell.platenumBtn.userInteractionEnabled = is_alter;
         topCell.frontBtn.tag = 10002;
@@ -718,6 +724,16 @@
                 topCell.drivingBtn.userInteractionEnabled = YES;
                 topCell.serviceBtn.userInteractionEnabled = YES;
             }
+        }else if (is_alter == NO && [self.updateFlagStr isEqualToString:@"1"]){
+            
+            topCell.typeBtn.userInteractionEnabled = YES;
+            topCell.ison.userInteractionEnabled = YES;
+            topCell.platenumBtn.userInteractionEnabled = YES;
+            topCell.residentAreaBtn.userInteractionEnabled = YES;
+            topCell.frontBtn.userInteractionEnabled = YES;
+            topCell.rearBtn.userInteractionEnabled = YES;
+            topCell.drivingBtn.userInteractionEnabled = YES;
+            topCell.serviceBtn.userInteractionEnabled = YES;
         }
         return topCell;
     }else{
@@ -745,6 +761,10 @@
                 bottomCell.kilometerTF.userInteractionEnabled = YES;
                 bottomCell.roadConditionBtn.userInteractionEnabled = YES;
             }
+        }else if (is_alter == NO && [self.updateFlagStr isEqualToString:@"1"]){
+            
+            bottomCell.kilometerTF.userInteractionEnabled = YES;
+            bottomCell.roadConditionBtn.userInteractionEnabled = YES;
         }
         return bottomCell;
     }
@@ -900,7 +920,6 @@
 
 - (void)chickRoadConditionBtn:(UIButton *)button{
     
-    self.updateFlagStr = @"0";
     RoadConditionViewController *roadCVC = [[RoadConditionViewController alloc] init];
     [self.navigationController pushViewController:roadCVC animated:YES];
 }
@@ -948,7 +967,6 @@
     self.car_carTireInfo = carTireInfo;
     fontStr = @"";
     rearStr = @"";
-//    self.updateFlagStr = @"0";
     [_carInfoTV reloadData];
 }
 

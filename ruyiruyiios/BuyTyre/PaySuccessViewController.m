@@ -9,6 +9,7 @@
 #import "PaySuccessViewController.h"
 #import "PaySuccessBackView.h"
 #import "FirstUpdateViewController.h"
+#import "MyOrderViewController.h"
 
 @interface PaySuccessViewController ()
 
@@ -41,27 +42,13 @@
     
     if (_toOrderTypeControlBtn == nil) {
         
-        NSString *buttonName = @"";
-        if ([orderTypeStr isEqualToString:@"0"]) {
-            
-            buttonName = @"去换胎";
-        }else if ([orderTypeStr isEqualToString:@"1"]){
-            
-            buttonName = @"去服务";
-        }else if ([orderTypeStr isEqualToString:@"99"]){
-            
-            buttonName = @"查看畅行无忧";
-        }else if ([orderTypeStr isEqualToString:@"3"]){
-            
-            buttonName = @"去服务";
-        }
         _toOrderTypeControlBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _toOrderTypeControlBtn.frame = CGRectMake(10, MAINSCREEN.height - 80 - 64, MAINSCREEN.width - 20, 34);
         _toOrderTypeControlBtn.layer.cornerRadius = 6.0;
         _toOrderTypeControlBtn.layer.masksToBounds = YES;
         _toOrderTypeControlBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
         [_toOrderTypeControlBtn setBackgroundColor:LOGINBACKCOLOR forState:UIControlStateNormal];
-        [_toOrderTypeControlBtn setTitle:buttonName forState:UIControlStateNormal];
+        [_toOrderTypeControlBtn setTitle:@"我的订单" forState:UIControlStateNormal];
         [_toOrderTypeControlBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_toOrderTypeControlBtn addTarget:self action:@selector(chickOrderTypeBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -70,11 +57,14 @@
 
 - (void)chickOrderTypeBtn:(UIButton *)button{
     
-    if ([orderTypeStr isEqualToString:@"0"]) {
-        
-        FirstUpdateViewController *firstUpdateVC = [[FirstUpdateViewController alloc] init];
-        [self.navigationController pushViewController:firstUpdateVC animated:YES];
-    }
+    MyOrderViewController *myOrderVC = [[MyOrderViewController alloc] init];
+    myOrderVC.statusStr = @"0";
+    [self.navigationController pushViewController:myOrderVC animated:YES];
+//    if ([orderTypeStr isEqualToString:@"0"]) {
+//
+//        FirstUpdateViewController *firstUpdateVC = [[FirstUpdateViewController alloc] init];
+//        [self.navigationController pushViewController:firstUpdateVC animated:YES];
+//    }
 }
 
 - (UIButton *)returnHomeControlBtn{

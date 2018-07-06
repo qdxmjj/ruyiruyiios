@@ -16,6 +16,6 @@
 @property(nonatomic, strong)UIButton *alipayBtn;
 @property(nonatomic, strong)UILabel *otherLabel;
 
-- (void)setdatoViews:(NSString *)orderTypeStr;
+- (void)setdatoViews:(NSString *)orderTypeStr price:(NSString *)priceStr;
 
 @end

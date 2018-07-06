@@ -107,7 +107,35 @@
     //1--blanceMoney  2--wxPay  3--alipay
     if ([self.payTypeStr isEqualToString:@"1"]) {
         
-        [PublicClass showHUD:@"金额不足支付" view:self.view];
+        NSLog(@"%@---%@", self.cashierPayView.blanceLabel.text, self.moneyLabel.text);
+        NSString *blanceStr = [self.cashierPayView.blanceLabel.text substringWithRange:NSMakeRange(0, self.cashierPayView.blanceLabel.text.length - 2)];
+        NSString *moneyStr = [self.moneyLabel.text substringWithRange:NSMakeRange(0, self.moneyLabel.text.length - 1)];
+        if ([blanceStr integerValue] > [moneyStr integerValue]) {
+            
+            NSDictionary *yuePayDic = @{@"orderNo":orderNoStr, @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]]};
+            NSString *reqJson = [PublicClass convertToJsonData:yuePayDic];
+            NSString *threeDesStr = [PublicClass doEncryptStr:reqJson key:[[UserConfig token] substringWithRange:NSMakeRange(24, 24)]];
+            [JJRequest postRequest:@"addConfirmStockOrder" params:@{@"reqJson":threeDesStr, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+                
+                NSString *statusStr = [NSString stringWithFormat:@"%@", code];
+                NSString *messageStr = [NSString stringWithFormat:@"%@", message];
+                if ([statusStr isEqualToString:@"1"]) {
+                    
+                    PaySuccessViewController *paySuccessVC = [[PaySuccessViewController alloc] init];
+                    paySuccessVC.orderTypeStr = orderTypeStr;
+                    [self.navigationController pushViewController:paySuccessVC animated:YES];
+                }else{
+                    
+                    [PublicClass showHUD:messageStr view:self.view];
+                }
+            } failure:^(NSError * _Nullable error) {
+                
+                NSLog(@"确认购买商品订单错误:%@", error);
+            }];
+        }else{
+            
+            [PublicClass showHUD:@"信用余额不足" view:self.view];
+        }
     }else if ([self.payTypeStr isEqualToString:@"2"]){
         
         NSDictionary *wxPostDic = @{@"orderNo":orderNoStr, @"orderName":orderNameStr, @"orderPrice":@"0.01", @"orderType":orderTypeStr, @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]]};
@@ -215,15 +243,39 @@
     [super viewDidLoad];
     self.title =@"收银台";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chickPayResult) name:@"payStatus" object:nil];
+    [self addView];
     if (![orderTypeStr isEqualToString:@"1"]) {
         
         self.payTypeStr = @"2";
     }else{
         
         self.payTypeStr = @"1";
+        [self queryCarCreditInfo];
     }
-    [self addView];
     // Do any additional setup after loading the view.
+}
+
+- (void)queryCarCreditInfo{
+    
+    NSDictionary *postDic = @{@"userId":[UserConfig user_id], @"userCarId":[UserConfig userCarId]};
+    NSString *reqJson = [PublicClass convertToJsonData:postDic];
+    [JJRequest postRequest:@"userCarInfo/queryCarCreditInfo" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+        
+        NSString *statusStr = [NSString stringWithFormat:@"%@", code];
+        NSString *messageStr = [NSString stringWithFormat:@"%@", message];
+        if ([statusStr isEqualToString:@"1"]) {
+            
+//            NSLog(@"%@", data);
+            NSString *remainStr = [[data objectAtIndex:0] objectForKey:@"remain"];
+            [_cashierPayView setdatoViews:orderTypeStr price:remainStr];
+        }else{
+            
+            [PublicClass showHUD:messageStr view:self.view];
+        }
+    } failure:^(NSError * _Nullable error) {
+        
+        NSLog(@"查询用户车辆信用额度:%@", error);
+    }];
 }
 
 - (IBAction)backButtonAction:(id)sender{
@@ -264,7 +316,7 @@
     [self.view addSubview:self.moneyLabel];
     [self.view addSubview:self.surePayBtn];
     [self.view addSubview:self.cashierPayView];
-    [_cashierPayView setdatoViews:orderTypeStr];
+    [_cashierPayView setdatoViews:orderTypeStr price:@"0"];
 }
 
 - (void)dealloc{

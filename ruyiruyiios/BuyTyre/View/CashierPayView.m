@@ -17,7 +17,7 @@
         _blanceLabel = [[UILabel alloc] init];
         _blanceLabel.frame = CGRectMake(165, 15, MAINSCREEN.width - 165 - 45, 20);
         _blanceLabel.textColor = TEXTCOLOR64;
-        _blanceLabel.text = @"余额：10000";
+//        _blanceLabel.text = @"余额：10000";
         _blanceLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
         _blanceLabel.textAlignment = NSTextAlignmentRight;
     }
@@ -74,8 +74,9 @@
     return self;
 }
 
-- (void)addBlanceView{
+- (void)addBlanceView:(NSString *)priceStr{
     
+    self.blanceLabel.text = [NSString stringWithFormat:@"%@ 元", priceStr];
     UIView *h_view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, 0.5)];
     h_view.backgroundColor = [UIColor lightGrayColor];
     
@@ -130,7 +131,7 @@
     [self addSubview:self.alipayBtn];
 }
 
-- (void)setdatoViews:(NSString *)orderTypeStr{
+- (void)setdatoViews:(NSString *)orderTypeStr price:(NSString *)priceStr{
     
     if (![orderTypeStr isEqualToString:@"1"]) {
         
@@ -140,7 +141,7 @@
         self.wxBtn.selected = YES;
     }else{
         
-        [self addBlanceView];
+        [self addBlanceView:priceStr];
     }
 }
 

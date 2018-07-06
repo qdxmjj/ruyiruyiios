@@ -15,6 +15,7 @@
 @interface PassImpededViewController ()<UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate>
 
 @property(nonatomic, strong)UITableView *passTableView;
+@property(nonatomic, strong)UIImageView *backImageV;
 @property(nonatomic, strong)UIButton *buyPassImpededBtn;
 @property(nonatomic, strong)NSMutableArray *carCXWYMutableA;
 
@@ -44,6 +45,16 @@
         _passTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _passTableView;
+}
+
+- (UIImageView *)backImageV{
+    
+    if (_backImageV == nil) {
+        
+        _backImageV = [[UIImageView alloc] initWithFrame:CGRectMake((MAINSCREEN.width - 227)/2, (MAINSCREEN.height - SafeAreaTopHeight - 144)/2, 227, 144)];
+        _backImageV.image = [UIImage imageNamed:@"ic_dakongbai"];
+    }
+    return _backImageV;
 }
 
 - (UIButton *)buyPassImpededBtn{
@@ -100,6 +111,8 @@
 - (void)addViews{
     
     [self.view addSubview:self.passTableView];
+    [self.view addSubview:self.backImageV];
+    self.backImageV.hidden = YES;
     [self.view addSubview:self.buyPassImpededBtn];
 }
 
@@ -119,7 +132,7 @@
             NSString *messageStr = [NSString stringWithFormat:@"%@", message];
             if ([statusStr isEqualToString:@"1"]) {
                 
-                NSLog(@"%@", data);
+//                NSLog(@"%@", data);
                 [self ananysize:data];
             }else if ([statusStr isEqualToString:@"-999"]){
                 
@@ -155,6 +168,13 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
+    if ([self.carCXWYMutableA count] == 0) {
+        
+        self.backImageV.hidden = NO;
+    }else{
+        
+        self.backImageV.hidden = YES;
+    }
     return [self.carCXWYMutableA count];
 }
 

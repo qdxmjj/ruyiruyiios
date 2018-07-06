@@ -71,7 +71,7 @@
     if (_creditLineBtn == nil) {
         
         _creditLineBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_creditLineBtn setTitle:@"信用额度" forState:UIControlStateNormal];
+        [_creditLineBtn setTitle:@"车辆额度列表" forState:UIControlStateNormal];
         [_creditLineBtn setTitleColor:TEXTCOLOR64 forState:UIControlStateNormal];
         _creditLineBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
     }

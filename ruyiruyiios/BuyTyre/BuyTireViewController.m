@@ -192,7 +192,7 @@
         _valueAddServiceBtn.enabled = YES;
         _valueAddServiceBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         _valueAddServiceBtn.frame = CGRectMake(20, self.bottomView.frame.size.height + self.bottomView.frame.origin.y + 15, MAINSCREEN.width/2, 20);
-        [_valueAddServiceBtn setTitle:@"增值服务" forState:UIControlStateNormal];
+        [_valueAddServiceBtn setTitle:@"意外保障服务" forState:UIControlStateNormal];
         [_valueAddServiceBtn setTitleColor:TEXTCOLOR64 forState:UIControlStateNormal];
         [_valueAddServiceBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 12, 0, 0)];
         [_valueAddServiceBtn setImage:[UIImage imageNamed:@"ic_plus"] forState:UIControlStateNormal];

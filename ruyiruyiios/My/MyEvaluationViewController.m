@@ -13,6 +13,7 @@
 @interface MyEvaluationViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property(nonatomic, strong)UITableView *myevaluationTableV;
+@property(nonatomic, strong)UIImageView *backImageV;
 @property(nonatomic, strong)NSMutableArray *evaluationMutableA;
 
 @end
@@ -45,6 +46,16 @@
     return _myevaluationTableV;
 }
 
+- (UIImageView *)backImageV{
+    
+    if (_backImageV == nil) {
+        
+        _backImageV = [[UIImageView alloc] initWithFrame:CGRectMake((MAINSCREEN.width - 227)/2, (MAINSCREEN.height - SafeAreaTopHeight - 144)/2, 227, 144)];
+        _backImageV.image = [UIImage imageNamed:@"ic_dakongbai"];
+    }
+    return _backImageV;
+}
+
 - (NSMutableArray *)evaluationMutableA{
     
     if (_evaluationMutableA == nil) {
@@ -59,6 +70,8 @@
     self.title = @"我的评价";
     
     [self.view addSubview:self.myevaluationTableV];
+    [self.view addSubview:self.backImageV];
+    self.backImageV.hidden = YES;
     [self getCommitByConditionFromInternet];
     // Do any additional setup after loading the view.
 }
@@ -73,7 +86,7 @@
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
         if ([statusStr isEqualToString:@"1"]) {
             
-            NSLog(@"%@", data);
+//            NSLog(@"%@", data);
             [self analySize:[data objectForKey:@"rows"]];
         }else{
             
@@ -100,6 +113,13 @@
 //UITableViewDelegate and UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
+    if (self.evaluationMutableA.count == 0) {
+        
+        self.backImageV.hidden = NO;
+    }else{
+        
+        self.backImageV.hidden = YES;
+    }
     return self.evaluationMutableA.count;
 }
 

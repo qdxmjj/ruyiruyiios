@@ -17,6 +17,7 @@
 @interface TobeReplacedTiresViewController ()<UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate>
 
 @property(nonatomic, strong)UITableView *replacedTableV;
+@property(nonatomic, strong)UIImageView *backImageV;
 @property(nonatomic, strong)UIButton *replaceBtn;
 @property(nonatomic, strong)NSMutableArray *replaceTireNumberMutableA;
 
@@ -47,6 +48,16 @@
         _replacedTableV.dataSource = self;
     }
     return _replacedTableV;
+}
+
+- (UIImageView *)backImageV{
+    
+    if (_backImageV == nil) {
+        
+        _backImageV = [[UIImageView alloc] initWithFrame:CGRectMake((MAINSCREEN.width - 227)/2, (MAINSCREEN.height - SafeAreaTopHeight - 144)/2, 227, 144)];
+        _backImageV.image = [UIImage imageNamed:@"ic_dakongbai"];
+    }
+    return _backImageV;
 }
 
 - (UIButton *)replaceBtn{
@@ -103,6 +114,8 @@
 - (void)addViews{
     
     [self.view addSubview:self.replacedTableV];
+    [self.view addSubview:self.backImageV];
+    self.backImageV.hidden = YES;
     self.replacedTableV.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         
         [self getUnusedShoeOrder];
@@ -153,6 +166,13 @@
 //UITableViewDelegate and UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
+    if (self.replaceTireNumberMutableA.count == 0) {
+        
+        self.backImageV.hidden = NO;
+    }else{
+        
+        self.backImageV.hidden = YES;
+    }
     return [self.replaceTireNumberMutableA count];
 }
 

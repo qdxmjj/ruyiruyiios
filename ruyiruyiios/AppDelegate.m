@@ -55,8 +55,6 @@
 //    self.window.rootViewController = carNav;
     if (![[NSUserDefaults standardUserDefaults] valueForKey:@"isFirst"]) {
 
-        NSString *timeStr = @"1970-01-01 11:31:03";
-        [self databaseOperation:timeStr];
         WelcomeViewController *welcomeVC = [[WelcomeViewController alloc] init];
         UINavigationController *welNav = [[UINavigationController alloc] initWithRootViewController:welcomeVC];
         welNav.delegate = self;
@@ -66,7 +64,13 @@
         MainTabBarViewController *mainTabVC = [[MainTabBarViewController alloc] init];
         self.window.rootViewController = mainTabVC;
     }
-    NSLog(@"开始执行请求数据和插入数据库操作");
+    
+    if (![[NSUserDefaults standardUserDefaults] valueForKey:@"insertCompletion"]) {
+        
+        NSLog(@"开始执行请求数据和插入数据库操作");
+        NSString *timeStr = @"1970-01-01 11:31:03";
+        [self databaseOperation:timeStr];
+    }
     return YES;
 }
 
@@ -367,7 +371,7 @@
             dispatch_async(tireInfoQueue, ^{
 
                 [DBRecorder insertTireInfoArray:data];
-                NSLog(@"插入数据库完成");
+//                NSLog(@"插入数据库完成");
             });
         }
     } failure:^(NSError * _Nullable error) {
@@ -419,6 +423,7 @@
                 
                 [DBRecorder insertPositionArray:data];
                 NSLog(@"数据库插入完成");
+                [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"insertCompletion"];
             });
         }
     } failure:^(NSError * _Nullable error) {

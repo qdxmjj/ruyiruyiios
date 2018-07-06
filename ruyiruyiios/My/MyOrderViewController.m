@@ -28,6 +28,7 @@
 @property(nonatomic, strong)NSMutableArray *toserviceMutableA;
 @property(nonatomic, strong)NSMutableArray *completedMutableA;
 @property(nonatomic, strong)NSString *upStr;
+@property(nonatomic, strong)UIImageView *backImageV;
 
 @end
 
@@ -66,6 +67,16 @@
         _myorderTableV.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _myorderTableV;
+}
+
+- (UIImageView *)backImageV{
+    
+    if (_backImageV == nil) {
+        
+        _backImageV = [[UIImageView alloc] initWithFrame:CGRectMake((MAINSCREEN.width - 227)/2, (MAINSCREEN.height - SafeAreaTopHeight - 144)/2, 227, 144)];
+        _backImageV.image = [UIImage imageNamed:@"ic_dakongbai"];
+    }
+    return _backImageV;
 }
 
 - (NSMutableArray *)allMutableA{
@@ -257,6 +268,8 @@
     
     [self.view addSubview:self.underBtnView];
     [self.view addSubview:self.myorderTableV];
+    [self.view addSubview:self.backImageV];
+    self.backImageV.hidden = YES;
     self.myorderTableV.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         
         [self getUserGeneralOrderByStateFromInternet:@"0"];
@@ -269,19 +282,35 @@
     
     if ([statusStr intValue] == 0) {
         
+        [self hideOrShow:self.allMutableA.count];
         return self.allMutableA.count;
     }else if ([statusStr intValue] == 1){
         
+        [self hideOrShow:self.topayMutableA.count];
         return self.topayMutableA.count;
     }else if ([statusStr intValue] == 2){
         
+        [self hideOrShow:self.todeliverMutableA.count];
         return self.todeliverMutableA.count;
     }else if ([statusStr intValue] == 3){
         
+        [self hideOrShow:self.toserviceMutableA.count];
         return self.toserviceMutableA.count;
     }else{
         
+        [self hideOrShow:self.completedMutableA.count];
         return self.completedMutableA.count;
+    }
+}
+
+- (void)hideOrShow:(NSInteger)number{
+    
+    if (number != 0) {
+        
+        self.backImageV.hidden = YES;
+    }else{
+        
+        self.backImageV.hidden = NO;
     }
 }
 

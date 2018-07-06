@@ -14,6 +14,7 @@
 @interface CreditLineViewController ()<UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate>
 
 @property(nonatomic, strong)UITableView *creditTableV;
+@property(nonatomic, strong)UIImageView *backImageV;
 @property(nonatomic, strong)NSMutableArray *creditCarMutableA;
 
 @end
@@ -43,6 +44,16 @@
         _creditTableV.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _creditTableV;
+}
+
+- (UIImageView *)backImageV{
+    
+    if (_backImageV == nil) {
+        
+        _backImageV = [[UIImageView alloc] initWithFrame:CGRectMake((MAINSCREEN.width - 227)/2, (MAINSCREEN.height - SafeAreaTopHeight - 144)/2, 227, 144)];
+        _backImageV.image = [UIImage imageNamed:@"ic_dakongbai"];
+    }
+    return _backImageV;
 }
 
 - (NSMutableArray *)creditCarMutableA{
@@ -76,6 +87,8 @@
 - (void)addViews{
     
     [self.view addSubview:self.creditTableV];
+    [self.view addSubview:self.backImageV];
+    self.backImageV.hidden = YES;
 }
 
 - (void)queryCarCreditInfoFromInternet{
@@ -118,6 +131,13 @@
 //UITableViewDelegate and UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
+    if (self.creditCarMutableA.count == 0) {
+        
+        self.backImageV.hidden = NO;
+    }else{
+        
+        self.backImageV.hidden = YES;
+    }
     return self.creditCarMutableA.count;
 }
 

@@ -16,6 +16,7 @@
 @property(nonatomic, strong)NSArray *buttonNameArray;
 @property(nonatomic, strong)UIView *btnUnderView;
 @property(nonatomic, strong)UITableView *couponTableView;
+@property(nonatomic, strong)UIImageView *backImageV;
 @property(nonatomic, strong)NSMutableArray *availableMutableA;
 @property(nonatomic, strong)NSMutableArray *historyMutableA;
 @property(nonatomic, strong)NSString *couponStatusStr; //1---available,  2---history
@@ -60,6 +61,16 @@
     return _couponTableView;
 }
 
+- (UIImageView *)backImageV{
+    
+    if (_backImageV == nil) {
+        
+        _backImageV = [[UIImageView alloc] initWithFrame:CGRectMake((MAINSCREEN.width - 227)/2, (MAINSCREEN.height - SafeAreaTopHeight - 144)/2, 227, 144)];
+        _backImageV.image = [UIImage imageNamed:@"ic_dakongbai"];
+    }
+    return _backImageV;
+}
+
 - (NSMutableArray *)availableMutableA{
     
     if (_availableMutableA == nil) {
@@ -97,6 +108,8 @@
     [self addButtons:self.buttonNameArray];
     [self.view addSubview:self.btnUnderView];
     [self.view addSubview:self.couponTableView];
+    [self.view addSubview:self.backImageV];
+    self.backImageV.hidden = YES;
 }
 
 - (IBAction)backButtonAction:(id)sender{
@@ -201,10 +214,23 @@
     
     if ([self.couponStatusStr isEqualToString:@"1"]) {
         
+        [self hideOrShow:self.availableMutableA.count];
         return self.availableMutableA.count;
     }else{
         
+        [self hideOrShow:self.historyMutableA.count];
         return self.historyMutableA.count;
+    }
+}
+
+- (void)hideOrShow:(NSInteger)number{
+    
+    if (number == 0) {
+        
+        self.backImageV.hidden = NO;
+    }else{
+        
+        self.backImageV.hidden = YES;
     }
 }
 
