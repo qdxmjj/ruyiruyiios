@@ -11,6 +11,8 @@
 #import "CommodityModel.h"
 @interface ContentTableViewController ()
 
+@property(nonatomic,strong)UIImageView *backgroundImgView;
+
 @end
 
 @implementation ContentTableViewController
@@ -18,12 +20,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.view addSubview:self.backgroundImgView];
+    
+    self.tableView.tableFooterView = [UIView new];
+    
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ContentTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"contentCellID"];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    
+    
+    self.backgroundImgView.frame = self.tableView.bounds;
+}
 
 #pragma mark - Table view data source
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
     return 1;
@@ -33,8 +43,11 @@
 
     if (self.dataArr.count>0) {
         
+        self.backgroundImgView.hidden = YES;
         return self.dataArr.count;
     }
+    
+    self.backgroundImgView.hidden = NO;
     return 0;
 }
 
@@ -58,6 +71,19 @@
     
     
     return 90.f;
+}
+
+-(UIImageView *)backgroundImgView{
+    
+    if (!_backgroundImgView) {
+        
+        _backgroundImgView = [[UIImageView alloc] init];
+        _backgroundImgView.backgroundColor = [UIColor whiteColor];
+        [_backgroundImgView setImage:[UIImage imageNamed:@"ic_dakongbai"]];
+        _backgroundImgView.contentMode = UIViewContentModeCenter;
+    }
+    
+    return _backgroundImgView;
 }
 
 - (void)didReceiveMemoryWarning {

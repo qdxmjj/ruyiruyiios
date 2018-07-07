@@ -109,7 +109,6 @@
 		36C80A9820D89C6A0036C14A /* YMDetailedServiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C80A8920D89C6A0036C14A /* YMDetailedServiceCell.m */; };
 		36C80A9920D89C6A0036C14A /* YMDetailedServiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36C80A8A20D89C6A0036C14A /* YMDetailedServiceCell.xib */; };
 		36C80A9A20D89C6A0036C14A /* YMDetailedServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C80A8C20D89C6A0036C14A /* YMDetailedServiceViewController.m */; };
-		36C80A9B20D89C6A0036C14A /* YMDetailedServiceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36C80A8D20D89C6A0036C14A /* YMDetailedServiceViewController.xib */; };
 		36E2810420E4C46F00192BC9 /* WaitPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36E2810220E4C46F00192BC9 /* WaitPaymentViewController.m */; };
 		36E2810520E4C46F00192BC9 /* WaitPaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36E2810320E4C46F00192BC9 /* WaitPaymentViewController.xib */; };
 		36E2810820E4DACF00192BC9 /* WaitPaymentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 36E2810720E4DACF00192BC9 /* WaitPaymentModel.m */; };
@@ -993,7 +992,6 @@
 		36C80A8A20D89C6A0036C14A /* YMDetailedServiceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YMDetailedServiceCell.xib; sourceTree = "<group>"; };
 		36C80A8B20D89C6A0036C14A /* YMDetailedServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMDetailedServiceViewController.h; sourceTree = "<group>"; };
 		36C80A8C20D89C6A0036C14A /* YMDetailedServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMDetailedServiceViewController.m; sourceTree = "<group>"; };
-		36C80A8D20D89C6A0036C14A /* YMDetailedServiceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YMDetailedServiceViewController.xib; sourceTree = "<group>"; };
 		36E2810120E4C46F00192BC9 /* WaitPaymentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WaitPaymentViewController.h; sourceTree = "<group>"; };
 		36E2810220E4C46F00192BC9 /* WaitPaymentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WaitPaymentViewController.m; sourceTree = "<group>"; };
 		36E2810320E4C46F00192BC9 /* WaitPaymentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WaitPaymentViewController.xib; sourceTree = "<group>"; };
@@ -2181,7 +2179,6 @@
 				36C80A8120D89C6A0036C14A /* WinterTyreServiceCell.xib */,
 				36C80A8B20D89C6A0036C14A /* YMDetailedServiceViewController.h */,
 				36C80A8C20D89C6A0036C14A /* YMDetailedServiceViewController.m */,
-				36C80A8D20D89C6A0036C14A /* YMDetailedServiceViewController.xib */,
 				36C80A8820D89C6A0036C14A /* YMDetailedServiceCell.h */,
 				36C80A8920D89C6A0036C14A /* YMDetailedServiceCell.m */,
 				36C80A8A20D89C6A0036C14A /* YMDetailedServiceCell.xib */,
@@ -3797,7 +3794,6 @@
 				435E5ACA20A19088005C8BDA /* ic_tuiguang@2x.png in Resources */,
 				43A7B1C220CF57D00002B756 /* ic_chang@2x.png in Resources */,
 				4332F8C920D9047700AF386F /* ic_icon4.png in Resources */,
-				36C80A9B20D89C6A0036C14A /* YMDetailedServiceViewController.xib in Resources */,
 				439D068C20BE980400379414 /* ic_procedure.png in Resources */,
 				4311E9B220D9FD9A00F74960 /* ic_notlogged.png in Resources */,
 				435E5AB120A19088005C8BDA /* ic_carmer@3x.png in Resources */,

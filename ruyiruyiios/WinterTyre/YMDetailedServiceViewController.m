@@ -19,8 +19,9 @@
 {
     NSInteger pageNumber;
 }
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) UITableView *tableView;
 
+@property(nonatomic,strong)UIImageView *backgroundImgView;
 
 @property(strong,nonatomic)NSMutableArray *dataArr;
 
@@ -56,8 +57,27 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([YMDetailedServiceCell class]) bundle:nil] forCellReuseIdentifier:@"YMDetailedServiceCellID"];
+    
+    NSArray *topBtnTitleArr = @[@"综合",@"价格",@"距离"];
+    
+    for (int i = 0; i<3; i++) {
+        
+        UIButton *topBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        
+        [topBtn setFrame:CGRectMake(self.view.frame.size.width/3 * i, 0, self.view.frame.size.width/3, 40)];
+        [topBtn setTitle:topBtnTitleArr[i] forState:UIControlStateNormal];
+        
+        [topBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        
+        [topBtn.titleLabel setTextAlignment:NSTextAlignmentCenter];
+        
+        [topBtn addTarget:self action:@selector(filterCommodityEvent:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.view addSubview:topBtn];
+    }
+    
+    
+    [self.view addSubview:self.tableView];
 
     //上拉更多
     self.tableView.mj_footer=[MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
@@ -122,10 +142,13 @@
             
             [self.tableView.mj_footer setHidden:YES];
         }
-        if (self.dataArr.count>0) {
+        
+        if (self.dataArr.count>0 ){
             
-            [self.tableView reloadData];
+            self.backgroundImgView.hidden = YES;
         }
+        
+        [self.tableView reloadData];
         
     } failure:^(NSError * _Nullable error) {
         
@@ -220,7 +243,7 @@
     
 }
 
-- (IBAction)filterCommodityEvent:(UIButton *)sender {
+- (void)filterCommodityEvent:(UIButton *)sender {
     
     if ([sender.titleLabel.text isEqualToString:@"综合"]) {
         
@@ -248,6 +271,22 @@
 }
 
 
+-(UITableView *)tableView{
+    
+    if (!_tableView) {
+        
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, CGRectGetWidth(self.view.frame), MAINSCREEN.height-SafeDistance) style:UITableViewStyleGrouped];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([YMDetailedServiceCell class]) bundle:nil] forCellReuseIdentifier:@"YMDetailedServiceCellID"];
+        _tableView.tableFooterView = [UIView new];
+        [_tableView addSubview:self.backgroundImgView];
+    }
+    
+    
+    return _tableView;
+}
+
 -(NSMutableArray *)dataArr{
     
     if (!_dataArr) {
@@ -256,6 +295,18 @@
     }
 
     return _dataArr;
+}
+-(UIImageView *)backgroundImgView{
+    
+    if (!_backgroundImgView) {
+        
+        _backgroundImgView = [[UIImageView alloc] initWithFrame:self.tableView.bounds];
+        _backgroundImgView.backgroundColor = [UIColor whiteColor];
+        [_backgroundImgView setImage:[UIImage imageNamed:@"ic_dakongbai"]];
+        _backgroundImgView.contentMode = UIViewContentModeCenter;
+    }
+    
+    return _backgroundImgView;
 }
 
 - (void)didReceiveMemoryWarning {

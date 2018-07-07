@@ -37,6 +37,11 @@
 
     }else{
         
+        if (self.number >= [self.model.amount integerValue]) {
+            
+            return;
+        }
+        
         self.number++;
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"TotalPricePlusNotification" object:@[[NSString stringWithFormat:@"%@",self.model.price],self.model.commodityID,@(self.number),self.model.serviceId,self.model.serviceTypeId]];
