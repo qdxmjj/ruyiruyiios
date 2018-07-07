@@ -4,7 +4,7 @@
       "extent" : "full-screen",
       "idiom" : "iphone",
       "subtype" : "2436h",
-      "filename" : "iphonex.png",
+      "filename" : "appicon.png",
       "minimum-system-version" : "11.0",
       "orientation" : "portrait",
       "scale" : "3x"
@@ -13,7 +13,7 @@
       "extent" : "full-screen",
       "idiom" : "iphone",
       "subtype" : "736h",
-      "filename" : "iphone6p.png",
+      "filename" : "appicon-1.png",
       "minimum-system-version" : "8.0",
       "orientation" : "portrait",
       "scale" : "3x"
@@ -22,7 +22,7 @@
       "extent" : "full-screen",
       "idiom" : "iphone",
       "subtype" : "667h",
-      "filename" : "iphone6.png",
+      "filename" : "appicon-2.png",
       "minimum-system-version" : "8.0",
       "orientation" : "portrait",
       "scale" : "2x"
@@ -30,7 +30,7 @@
     {
       "orientation" : "portrait",
       "idiom" : "iphone",
-      "filename" : "iphone4s.png",
+      "filename" : "appicon-3.png",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
       "scale" : "2x"
@@ -39,7 +39,7 @@
       "extent" : "full-screen",
       "idiom" : "iphone",
       "subtype" : "retina4",
-      "filename" : "iphone5.png",
+      "filename" : "appicon-4.png",
       "minimum-system-version" : "7.0",
       "orientation" : "portrait",
       "scale" : "2x"
@@ -47,34 +47,22 @@
     {
       "orientation" : "portrait",
       "idiom" : "iphone",
+      "filename" : "appicon-5.png",
       "extent" : "full-screen",
       "scale" : "1x"
     },
     {
       "orientation" : "portrait",
       "idiom" : "iphone",
+      "filename" : "appicon-6.png",
       "extent" : "full-screen",
       "scale" : "2x"
     },
     {
       "orientation" : "portrait",
       "idiom" : "iphone",
+      "filename" : "appicon-7.png",
       "extent" : "full-screen",
-      "subtype" : "retina4",
-      "scale" : "2x"
-    },
-    {
-      "orientation" : "portrait",
-      "idiom" : "iphone",
-      "filename" : "iphonex-1.png",
-      "minimum-system-version" : "7.0",
-      "scale" : "2x"
-    },
-    {
-      "orientation" : "portrait",
-      "idiom" : "iphone",
-      "filename" : "iphonex-2.png",
-      "minimum-system-version" : "7.0",
       "subtype" : "retina4",
       "scale" : "2x"
     }

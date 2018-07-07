@@ -52,20 +52,6 @@
       "idiom" : "ios-marketing",
       "size" : "1024x1024",
       "scale" : "1x"
-    },
-    {
-      "size" : "76x76",
-      "idiom" : "ipad",
-      "filename" : "icon-76.jpeg",
-      "unassigned" : true,
-      "scale" : "1x"
-    },
-    {
-      "size" : "76x76",
-      "idiom" : "ipad",
-      "filename" : "icon-76@2x.jpeg",
-      "unassigned" : true,
-      "scale" : "2x"
     }
   ],
   "info" : {
