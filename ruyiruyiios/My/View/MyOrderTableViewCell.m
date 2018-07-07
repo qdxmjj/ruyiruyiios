@@ -215,10 +215,18 @@
         }else if ([orderInfo.orderState isEqualToString:@"11"]){
             
             statusStr = @"更换审核中";
-        }
-        else{
+        }else if ([orderInfo.orderState isEqualToString:@"12"]){
             
             statusStr = @"更换审核未通过";
+        }else if ([orderInfo.orderState isEqualToString:@"13"]){
+            
+            statusStr = @"审核通过";
+        }else if ([orderInfo.orderState isEqualToString:@"14"]){
+            
+            statusStr = @"店铺拒绝服务";
+        }else{
+            
+            statusStr = @"用户取消订单";
         }
     }
     self.orderStatusLabel.text = statusStr;

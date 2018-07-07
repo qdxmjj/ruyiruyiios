@@ -191,6 +191,8 @@
 		4306782A20B0576B003BB046 /* SelectBrandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4306782920B0576B003BB046 /* SelectBrandViewController.m */; };
 		4307036820CA1E030044EBCE /* MyOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4307036720CA1E030044EBCE /* MyOrderViewController.m */; };
 		4307036B20CA29700044EBCE /* MyOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4307036A20CA29700044EBCE /* MyOrderTableViewCell.m */; };
+		430CFBCA20F08D4D0031DABE /* FreeChargeOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 430CFBC920F08D4D0031DABE /* FreeChargeOrderViewController.m */; };
+		430CFBCD20F0973C0031DABE /* FreeChargeOrderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 430CFBCC20F0973C0031DABE /* FreeChargeOrderView.m */; };
 		430FA05520EDB5D000D1DF8E /* ic_yin1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 430FA04C20EDB5CE00D1DF8E /* ic_yin1@2x.png */; };
 		430FA05620EDB5D000D1DF8E /* ic_yin3.png in Resources */ = {isa = PBXBuildFile; fileRef = 430FA04D20EDB5CE00D1DF8E /* ic_yin3.png */; };
 		430FA05720EDB5D000D1DF8E /* ic_yin3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 430FA04E20EDB5CF00D1DF8E /* ic_yin3@2x.png */; };
@@ -1087,6 +1089,10 @@
 		4307036720CA1E030044EBCE /* MyOrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyOrderViewController.m; sourceTree = "<group>"; };
 		4307036920CA29700044EBCE /* MyOrderTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyOrderTableViewCell.h; sourceTree = "<group>"; };
 		4307036A20CA29700044EBCE /* MyOrderTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyOrderTableViewCell.m; sourceTree = "<group>"; };
+		430CFBC820F08D4D0031DABE /* FreeChargeOrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FreeChargeOrderViewController.h; sourceTree = "<group>"; };
+		430CFBC920F08D4D0031DABE /* FreeChargeOrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FreeChargeOrderViewController.m; sourceTree = "<group>"; };
+		430CFBCB20F0973C0031DABE /* FreeChargeOrderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FreeChargeOrderView.h; sourceTree = "<group>"; };
+		430CFBCC20F0973C0031DABE /* FreeChargeOrderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FreeChargeOrderView.m; sourceTree = "<group>"; };
 		430FA04C20EDB5CE00D1DF8E /* ic_yin1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_yin1@2x.png"; sourceTree = "<group>"; };
 		430FA04D20EDB5CE00D1DF8E /* ic_yin3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_yin3.png; sourceTree = "<group>"; };
 		430FA04E20EDB5CF00D1DF8E /* ic_yin3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_yin3@2x.png"; sourceTree = "<group>"; };
@@ -2519,6 +2525,8 @@
 				43B1BE4D20E9C1BE008E3E1A /* TobeEvaluatedViewController.m */,
 				43B1BEC920EA5183008E3E1A /* CompleteViewController.h */,
 				43B1BECA20EA5183008E3E1A /* CompleteViewController.m */,
+				430CFBC820F08D4D0031DABE /* FreeChargeOrderViewController.h */,
+				430CFBC920F08D4D0031DABE /* FreeChargeOrderViewController.m */,
 			);
 			path = My;
 			sourceTree = "<group>";
@@ -3440,6 +3448,8 @@
 				4319311D20E8BCF3006005C8 /* BarCodeView.m */,
 				43B1BE4F20E9C344008E3E1A /* TobeEvaluateHeadView.h */,
 				43B1BE5020E9C344008E3E1A /* TobeEvaluateHeadView.m */,
+				430CFBCB20F0973C0031DABE /* FreeChargeOrderView.h */,
+				430CFBCC20F0973C0031DABE /* FreeChargeOrderView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4242,6 +4252,7 @@
 				43B1BEC320EA1D06008E3E1A /* HXCustomPreviewView.m in Sources */,
 				4318693320D1529A0051F16D /* BuyCXWYUserInfo.m in Sources */,
 				36C80A7120D89C640036C14A /* UIButton+Subscript.m in Sources */,
+				430CFBCD20F0973C0031DABE /* FreeChargeOrderView.m in Sources */,
 				438B2AFE20B7EF2D004A7E2A /* ManageCarTableViewCell.m in Sources */,
 				432EFEB320B5A5520090DEC8 /* AddressPickerView.m in Sources */,
 				4332361520B261A3008F45FD /* SelectBrandTableViewCell.m in Sources */,
@@ -4310,6 +4321,7 @@
 				43B1BEB320EA1D06008E3E1A /* HXDatePhotoPreviewViewController.m in Sources */,
 				4332363020B2F0DA008F45FD /* RoadInfo.m in Sources */,
 				439D061220BE44A700379414 /* PurchaseProcessViewController.m in Sources */,
+				430CFBCA20F08D4D0031DABE /* FreeChargeOrderViewController.m in Sources */,
 				43F874E420CE4A50007D1C2E /* FirstUpdateViewController.m in Sources */,
 				4347BF7A20B3AA8C002F13E8 /* NotofenRoadViewController.m in Sources */,
 				4319311B20E8B229006005C8 /* ToserviceStoreTableViewCell.m in Sources */,
@@ -4568,6 +4580,7 @@
 			baseConfigurationReference = 5C7F5316AE001F1747DD6E97 /* Pods-ruyiruyiios.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AW3WK2C3KB;
@@ -4597,6 +4610,7 @@
 			baseConfigurationReference = B0497AEBEC85789819C3300D /* Pods-ruyiruyiios.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AW3WK2C3KB;

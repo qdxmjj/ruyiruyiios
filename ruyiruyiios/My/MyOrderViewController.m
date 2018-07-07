@@ -16,6 +16,7 @@
 #import "WaitPaymentViewController.h"
 #import "TobeEvaluatedViewController.h"
 #import "CompleteViewController.h"
+#import "FreeChargeOrderViewController.h"
 
 @interface MyOrderViewController ()<UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate>
 
@@ -200,10 +201,10 @@
             }
         }else{
             
-            if ([orderInfo.orderState isEqualToString:@"5"] || [orderInfo.orderState isEqualToString:@"2"] || [orderInfo.orderState isEqualToString:@"9"]) {
+            if ([orderInfo.orderState isEqualToString:@"5"] || [orderInfo.orderState isEqualToString:@"2"] || [orderInfo.orderState isEqualToString:@"9"] || [orderInfo.orderState isEqualToString:@"11"] || [orderInfo.orderState isEqualToString:@"13"]) {
                 
                 [self.todeliverMutableA addObject:orderInfo];
-            }else if ([orderInfo.orderState isEqualToString:@"4"] || [orderInfo.orderState isEqualToString:@"1"] || [orderInfo.orderState isEqualToString:@"7"]){
+            }else if ([orderInfo.orderState isEqualToString:@"1"] || [orderInfo.orderState isEqualToString:@"4"] || [orderInfo.orderState isEqualToString:@"7"] || [orderInfo.orderState isEqualToString:@"10"] || [orderInfo.orderState isEqualToString:@"12"] || [orderInfo.orderState isEqualToString:@"14"] || [orderInfo.orderState isEqualToString:@"15"]){
                 
                 [self.completedMutableA addObject:orderInfo];
             }else if ([orderInfo.orderState isEqualToString:@"8"]){
@@ -420,7 +421,7 @@
                     
                     [self jumpToServiceVC:@"确认服务" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
                 }
-            }else if ([orderInfo.orderState isEqualToString:@"1"] || [orderInfo.orderState isEqualToString:@"4"] || [orderInfo.orderState isEqualToString:@"7"]){
+            }else if ([orderInfo.orderState isEqualToString:@"1"] || [orderInfo.orderState isEqualToString:@"4"] || [orderInfo.orderState isEqualToString:@"7"] || [orderInfo.orderState isEqualToString:@"15"]){
                 
                 if ([orderInfo.orderState isEqualToString:@"7"]) {
                     
@@ -475,6 +476,15 @@
         }else if ([orderInfo.orderState isEqualToString:@"7"] && [orderInfo.orderType isEqualToString:@"0"]){
             
             [self jumpToAllorderDetailVC:@"退款中" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+        }else if ([orderInfo.orderType isEqualToString:@"3"]){
+            
+            if ([orderInfo.orderState isEqualToString:@"11"]) {
+                
+                [self jumpFreeChargeOrderVC:@"更换审核中" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+            }else if ([orderInfo.orderState isEqualToString:@"13"]){
+                
+                [self jumpFreeChargeOrderVC:@"审核通过" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+            }
         }else{
             
             [self jumpToAllorderDetailVC:@"待发货" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
@@ -504,7 +514,7 @@
             }else if ([orderInfo.orderState isEqualToString:@"6"]){
                 
                 completeStr = @"已退货";
-            }else if ([orderInfo.orderState isEqualToString:@"9"]){
+            }else if ([orderInfo.orderState isEqualToString:@"9"] || [orderInfo.orderState isEqualToString:@"4"] || [orderInfo.orderState isEqualToString:@"15"]){
                 
                 completeStr = @"订单已取消";
             }else if ([orderInfo.orderState isEqualToString:@"1"]){
@@ -558,6 +568,15 @@
     completeVC.orderNoStr = orderNoStr;
     completeVC.orderTypeStr = orderTypeStr;
     [self.navigationController pushViewController:completeVC animated:YES];
+}
+
+- (void)jumpFreeChargeOrderVC:(NSString *)titleStr orderNo:(NSString *)orderNoStr orderType:(NSString *)orderTypeStr{
+    
+    FreeChargeOrderViewController *freeOrderVC = [[FreeChargeOrderViewController alloc] init];
+    freeOrderVC.titleStr = titleStr;
+    freeOrderVC.orderNoStr = orderNoStr;
+    freeOrderVC.orderTypeStr = orderTypeStr;
+    [self.navigationController pushViewController:freeOrderVC animated:YES];
 }
 
 //LoginStatusDelegate
