@@ -196,6 +196,7 @@ static NSInteger const HeadViewH = 150;
     [self getCommodityInfoWithSetHeadView];
 }
 
+
 -(void)getCommodityInfoWithSetHeadView{
     
     //给子视图赋值，需在子视图添加完成之后
@@ -217,9 +218,7 @@ static NSInteger const HeadViewH = 150;
     
 }
 
-/**
- * 获取全部的商品信息
- */
+#pragma mark 获取全部商品信息
 -(void)getStockListByStoreWithStoreID:(NSNumber *)storeID{
     
     [StoreDetailsRequest getStockListByStoreWithInfo:@{@"shopId":storeID} succrss:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
@@ -266,9 +265,7 @@ static NSInteger const HeadViewH = 150;
 }
 
 
-/**
- *获取商品目录
- */
+#pragma mark 获取全部的商品目录
 -(void)getStoreDetailsInfoWithStoreID:(NSString *)storeID{
     
     [StoreDetailsRequest getStoreAddedServicesWith:@{@"storeId":storeID} succrss:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
@@ -650,7 +647,6 @@ static NSInteger const HeadViewH = 150;
     return _badgeNumberDic;
 }
 -(void)dealloc{
-    
     
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"TotalPriceLessNotification" object:nil];
     
