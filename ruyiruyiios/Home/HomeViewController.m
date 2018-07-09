@@ -456,7 +456,6 @@
         }else if (btn.tag == 1001){
             
             FreeChangeViewController *tireRepairVC = [[FreeChangeViewController alloc] init];
-            
             [self.navigationController pushViewController:tireRepairVC animated:YES];
             
         }else if (btn.tag == 1002){

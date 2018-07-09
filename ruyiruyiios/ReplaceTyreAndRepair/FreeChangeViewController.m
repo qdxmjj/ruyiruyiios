@@ -15,6 +15,8 @@
 
 #import "InstallStoreTableViewCell.h"
 #import "NearbyViewController.h"
+
+#import "MyOrderViewController.h"
 @interface FreeChangeViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 
@@ -75,6 +77,24 @@
     self.tabBarController.tabBar.hidden = NO;
 }
 
+- (IBAction)backButtonAction:(id)sender{
+    
+    if (self.popStatus) {
+        
+        for (UIViewController *controller in self.navigationController.viewControllers) {
+            if ([controller isKindOfClass:[MyOrderViewController class]]) {
+                
+                MyOrderViewController *A =(MyOrderViewController *)controller;
+                
+                [self.navigationController popToViewController:A animated:YES];
+            }
+        }
+    
+    }else{
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
 
 -(void)getBarCodeInfo{
     
