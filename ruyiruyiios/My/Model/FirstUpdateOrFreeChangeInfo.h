@@ -22,5 +22,6 @@
 @property(nonatomic, strong)NSString *shoeOrderVoList;
 @property(nonatomic, strong)NSString *stockOrderVoList;
 @property(nonatomic, strong)NSString *userCarShoeBarCodeList;
+@property(nonatomic, strong)NSString *userCarShoeOldBarCodeList;
 
 @end

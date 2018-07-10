@@ -17,6 +17,7 @@
 #import "TobeEvaluatedViewController.h"
 #import "CompleteViewController.h"
 #import "FreeChargeOrderViewController.h"
+#import "AuditFailedPassViewController.h"
 
 @interface MyOrderViewController ()<UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate>
 
@@ -483,7 +484,13 @@
                 [self jumpFreeChargeOrderVC:@"更换审核中" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
             }else if ([orderInfo.orderState isEqualToString:@"13"]){
                 
-                [self jumpFreeChargeOrderVC:@"审核通过" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                if ([orderInfo.orderStage isEqualToString:@"1"]) {
+                    
+                    [self jumpFreeChargeOrderVC:@"审核通过" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                }else{
+                    
+                    [self jumpToAuditFailVC:@"待车主补差" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                }
             }
         }else{
             
@@ -507,21 +514,27 @@
             [self jumpTobeEvaluatedVCorderNo:orderInfo.orderNo storeId:[NSString stringWithFormat:@"%@", orderInfo.storeId]];
         }else{
             
-            NSString *completeStr = @"";
-            if ([orderInfo.orderState isEqualToString:@"3"]) {
+            if ([orderInfo.orderType isEqualToString:@"3"] && [orderInfo.orderState isEqualToString:@"12"]) {
                 
-                completeStr = @"交易完成";
-            }else if ([orderInfo.orderState isEqualToString:@"6"]){
+                [self jumpToAuditFailVC:@"审核未通过" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+            }else{
                 
-                completeStr = @"已退货";
-            }else if ([orderInfo.orderState isEqualToString:@"9"] || [orderInfo.orderState isEqualToString:@"4"] || [orderInfo.orderState isEqualToString:@"15"]){
-                
-                completeStr = @"订单已取消";
-            }else if ([orderInfo.orderState isEqualToString:@"1"]){
-                
-                completeStr = @"交易完成";
+                NSString *completeStr = @"";
+                if ([orderInfo.orderState isEqualToString:@"3"]) {
+                    
+                    completeStr = @"交易完成";
+                }else if ([orderInfo.orderState isEqualToString:@"6"]){
+                    
+                    completeStr = @"已退货";
+                }else if ([orderInfo.orderState isEqualToString:@"9"] || [orderInfo.orderState isEqualToString:@"4"] || [orderInfo.orderState isEqualToString:@"15"]){
+                    
+                    completeStr = @"订单已取消";
+                }else if ([orderInfo.orderState isEqualToString:@"1"]){
+                    
+                    completeStr = @"交易完成";
+                }
+                [self jumpcompleteVC:completeStr orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
             }
-            [self jumpcompleteVC:completeStr orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
         }
     }
     NSLog(@"%@", orderInfo.orderPrice);
@@ -577,6 +590,19 @@
     freeOrderVC.orderNoStr = orderNoStr;
     freeOrderVC.orderTypeStr = orderTypeStr;
     [self.navigationController pushViewController:freeOrderVC animated:YES];
+}
+
+- (void)jumpToAuditFailVC:(NSString *)titleStr orderNo:(NSString *)orderNoStr orderType:(NSString *)orderTypeStr{
+    
+    AuditFailedPassViewController *auditFailVC = [[AuditFailedPassViewController alloc] init];
+    auditFailVC.titleStr = titleStr;
+    auditFailVC.orderNoStr = orderNoStr;
+    auditFailVC.orderTypeStr = orderTypeStr;
+    auditFailVC.toOrderBlock = ^(NSString *update) {
+        
+        [self.myorderTableV.mj_header beginRefreshing]
+    };
+    [self.navigationController pushViewController:auditFailVC animated:YES];
 }
 
 //LoginStatusDelegate

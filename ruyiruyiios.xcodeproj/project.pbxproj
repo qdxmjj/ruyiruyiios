@@ -192,6 +192,7 @@
 		4307036B20CA29700044EBCE /* MyOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4307036A20CA29700044EBCE /* MyOrderTableViewCell.m */; };
 		430CFBCA20F08D4D0031DABE /* FreeChargeOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 430CFBC920F08D4D0031DABE /* FreeChargeOrderViewController.m */; };
 		430CFBCD20F0973C0031DABE /* FreeChargeOrderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 430CFBCC20F0973C0031DABE /* FreeChargeOrderView.m */; };
+		430CFBD020F0AC720031DABE /* AuditFailedPassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 430CFBCF20F0AC720031DABE /* AuditFailedPassViewController.m */; };
 		430FA05520EDB5D000D1DF8E /* ic_yin1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 430FA04C20EDB5CE00D1DF8E /* ic_yin1@2x.png */; };
 		430FA05620EDB5D000D1DF8E /* ic_yin3.png in Resources */ = {isa = PBXBuildFile; fileRef = 430FA04D20EDB5CE00D1DF8E /* ic_yin3.png */; };
 		430FA05720EDB5D000D1DF8E /* ic_yin3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 430FA04E20EDB5CF00D1DF8E /* ic_yin3@2x.png */; };
@@ -224,6 +225,9 @@
 		4311E9C320DA30B800F74960 /* ExtensionMiddleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4311E9C220DA30B800F74960 /* ExtensionMiddleView.m */; };
 		4311E9C620DA30CD00F74960 /* ExtensionBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4311E9C520DA30CD00F74960 /* ExtensionBottomView.m */; };
 		4311E9C920DA4DCF00F74960 /* ExtensionBottomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4311E9C820DA4DCF00F74960 /* ExtensionBottomTableViewCell.m */; };
+		431330AB20F330DF00076A1A /* SupplementView.m in Sources */ = {isa = PBXBuildFile; fileRef = 431330AA20F330DF00076A1A /* SupplementView.m */; };
+		431330AE20F3372600076A1A /* SupplementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 431330AD20F3372600076A1A /* SupplementTableViewCell.m */; };
+		431330B120F349B700076A1A /* UserCarShoeOldBarCodeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 431330B020F349B700076A1A /* UserCarShoeOldBarCodeInfo.m */; };
 		431339FE20ECC77D001E4939 /* CXWYPriceParamInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 431339FD20ECC77D001E4939 /* CXWYPriceParamInfo.m */; };
 		4318691F20D0F1D80051F16D /* pic_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 4318691620D0F1D60051F16D /* pic_back.png */; };
 		4318692020D0F1D80051F16D /* pic_back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4318691720D0F1D70051F16D /* pic_back@3x.png */; };
@@ -1091,6 +1095,8 @@
 		430CFBC920F08D4D0031DABE /* FreeChargeOrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FreeChargeOrderViewController.m; sourceTree = "<group>"; };
 		430CFBCB20F0973C0031DABE /* FreeChargeOrderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FreeChargeOrderView.h; sourceTree = "<group>"; };
 		430CFBCC20F0973C0031DABE /* FreeChargeOrderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FreeChargeOrderView.m; sourceTree = "<group>"; };
+		430CFBCE20F0AC720031DABE /* AuditFailedPassViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuditFailedPassViewController.h; sourceTree = "<group>"; };
+		430CFBCF20F0AC720031DABE /* AuditFailedPassViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuditFailedPassViewController.m; sourceTree = "<group>"; };
 		430FA04C20EDB5CE00D1DF8E /* ic_yin1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_yin1@2x.png"; sourceTree = "<group>"; };
 		430FA04D20EDB5CE00D1DF8E /* ic_yin3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_yin3.png; sourceTree = "<group>"; };
 		430FA04E20EDB5CF00D1DF8E /* ic_yin3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_yin3@2x.png"; sourceTree = "<group>"; };
@@ -1137,6 +1143,12 @@
 		4311E9C520DA30CD00F74960 /* ExtensionBottomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExtensionBottomView.m; sourceTree = "<group>"; };
 		4311E9C720DA4DCF00F74960 /* ExtensionBottomTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtensionBottomTableViewCell.h; sourceTree = "<group>"; };
 		4311E9C820DA4DCF00F74960 /* ExtensionBottomTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExtensionBottomTableViewCell.m; sourceTree = "<group>"; };
+		431330A920F330DF00076A1A /* SupplementView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SupplementView.h; sourceTree = "<group>"; };
+		431330AA20F330DF00076A1A /* SupplementView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SupplementView.m; sourceTree = "<group>"; };
+		431330AC20F3372600076A1A /* SupplementTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SupplementTableViewCell.h; sourceTree = "<group>"; };
+		431330AD20F3372600076A1A /* SupplementTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SupplementTableViewCell.m; sourceTree = "<group>"; };
+		431330AF20F349B700076A1A /* UserCarShoeOldBarCodeInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserCarShoeOldBarCodeInfo.h; sourceTree = "<group>"; };
+		431330B020F349B700076A1A /* UserCarShoeOldBarCodeInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserCarShoeOldBarCodeInfo.m; sourceTree = "<group>"; };
 		431339FC20ECC77D001E4939 /* CXWYPriceParamInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CXWYPriceParamInfo.h; sourceTree = "<group>"; };
 		431339FD20ECC77D001E4939 /* CXWYPriceParamInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CXWYPriceParamInfo.m; sourceTree = "<group>"; };
 		4318691620D0F1D60051F16D /* pic_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pic_back.png; sourceTree = "<group>"; };
@@ -2524,6 +2536,8 @@
 				43B1BECA20EA5183008E3E1A /* CompleteViewController.m */,
 				430CFBC820F08D4D0031DABE /* FreeChargeOrderViewController.h */,
 				430CFBC920F08D4D0031DABE /* FreeChargeOrderViewController.m */,
+				430CFBCE20F0AC720031DABE /* AuditFailedPassViewController.h */,
+				430CFBCF20F0AC720031DABE /* AuditFailedPassViewController.m */,
 			);
 			path = My;
 			sourceTree = "<group>";
@@ -3372,6 +3386,8 @@
 				43B1BE5320E9FAEF008E3E1A /* MyEvaluationInfo.m */,
 				431339FC20ECC77D001E4939 /* CXWYPriceParamInfo.h */,
 				431339FD20ECC77D001E4939 /* CXWYPriceParamInfo.m */,
+				431330AF20F349B700076A1A /* UserCarShoeOldBarCodeInfo.h */,
+				431330B020F349B700076A1A /* UserCarShoeOldBarCodeInfo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3447,6 +3463,10 @@
 				43B1BE5020E9C344008E3E1A /* TobeEvaluateHeadView.m */,
 				430CFBCB20F0973C0031DABE /* FreeChargeOrderView.h */,
 				430CFBCC20F0973C0031DABE /* FreeChargeOrderView.m */,
+				431330A920F330DF00076A1A /* SupplementView.h */,
+				431330AA20F330DF00076A1A /* SupplementView.m */,
+				431330AC20F3372600076A1A /* SupplementTableViewCell.h */,
+				431330AD20F3372600076A1A /* SupplementTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4167,6 +4187,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				430CFBD020F0AC720031DABE /* AuditFailedPassViewController.m in Sources */,
 				3618716F20E22C3600BBAE43 /* TireRepairViewController.m in Sources */,
 				43B1BECB20EA5183008E3E1A /* CompleteViewController.m in Sources */,
 				3618716E20E22BE500BBAE43 /* RepairHeadAlertView.m in Sources */,
@@ -4182,6 +4203,7 @@
 				43B1BEA920EA1D06008E3E1A /* NSBundle+HXPhotoPicker.m in Sources */,
 				4311E9C920DA4DCF00F74960 /* ExtensionBottomTableViewCell.m in Sources */,
 				438B2AFB20B7EC41004A7E2A /* ManageCarViewController.m in Sources */,
+				431330AE20F3372600076A1A /* SupplementTableViewCell.m in Sources */,
 				4318692A20D0F3290051F16D /* PaySuccessViewController.m in Sources */,
 				43B1BE5120E9C344008E3E1A /* TobeEvaluateHeadView.m in Sources */,
 				43B1BEC020EA1D06008E3E1A /* HXPhotoSubViewCell.m in Sources */,
@@ -4285,6 +4307,7 @@
 				4318692D20D0F4FA0051F16D /* PaySuccessBackView.m in Sources */,
 				43B1BEC820EA1D06008E3E1A /* HXDatePhotoEditViewController.m in Sources */,
 				36C80A6720D89C640036C14A /* FJStoreFlowLayout.m in Sources */,
+				431330AB20F330DF00076A1A /* SupplementView.m in Sources */,
 				43F874F920CE738F007D1C2E /* StoreServiceInfo.m in Sources */,
 				434367F220DB389D009D2657 /* ExtensionInfo.m in Sources */,
 				36C80A6D20D89C640036C14A /* TopBarCollectionViewCell.m in Sources */,
@@ -4358,6 +4381,7 @@
 				438D449C20C26701008DAD97 /* BuyTireData.m in Sources */,
 				36C80A7320D89C640036C14A /* YMTools.m in Sources */,
 				43B1BEC720EA1D06008E3E1A /* HXDatePhotoToolManager.m in Sources */,
+				431330B120F349B700076A1A /* UserCarShoeOldBarCodeInfo.m in Sources */,
 				36C80A5820D89C640036C14A /* DirectoryTableViewController.m in Sources */,
 				4343680E20DB91DE009D2657 /* MyQuotaViewController.m in Sources */,
 				439D061B20BE456000379414 /* CashierViewController.m in Sources */,

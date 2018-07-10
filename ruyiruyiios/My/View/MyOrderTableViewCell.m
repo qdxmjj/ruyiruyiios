@@ -220,7 +220,13 @@
             statusStr = @"更换审核未通过";
         }else if ([orderInfo.orderState isEqualToString:@"13"]){
             
-            statusStr = @"审核通过";
+            if ([orderInfo.orderStage isEqualToString:@"1"]) {
+                
+                statusStr = @"审核通过";
+            }else{
+                
+                statusStr = @"前往支付差价";
+            }
         }else if ([orderInfo.orderState isEqualToString:@"14"]){
             
             statusStr = @"店铺拒绝服务";
