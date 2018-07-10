@@ -9,4 +9,7 @@
 #import "RootViewController.h"
 @interface FreeChangeViewController : RootViewController
 
+//不传返回上一页，随便传入任何内容返回MyOrderViewController
+@property(nonatomic,copy)NSString *popStatus;
+
 @end
