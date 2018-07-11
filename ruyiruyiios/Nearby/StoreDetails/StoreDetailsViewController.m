@@ -184,7 +184,6 @@
     StoreDetailsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"assessCellID" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    
     StoreAssessModel *model = [[StoreAssessModel alloc] init];
     
     [model setValuesForKeysWithDictionary:self.assessContentArr[0]];
