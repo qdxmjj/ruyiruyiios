@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -29,31 +29,28 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B6J-2a-SaG">
-                        <rect key="frame" x="105" y="13" width="164" height="18"/>
+                        <rect key="frame" x="105" y="13" width="37.5" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_gaishoujihao.png" translatesAutoresizingMaskIntoConstraints="NO" id="n9Z-47-6ET">
-                        <rect key="frame" x="274" y="7" width="30" height="30"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="30" id="hRa-A6-7d7"/>
-                            <constraint firstAttribute="height" constant="30" id="hYa-YI-j0W"/>
-                        </constraints>
-                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="906-7p-qCB">
+                        <rect key="frame" x="291" y="10" width="13" height="22"/>
+                        <state key="normal" image="ic_gaishoujihao.png"/>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="B6J-2a-SaG" firstAttribute="centerY" secondItem="eKW-g5-TxP" secondAttribute="centerY" id="114-N9-Xzs"/>
-                    <constraint firstAttribute="trailing" secondItem="n9Z-47-6ET" secondAttribute="trailing" constant="16" id="HSG-vD-irh"/>
-                    <constraint firstItem="n9Z-47-6ET" firstAttribute="leading" secondItem="B6J-2a-SaG" secondAttribute="trailing" constant="5" id="KMc-h4-hDp"/>
-                    <constraint firstItem="n9Z-47-6ET" firstAttribute="centerY" secondItem="B6J-2a-SaG" secondAttribute="centerY" id="jIo-5d-Kzj"/>
+                    <constraint firstItem="906-7p-qCB" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="auW-yi-H96"/>
                     <constraint firstItem="B6J-2a-SaG" firstAttribute="leading" secondItem="eKW-g5-TxP" secondAttribute="trailing" constant="2" id="jMZ-Sp-wpX"/>
                     <constraint firstItem="eKW-g5-TxP" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="nwi-CZ-i7J"/>
                     <constraint firstItem="eKW-g5-TxP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="sVI-uI-45L"/>
+                    <constraint firstAttribute="trailing" secondItem="906-7p-qCB" secondAttribute="trailing" constant="16" id="t0c-Xl-6pE"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <connections>
+                <outlet property="phoneBtn" destination="906-7p-qCB" id="tCJ-Dj-I96"/>
                 <outlet property="phoneLab" destination="B6J-2a-SaG" id="Xlw-34-jWf"/>
             </connections>
             <point key="canvasLocation" x="14" y="36"/>

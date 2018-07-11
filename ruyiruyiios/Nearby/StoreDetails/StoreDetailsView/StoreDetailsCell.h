@@ -18,6 +18,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *storeAssessContent;
 
+@property (weak, nonatomic) IBOutlet UIView *starView;
 
 
 

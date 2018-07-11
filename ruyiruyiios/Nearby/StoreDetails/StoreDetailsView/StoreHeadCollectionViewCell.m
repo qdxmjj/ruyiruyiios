@@ -17,6 +17,7 @@
     if (self) {
         
         _itemLab = [[UILabel alloc] init];
+        _itemLab.textAlignment = NSTextAlignmentCenter;
         _itemLab.layer.cornerRadius = 5;
         _itemLab.layer.masksToBounds = YES;
         [self.contentView addSubview:_itemLab];

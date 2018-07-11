@@ -13,5 +13,6 @@
 
 -(void)setModel:(StoreDetailsModel *)model;
 @property (weak, nonatomic) IBOutlet UILabel *phoneLab;
+@property (weak, nonatomic) IBOutlet UIButton *phoneBtn;
 
 @end
