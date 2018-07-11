@@ -86,7 +86,8 @@
     }else if ([counponInfo.status isEqualToNumber:[NSNumber numberWithInt:2]]){
         
         self.useStateLabel.text = @"未使用";
-        if ([counponInfo.userCarId isEqualToNumber:[UserConfig userCarId]]) {
+//        NSLog(@"%@-----%@", counponInfo.userCarId, [UserConfig userCarId]);
+        if ([counponInfo.userCarId integerValue] == [[UserConfig userCarId] integerValue]) {
             
             if ([counponInfo.type intValue] == 1) {
                 

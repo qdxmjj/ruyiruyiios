@@ -65,7 +65,7 @@
 - (void)layoutSubviews{
     
     [super layoutSubviews];
-    self.bigImageV.frame = CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - 64 - 80 - 140);
+    self.bigImageV.frame = CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - SafeDistance - 100 - 140);
     self.smallImageV.frame = CGRectMake(MAINSCREEN.width/2 - 80, self.bigImageV.frame.size.height - 80, 160, 160);
     self.rightImageV.frame = CGRectMake(MAINSCREEN.width/2 - 25, self.bigImageV.frame.size.height - 210, 50, 50);
     self.successLabel.frame = CGRectMake(0, self.bigImageV.frame.size.height - 145, MAINSCREEN.width, 24);

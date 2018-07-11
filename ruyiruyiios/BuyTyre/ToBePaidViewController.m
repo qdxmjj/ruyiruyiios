@@ -12,14 +12,18 @@
 #import "CashierViewController.h"
 #import "TobepayInfo.h"
 #import "ShoeOrderVo.h"
+#import "ToDeliveryTableViewCell.h"
+#import "TireChaneOrderInfo.h"
 
-@interface ToBePaidViewController ()<UIScrollViewDelegate>
+@interface ToBePaidViewController ()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property(nonatomic, strong)UIScrollView *mainScrollV;
 @property(nonatomic, strong)UIImageView *headImageV;
 @property(nonatomic, strong)UIButton *topayBtn;
 @property(nonatomic, strong)TopayMiddleView *topayMiddleView;
 @property(nonatomic, strong)TopayBottomView *topayBottomView;
+@property(nonatomic, strong)UITableView *freeChangeTableV;
+@property(nonatomic, strong)NSMutableArray *tireFreeChangeMutableA;
 @property(nonatomic, strong)ShoeOrderVo *shoeOrdervo;
 @property(nonatomic, strong)TobepayInfo *tobepayInfo;
 
@@ -98,6 +102,30 @@
     return _topayBottomView;
 }
 
+- (UITableView *)freeChangeTableV{
+    
+    if (_freeChangeTableV == nil) {
+        
+        _freeChangeTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 270, MAINSCREEN.width, self.tireFreeChangeMutableA.count*150) style:UITableViewStylePlain];
+        _freeChangeTableV.delegate = self;
+        _freeChangeTableV.dataSource = self;
+        _freeChangeTableV.bounces = NO;
+        _freeChangeTableV.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _freeChangeTableV.showsVerticalScrollIndicator = NO;
+        _freeChangeTableV.showsHorizontalScrollIndicator = NO;
+    }
+    return _freeChangeTableV;
+}
+
+- (NSMutableArray *)tireFreeChangeMutableA{
+    
+    if (_tireFreeChangeMutableA == nil) {
+        
+        _tireFreeChangeMutableA = [[NSMutableArray alloc] init];
+    }
+    return _tireFreeChangeMutableA;
+}
+
 - (ShoeOrderVo *)shoeOrdervo{
     
     if (_shoeOrdervo == nil) {
@@ -140,10 +168,14 @@
     [super viewDidLoad];
     self.title = @"待支付";
     
-    [self addRightBtn];
+    if ([self.orderTypeStr isEqualToString:@"0"]) {
+        
+        [self addRightBtn];
+    }
     [self.view addSubview:self.mainScrollV];
     [self.view addSubview:self.topayBtn];
-    [self addView];
+    [_mainScrollV addSubview:self.headImageV];
+    [_mainScrollV addSubview:self.topayMiddleView];
     [self getUserOrderInfoByNoAndType];
     // Do any additional setup after loading the view.
 }
@@ -162,9 +194,24 @@
 
 - (void)chickRightBtn:(UIButton *)button{
     
+    NSString *postStr = @"";
+    //0轮胎购买，1普通商品，2首次更换，3免费更换，4轮胎修补，5充值信用
+    if ([orderTypeStr isEqualToString:@"0"]) {
+        
+        postStr = @"cancelShoeCxwyOrder";
+    }else if ([orderTypeStr isEqualToString:@"1"]){
+        
+        postStr = @"cancelStockOrder";
+    }else if ([orderTypeStr isEqualToString:@"2"]){
+        
+        postStr = @"cancelFirstChangeOrder";
+    }else if ([orderTypeStr isEqualToString:@"3"]){
+        
+        postStr = @"cancelShoeRepairOrder";
+    }
     NSDictionary *cancelPostDic = @{@"orderNo":orderNoStr, @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]]};
     NSString *reqJson = [PublicClass convertToJsonData:cancelPostDic];
-    [JJRequest postRequest:@"cancelShoeCxwyOrder" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+    [JJRequest postRequest:postStr params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         
         NSString *statusStr = [NSString stringWithFormat:@"%@", code];
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
@@ -200,7 +247,7 @@
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
         if ([statusStr isEqualToString:@"1"]) {
             
-//            NSLog(@"%@", data);
+            NSLog(@"%@", data);
             [self analysizeData:data];
         }else{
             
@@ -215,8 +262,24 @@
 - (void)analysizeData:(NSDictionary *)dataDic{
     
     [self.tobepayInfo setValuesForKeysWithDictionary:dataDic];
-    [self.shoeOrdervo setValuesForKeysWithDictionary:[[dataDic objectForKey:@"shoeOrderVoList"] objectAtIndex:0]];
-    [self setdataToViews];
+    
+    if (![self.tobepayInfo.shoeOrderVoList isEqual:@[]]) {
+        
+        [self.shoeOrdervo setValuesForKeysWithDictionary:[[dataDic objectForKey:@"shoeOrderVoList"] objectAtIndex:0]];
+    }
+    
+    if (self.tobepayInfo.freeChangeOrderVoList != NULL) {
+        
+        NSArray *dataArray = [dataDic objectForKey:@"freeChangeOrderVoList"];
+        for (int i = 0; i<dataArray.count; i++) {
+            
+            NSDictionary *dic = [dataArray objectAtIndex:i];
+            TireChaneOrderInfo *tireInfo = [[TireChaneOrderInfo alloc] init];
+            [tireInfo setValuesForKeysWithDictionary:dic];
+            [self.tireFreeChangeMutableA addObject:tireInfo];
+        }
+    }
+    [self addView];
 }
 
 - (IBAction)backButtonAction:(id)sender{
@@ -233,16 +296,55 @@
 
 - (void)addView{
     
-    [_mainScrollV addSubview:self.headImageV];
-    [_mainScrollV addSubview:self.topayMiddleView];
-    [_mainScrollV addSubview:self.topayBottomView];
-    [_mainScrollV setContentSize:CGSizeMake(MAINSCREEN.width, (self.topayBottomView.frame.size.height + self.topayBottomView.frame.origin.y))];
+    if ([self.orderTypeStr isEqualToString:@"0"]) {
+        
+        [_mainScrollV addSubview:self.topayBottomView];
+        [_mainScrollV setContentSize:CGSizeMake(MAINSCREEN.width, (self.topayBottomView.frame.size.height + self.topayBottomView.frame.origin.y))];
+    }else{
+        
+        [_mainScrollV addSubview:self.freeChangeTableV];
+        [_mainScrollV setContentSize:CGSizeMake(MAINSCREEN.width, (self.freeChangeTableV.frame.size.height + self.freeChangeTableV.frame.origin.y))];
+    }
+    [self setdataToViews];
 }
 
 - (void)setdataToViews{
     
-    [_topayMiddleView setPayMiddleViewData:self.tobepayInfo];
-    [_topayBottomView setTopayBottomViewData:self.shoeOrdervo tobePayinfo:self.tobepayInfo];
+    [_topayMiddleView setPayMiddleViewData:self.tobepayInfo totalPrice:totalPriceStr];
+    if ([self.orderTypeStr isEqualToString:@"0"]) {
+        
+        [_topayBottomView setTopayBottomViewData:self.shoeOrdervo tobePayinfo:self.tobepayInfo];
+    }
+}
+
+//UITableViewDelegate and UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    return self.tireFreeChangeMutableA.count;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return 150.0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    static NSString *reuseIndentifier = @"cell";
+    ToDeliveryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIndentifier];
+    if (cell == nil) {
+        
+        cell = [[ToDeliveryTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIndentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    TireChaneOrderInfo *tireInfo = [self.tireFreeChangeMutableA objectAtIndex:indexPath.row];
+    [cell setdatatoCellViews:tireInfo img:self.tobepayInfo.orderImg];
+    return cell;
 }
 
 - (void)didReceiveMemoryWarning {

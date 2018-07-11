@@ -391,6 +391,24 @@
                 }
                 [self jumpcompleteVC:completeStr orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
             }
+        }else if ([orderInfo.orderType isEqualToString:@"3"] && [orderInfo.orderState isEqualToString:@"11"]){
+            
+            [self jumpFreeChargeOrderVC:@"更换审核中" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+        }else if ([orderInfo.orderType isEqualToString:@"3"] && [orderInfo.orderState isEqualToString:@"13"]){
+            
+            if ([orderInfo.orderStage isEqualToString:@"1"]) {
+                
+                [self jumpFreeChargeOrderVC:@"审核通过" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+            }else{
+                
+                [self jumpToAuditFailVC:@"待车主补差" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+            }
+        }else if ([orderInfo.orderState isEqualToString:@"12"]){
+            
+            [self jumpToAuditFailVC:@"审核未通过" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+        }else if ([orderInfo.orderState isEqualToString:@"14"]){
+            
+            [self jumpcompleteVC:@"店铺拒绝服务" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
         }else{
             
             if ([orderInfo.orderState isEqualToString:@"8"]) {
@@ -491,6 +509,9 @@
                     
                     [self jumpToAuditFailVC:@"待车主补差" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
                 }
+            }else{
+                
+                [self jumpToAllorderDetailVC:@"待发货" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
             }
         }else{
             
@@ -532,6 +553,9 @@
                 }else if ([orderInfo.orderState isEqualToString:@"1"]){
                     
                     completeStr = @"交易完成";
+                }else if ([orderInfo.orderState isEqualToString:@"14"]){
+                    
+                    completeStr = @"店铺拒绝服务";
                 }
                 [self jumpcompleteVC:completeStr orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
             }
@@ -589,6 +613,10 @@
     freeOrderVC.titleStr = titleStr;
     freeOrderVC.orderNoStr = orderNoStr;
     freeOrderVC.orderTypeStr = orderTypeStr;
+    freeOrderVC.backOrderBlock = ^(NSString *update) {
+        
+        [self.myorderTableV.mj_header beginRefreshing];
+    };
     [self.navigationController pushViewController:freeOrderVC animated:YES];
 }
 

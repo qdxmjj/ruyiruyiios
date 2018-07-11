@@ -630,7 +630,7 @@
         [topCell.ison addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventTouchUpInside];
         topCell.ison.userInteractionEnabled = is_alter;
         topCell.platenumBtn.tag = 10001;
-        if (resultPlateStr.length == 8) {
+        if (resultPlateStr.length == 8 || resultPlateStr.length == 7) {
             
             [topCell.platenumBtn setTitle:resultPlateStr forState:UIControlStateNormal];
         }else{
@@ -852,6 +852,7 @@
 
 - (void)showPickDateView:(UIButton *)topBtn{
     
+    [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"joinStatusStr"];
     WXZPickDateView *pickerDate = [[WXZPickDateView alloc] init];
     [pickerDate setIsAddYetSelect:NO];
     [pickerDate setIsShowDay:YES];

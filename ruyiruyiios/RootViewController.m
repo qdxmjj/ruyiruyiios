@@ -67,6 +67,8 @@
     button.frame = frame;
     [button setImage:image forState:UIControlStateNormal];
     [button setImage:imagehigh forState:UIControlStateHighlighted];
+//    button.backgroundColor = [UIColor blackColor];
+    [button setImageEdgeInsets:UIEdgeInsetsMake(0, -frame.size.width + 20, 0, 0)];
     [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     UIView *buttonView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, button.frame.size.width, button.frame.size.height + offset)];
     [buttonView addSubview:button];

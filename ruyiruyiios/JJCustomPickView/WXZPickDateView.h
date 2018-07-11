@@ -19,6 +19,7 @@
 @property(nonatomic, assign)BOOL isAddYetSelect;//是否增加至今的选项
 @property(nonatomic, assign)BOOL isShowDay;//是否显示日
 @property(nonatomic, strong)NSString *firstFlagStr;
+//@property(nonatomic, strong)NSString *joinStatusStr;//0---注册用户信息页面，1---注册车辆信息页面
 
 -(void)setDefaultTSelectYear:(NSInteger)defaultSelectYear defaultSelectMonth:(NSInteger)defaultSelectMonth defaultSelectDay:(NSInteger)defaultSelectDay;
 

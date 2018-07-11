@@ -224,7 +224,7 @@
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
         if ([statusStr isEqualToString:@"1"]) {
             
-            YLog(@"%@", data);
+            NSLog(@"%@", data);
             [self analySizeData:data];
         }else{
             
@@ -256,6 +256,19 @@
             [self.TireNumberOrStoreMutableA addObject:tireInfo];
         }
     }
+    
+    if (self.firstUpdateInfo.freeChangeOrderVoList != NULL) {
+        
+        NSArray *dataArray = [dataDic objectForKey:@"freeChangeOrderVoList"];
+        for (int i = 0; i<dataArray.count; i++) {
+            
+            NSDictionary *dic = [dataArray objectAtIndex:i];
+            TireChaneOrderInfo *tireInfo = [[TireChaneOrderInfo alloc] init];
+            [tireInfo setValuesForKeysWithDictionary:dic];
+            [self.TireNumberOrStoreMutableA addObject:tireInfo];
+        }
+    }
+    
     if (![self.firstUpdateInfo.stockOrderVoList isEqual:@[]]) {
         
         NSArray *stockArray = [dataDic objectForKey:@"stockOrderVoList"];
@@ -304,7 +317,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (self.firstUpdateInfo.firstChangeOrderVoList == NULL) {
+    if (self.firstUpdateInfo.firstChangeOrderVoList == NULL && self.firstUpdateInfo.freeChangeOrderVoList == NULL) {
         
         static NSString *reuseIndentifier = @"storeCell";
         ToserviceStoreTableViewCell *storeCell = [tableView dequeueReusableCellWithIdentifier:reuseIndentifier];

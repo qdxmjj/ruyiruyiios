@@ -13,6 +13,7 @@
 @property(nonatomic, weak)UILabel *promptLabel;
 @property(nonatomic, weak)UIPickerView *platePickview;
 @property(nonatomic, weak)UITextField *inputTF;
+@property(nonatomic, weak)UIView *inputUnderLineView;
 @property(nonatomic, weak)UIButton *sureBtn;
 @property(nonatomic, strong)NSArray *regionArray;
 @property(nonatomic, strong)NSArray *letterArray;

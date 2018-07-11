@@ -178,8 +178,10 @@
 
 - (void)chickDateBtn{
     
+    [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"joinStatusStr"];
     isShowDay=YES;
     WXZPickDateView *pickerDate = [[WXZPickDateView alloc]init];
+//    pickerDate.joinStatusStr = @"0";
     [pickerDate setIsAddYetSelect:NO];//是否显示至今选项
     [pickerDate setIsShowDay:isShowDay];//是否显示日信息
     [pickerDate setDefaultTSelectYear:2018 defaultSelectMonth:5 defaultSelectDay:10];//设定默认显示的日期
@@ -222,17 +224,13 @@
 - (void)chickSaveBtn{
     
     [_registerTabV reloadData];
-    if (_resetPStr.length == 0 || _surePStr == 0 || _nickStr == 0 || _emailStr == 0) {
+    if (_resetPStr.length == 0 || _surePStr == 0 || _nickStr == 0) {
         
         [PublicClass showHUD:@"输入不能为空" view:self.view];
     }else if (![_resetPStr isEqualToString:_surePStr]){
         
         [PublicClass showHUD:@"二次输入的密码不一致" view:self.view];
-    }else if (![PublicClass validateEmail:_emailStr]){
-        
-        [PublicClass showHUD:@"请输入正确的邮箱" view:self.view];
-    }
-    else{
+    }else{
         
         if ([_sexBtn.titleLabel.text isEqualToString:@"男"]) {
             
@@ -244,6 +242,14 @@
         _resetPStr = [[PublicClass md5:_resetPStr] uppercaseString];
         _surePStr = [[PublicClass md5:_surePStr] uppercaseString];
         NSLog(@"加密之后的字符串:%@", _resetPStr);
+        if (_emailStr.length != 0) {
+            
+            if (![PublicClass validateEmail:_emailStr]){
+                
+                [PublicClass showHUD:@"请输入正确的邮箱" view:self.view];
+                return;
+            }
+        }
         NSDictionary *registerPostDic = @{@"age":@"0",@"birthday": _dateBtn.titleLabel.text,@"email": _emailStr,@"gender":_sexNumberStr,@"nick":_nickStr,@"password":_resetPStr,@"phone":teleStr};
         NSString *regsterReqJson = [PublicClass convertToJsonData:registerPostDic];
         [JJRequest postRequest:@"registerUser" params:@{@"reqJson":regsterReqJson} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {

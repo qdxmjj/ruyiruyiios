@@ -32,7 +32,7 @@
     
     if (_paySuccessBackView == nil) {
         
-        _paySuccessBackView = [[PaySuccessBackView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - 164)];
+        _paySuccessBackView = [[PaySuccessBackView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - 100 - SafeDistance)];
         [_paySuccessBackView setDatatoViews];
     }
     return _paySuccessBackView;
@@ -43,7 +43,7 @@
     if (_toOrderTypeControlBtn == nil) {
         
         _toOrderTypeControlBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _toOrderTypeControlBtn.frame = CGRectMake(10, MAINSCREEN.height - 80 - 64, MAINSCREEN.width - 20, 34);
+        _toOrderTypeControlBtn.frame = CGRectMake(10, MAINSCREEN.height - 80 - SafeDistance, MAINSCREEN.width - 20, 34);
         _toOrderTypeControlBtn.layer.cornerRadius = 6.0;
         _toOrderTypeControlBtn.layer.masksToBounds = YES;
         _toOrderTypeControlBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
@@ -72,7 +72,7 @@
     if (_returnHomeControlBtn == nil) {
         
         _returnHomeControlBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _returnHomeControlBtn.frame = CGRectMake(10, MAINSCREEN.height - 40 - 64, MAINSCREEN.width - 20, 34);
+        _returnHomeControlBtn.frame = CGRectMake(10, MAINSCREEN.height - 40 - SafeDistance, MAINSCREEN.width - 20, 34);
         _returnHomeControlBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
         _returnHomeControlBtn.layer.cornerRadius = 6.0;
         _returnHomeControlBtn.layer.masksToBounds = YES;

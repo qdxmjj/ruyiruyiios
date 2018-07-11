@@ -98,11 +98,11 @@
     self.totalPriceLabel.frame = CGRectMake(MAINSCREEN.width/2, 120, MAINSCREEN.width/2 - 20, 20);
 }
 
-- (void)setPayMiddleViewData:(TobepayInfo *)tobepayInfo{
+- (void)setPayMiddleViewData:(TobepayInfo *)tobepayInfo totalPrice:(NSString *)totalPriceStr{
     
     self.nameLabel.text = tobepayInfo.userName;
     self.telephoneLabel.text = tobepayInfo.userPhone;
-    self.totalPriceLabel.text = [NSString stringWithFormat:@"¥ %@", tobepayInfo.orderTotalPrice];
+    self.totalPriceLabel.text = [NSString stringWithFormat:@"¥ %@", totalPriceStr];
     self.platLabel.text = tobepayInfo.platNumber;
 }
 
