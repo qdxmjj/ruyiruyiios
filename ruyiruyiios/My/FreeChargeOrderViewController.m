@@ -84,14 +84,44 @@
         
         _submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _submitBtn.frame = CGRectMake(10, MAINSCREEN.height - SafeDistance - 40, MAINSCREEN.width - 20, 34);
-        _submitBtn.userInteractionEnabled = NO;
         _submitBtn.layer.cornerRadius = 6.0;
         _submitBtn.layer.masksToBounds = YES;
-        [_submitBtn setTitle:titleStr forState:UIControlStateNormal];
-        [_submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_submitBtn setBackgroundColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        if ([titleStr isEqualToString:@"审核通过"]) {
+            
+            [_submitBtn setTitle:@"更换轮胎" forState:UIControlStateNormal];
+            [_submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [_submitBtn setBackgroundColor:LOGINBACKCOLOR forState:UIControlStateNormal];
+            [_submitBtn addTarget:self action:@selector(chickSubmitBtn:) forControlEvents:UIControlEventTouchUpInside];
+        }else{
+            
+            [_submitBtn setTitle:titleStr forState:UIControlStateNormal];
+            [_submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [_submitBtn setBackgroundColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        }
     }
     return _submitBtn;
+}
+
+- (void)chickSubmitBtn:(UIButton *)button{
+    
+    NSDictionary *postDic = @{@"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]], @"orderNo":orderNoStr, @"cxwyAmount":@"0"};
+    NSString *reqJson = [PublicClass convertToJsonData:postDic];
+    [JJRequest postRequest:@"confirmUserFreeChangeOrder" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+        
+        NSString *statusStr = [NSString stringWithFormat:@"%@", code];
+        NSString *messageStr = [NSString stringWithFormat:@"%@", message];
+        if ([statusStr isEqualToString:@"1"]) {
+            
+            self.backOrderBlock(@"update");
+            [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            
+            [PublicClass showHUD:messageStr view:self.view];
+        }
+    } failure:^(NSError * _Nullable error) {
+        
+        NSLog(@"用户确认免费再换审核结果错误:%@", error);
+    }];
 }
 
 - (FirstUpdateOrFreeChangeInfo *)firstUpdateInfo{

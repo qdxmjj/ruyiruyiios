@@ -306,7 +306,7 @@
             
             [_firstView.iconImageV sd_setImageWithURL:[NSURL URLWithString:self.dataCars.car_brand_url]];
             _firstView.topLabel.text = self.dataCars.car_verhicle;
-            _firstView.bottomLabel.text = @"一次性购买四条轮胎送洗车卷";
+            _firstView.bottomLabel.text = @"一次性购买四条轮胎送洗车券";
         }
     }
 }

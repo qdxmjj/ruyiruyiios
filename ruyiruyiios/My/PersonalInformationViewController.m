@@ -280,6 +280,7 @@
 - (void)chickDateBtnotherCell:(PersonOtherTableViewCell *)cell index:(NSInteger)index{
     
     NSString *dataStr = self.dataArray[(index - 1)];
+    [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"joinStatusStr"];
     WXZPickDateView *pickerDate = [[WXZPickDateView alloc] init];
     [pickerDate setIsAddYetSelect:NO];
     [pickerDate setIsShowDay:YES];

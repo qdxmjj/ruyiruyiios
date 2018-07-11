@@ -1280,6 +1280,8 @@
 		4332F8C520D9047600AF386F /* ic_icon4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_icon4@2x.png"; sourceTree = "<group>"; };
 		4332F8C620D9047600AF386F /* ic_icon4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_icon4.png; sourceTree = "<group>"; };
 		4332F8C720D9047700AF386F /* ic_icon4@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_icon4@3x.png"; sourceTree = "<group>"; };
+		4333079A20F5D2CA0055D05F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		4333079B20F5D2CA0055D05F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		43380E4B20E0BD9100B3ABAF /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		43380E4C20E0BD9100B3ABAF /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		43380E4D20E0BD9100B3ABAF /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
@@ -4476,6 +4478,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				4343EB70209FE79E003AD5FE /* Base */,
+				4333079A20F5D2CA0055D05F /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -4484,6 +4487,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				4343EB75209FE79E003AD5FE /* Base */,
+				4333079B20F5D2CA0055D05F /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -4495,6 +4499,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -4552,6 +4557,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -4625,6 +4631,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruyiruyiios.ruyiruyiios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -4655,6 +4662,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruyiruyiios.ruyiruyiios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

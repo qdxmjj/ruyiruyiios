@@ -201,7 +201,7 @@
     DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
     [delegateConfiguration registerLoginStatusChangedListener:self];
     
-    self.titleArray = @[@"带更换轮胎", @"畅行无忧", @"我的宝驹", @"优惠券", @"推广码", @"评价", @"设置"];
+    self.titleArray = @[@"待更换轮胎", @"畅行无忧", @"我的宝驹", @"优惠券", @"推广码", @"评价", @"设置"];
     self.imgArray = @[@"ic_daigenghuan", @"ic_changxing", @"ic_wodeche", @"ic_youhuiquan", @"ic_tuiguang", @"ic_pingjia", @"ic_shezhi"];
     
     UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20+(SafeAreaTopHeight - 64))];

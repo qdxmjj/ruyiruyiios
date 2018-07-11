@@ -34,8 +34,14 @@
     [super initPickView];
     
     firstFlagStr = @"0";
-    NSString *yearStr = [[PublicClass gettodayDate] substringWithRange:NSMakeRange(0, 4)];
-    _minShowYear = [yearStr integerValue] - 14;//最小年份
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"joinStatusStr"] isEqualToString:@"0"]) {
+        
+        _minShowYear = 1940;
+    }else{
+        
+        NSString *yearStr = [[PublicClass gettodayDate] substringWithRange:NSMakeRange(0, 4)];
+        _minShowYear = [yearStr integerValue] - 14;//最小年份
+    }
     NSCalendar *gregorian = [[NSCalendar alloc]
                              initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     // 获取当前日期

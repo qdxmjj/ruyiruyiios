@@ -16,7 +16,8 @@
 #define LOGINBACKCOLOR [UIColor colorWithRed:255.0/255 green:102.0/255 blue:35.0/255 alpha:1.0]
 #define TEXTCOLORB3 [PublicClass colorWithHexString:@"#B3B3B3"]
 #define TEXTCOLOR64 [PublicClass colorWithHexString:@"#646464"]
-#define SERVERPREFIX @"http://192.168.0.167:8082/xmjj-webservice"
+//#define SERVERPREFIX @"http://192.168.0.167:8082/xmjj-webservice"
+#define SERVERPREFIX @"http://ruyiruyi.s1.natapp.cc/xmjj-webservice/"
 
 //#define SERVERPREFIX @"http://192.168.0.190:8060"
 
@@ -36,7 +37,7 @@
 
 
 #ifdef DEBUG
-#define YLog(format, ...) printf("class: <%p %s:(%d) > method: %s \n%s\n", self, [[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, __PRETTY_FUNCTION__, [[NSString stringWithFormat:(format), ##__VA_ARGS__] UTF8String] )
+//#define YLog(format, ...) printf("class: <%p %s:(%d) > method: %s \n%s\n", self, [[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, __PRETTY_FUNCTION__, [[NSString stringWithFormat:(format), ##__VA_ARGS__] UTF8String] )
 #else
 #define SLog(format, ...)
 #endif

@@ -13,5 +13,6 @@
 @property(nonatomic, strong)NSString *titleStr;
 @property(nonatomic, strong)NSString *orderNoStr;
 @property(nonatomic, strong)NSString *orderTypeStr;
+@property(nonatomic, copy)void(^backOrderBlock)(NSString *update);
 
 @end

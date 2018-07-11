@@ -16,6 +16,6 @@
 @property(nonatomic, strong)UILabel *platLabel;
 @property(nonatomic, strong)UILabel *totalPriceLabel;
 
-- (void)setPayMiddleViewData:(TobepayInfo *)tobepayInfo;
+- (void)setPayMiddleViewData:(TobepayInfo *)tobepayInfo totalPrice:(NSString *)totalPriceStr;
 
 @end

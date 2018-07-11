@@ -195,6 +195,7 @@
             CashierViewController *cashierVC = [[CashierViewController alloc] init];
             cashierVC.orderTypeStr = self.orderTypeStr;
             cashierVC.orderNoStr = self.orderNoStr;
+//            NSLog(@"补差的价格:%@", [self.supplementView.needMoneyLabel.text substringWithRange:NSMakeRange(2, self.supplementView.needMoneyLabel.text.length - 2)]);
             cashierVC.totalPriceStr = [self.supplementView.needMoneyLabel.text substringWithRange:NSMakeRange(2, self.supplementView.needMoneyLabel.text.length - 2)];
             [self.navigationController pushViewController:cashierVC animated:YES];
         }];
@@ -265,6 +266,7 @@
 - (void)chickSubmitBtn:(UIButton *)button{
     
     FreeChangeViewController *freeChangeVC = [[FreeChangeViewController alloc] init];
+    freeChangeVC.popStatus = @"2";
     [self.navigationController pushViewController:freeChangeVC animated:YES];
 }
 
@@ -343,7 +345,7 @@
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
         if ([statusStr isEqualToString:@"1"]) {
             
-            YLog(@"返回的数据：%@", data);
+            NSLog(@"返回的数据：%@", data);
             [self analySizeData:data];
         }else{
             

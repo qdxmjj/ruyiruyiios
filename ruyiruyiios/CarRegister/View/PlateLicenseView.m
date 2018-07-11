@@ -38,6 +38,11 @@
         self.inputTF = textField;
         [self addSubview:textField];
         
+        UIView *underView = [[UIView alloc] init];
+        underView.backgroundColor = LOGINBACKCOLOR;
+        self.inputUnderLineView = underView;
+        [self addSubview:underView];
+        
         UIButton *okBtn = [[UIButton alloc] init];
         [okBtn setTitle:@"OK" forState:UIControlStateNormal];
         [okBtn setTitleColor:LOGINBACKCOLOR forState:UIControlStateNormal];
@@ -56,7 +61,8 @@
     [super layoutSubviews];
     self.promptLabel.frame = CGRectMake(20, 20, self.frame.size.width-20, 20);
     self.platePickview.frame = CGRectMake(20, 50, self.frame.size.width/2 - 20, 130);
-    self.inputTF.frame = CGRectMake(self.frame.size.width/2+20, 90, self.frame.size.width/2-20, 20);
+    self.inputTF.frame = CGRectMake(self.frame.size.width/2+20, 105, self.frame.size.width/2-20, 20);
+    self.inputUnderLineView.frame = CGRectMake(self.frame.size.width/2+20, 128, self.frame.size.width/2 - 40, 1);
     self.sureBtn.frame = CGRectMake(self.frame.size.width - 60, self.frame.size.height - 40, 40, 20);
 }
 

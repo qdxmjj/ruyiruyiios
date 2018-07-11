@@ -64,9 +64,9 @@
         MainTabBarViewController *mainTabVC = [[MainTabBarViewController alloc] init];
         self.window.rootViewController = mainTabVC;
     }
-    
+
     if (![[NSUserDefaults standardUserDefaults] valueForKey:@"insertCompletion"]) {
-        
+
         NSLog(@"开始执行请求数据和插入数据库操作");
         NSString *timeStr = @"1970-01-01 11:31:03";
         [self databaseOperation:timeStr];

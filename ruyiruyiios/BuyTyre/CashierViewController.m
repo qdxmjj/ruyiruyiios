@@ -122,7 +122,7 @@
                 if ([statusStr isEqualToString:@"1"]) {
                     
                     PaySuccessViewController *paySuccessVC = [[PaySuccessViewController alloc] init];
-                    paySuccessVC.orderTypeStr = orderTypeStr;
+                    paySuccessVC.orderTypeStr = self.orderTypeStr;
                     [self.navigationController pushViewController:paySuccessVC animated:YES];
                 }else{
                     
@@ -283,20 +283,20 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"如驿如意" message:@"您确认离开支付订单界面，离开订单会变为待付款订单，可在待付款订单中查看" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
-        if ([orderTypeStr isEqualToString:@"0"]) {
+        if ([self.orderTypeStr isEqualToString:@"0"] || [self.orderTypeStr isEqualToString:@"3"]) {
             
             ToBePaidViewController *tobePaidVC = [[ToBePaidViewController alloc] init];
-            tobePaidVC.orderNoStr = orderNoStr;
-            tobePaidVC.totalPriceStr = totalPriceStr;
-            tobePaidVC.orderTypeStr = orderTypeStr;
+            tobePaidVC.orderNoStr = self.orderNoStr;
+            tobePaidVC.totalPriceStr = self.totalPriceStr;
+            tobePaidVC.orderTypeStr = self.orderTypeStr;
             [self.navigationController pushViewController:tobePaidVC animated:YES];
             
-        }else if ([orderTypeStr isEqualToString:@"1"]){
+        }else if ([self.orderTypeStr isEqualToString:@"1"]){
             
             WaitPaymentViewController *waitPaymentVC = [[WaitPaymentViewController alloc] init];
             
-            waitPaymentVC.orderType = orderTypeStr;
-            waitPaymentVC.orderNo = orderNoStr;
+            waitPaymentVC.orderType = self.orderTypeStr;
+            waitPaymentVC.orderNo = self.orderNoStr;
             waitPaymentVC.backStatus = @"0";
             
             [self.navigationController pushViewController:waitPaymentVC animated:YES];

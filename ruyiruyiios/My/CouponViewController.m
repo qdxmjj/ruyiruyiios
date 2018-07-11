@@ -173,7 +173,7 @@
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
         if ([statusStr isEqualToString:@"1"]) {
 
-            YLog(@"获取优惠券数据：%@", data);
+//            NSLog(@"获取优惠券数据：%@", data);
             [self analySizeData:data];
         }else if ([statusStr isEqualToString:@"-999"]){
             
@@ -310,7 +310,7 @@
                 
                 if ([couponInfo.type intValue] == 2) {
                     
-                    self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.salesId], [NSString stringWithFormat:@"%@", couponInfo.type], couponInfo.couponName);
+                    self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.coupon_id], [NSString stringWithFormat:@"%@", couponInfo.type], couponInfo.couponName);
                     [self.navigationController popViewControllerAnimated:YES];
                 }
             }
