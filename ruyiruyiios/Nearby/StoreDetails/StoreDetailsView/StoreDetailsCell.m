@@ -10,10 +10,10 @@
 #import <UIImageView+WebCache.h>
 #import <UIView+MJExtension.h>
 #import "StoreDetailsCollectionViewCell.h"
-
+#import "SDPhotoBrowser.h"
 #define collectionViewH  self.collectionView.frame.size.height;
 
-@interface StoreDetailsCell ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@interface StoreDetailsCell ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SDPhotoBrowserDelegate>
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentImgh;
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -62,6 +62,43 @@
     
     
     return CGSizeMake((self.contentView.mj_w-80-20)/3, 50);
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    SDPhotoBrowser *browser = [[SDPhotoBrowser alloc] init];
+    
+    //设置容器视图,父视图
+    browser.sourceImagesContainerView = self.collectionView;
+    
+    browser.currentImageIndex = indexPath.item;
+    
+    browser.imageCount = self.assessImgDataArr.count;
+    
+    //设置代理
+    browser.delegate = self;
+    //显示图片浏览器
+    [browser show];
+    
+}
+
+- (NSURL *)photoBrowser:(SDPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index
+
+{
+    //拿到显示的图片的高清图片地址
+    NSURL *url = [NSURL URLWithString:self.assessImgDataArr[index]];
+    return url;
+}
+
+//返回占位图片
+- (UIImage *)photoBrowser:(SDPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index
+{
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:0];
+    
+    StoreDetailsCollectionViewCell *cell = (StoreDetailsCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+    
+    return cell.assessImageView.image;
 }
 
 -(void)setAssessContentModel:(StoreAssessModel *)model{

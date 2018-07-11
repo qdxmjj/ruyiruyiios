@@ -35,6 +35,9 @@
 		3676AD6620E9BAA90067EDA0 /* ic_delete1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3676AD6320E9BAA80067EDA0 /* ic_delete1.png */; };
 		3676AD6720E9BAA90067EDA0 /* ic_delete1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3676AD6420E9BAA80067EDA0 /* ic_delete1@2x.png */; };
 		3676AD6820E9BAA90067EDA0 /* ic_delete1@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3676AD6520E9BAA90067EDA0 /* ic_delete1@3x.png */; };
+		367F985220F5EE570022838C /* SDBrowserImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 367F984C20F5EE570022838C /* SDBrowserImageView.m */; };
+		367F985320F5EE570022838C /* SDPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 367F984E20F5EE570022838C /* SDPhotoBrowser.m */; };
+		367F985420F5EE570022838C /* SDWaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 367F985120F5EE570022838C /* SDWaitingView.m */; };
 		369520F720C9172F001FA48E /* ic_my_shibai@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 369520F420C9172E001FA48E /* ic_my_shibai@3x.png */; };
 		369520F820C9172F001FA48E /* ic_my_shibai.png in Resources */ = {isa = PBXBuildFile; fileRef = 369520F520C9172E001FA48E /* ic_my_shibai.png */; };
 		369520F920C9172F001FA48E /* ic_my_shibai@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 369520F620C9172E001FA48E /* ic_my_shibai@2x.png */; };
@@ -867,6 +870,13 @@
 		3676AD6320E9BAA80067EDA0 /* ic_delete1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_delete1.png; sourceTree = "<group>"; };
 		3676AD6420E9BAA80067EDA0 /* ic_delete1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_delete1@2x.png"; sourceTree = "<group>"; };
 		3676AD6520E9BAA90067EDA0 /* ic_delete1@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_delete1@3x.png"; sourceTree = "<group>"; };
+		367F984B20F5EE570022838C /* SDBrowserImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDBrowserImageView.h; sourceTree = "<group>"; };
+		367F984C20F5EE570022838C /* SDBrowserImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDBrowserImageView.m; sourceTree = "<group>"; };
+		367F984D20F5EE570022838C /* SDPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPhotoBrowser.h; sourceTree = "<group>"; };
+		367F984E20F5EE570022838C /* SDPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDPhotoBrowser.m; sourceTree = "<group>"; };
+		367F984F20F5EE570022838C /* SDPhotoBrowserConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPhotoBrowserConfig.h; sourceTree = "<group>"; };
+		367F985020F5EE570022838C /* SDWaitingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWaitingView.h; sourceTree = "<group>"; };
+		367F985120F5EE570022838C /* SDWaitingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWaitingView.m; sourceTree = "<group>"; };
 		369520F420C9172E001FA48E /* ic_my_shibai@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_my_shibai@3x.png"; sourceTree = "<group>"; };
 		369520F520C9172E001FA48E /* ic_my_shibai.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_my_shibai.png; sourceTree = "<group>"; };
 		369520F620C9172E001FA48E /* ic_my_shibai@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_my_shibai@2x.png"; sourceTree = "<group>"; };
@@ -1987,6 +1997,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		367F984A20F5EE570022838C /* SDPhotoBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				367F984B20F5EE570022838C /* SDBrowserImageView.h */,
+				367F984C20F5EE570022838C /* SDBrowserImageView.m */,
+				367F984D20F5EE570022838C /* SDPhotoBrowser.h */,
+				367F984E20F5EE570022838C /* SDPhotoBrowser.m */,
+				367F984F20F5EE570022838C /* SDPhotoBrowserConfig.h */,
+				367F985020F5EE570022838C /* SDWaitingView.h */,
+				367F985120F5EE570022838C /* SDWaitingView.m */,
+			);
+			path = SDPhotoBrowser;
+			sourceTree = "<group>";
+		};
 		36C809CA20D89C640036C14A /* Nearby */ = {
 			isa = PBXGroup;
 			children = (
@@ -2344,6 +2368,7 @@
 				4347BF7B20B3E852002F13E8 /* DelegateConfiguration.h */,
 				4347BF7C20B3E852002F13E8 /* DelegateConfiguration.m */,
 				43380E4A20E0BD9100B3ABAF /* WechatSDK1.8.2 */,
+				367F984A20F5EE570022838C /* SDPhotoBrowser */,
 				43B1BE5520EA1D06008E3E1A /* HXPhotoPicker */,
 				433EECF520ADBD6A0051DF9F /* Category */,
 				43515E6920A718660043C0CC /* DataBase */,
@@ -4331,10 +4356,12 @@
 				43F5795220C9211E00E0B588 /* MyBottomCollectionViewCell.m in Sources */,
 				36C80A7020D89C640036C14A /* CALayer+XIBConfiguration.m in Sources */,
 				36C80A4120D89C640036C14A /* SearchRecord.m in Sources */,
+				367F985220F5EE570022838C /* SDBrowserImageView.m in Sources */,
 				43BBC39D20C67283002C2FE6 /* OrderHeadView.m in Sources */,
 				4319311E20E8BCF3006005C8 /* BarCodeView.m in Sources */,
 				4322A1D020A2980B007B4037 /* RegisterTableViewCell.m in Sources */,
 				4322A1D620A2E8ED007B4037 /* DateTableViewCell.m in Sources */,
+				367F985420F5EE570022838C /* SDWaitingView.m in Sources */,
 				43F874DB20CE490C007D1C2E /* FirstUpdateMiddleView.m in Sources */,
 				4343EB6B209FE79E003AD5FE /* AppDelegate.m in Sources */,
 				43B1BEB320EA1D06008E3E1A /* HXDatePhotoPreviewViewController.m in Sources */,
@@ -4404,6 +4431,7 @@
 				430FABA320E5DBD600EB27F7 /* ToDeliveryTableViewCell.m in Sources */,
 				4358CAAD20A3EEAF006B456F /* WXZCustomPickView.m in Sources */,
 				43B1BEAB20EA1D06008E3E1A /* UIImageView+HXExtension.m in Sources */,
+				367F985320F5EE570022838C /* SDPhotoBrowser.m in Sources */,
 				4319BD1E20DE22F500CBA46C /* ChoiceTableHeadView.m in Sources */,
 				4319D9DE20ABFCB900893026 /* FMDBCarVerhicle.m in Sources */,
 				36C80A9020D89C6A0036C14A /* WinterTyreModel.m in Sources */,

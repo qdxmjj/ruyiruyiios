@@ -44,11 +44,12 @@
 
 
 //获取的参数
-@property(nonatomic,copy)NSString *fontAmount;
+@property(nonatomic,assign)NSInteger fontAmount;
+
+@property(nonatomic,assign)NSInteger rearAmount;
 
 @property(nonatomic,copy)NSString *fontRearFlag;
 
-@property(nonatomic,copy)NSString *rearAmount;
 
 @property(nonatomic,copy)NSString *platNumber;
 
@@ -60,6 +61,8 @@
     [super viewDidLoad];
 
     self.title = @"免费再换";
+    self.fontAmount = 0;//默认数量0
+    self.rearAmount = 0;//默认0
     [self getFreeChangeTireInfo];
     [self getBarCodeInfo];
     [self selectStoreByCondition];
@@ -209,19 +212,15 @@
                 return ;
             }
             
-            self.fontAmount    = [NSString stringWithFormat:@"%@",[data objectForKey:@"fontAmount"]];
-            
             self.fontRearFlag  = [NSString stringWithFormat:@"%@",[data objectForKey:@"fontRearFlag"]];
             
-            self.rearAmount    = [NSString stringWithFormat:@"%@",[data objectForKey:@"rearAmount"]];
-
             if ([self.fontRearFlag isEqualToString:@"0"]) {
                 //前后轮一致
                 [self.titleArr addObject:@"当前轮胎数量"];
-                [self.contentArr addObject:self.fontAmount];
+                [self.contentArr addObject:[NSString stringWithFormat:@"%@",[data objectForKey:@"fontAmount"]]];
                 
                 //设置总数 前后轮一致：只有前轮有数量 前后轮不一致：两者都有数量
-                self.frontTotal = [_fontAmount integerValue];
+                self.frontTotal = [[data objectForKey:@"fontAmount"] integerValue];
                 
             }else{
                 
@@ -229,12 +228,12 @@
                 [self.titleArr addObject:@"前胎数量"];
                 [self.titleArr addObject:@"后胎数量"];
                 
-                [self.contentArr addObject:self.fontAmount];
-                [self.contentArr addObject:self.rearAmount];
+                [self.contentArr addObject:[NSString stringWithFormat:@"%@",[data objectForKey:@"fontAmount"]]];
+                [self.contentArr addObject:[NSString stringWithFormat:@"%@",[data objectForKey:@"rearAmount"]]];
                 
                 //设置总数 前后轮一致：只有前轮有数量 前后轮不一致：两者都有数量
-                self.frontTotal = [_fontAmount integerValue];
-                self.rearTotal  = [_rearAmount integerValue];
+                self.frontTotal = [[data objectForKey:@"fontAmount"] integerValue];
+                self.rearTotal  = [[data objectForKey:@"rearAmount"] integerValue];
             }
 
             [self.tableView reloadData];
@@ -330,6 +329,13 @@
             FreeChangeSeleceNumberCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FreeChangeSeleceNumberCellID" forIndexPath:indexPath];
             
             cell.tireNumberLab.text = @[@"前轮数量",@"后轮数量"][indexPath.row];
+            
+            if (indexPath.row == 0) {
+                
+                cell.numberLab.text = [NSString stringWithFormat:@"%ld",self.fontAmount];
+            }else{
+                cell.numberLab.text = [NSString stringWithFormat:@"%ld",self.rearAmount];
+            }
             
             [cell.lessBtn addTarget:self action:@selector(numberChangeEvent:) forControlEvents:UIControlEventTouchUpInside];
             [cell.plusbtn addTarget:self action:@selector(numberChangeEvent:) forControlEvents:UIControlEventTouchUpInside];
@@ -487,8 +493,6 @@
         return;
     }
     
-    FreeChangeSeleceNumberCell *fountTireCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
-        FreeChangeSeleceNumberCell *rearTireCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
     NSMutableDictionary *tireInfoDic = [NSMutableDictionary dictionary];
 
     [tireInfoDic setObject:self.storeInfo.storeId forKey:@"storeId"];
@@ -497,14 +501,14 @@
         
     if ([self.fontRearFlag isEqualToString:@"0"]) {
 
-        NSInteger total = [fountTireCell.numberLab.text integerValue] + [rearTireCell.numberLab.text integerValue];
+        NSInteger total = self.fontAmount + self.rearAmount;
             [tireInfoDic setObject:[NSString stringWithFormat:@"%ld",total] forKey:@"fontAmount"];
             [tireInfoDic setObject:@"0" forKey:@"rearAmount"];
             
     }else{
             
-        [tireInfoDic setObject:fountTireCell.numberLab.text forKey:@"fontAmount"];
-        [tireInfoDic setObject:rearTireCell.numberLab.text forKey:@"rearAmount"];
+        [tireInfoDic setObject:[NSString stringWithFormat:@"%ld",self.fontAmount] forKey:@"fontAmount"];
+        [tireInfoDic setObject:[NSString stringWithFormat:@"%ld",self.rearAmount] forKey:@"rearAmount"];
     }
     [tireInfoDic setObject:self.fontRearFlag forKey:@"fontRearFlag"];
     [tireInfoDic setObject:@"3" forKey:@"orderType"];
@@ -641,6 +645,18 @@
     }
     
     cell.numberLab.text = [NSString stringWithFormat:@"%ld",cell.total];
+    
+    NSIndexPath *index = [self.tableView indexPathForCell:cell];
+    
+    if (index.row == 0) {
+        
+        self.fontAmount = cell.total;
+        
+    }else{
+        
+        self.rearAmount = cell.total;
+    }
+    
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:(UITableViewRowAnimationNone)];
 }
 

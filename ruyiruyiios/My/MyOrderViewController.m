@@ -600,7 +600,7 @@
     auditFailVC.orderTypeStr = orderTypeStr;
     auditFailVC.toOrderBlock = ^(NSString *update) {
         
-        [self.myorderTableV.mj_header beginRefreshing]
+        [self.myorderTableV.mj_header beginRefreshing];
     };
     [self.navigationController pushViewController:auditFailVC animated:YES];
 }
