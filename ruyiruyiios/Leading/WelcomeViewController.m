@@ -75,8 +75,15 @@
 
 - (void)chickWelcomeBtn{
     
-    MainTabBarViewController *mainTabVC = [[MainTabBarViewController alloc] init];
-    [self.navigationController pushViewController:mainTabVC animated:YES];
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"insertCompletion"]) {
+        
+        [PublicClass showHUD:@"正在导入数据...." view:self.view];
+    }else{
+        
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+        MainTabBarViewController *mainTabVC = [[MainTabBarViewController alloc] init];
+        [self.navigationController pushViewController:mainTabVC animated:YES];
+    }
 }
 
 - (void)viewDidLoad {

@@ -135,7 +135,7 @@
             StoreDetailsPhoneCell *cell = [tableView dequeueReusableCellWithIdentifier:@"StoreDetailsPhoneCellID" forIndexPath:indexPath];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             [cell setModel:self.storeDetailsModel];
-
+            [cell.phoneBtn addTarget:self action:@selector(chickPhoneBtn:) forControlEvents:UIControlEventTouchUpInside];
             return cell;
         }
             break;
@@ -193,6 +193,12 @@
     return cell;
     
     }
+}
+
+- (void)chickPhoneBtn:(UIButton *)button{
+    
+    NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@", self.storeDetailsModel.storePhone];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

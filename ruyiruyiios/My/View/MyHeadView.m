@@ -123,7 +123,7 @@
 
 - (void)setDatatoHeadView{
     
-    if ([UserConfig user_id] == NULL) {
+    if ([UserConfig user_id] == NULL || [[NSString stringWithFormat:@"%@", [UserConfig user_id]] isEqualToString:@""]) {
         
         self.headPortraitImageV.image = [UIImage imageNamed:@"ic_notlogged"];
         self.nameLabel.text = @"立即登录";

@@ -101,6 +101,27 @@
     return cell.assessImageView.image;
 }
 
+- (void)addUnchangeViews:(int)number{
+    
+    for (int i = 0; i<number; i++) {
+        
+        //        UIImageView *starImageV = [[UIImageView alloc] initWithFrame:CGRectMake(MAINSCREEN.width/2 - 24 + 17*i, 17, 16, 15)];
+        //        starImageV.image = [UIImage imageNamed:@"ic_star"];
+        UIButton *selectButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        selectButton.frame = CGRectMake(0 + 17*i, 0, 16, 15);
+        [selectButton setBackgroundImage:[UIImage imageNamed:@"ic_star"] forState:UIControlStateSelected];
+        selectButton.selected = YES;
+        [self.starView addSubview:selectButton];
+    }
+    for (int j = number; j<5; j++) {
+        
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(0 + 17*j, 0, 16, 15);
+        [button setBackgroundImage:[UIImage imageNamed:@"ic_huistar"] forState:UIControlStateNormal];
+        [self.starView addSubview:button];
+    }
+}
+
 -(void)setAssessContentModel:(StoreAssessModel *)model{
     
     [self.storeAssessUserHeadImg sd_setImageWithURL:[NSURL URLWithString: model.storeCommitUserHeadImg]];
@@ -126,6 +147,7 @@
         self.contentImgh.constant = 70;
     }
     
+    [self addUnchangeViews:[model.starNo intValue]];
     [self.collectionView reloadData];
 }
 

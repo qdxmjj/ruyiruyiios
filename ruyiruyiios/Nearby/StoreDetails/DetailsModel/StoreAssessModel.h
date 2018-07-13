@@ -20,6 +20,8 @@
 
 @property(nonatomic,strong)NSMutableArray *contentimgArr;
 
+@property(nonatomic,strong)NSNumber *starNo;
+
 
 
 

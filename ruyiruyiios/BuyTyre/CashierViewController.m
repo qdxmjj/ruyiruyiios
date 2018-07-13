@@ -110,7 +110,7 @@
         NSLog(@"%@---%@", self.cashierPayView.blanceLabel.text, self.moneyLabel.text);
         NSString *blanceStr = [self.cashierPayView.blanceLabel.text substringWithRange:NSMakeRange(0, self.cashierPayView.blanceLabel.text.length - 2)];
         NSString *moneyStr = [self.moneyLabel.text substringWithRange:NSMakeRange(0, self.moneyLabel.text.length - 1)];
-        if ([blanceStr integerValue] > [moneyStr integerValue]) {
+        if ([blanceStr integerValue] >= [moneyStr integerValue]) {
             
             NSDictionary *yuePayDic = @{@"orderNo":orderNoStr, @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]]};
             NSString *reqJson = [PublicClass convertToJsonData:yuePayDic];

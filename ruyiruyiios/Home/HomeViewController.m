@@ -52,9 +52,9 @@
 @implementation HomeViewController
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    
+
     BOOL isShowHomePage = [viewController isKindOfClass:[self class]];
-    
+
     [self.navigationController setNavigationBarHidden:isShowHomePage animated:YES];
 }
 
@@ -290,7 +290,7 @@
 
 - (void)setElementOffirstView{
     
-    if (_user_token == 0) {
+    if (_user_token == 0 || [[NSString stringWithFormat:@"%@", [UserConfig user_id]] isEqualToString:@""]) {
         
         _firstView.iconImageV.image = [UIImage imageNamed:@"注册"];
         _firstView.topLabel.text = @"新人注册享好礼";
@@ -355,11 +355,11 @@
     [self locateMap];
     self.navigationController.delegate = self;
     //消除iOS7自带侧翻的效果
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        
-        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-    }
+//    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+//
+//        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+//        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+//    }
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:statusBarView];
     [self.view addSubview:self.mainScrollV];
