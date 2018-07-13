@@ -79,7 +79,7 @@
 
 - (void)chickNameAndHeadBtn:(UIButton *)button{
     
-    if ([UserConfig user_id] == NULL) {
+    if ([UserConfig user_id] == NULL || [[NSString stringWithFormat:@"%@", [UserConfig user_id]] isEqualToString:@""]) {
         
         [self alertIsloginView];
     }else{

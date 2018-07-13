@@ -163,13 +163,13 @@
 + (NSString *)returnDateStrselectYear:(NSInteger)year selectMonth:(NSInteger)month selectDay:(NSInteger)day{
     
     NSString *dateStr = @"";
-    if (month<10 & day<10) {
+    if (month<10 && day<10) {
         
         dateStr = [NSString stringWithFormat:@"%ld-0%ld-0%ld",year,month,day];
-    }else if (month>10 || day<10){
+    }else if (month>10 && day<10){
         
         dateStr =[NSString stringWithFormat:@"%ld-%ld-0%ld",year,month,day];
-    }else if (month<10 & day>10){
+    }else if (month<10 && day>10){
         
         dateStr = [NSString stringWithFormat:@"%ld-0%ld-%ld",year,month,day];
     }else{

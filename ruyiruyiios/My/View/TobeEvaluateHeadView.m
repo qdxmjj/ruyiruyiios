@@ -64,9 +64,10 @@
         [button setBackgroundImage:[UIImage imageNamed:@"ic_huistar"] forState:UIControlStateNormal];
         [button setBackgroundImage:[UIImage imageNamed:@"ic_star"] forState:UIControlStateSelected];
         [button addTarget:self action:@selector(chickButton:) forControlEvents:UIControlEventTouchUpInside];
-        if (i == 0) {
+        button.selected = YES;
+        if (i != 4) {
             
-            button.selected = YES;
+            [self.startMutableA addObject:button];
         }
         [self addSubview:button];
     }
@@ -74,6 +75,7 @@
 
 - (void)chickButton:(UIButton *)btn{
     
+//    NSLog(@"%@", self.startMutableA);
     [self.startMutableA removeAllObjects];
     int number = (int)(btn.tag - 1000);
     for (int s = 1; s<5; s++) {
@@ -87,6 +89,7 @@
         selectBtn.selected = YES;
         [self.startMutableA addObject:selectBtn];
     }
+//    NSLog(@"%@", self.startMutableA);
 }
 
 - (void)addChangeViews{

@@ -126,7 +126,7 @@
     for (int i = 0; i<self.imageMutableA.count; i++) {
         
         UIImage *image = self.imageMutableA[i];
-        NSData *mainData=UIImageJPEGRepresentation(image, imgCompressionQuality);
+        NSData *mainData = UIImageJPEGRepresentation(image, imgCompressionQuality);
         JJFileParam *jjfileParam = [JJFileParam fileConfigWithfileData:mainData name:[NSString stringWithFormat:@"img%d", (i+1)] fileName:[NSString stringWithFormat:@"img%d.png", (i+1)] mimeType:@"image/jpg/png/jpeg"];
         [fileArray addObject:jjfileParam];
     }
@@ -149,6 +149,22 @@
 
     }];
 }
+
+////改变图片尺寸
+//-(UIImage*)imageWithImageSimple:(UIImage*)image scaledToSize:(CGSize)newSize
+//{
+//    // Create a graphics image context
+//    UIGraphicsBeginImageContext(newSize);
+//    // new size
+//    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+//    // Get the new image from the context
+//    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+//
+//    // End the context
+//    UIGraphicsEndImageContext();
+//    // Return the new image.
+//    return newImage;
+//}
 
 #pragma mark - UITextViewDelegate
 - (void)textViewDidEndEditing:(UITextView *)textView
