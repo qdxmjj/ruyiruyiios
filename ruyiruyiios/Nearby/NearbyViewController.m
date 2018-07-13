@@ -26,6 +26,8 @@
 @property(nonatomic,strong)NSMutableArray *dataArr;
 @property(nonatomic, strong)UIButton *leftBtn;
 
+@property(nonatomic,strong)UIImageView *backgroundImgView;
+
 @property(nonatomic,copy)NSString *rankType;
 @property(nonatomic,copy)NSString *storeType;
 
@@ -197,10 +199,7 @@
             [weakSelf.tableView.mj_footer setHidden:YES];
         }
         
-        if (weakSelf.dataArr.count>0) {
-            
-            [weakSelf.tableView reloadData];
-        }
+        [weakSelf.tableView reloadData];
         
     } failure:^(NSError * _Nullable error) {
         
@@ -324,9 +323,10 @@
     
     if (self.dataArr.count>0) {
         
+        self.backgroundImgView.hidden = YES;
         return self.dataArr.count;
     }
-    
+    self.backgroundImgView.hidden = NO;
     return 0;
 }
 
@@ -345,12 +345,14 @@
     FJStoreTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"fjStoreCellID" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
+    
     YM_FjStoreModel *model= [[YM_FjStoreModel alloc] init];
     [model setValuesForKeysWithDictionary:self.dataArr[indexPath.section]];
-    
+        
     NSLog(@"model:%@", model);
     [cell setCellDataModel:model];
     
+
     return cell;
 }
 
@@ -456,8 +458,24 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([FJStoreTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"fjStoreCellID"];
+        [_tableView addSubview:self.backgroundImgView];
+//        [_tableView insertSubview:self.backgroundImgView atIndex:0];
+
     }
     return _tableView;
+}
+
+-(UIImageView *)backgroundImgView{
+    
+    if (!_backgroundImgView) {
+        
+        _backgroundImgView = [[UIImageView alloc] initWithFrame:self.tableView.bounds];
+        _backgroundImgView.backgroundColor = [UIColor whiteColor];
+        [_backgroundImgView setImage:[UIImage imageNamed:@"ic_dakongbai"]];
+        _backgroundImgView.contentMode = UIViewContentModeCenter;
+    }
+    
+    return _backgroundImgView;
 }
 
 

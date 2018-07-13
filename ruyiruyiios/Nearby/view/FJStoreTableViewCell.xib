@@ -27,13 +27,13 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="店铺名称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3wZ-GK-Vmk">
-                        <rect key="frame" x="111" y="11" width="61.5" height="18"/>
+                        <rect key="frame" x="111" y="11" width="133" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址：天安数码城" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ynb-gb-Aak">
-                        <rect key="frame" x="111" y="67" width="123" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址：天安数码城" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ynb-gb-Aak">
+                        <rect key="frame" x="111" y="67" width="138" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.37055522200000002" green="0.37056469920000001" blue="0.37055957319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -51,15 +51,22 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                     </collectionView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q7S-Go-HcO">
-                        <rect key="frame" x="304" y="76" width="0.0" height="0.0"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q7S-Go-HcO">
+                        <rect key="frame" x="254" y="66" width="50" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="LD4-Hj-cRE"/>
+                            <constraint firstAttribute="width" constant="50" id="eky-lx-K1G"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.4756349325" green="0.47564673419999998" blue="0.47564041610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4S店" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idt-ho-TTO">
-                        <rect key="frame" x="269" y="11" width="35" height="18"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <rect key="frame" x="254" y="11.5" width="50" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="jcZ-vV-GQU"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -71,9 +78,11 @@
                     <constraint firstAttribute="trailing" secondItem="q7S-Go-HcO" secondAttribute="trailing" constant="16" id="ArS-mH-WNK"/>
                     <constraint firstItem="wbf-VN-Rqd" firstAttribute="leading" secondItem="Xnd-G0-x5c" secondAttribute="trailing" constant="8" id="Cqv-A4-vpr"/>
                     <constraint firstAttribute="trailing" secondItem="wbf-VN-Rqd" secondAttribute="trailing" constant="23" id="FXe-IH-aMJ"/>
+                    <constraint firstItem="idt-ho-TTO" firstAttribute="leading" secondItem="3wZ-GK-Vmk" secondAttribute="trailing" constant="10" id="Sx4-HB-NfM"/>
                     <constraint firstItem="idt-ho-TTO" firstAttribute="centerY" secondItem="3wZ-GK-Vmk" secondAttribute="centerY" id="Xac-U0-5eV"/>
                     <constraint firstAttribute="trailing" secondItem="idt-ho-TTO" secondAttribute="trailing" constant="16" id="YIP-l0-jmp"/>
                     <constraint firstItem="Ynb-gb-Aak" firstAttribute="leading" secondItem="Xnd-G0-x5c" secondAttribute="trailing" constant="8" id="gpP-us-0lv"/>
+                    <constraint firstItem="q7S-Go-HcO" firstAttribute="leading" secondItem="Ynb-gb-Aak" secondAttribute="trailing" constant="5" id="grP-Jc-Zr1"/>
                     <constraint firstItem="3wZ-GK-Vmk" firstAttribute="top" secondItem="Xnd-G0-x5c" secondAttribute="top" id="iar-b8-v9w"/>
                     <constraint firstItem="Xnd-G0-x5c" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="jnx-5c-9Nw"/>
                     <constraint firstItem="wbf-VN-Rqd" firstAttribute="bottom" secondItem="Xnd-G0-x5c" secondAttribute="bottom" id="kEd-75-pye"/>

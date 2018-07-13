@@ -54,7 +54,11 @@
         [self loadNewData];
     }];
     
-    self.navigationItem.leftBarButtonItem = [self barButtonItemWithRect:CGRectMake(0, 0, 60, 30) image:[UIImage imageNamed:@"返回"] highlighted:nil target:self action:@selector(backButtonAction:)];
+    UIBarButtonItem *bar = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    
+    bar.width = -20;
+    
+    self.navigationItem.leftBarButtonItems = @[bar,[self barButtonItemWithRect:CGRectMake(0, 0, 60, 30) image:[UIImage imageNamed:@"返回"] highlighted:nil target:self action:@selector(backButtonAction:)]];
 
 }
 
@@ -107,10 +111,8 @@
             
             [weakSelf.tableView.mj_footer setHidden:YES];
         }
-        if (self.dataArr.count>0) {
-            
-            [weakSelf.tableView reloadData];
-        }
+        
+        [weakSelf.tableView reloadData];
         
     } failure:^(NSError * _Nullable error) {
         
