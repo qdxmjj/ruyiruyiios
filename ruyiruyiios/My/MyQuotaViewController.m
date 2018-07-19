@@ -264,7 +264,7 @@
 
 - (void)queryCarCreditMyQuota{
     
-    NSDictionary *carCreditPostDic = @{@"userId":[UserConfig user_id], @"userCarId":@([[UserConfig userCarId] integerValue])};
+    NSDictionary *carCreditPostDic = @{@"userId":[NSNumber numberWithInteger:[[UserConfig user_id] integerValue]], @"userCarId":[NSNumber numberWithInteger:[[UserConfig userCarId] integerValue]]};
     NSString *reJson = [PublicClass convertToJsonData:carCreditPostDic];
     [JJRequest postRequest:@"userCarInfo/queryCarCreditInfo" params:@{@"reqJson":reJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         

@@ -95,7 +95,7 @@
 
 - (void)queryCarCreditInfoFromInternet{
     
-    NSDictionary *queryPostDic = @{@"userId":[UserConfig user_id]};
+    NSDictionary *queryPostDic = @{@"userId":[NSNumber numberWithInteger:[[UserConfig user_id] integerValue]]};
     NSString *reqJson = [PublicClass convertToJsonData:queryPostDic];
     [JJRequest postRequest:@"userCarInfo/queryCarCreditInfo" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         
