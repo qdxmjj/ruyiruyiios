@@ -350,7 +350,7 @@
     YM_FjStoreModel *model= [[YM_FjStoreModel alloc] init];
     [model setValuesForKeysWithDictionary:self.dataArr[indexPath.section]];
         
-    NSLog(@"model:%@", model);
+//    NSLog(@"model:%@", model);
     [cell setCellDataModel:model];
     
 

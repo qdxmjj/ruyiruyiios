@@ -58,6 +58,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     NSArray *topBtnTitleArr = @[@"综合",@"价格",@"距离"];
     
     for (int i = 0; i<3; i++) {

@@ -138,7 +138,7 @@
         
         Lunbo_infos *lun_info = [[Lunbo_infos alloc] init];
         [lun_info setValuesForKeysWithDictionary:imgDic];
-//        NSLog(@"%@", lun_info.contentImageUrl);
+
         [self.imgMutableA addObject:lun_info.contentImageUrl];
     }
     _sdcycleScrollV.imageURLStringsGroup = self.imgMutableA;
@@ -534,6 +534,17 @@
     homeCell.backImageV.image = [UIImage imageNamed:@"一元洗车"];
     return homeCell;
 }
+
+#pragma mark cycleScrollViewDelegate
+
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
+    
+    NSLog(@"点击了第%ld张图片",index);
+    
+}
+
+
+
 
 #pragma mark - 定位失败
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{

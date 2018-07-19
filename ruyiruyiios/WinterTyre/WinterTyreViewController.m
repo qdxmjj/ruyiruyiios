@@ -47,7 +47,7 @@
     
     [titleView addSubview:self.searchBar];
     self.navigationItem.titleView = titleView;
-    
+    self.tableView.tableFooterView = [UIView new];
     self.tableView.scrollEnabled = NO;
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([WinterTyreServiceTypeCell class]) bundle:nil] forCellReuseIdentifier:@"WinterTyreServiceTypeCellID"];
     
@@ -197,6 +197,7 @@
         _searchBar.layer.cornerRadius = 15;
         _searchBar.layer.masksToBounds = YES;
         _searchBar.delegate = self;
+        _searchBar.returnKeyType = UIReturnKeySearch;
     }
     return _searchBar;
 }
