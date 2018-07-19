@@ -12,7 +12,6 @@
 
 @property(nonatomic, strong)UIImageView *iconImageV;
 @property(nonatomic, strong)UILabel *versionLabel;
-@property(nonatomic, strong)UIView *underLineView;
 
 - (void)setversionLabelText:(NSString *)textStr imgStr:(NSString *)imageNamestr;
 

@@ -20,12 +20,18 @@
         [_awardLabel setNumberOfLines:0];
         _awardLabel.text = self.awardStr;
         _awardLabel.textColor = TEXTCOLOR64;
-        _awardLabel.font = [UIFont fontWithName:TEXTFONT size:12.0];
+        if (MAINSCREEN.width == 320) {
+            
+            _awardLabel.font = [UIFont fontWithName:TEXTFONT size:10.0];
+        }else{
+            
+            _awardLabel.font = [UIFont fontWithName:TEXTFONT size:12.0];
+        }
         NSMutableParagraphStyle *paragrephStyle = [[NSMutableParagraphStyle alloc] init];
         paragrephStyle.lineBreakMode = NSLineBreakByWordWrapping;
         NSDictionary *attributes = @{NSFontAttributeName:_awardLabel.font, NSParagraphStyleAttributeName:paragrephStyle.copy};
         CGSize awardSize = [_awardLabel.text boundingRectWithSize:CGSizeMake(MAINSCREEN.width - 90, MAINSCREEN.height) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
-        self.awardLabel.frame = CGRectMake(0, 5, awardSize.width, awardSize.height);
+        self.awardLabel.frame = CGRectMake(0, 2, awardSize.width, awardSize.height);
     }
     return _awardLabel;
 }
@@ -38,11 +44,17 @@
         [_modeLabel setNumberOfLines:0];
         _modeLabel.text = self.modeStr;
         _modeLabel.textColor = TEXTCOLOR64;
-        _modeLabel.font = [UIFont fontWithName:TEXTFONT size:12.0];
+        if (MAINSCREEN.width == 320) {
+            
+            _modeLabel.font = [UIFont fontWithName:TEXTFONT size:10.0];
+        }else{
+            
+            _modeLabel.font = [UIFont fontWithName:TEXTFONT size:12.0];
+        }
         NSMutableParagraphStyle *paragrephStyle = [[NSMutableParagraphStyle alloc] init];
         NSDictionary *attributes = @{NSFontAttributeName:_modeLabel.font, NSParagraphStyleAttributeName:paragrephStyle.copy};
         CGSize modeSize = [_modeLabel.text boundingRectWithSize:CGSizeMake(MAINSCREEN.width - 90, MAINSCREEN.height) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
-        _modeLabel.frame = CGRectMake(0, self.awardLabel.frame.size.height+self.awardLabel.frame.origin.y+8, modeSize.width, modeSize.height);
+        _modeLabel.frame = CGRectMake(0, self.awardLabel.frame.size.height+self.awardLabel.frame.origin.y - 10, modeSize.width, modeSize.height);
     }
     return _modeLabel;
 }

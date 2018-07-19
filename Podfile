@@ -16,5 +16,5 @@ target 'ruyiruyiios' do
   pod 'SDCycleScrollView'
   pod 'GTMBase64'
   pod 'SVProgressHUD'
-
+  pod 'Bugly'
 end

@@ -31,12 +31,14 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     
+    [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
     self.navigationController.navigationBar.hidden = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     
+    [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
 }
 
@@ -179,6 +181,11 @@
         if ([statusStr isEqualToString:@"1"]) {
             
 //            NSLog(@"%@", data);
+            if ([data isEqual:[NSNull null]] ) {
+                
+                [PublicClass showHUD:@"请先添加车辆！" view:self.view];
+                return ;
+            }
             self.platNumberStr = [data objectForKey:@"platNumber"];
             [self setdatatoSubviews];
             [self selectStoreByCondition];

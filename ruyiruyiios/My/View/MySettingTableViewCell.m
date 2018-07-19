@@ -60,8 +60,8 @@
         [self.contentView addSubview:self.titleLabel];
         [self.contentView addSubview:self.rightImageV];
         [self.contentView addSubview:self.underLineView];
-        self.imgArray = @[@"ic_gaimima", @"ic_lianxi", @"ic_about"];
-        self.titleArray = @[@"修改密码", @"联系客服", @"关于我们"];
+        self.imgArray = @[@"ic_gaimima", @"ic_about"];
+        self.titleArray = @[@"修改密码", @"关于我们"];
     }
     return self;
 }

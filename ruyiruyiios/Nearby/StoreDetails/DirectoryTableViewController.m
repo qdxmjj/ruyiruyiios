@@ -41,6 +41,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
+    [super viewWillAppear:animated];
     //防止push到别的页面 再回到此页面 cell选中状态丢失
     if (self.indexpath) {
         

@@ -31,15 +31,6 @@
     return _versionLabel;
 }
 
-- (UIView *)underLineView{
-    
-    if (_underLineView == nil) {
-        
-        _underLineView = [[UIView alloc] init];
-    }
-    return _underLineView;
-}
-
 - (instancetype)initWithFrame:(CGRect)frame{
     
     self = [super initWithFrame:frame];
@@ -47,7 +38,6 @@
         
         [self addSubview:self.iconImageV];
         [self addSubview:self.versionLabel];
-        [self addSubview:self.underLineView];
     }
     return self;
 }
@@ -55,16 +45,14 @@
 - (void)layoutSubviews{
     
     [super layoutSubviews];
-    self.iconImageV.frame = CGRectMake((MAINSCREEN.width - 150)/2, 30, 150, 85);
+    self.iconImageV.frame = CGRectMake((MAINSCREEN.width - 200)/2, 0, 200, 115);
     self.versionLabel.frame = CGRectMake(0, 118, MAINSCREEN.width, 20);
-    self.underLineView.frame = CGRectMake(0, 165, MAINSCREEN.width, 5);
 }
 
 - (void)setversionLabelText:(NSString *)textStr imgStr:(NSString *)imageNamestr{
     
     self.versionLabel.text = textStr;
     self.iconImageV.image = [UIImage imageNamed:imageNamestr];
-    self.underLineView.backgroundColor = [PublicClass colorWithHexString:@"#f1f1f1"];
 }
 
 /*

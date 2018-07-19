@@ -44,12 +44,14 @@
 
 - (void)viewWillAppear:(BOOL)animated{
 
+    [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:NO];
     self.tabBarController.tabBar.hidden = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     
+    [super viewWillDisappear:animated];
     self.navigationController.navigationBar.hidden = YES;
 }
 
@@ -209,7 +211,7 @@
     
     if (_saveBtn == nil) {
         
-        _saveBtn = [[UIButton alloc] initWithFrame:CGRectMake(15, MAINSCREEN.height - 114, MAINSCREEN.width - 30, 40)];
+        _saveBtn = [[UIButton alloc] initWithFrame:CGRectMake(15, MAINSCREEN.height - 50 - SafeDistance, MAINSCREEN.width - 30, 40)];
         _saveBtn.layer.cornerRadius = 8.0;
         _saveBtn.layer.masksToBounds = YES;
         _saveBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:20.0];
@@ -319,6 +321,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _emailStr = @"";
     top = 13.0;
     self.title = @"完善个人资料";
     [self.view addSubview:self.registerTabV];

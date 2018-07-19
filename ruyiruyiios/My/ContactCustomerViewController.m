@@ -19,7 +19,15 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     
+    [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
+    self.navigationController.navigationBar.hidden = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden = NO;
 }
 
 - (UIButton *)backBtn{
@@ -29,6 +37,7 @@
         _backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _backBtn.frame = CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - SafeDistance);
         [_backBtn setBackgroundImage:[UIImage imageNamed:@"ic_m_kefu"] forState:UIControlStateNormal];
+        [_backBtn setBackgroundImage:[UIImage imageNamed:@"ic_m_kefu"] forState:UIControlStateHighlighted];
 //        [_backBtn setImage:[UIImage imageNamed:@"ic_m_kefu"] forState:UIControlStateNormal];
 //        [_backBtn setImage:[UIImage imageNamed:@"ic_m_kefu"] forState:UIControlStateHighlighted];
         [_backBtn addTarget:self action:@selector(chickBackBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -40,7 +49,7 @@
     
     [UIView animateWithDuration:1.0 animations:^{
         
-        self.callPhoneBtn.frame = CGRectMake(MAINSCREEN.width - 40, MAINSCREEN.height - SafeDistance - 60, 40, 40);
+        self.callPhoneBtn.frame = CGRectMake(MAINSCREEN.width - 80, MAINSCREEN.height - SafeDistance - 60, 80, 40);
         [self.callPhoneBtn setImage:[UIImage imageNamed:@"ic_m_first"] forState:UIControlStateNormal];
     }];
 }
@@ -50,7 +59,7 @@
     if (_callPhoneBtn == nil) {
         
         _callPhoneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _callPhoneBtn.frame = CGRectMake(MAINSCREEN.width - 40, MAINSCREEN.height - SafeDistance - 60, 40, 40);
+        _callPhoneBtn.frame = CGRectMake(MAINSCREEN.width - 80, MAINSCREEN.height - SafeDistance - 60, 80, 40);
         [_callPhoneBtn setImage:[UIImage imageNamed:@"ic_m_first"] forState:UIControlStateNormal];
         [_callPhoneBtn addTarget:self action:@selector(chickCallPhoneBtn:) forControlEvents:UIControlEventTouchUpInside];
     }

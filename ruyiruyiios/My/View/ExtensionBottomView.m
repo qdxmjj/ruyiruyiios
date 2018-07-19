@@ -115,7 +115,7 @@
     self.getAwardLabel.text = @"已获得邀请奖励";
     if (shareRelationList.count == 0) {
         
-        self.alertLabel.text = @"亲，您还没有成功邀请的好友呢~\n赶快发送邀请码给朋友们一起来省钱吧!";
+        self.alertLabel.text = @"您还未成功邀请到好友~\n赶快分享给朋友们一起来省钱吧！";
     }else{
         
         [self.inviterTableV reloadData];

@@ -36,12 +36,14 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     
+    [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
     self.navigationController.navigationBar.hidden = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
 
+    [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = NO;
 }
@@ -250,7 +252,7 @@
             [[dic objectForKey:@"name"] isEqualToString:@"四轮定位"]
             ) {
             
-            if ([UserConfig userCarId] == 0 ) {
+            if ([[UserConfig userCarId] integerValue] == 0 ) {
                 
                 [MBProgressHUD showTextMessage:@"请先添加车辆！"];
                 return;
@@ -306,7 +308,7 @@
             CashierViewController *cashierVC = [[CashierViewController alloc] init];
             
             cashierVC.orderNoStr = data;
-            cashierVC.totalPriceStr = [NSString stringWithFormat:@"%f",self.n_TotalPrice];
+            cashierVC.totalPriceStr = [NSString stringWithFormat:@"%ld",(long)self.n_TotalPrice];
             cashierVC.orderTypeStr = @"1";
             [self.navigationController pushViewController:cashierVC animated:YES];
             

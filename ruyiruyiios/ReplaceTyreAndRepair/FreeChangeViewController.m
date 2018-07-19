@@ -71,12 +71,14 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     
+    [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
     self.navigationController.navigationBar.hidden = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     
+    [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
 }
 
@@ -114,6 +116,11 @@
             
 //            NSLog(@"车牌号信息：%@",data);
            
+            if ([data isEqual:[NSNull null]] ) {
+                
+                [PublicClass showHUD:@"请先添加车辆！" view:self.view];
+                return ;
+            }
             self.platNumber = [NSString stringWithFormat:@"%@",[data objectForKey:@"platNumber"]];
             
             [self.contentArr replaceObjectAtIndex:2 withObject:[NSString stringWithFormat:@"%@",[data objectForKey:@"platNumber"]]];
@@ -125,6 +132,7 @@
             [self alertIsequallyTokenView];
             
         }else{
+            
             if ([messageStr isEqualToString:@"查询用户车辆失败"]) {
                 [PublicClass showHUD:@"请先添加车辆！" view:self.view];
             }else{
@@ -468,12 +476,12 @@
     return [UIView new];
 }
 
-#pragma mark button click event
--(void)pushPhotoExampleVC{
-    
-    
-    
-}
+//#pragma mark button click event
+//-(void)pushPhotoExampleVC{
+//
+//
+//
+//}
 
 -(void)submitFreeChangeInfo{
     
@@ -692,7 +700,7 @@
     
     if (!_headerView) {
         
-        _headerView = [[FreeChangHeaderView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 150)];
+        _headerView = [[FreeChangHeaderView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 120)];
     }
     return _headerView;
 }
