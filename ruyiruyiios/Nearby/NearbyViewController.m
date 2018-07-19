@@ -166,7 +166,7 @@
 
     JJWeakSelf
     
-    NSLog(@"%@ ",self.leftBtn.titleLabel.text);
+//    NSLog(@"%@ ",self.leftBtn.titleLabel.text);
     
     NSString *cityName = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentCity"];
 

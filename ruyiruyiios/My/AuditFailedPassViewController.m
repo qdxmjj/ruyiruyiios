@@ -438,7 +438,7 @@
     [_mainScrollV addSubview:self.freeChargeTableview];
     if (![titleStr isEqualToString:@"审核未通过"]) {
         
-        NSString *countStr = [NSString stringWithFormat:@"%ld", self.cxwyCountMutableA.count];
+        NSString *countStr = [NSString stringWithFormat:@"%lu", (unsigned long)self.cxwyCountMutableA.count];
         [_mainScrollV addSubview:self.supplementView];
         [_supplementView setdatatoSupplementViews:countStr];
         [_mainScrollV setContentSize:CGSizeMake(MAINSCREEN.width, self.supplementView.frame.size.height + self.supplementView.frame.origin.y)];
