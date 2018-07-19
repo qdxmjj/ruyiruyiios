@@ -33,12 +33,14 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     
+    [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
     self.navigationController.navigationBar.hidden = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     
+    [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
 }
 
@@ -131,7 +133,7 @@
     float imgCompressionQuality = 0.3;
     NSData *headData = UIImageJPEGRepresentation(headimgCell.headImgV.image, imgCompressionQuality);
     NSArray <JJFileParam *> *fileArray = @[[JJFileParam fileConfigWithfileData:headData name:@"user_head_img" fileName:@"user_head_img.png" mimeType:@"image/jpg/png/jpeg"]];
-    NSDictionary *postDic = @{@"age":@"0", @"birthday":dateCell.dataLabel.text, @"email":emailCell.dataLabel.text, @"gender":genderStr, @"nick":nickCell.nameTF.text, @"headimgurl":[UserConfig headimgurl], @"password":@"", @"phone":[UserConfig phone], @"remark":@"", @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]]};
+    NSDictionary *postDic = @{@"age":@"0", @"birthday":dateCell.dataLabel.text, @"email":emailCell.dataLabel.text, @"gender":genderStr, @"nick":nickCell.nameTF.text, @"headimgurl":[UserConfig headimgurl], @"phone":[UserConfig phone], @"remark":@"", @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]]};
     NSString *reqJson = [PublicClass convertToJsonData:postDic];
     [JJRequest updateRequest:@"updateUser" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} fileConfig:fileArray progress:^(int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
         

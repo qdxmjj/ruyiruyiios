@@ -30,6 +30,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     
+    [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
 }
 
@@ -166,7 +167,7 @@
         }];
     }else{
         
-        NSDictionary *postDic = @{@"orderNo":orderNoStr, @"orderName":orderNameStr, @"orderPrice":@"0.01", @"orderType":orderTypeStr, @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]]};
+        NSDictionary *postDic = @{@"orderNo":orderNoStr, @"orderName":orderNameStr, @"orderPrice":totalPriceStr, @"orderType":orderTypeStr, @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]]};
         NSString *reqJson = [PublicClass convertToJsonData:postDic];
         NSString *threeDesStr = [PublicClass doEncryptStr:reqJson key:[[UserConfig token] substringWithRange:NSMakeRange(24, 24)]];
         NSLog(@"%@", @{@"reqJson":threeDesStr, @"token":[UserConfig token]});
@@ -176,6 +177,14 @@
 //            NSLog(@"%@", messageStr);
             [[AlipaySDK defaultService] payOrder:messageStr fromScheme:@"ruyiruyiios" callback:^(NSDictionary *resultDic) {
                 
+                NSLog(@"调用网页支付宝回调结果 = %@", resultDic);
+                if ([[resultDic objectForKey:@"resultStatus"] isEqualToString:@"9000"]) {
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"payStatus" object:nil];
+                }else{
+                    
+                    [PublicClass showHUD:@"支付宝支付失败" view:self.view];
+                }
             }];
         } failure:^(NSError * _Nullable error) {
             
@@ -280,7 +289,7 @@
 
 - (IBAction)backButtonAction:(id)sender{
     
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"如驿如意" message:@"您确认离开支付订单界面，离开订单会变为待付款订单，可在待付款订单中查看" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"如驿如意" message:@"确定要离开？离开后可在付款订单中找到这笔未完成的订单。" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         if ([self.orderTypeStr isEqualToString:@"0"] || [self.orderTypeStr isEqualToString:@"3"]) {

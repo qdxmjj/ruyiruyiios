@@ -37,12 +37,14 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     
+    [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
     self.navigationController.navigationBar.hidden = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     
+    [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
 }
 
@@ -105,7 +107,14 @@
     
     if (_extensionMiddleView == nil) {
         
-        _extensionMiddleView = [[ExtensionMiddleView alloc] initWithFrame:CGRectMake(80, (MAINSCREEN.height - SafeDistance)*8/9 - 130, MAINSCREEN.width - 95, 110) award:self.extensionInfo.award mode:self.extensionInfo.rule];
+        if (MAINSCREEN.width == 320) {
+            
+            _extensionMiddleView = [[ExtensionMiddleView alloc] initWithFrame:CGRectMake(80, (MAINSCREEN.height - SafeDistance)*15/16 - 130, MAINSCREEN.width - 95, 95) award:self.extensionInfo.award mode:self.extensionInfo.rule];
+        }else{
+            
+            _extensionMiddleView = [[ExtensionMiddleView alloc] initWithFrame:CGRectMake(80, (MAINSCREEN.height - SafeDistance)*8/9 - 130, MAINSCREEN.width - 95, 120) award:self.extensionInfo.award mode:self.extensionInfo.rule];
+        }
+//        NSLog(@"%@------%@", self.extensionInfo.award, self.extensionInfo.rule);
         _extensionMiddleView.backgroundColor = [UIColor clearColor];
     }
     return _extensionMiddleView;

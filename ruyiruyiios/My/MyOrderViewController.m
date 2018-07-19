@@ -39,12 +39,14 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     
+    [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
     self.navigationController.navigationBar.hidden = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     
+    [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
 }
 
@@ -330,7 +332,7 @@
         cell = [[MyOrderTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:myorderCell];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    OrderInfo *orderInfo = [[OrderInfo alloc] init];
+    OrderInfo *orderInfo;
     if ([statusStr intValue] == 0) {
         
         orderInfo = [self.allMutableA objectAtIndex:indexPath.row];
@@ -355,7 +357,7 @@
     
     DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
     [delegateConfiguration unregisterLoginStatusChangedListener:self];
-    OrderInfo *orderInfo = [[OrderInfo alloc] init];
+    OrderInfo *orderInfo;
     if ([statusStr intValue] == 0) {
         
         orderInfo = [self.allMutableA objectAtIndex:indexPath.row];

@@ -21,6 +21,10 @@
 #import <AFNetworking.h>
 #import "BindingPhoneViewController.h"
 #import "DelegateConfiguration.h"
+#import "HomeViewController.h"
+#import "NearbyViewController.h"
+#import "WinterTyreViewController.h"
+#import "MyViewController.h"
 
 @interface CodeLoginViewController ()<UITextFieldDelegate, YBAttributeTapActionDelegate, WXApiDelegate>{
     
@@ -45,6 +49,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     
+    [super viewWillAppear:animated];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     self.tabBarController.tabBar.hidden = YES;
     if ([homeTologinStr isEqualToString:@"1"]) {
@@ -59,6 +64,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated{
     
+    [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
 }
 
@@ -400,8 +406,23 @@
                 [self insertDatabase:data];
                 
                 DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+                [delegateConfiguration changeLoginStatus];
                 [delegateConfiguration removeAllDelegateMutableA];
                 MainTabBarViewController *mainTabVC = [[MainTabBarViewController alloc] init];
+                
+                if ([[[self.navigationController.viewControllers objectAtIndex:0] class] isEqual:[HomeViewController class]]) {
+                    
+                    mainTabVC.selectedIndex = 0;
+                }else if ([[[self.navigationController.viewControllers objectAtIndex:0] class] isEqual:[NearbyViewController class]]){
+                    
+                    mainTabVC.selectedIndex = 1;
+                }else if ([[[self.navigationController.viewControllers objectAtIndex:0] class] isEqual:[WinterTyreViewController class]]){
+                    
+                    mainTabVC.selectedIndex = 2;
+                }else{
+                    
+                    mainTabVC.selectedIndex = 3;
+                }
                 [self.navigationController pushViewController:mainTabVC animated:YES];
             }else if ([statusStr isEqualToString:@"-1"]){
                 

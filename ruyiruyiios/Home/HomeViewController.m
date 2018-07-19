@@ -60,6 +60,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     
+    [super viewWillAppear:animated];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     self.hidesBottomBarWhenPushed = NO;
     self.navigationController.navigationBar.hidden = YES;
@@ -370,7 +371,7 @@
     [_mainScrollV addSubview:self.threeBtnView];
     [self addFourButtons];
     [self addThreeButtons];
-    [_mainScrollV addSubview:self.homeTableV];
+//    [_mainScrollV addSubview:self.homeTableV];
     [_mainScrollV setContentSize:CGSizeMake(MAINSCREEN.width, (tviewY+tviewH+82))];
     [self getAndroidHomeDate];
     // Do any additional setup after loading the view.

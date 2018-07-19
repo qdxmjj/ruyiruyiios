@@ -24,12 +24,14 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     
+    [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
     self.navigationController.navigationBar.hidden = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     
+    [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
 }
 
@@ -113,7 +115,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 3;
+    return 2;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -145,10 +147,6 @@
         
         UpdatePasswordViewController *updateVC = [[UpdatePasswordViewController alloc] init];
         [self.navigationController pushViewController:updateVC animated:YES];
-    }else if (indexPath.row == 1){
-        
-        ContactCustomerViewController *contactVC = [[ContactCustomerViewController alloc] init];
-        [self.navigationController pushViewController:contactVC animated:YES];
     }else{
         
         AboutUsViewController *aboutVC = [[AboutUsViewController alloc] init];

@@ -182,6 +182,8 @@ HXDateVideoEditViewControllerDelegate
     }
 }
 - (void)viewWillDisappear:(BOOL)animated {
+    
+    [super viewWillDisappear:animated];
     HXDatePhotoPreviewViewCell *cell = (HXDatePhotoPreviewViewCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.currentModelIndex inSection:0]];
     cell.stopCancel = self.stopCancel;
     [cell cancelRequest];

@@ -34,12 +34,14 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     
+    [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
     self.navigationController.navigationBar.hidden = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     
+    [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
 }
 
@@ -164,7 +166,7 @@
 
 - (void)getSignFromThridPay:(NSString *)orderNumber{
     
-    NSDictionary *postDic = @{@"orderNo":orderNumber, @"orderName":@"充值信用订单", @"orderPrice":@"0.01", @"orderType":@"5", @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]]};
+    NSDictionary *postDic = @{@"orderNo":orderNumber, @"orderName":@"充值信用订单", @"orderPrice":self.myquotaMiddleV.realRepayTF.text, @"orderType":@"5", @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]]};
     NSString *reqJson = [PublicClass convertToJsonData:postDic];
     NSString *threeDesStr = [PublicClass doEncryptStr:reqJson key:[[UserConfig token] substringWithRange:NSMakeRange(24, 24)]];
     [JJRequest testPostRequest:@"getAliPaySign" params:@{@"reqJson":threeDesStr, @"token":[UserConfig token]} serviceAddress:SERVERPREFIX success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {

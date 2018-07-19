@@ -28,12 +28,14 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     
+    [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
     self.navigationController.navigationBar.hidden = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     
+    [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
 }
 
@@ -251,9 +253,9 @@
     if (couponCell == nil) {
         
         couponCell = [[CouponTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIndentifier];
-        couponCell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    CouponInfo *couponInfo = [[CouponInfo alloc] init];
+    couponCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    CouponInfo *couponInfo;
     if ([self.couponStatusStr isEqualToString:@"1"]) {
         
         couponInfo = [self.availableMutableA objectAtIndex:indexPath.row];
@@ -269,7 +271,7 @@
     
     if ([self.couponStatusStr isEqualToString:@"1"]) {
         
-        CouponInfo *couponInfo = [[CouponInfo alloc] init];
+        CouponInfo *couponInfo;
         couponInfo = [self.availableMutableA objectAtIndex:indexPath.row];
 //        NSLog(@"%@--%@",couponInfo.userCarId, [UserConfig userCarId]);
         if ([couponInfo.userCarId intValue] == [[UserConfig userCarId] intValue]) {

@@ -37,6 +37,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     
+    [super viewWillAppear:animated];
     NSString *cityName = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentCity"];
     
     if ([self.isLocation isEqualToString: @"1"]) {

@@ -15,10 +15,10 @@
 #import "FMDBCarVerhicle.h"
 #import "FMDBCarTireInfo.h"
 #import "FMDBCarTireType.h"
-#import "TobeEvaluatedViewController.h"
+#import "QualityServiceViewController.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import "MBProgressHUD+YYM_category.h"
-#import "MBProgressHUD+YYM_category.h"
+#import <Bugly/Bugly.h>
 
 @interface AppDelegate (){
     
@@ -39,10 +39,6 @@
     
 //    NSLog(@"%@", [DBRecorder getAllBrandData]);
     [WXApi registerApp:WEIXINID];
-    
-    //检测版本更新，新版本提醒
-//    [self checkVersion];
-    
     if (@available(iOS 11.0,*)) {
         
         UITableView.appearance.estimatedRowHeight = 0;
@@ -50,7 +46,7 @@
         UITableView.appearance.estimatedSectionHeaderHeight = 0;
     }
     
-//    TobeEvaluatedViewController *carInfoVC = [[TobeEvaluatedViewController alloc] init];
+//    QualityServiceViewController *carInfoVC = [[QualityServiceViewController alloc] init];
 //    UINavigationController *carNav = [[UINavigationController alloc] initWithRootViewController:carInfoVC];
 //    self.window.rootViewController = carNav;
     if (![[NSUserDefaults standardUserDefaults] valueForKey:@"isFirst"]) {
@@ -71,13 +67,17 @@
         NSString *timeStr = @"1970-01-01 11:31:03";
         [self databaseOperation:timeStr];
     }
+    
+    //检测版本更新，新版本提醒
+    [self checkVersion];
+    [self configureBugly];
     return YES;
 }
 
 - (void)checkVersion{
     
     //app store生成的地址
-    NSString *URL = @"https://itunes.apple.com/lookup?id=1076141152";
+    NSString *URL = @"https://itunes.apple.com/cn/lookup?id=1347668694";
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setURL:[NSURL URLWithString:URL]];
     [request setHTTPMethod:@"POST"];
@@ -115,8 +115,36 @@
             }];
             [alertController addAction:ok];
             [alertController addAction:cancel];
+            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+//            [s.rootViewController presentViewController:alertController animated:YES completion:nil];
         }
     }
+}
+
+#pragma mark -- bugly
+- (void)configureBugly {
+    
+    BuglyConfig *config = [[BuglyConfig alloc] init];
+    
+    config.unexpectedTerminatingDetectionEnable = YES; //非正常退出事件记录开关，默认关闭
+    config.reportLogLevel = BuglyLogLevelVerbose; //报告级别
+    //config.deviceIdentifier = [UIDevice currentDevice].identifierForVendor.UUIDString; //设备标识
+    config.blockMonitorEnable = YES; //开启卡顿监控
+    config.blockMonitorTimeout = 5; //卡顿监控判断间隔，单位为秒
+    //    config.delegate = self;
+    
+#if DEBUG
+    config.debugMode = YES; //SDK Debug信息开关, 默认关闭
+    config.channel = @"debug";
+#else
+    config.channel = @"release";
+#endif
+    
+    [Bugly startWithAppId:@"b686d41b40"
+#if DEBUG
+        developmentDevice:YES
+#endif
+                   config:config];
 }
 
 - (BOOL)application:(UIApplication *)application

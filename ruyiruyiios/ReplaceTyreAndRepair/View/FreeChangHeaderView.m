@@ -39,7 +39,7 @@
 
 -(void)setupUI{
     self.backgroundColor = [UIColor whiteColor];
-    [self addSubview:self.promptLab];
+//    [self addSubview:self.promptLab];
     [self addSubview:self.titleLab];
     [self addSubview:self.contentLab1];
     [self addSubview:self.contentLab2];
@@ -51,18 +51,18 @@
 
 -(void)setupLayout{
     
-    [self.promptLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.mas_equalTo(self.mas_top);
-        make.left.and.right.mas_equalTo(self);
-        make.height.mas_equalTo(self.mas_height).multipliedBy(0.3);
-    }];
+//    [self.promptLab mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.top.mas_equalTo(self.mas_top);
+//        make.left.and.right.mas_equalTo(self);
+//        make.height.mas_equalTo(self.mas_height).multipliedBy(0.3);
+//    }];
     
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.mas_equalTo(self.mas_left).inset(16);
         make.height.mas_equalTo(@20);
-        make.top.mas_equalTo(self.promptLab.mas_bottom).inset(10);
+        make.top.mas_equalTo(self.mas_top).inset(10);
     }];
     
     [self.img1 mas_makeConstraints:^(MASConstraintMaker *make) {

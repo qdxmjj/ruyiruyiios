@@ -33,6 +33,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     
+    [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
 }
 
@@ -93,7 +94,7 @@
         
         _detailforSelectLabel = [[UILabel alloc] init];
         [_detailforSelectLabel setNumberOfLines:0];
-        _detailforSelectLabel.text = @"选择您想要更换的轮胎，如果您的爱车前后轮胎规格相同，你无需区分前后轮规格，一次性购买4条轮胎即可";
+        _detailforSelectLabel.text = @"在轮胎购买页面选择您想更换的轮胎，注意部分车型前后轮胎规格不同";
         _detailforSelectLabel.textColor = TEXTCOLOR64;
         _detailforSelectLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
         NSMutableParagraphStyle *paragrephStyle = [[NSMutableParagraphStyle alloc] init];
@@ -145,7 +146,7 @@
         
         _detailnotworryLabel = [[UILabel alloc] init];
         [_detailnotworryLabel setNumberOfLines:0];
-        _detailnotworryLabel.text = @"如果您希望您爱车的轮胎无论在任何情况下都享受免费更换服务的话，您可以购买畅行无忧服务";
+        _detailnotworryLabel.text = @"如果您希望轮胎更有保障，可选择购买畅行无忧服务";
         _detailnotworryLabel.textColor = TEXTCOLOR64;
         _detailnotworryLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
         NSMutableParagraphStyle *paragrephStyle = [[NSMutableParagraphStyle alloc] init];
@@ -197,7 +198,7 @@
         
         _detailforpayLabel = [[UILabel alloc] init];
         [_detailforpayLabel setNumberOfLines:0];
-        _detailforpayLabel.text = @"选择轮胎后，提交订单支付";
+        _detailforpayLabel.text = @"选择完毕后，提交订单并支付，目前平台支持支付宝、微信支付";
         _detailforpayLabel.textColor = TEXTCOLOR64;
         _detailforpayLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
         NSMutableParagraphStyle *paragrephStyle = [[NSMutableParagraphStyle alloc] init];
@@ -239,7 +240,7 @@
         
         _detailforupdateLabel = [[UILabel alloc] init];
         [_detailforupdateLabel setNumberOfLines:0];
-        _detailforupdateLabel.text = @"支付成功后，您购买的轮胎将进入待更换轮胎页面，您以后可以随时选择轮胎更换";
+        _detailforupdateLabel.text = @"购买完成后，在待更换轮胎界面点击更换轮胎，选择任意合作门店，下单免费安装";
         _detailforupdateLabel.textColor = TEXTCOLOR64;
         _detailforupdateLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
         NSMutableParagraphStyle *paragrephStyle = [[NSMutableParagraphStyle alloc] init];

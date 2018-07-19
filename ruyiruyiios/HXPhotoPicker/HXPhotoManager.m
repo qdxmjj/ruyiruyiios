@@ -54,7 +54,7 @@
     return self;
 }
 - (instancetype)init {
-    if ([super init]) {
+    if (self = [super init]) {
         self.type = HXPhotoManagerSelectedTypePhoto;
         [self setup];
     }

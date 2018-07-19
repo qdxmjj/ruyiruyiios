@@ -37,6 +37,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     
+    [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
 }
 
@@ -227,8 +228,15 @@
             self.firstUpdateMiddleV.rearSelectView.limitNumberStr = @"2";
         }else{
             
-            self.firstUpdateMiddleV.fontSelectView.limitNumberStr = @"2";
-            self.firstUpdateMiddleV.rearSelectView.limitNumberStr = @"2";
+            if ([fontAndRearInfo.fontAvaliableAmount integerValue] >2) {
+                
+                self.firstUpdateMiddleV.fontSelectView.limitNumberStr = @"2";
+                self.firstUpdateMiddleV.rearSelectView.limitNumberStr = @"2";
+            }else{
+                
+                self.firstUpdateMiddleV.fontSelectView.limitNumberStr = [NSString stringWithFormat:@"%@", self.fontAndRearInfo.fontAvaliableAmount];
+                self.firstUpdateMiddleV.rearSelectView.limitNumberStr = [NSString stringWithFormat:@"%@", self.fontAndRearInfo.fontAvaliableAmount];
+            }
             [self.firstUpdateMiddleV.fontSelectView.rightBtn addTarget:self action:@selector(chickFontRightBtn) forControlEvents:UIControlEventTouchUpInside];
             [self.firstUpdateMiddleV.fontSelectView.leftBtn addTarget:self action:@selector(chickFontLeftBtn) forControlEvents:UIControlEventTouchUpInside];
             [self.firstUpdateMiddleV.rearSelectView.rightBtn addTarget:self action:@selector(chickRearRightBtn) forControlEvents:UIControlEventTouchUpInside];

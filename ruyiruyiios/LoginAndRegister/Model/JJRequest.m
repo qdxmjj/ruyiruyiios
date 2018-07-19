@@ -12,6 +12,16 @@
 #import "CodeLoginViewController.h"
 
 @implementation JJRequest
+
++ (AFHTTPSessionManager *)sharedHTTPSession{
+    static AFHTTPSessionManager *manager = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        manager = [AFHTTPSessionManager manager];
+    });
+    return manager;
+}
+
 + (AFHTTPSessionManager *)getRequestManager {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     /**

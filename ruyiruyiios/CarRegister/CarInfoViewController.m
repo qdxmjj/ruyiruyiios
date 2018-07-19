@@ -67,7 +67,7 @@
         
         _promptLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
         [_promptLabel setNumberOfLines:0];
-        _promptLabel.text = @"温馨提示：如驿如意平台致力于您的爱车提供终身个性化轮胎服务，需要了解您爱车的详细信息，请您仔细填写!";
+        _promptLabel.text = @"温馨提示：如驿如意为您的爱车提供个性化服务，需要了解你的车辆的详细信息，请如实填写。";
 //        _promptLabel.backgroundColor = [UIColor whiteColor];
         _promptLabel.font = [UIFont fontWithName:TEXTFONT size:12.0];
         _promptLabel.textColor = TEXTCOLOR64;
@@ -473,11 +473,13 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     
+    [super viewWillAppear:animated];
     [self.tabBarController.tabBar setHidden:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     
+    [super viewWillDisappear:animated];
     [self.tabBarController.tabBar setHidden:NO];
 }
 

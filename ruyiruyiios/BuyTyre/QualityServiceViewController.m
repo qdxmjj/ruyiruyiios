@@ -41,11 +41,13 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     
+    [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     
+    [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
 }
 
@@ -82,7 +84,7 @@
         _installLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.qualityView.frame.size.height+self.qualityView.frame.origin.y + 15, MAINSCREEN.width/3, 20)];
         _installLabel.font = [UIFont fontWithName:TEXTFONT size:16.0];
         _installLabel.textColor = [UIColor blackColor];
-        _installLabel.text = @"包安装";
+        _installLabel.text = @"免费换新";
         _installLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _installLabel;
@@ -94,7 +96,7 @@
         
         _describeForinstallLabel = [[UILabel alloc] init];
         [_describeForinstallLabel setNumberOfLines:0];
-        _describeForinstallLabel.text = @"从如驿如意购买轮胎，可到如驿如意指定合作门店进行免费安装调试";
+        _describeForinstallLabel.text = @"轮胎磨损至损耗标线或安装之日起满5年均可免费更换新胎。";
         _describeForinstallLabel.textColor = TEXTCOLOR64;
         _describeForinstallLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
@@ -124,7 +126,7 @@
         _freeServiceLabel = [[UILabel alloc] initWithFrame:CGRectMake(MAINSCREEN.width*2/3, self.imgForinstall.frame.size.height+self.imgForinstall.frame.origin.y + 15, MAINSCREEN.width/3, 20)];
         _freeServiceLabel.font = [UIFont fontWithName:TEXTFONT size:16.0];
         _freeServiceLabel.textColor = [UIColor blackColor];
-        _freeServiceLabel.text = @"免费轮胎服务";
+        _freeServiceLabel.text = @"免费安装";
         _freeServiceLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _freeServiceLabel;
@@ -136,7 +138,7 @@
         
         _describeForfreeServiceLabel = [[UILabel alloc] init];
         [_describeForfreeServiceLabel setNumberOfLines:0];
-        _describeForfreeServiceLabel.text = @"一次购买四条轮胎可免费享受四轮定位、动平衡、轮胎换位服务";
+        _describeForfreeServiceLabel.text = @"可到任意合作门店进行免费安装调试。";
         _describeForfreeServiceLabel.textColor = TEXTCOLOR64;
         _describeForfreeServiceLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
@@ -166,7 +168,7 @@
         _oneLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.imgForfreeServicel.frame.size.height+self.imgForfreeServicel.frame.origin.y + 15, MAINSCREEN.width/3, 40)];
         _oneLabel.font = [UIFont fontWithName:TEXTFONT size:16.0];
         _oneLabel.textColor = [UIColor blackColor];
-        _oneLabel.text = @"一次购买用到车辆报废";
+        _oneLabel.text = @"免费服务";
         _oneLabel.numberOfLines = 0;
         _oneLabel.lineBreakMode = NSLineBreakByWordWrapping;
         _oneLabel.textAlignment = NSTextAlignmentCenter;
@@ -180,7 +182,7 @@
 
         _describeForoneLabel = [[UILabel alloc] init];
         [_describeForoneLabel setNumberOfLines:0];
-        _describeForoneLabel.text = @"凡是购买如驿如意轮胎，最高可享受15年免费质保服务，免费更换到车辆报废";
+        _describeForoneLabel.text = @"整车换胎，可到任意合作门店免费享受四轮定位、动平衡轮胎换位服务。";
         _describeForoneLabel.textColor = TEXTCOLOR64;
         _describeForoneLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
