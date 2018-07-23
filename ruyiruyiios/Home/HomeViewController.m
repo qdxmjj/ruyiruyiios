@@ -25,6 +25,8 @@
 #import "NearbyViewController.h"
 #import "TireRepairViewController.h"
 #import "FreeChangeViewController.h"
+
+#import "CycleScrollViewDetailsController.h"
 @interface HomeViewController ()<UIScrollViewDelegate, SDCycleScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate, CityNameDelegate, UpdateAddCarDelegate, SetDefaultCarDelegate>{
     
     CGFloat nameW;
@@ -489,21 +491,7 @@
     }
 }
 
-- (void)chickBuytyreBtn:(UIButton *)btn{
-    
-    if ([self.dataCars.font isEqualToString:self.dataCars.rear]) {
-        
-        ChoicePatternViewController *choicePVC = [[ChoicePatternViewController alloc] init];
-        choicePVC.tireSize = self.dataCars.font;
-        choicePVC.fontRearFlag = @"0";
-        [self.navigationController pushViewController:choicePVC animated:YES];
-    }else{
-        
-        SelectTirePositionViewController *selectTPVC = [[SelectTirePositionViewController alloc] init];
-        selectTPVC.dataCars = self.dataCars;
-        [self.navigationController pushViewController:selectTPVC animated:YES];
-    }
-}
+
 
 #pragma mark - TableViewDelegate
 
@@ -541,8 +529,41 @@
     
     NSLog(@"点击了第%ld张图片",index);
     
+    if (index == 2) {
+        
+        if ([UserConfig user_id] == NULL) {
+            
+            [self alertIsloginView];
+        }else{
+        
+            [self chickBuytyreBtn:[UIButton new]];
+        }
+    }else{
+    
+        CycleScrollViewDetailsController *cycleViewDetails = [[CycleScrollViewDetailsController alloc] init];
+        cycleViewDetails.index = index;
+        cycleViewDetails.tireSize = self.dataCars.font;
+        cycleViewDetails.dataCars = self.dataCars;
+        [self.navigationController pushViewController:cycleViewDetails animated:YES];
+    }
 }
 
+#pragma mark 跳转轮胎购买页面事件
+- (void)chickBuytyreBtn:(UIButton *)btn{
+    
+    if ([self.dataCars.font isEqualToString:self.dataCars.rear]) {
+        
+        ChoicePatternViewController *choicePVC = [[ChoicePatternViewController alloc] init];
+        choicePVC.tireSize = self.dataCars.font;
+        choicePVC.fontRearFlag = @"0";
+        [self.navigationController pushViewController:choicePVC animated:YES];
+    }else{
+        
+        SelectTirePositionViewController *selectTPVC = [[SelectTirePositionViewController alloc] init];
+        selectTPVC.dataCars = self.dataCars;
+        [self.navigationController pushViewController:selectTPVC animated:YES];
+    }
+}
 
 
 

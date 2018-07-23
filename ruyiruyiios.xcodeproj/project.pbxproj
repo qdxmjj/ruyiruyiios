@@ -112,6 +112,25 @@
 		36C80A9820D89C6A0036C14A /* YMDetailedServiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C80A8920D89C6A0036C14A /* YMDetailedServiceCell.m */; };
 		36C80A9920D89C6A0036C14A /* YMDetailedServiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36C80A8A20D89C6A0036C14A /* YMDetailedServiceCell.xib */; };
 		36C80A9A20D89C6A0036C14A /* YMDetailedServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C80A8C20D89C6A0036C14A /* YMDetailedServiceViewController.m */; };
+		36E0B59421007DA7005838B5 /* CycleScrollViewDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36E0B59321007DA7005838B5 /* CycleScrollViewDetailsController.m */; };
+		36E0B5AB21008663005838B5 /* ic_hd_button1.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E0B59621008663005838B5 /* ic_hd_button1.png */; };
+		36E0B5AC21008663005838B5 /* ic_hd_button1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E0B59721008663005838B5 /* ic_hd_button1@2x.png */; };
+		36E0B5AD21008663005838B5 /* ic_hd_button1@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E0B59821008663005838B5 /* ic_hd_button1@3x.png */; };
+		36E0B5AE21008663005838B5 /* ic_hd_button2.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E0B59921008663005838B5 /* ic_hd_button2.png */; };
+		36E0B5AF21008663005838B5 /* ic_hd_button2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E0B59A21008663005838B5 /* ic_hd_button2@2x.png */; };
+		36E0B5B021008663005838B5 /* ic_hd_button2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E0B59B21008663005838B5 /* ic_hd_button2@3x.png */; };
+		36E0B5B121008663005838B5 /* ic_hd_button3.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E0B59C21008663005838B5 /* ic_hd_button3.png */; };
+		36E0B5B221008663005838B5 /* ic_hd_button3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E0B59D21008663005838B5 /* ic_hd_button3@2x.png */; };
+		36E0B5B321008663005838B5 /* ic_hd_button3@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E0B59E21008663005838B5 /* ic_hd_button3@3x.png */; };
+		36E0B5B421008663005838B5 /* ic_huoodng_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E0B59F21008663005838B5 /* ic_huoodng_1.png */; };
+		36E0B5B521008663005838B5 /* ic_huoodng_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E0B5A021008663005838B5 /* ic_huoodng_1@2x.png */; };
+		36E0B5B621008663005838B5 /* ic_huoodng_1@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E0B5A121008663005838B5 /* ic_huoodng_1@3x.png */; };
+		36E0B5B721008663005838B5 /* ic_huoodng_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E0B5A221008663005838B5 /* ic_huoodng_2.png */; };
+		36E0B5B821008663005838B5 /* ic_huoodng_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E0B5A321008663005838B5 /* ic_huoodng_2@2x.png */; };
+		36E0B5B921008663005838B5 /* ic_huoodng_2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E0B5A421008663005838B5 /* ic_huoodng_2@3x.png */; };
+		36E0B5BA21008663005838B5 /* ic_huoodng_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E0B5A521008663005838B5 /* ic_huoodng_3.png */; };
+		36E0B5BB21008663005838B5 /* ic_huoodng_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E0B5A621008663005838B5 /* ic_huoodng_3@2x.png */; };
+		36E0B5BC21008663005838B5 /* ic_huoodng_3@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E0B5A721008663005838B5 /* ic_huoodng_3@3x.png */; };
 		36E2810420E4C46F00192BC9 /* WaitPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36E2810220E4C46F00192BC9 /* WaitPaymentViewController.m */; };
 		36E2810520E4C46F00192BC9 /* WaitPaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36E2810320E4C46F00192BC9 /* WaitPaymentViewController.xib */; };
 		36E2810820E4DACF00192BC9 /* WaitPaymentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 36E2810720E4DACF00192BC9 /* WaitPaymentModel.m */; };
@@ -1006,6 +1025,26 @@
 		36C80A8A20D89C6A0036C14A /* YMDetailedServiceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YMDetailedServiceCell.xib; sourceTree = "<group>"; };
 		36C80A8B20D89C6A0036C14A /* YMDetailedServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMDetailedServiceViewController.h; sourceTree = "<group>"; };
 		36C80A8C20D89C6A0036C14A /* YMDetailedServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMDetailedServiceViewController.m; sourceTree = "<group>"; };
+		36E0B59221007DA7005838B5 /* CycleScrollViewDetailsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CycleScrollViewDetailsController.h; sourceTree = "<group>"; };
+		36E0B59321007DA7005838B5 /* CycleScrollViewDetailsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CycleScrollViewDetailsController.m; sourceTree = "<group>"; };
+		36E0B59621008663005838B5 /* ic_hd_button1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_hd_button1.png; sourceTree = "<group>"; };
+		36E0B59721008663005838B5 /* ic_hd_button1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_hd_button1@2x.png"; sourceTree = "<group>"; };
+		36E0B59821008663005838B5 /* ic_hd_button1@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_hd_button1@3x.png"; sourceTree = "<group>"; };
+		36E0B59921008663005838B5 /* ic_hd_button2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_hd_button2.png; sourceTree = "<group>"; };
+		36E0B59A21008663005838B5 /* ic_hd_button2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_hd_button2@2x.png"; sourceTree = "<group>"; };
+		36E0B59B21008663005838B5 /* ic_hd_button2@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_hd_button2@3x.png"; sourceTree = "<group>"; };
+		36E0B59C21008663005838B5 /* ic_hd_button3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_hd_button3.png; sourceTree = "<group>"; };
+		36E0B59D21008663005838B5 /* ic_hd_button3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_hd_button3@2x.png"; sourceTree = "<group>"; };
+		36E0B59E21008663005838B5 /* ic_hd_button3@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_hd_button3@3x.png"; sourceTree = "<group>"; };
+		36E0B59F21008663005838B5 /* ic_huoodng_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_huoodng_1.png; sourceTree = "<group>"; };
+		36E0B5A021008663005838B5 /* ic_huoodng_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_huoodng_1@2x.png"; sourceTree = "<group>"; };
+		36E0B5A121008663005838B5 /* ic_huoodng_1@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_huoodng_1@3x.png"; sourceTree = "<group>"; };
+		36E0B5A221008663005838B5 /* ic_huoodng_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_huoodng_2.png; sourceTree = "<group>"; };
+		36E0B5A321008663005838B5 /* ic_huoodng_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_huoodng_2@2x.png"; sourceTree = "<group>"; };
+		36E0B5A421008663005838B5 /* ic_huoodng_2@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_huoodng_2@3x.png"; sourceTree = "<group>"; };
+		36E0B5A521008663005838B5 /* ic_huoodng_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_huoodng_3.png; sourceTree = "<group>"; };
+		36E0B5A621008663005838B5 /* ic_huoodng_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_huoodng_3@2x.png"; sourceTree = "<group>"; };
+		36E0B5A721008663005838B5 /* ic_huoodng_3@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_huoodng_3@3x.png"; sourceTree = "<group>"; };
 		36E2810120E4C46F00192BC9 /* WaitPaymentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WaitPaymentViewController.h; sourceTree = "<group>"; };
 		36E2810220E4C46F00192BC9 /* WaitPaymentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WaitPaymentViewController.m; sourceTree = "<group>"; };
 		36E2810320E4C46F00192BC9 /* WaitPaymentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WaitPaymentViewController.xib; sourceTree = "<group>"; };
@@ -2244,6 +2283,31 @@
 			path = winterTyreModel;
 			sourceTree = "<group>";
 		};
+		36E0B59521008663005838B5 /* 轮播图详情 */ = {
+			isa = PBXGroup;
+			children = (
+				36E0B59621008663005838B5 /* ic_hd_button1.png */,
+				36E0B59721008663005838B5 /* ic_hd_button1@2x.png */,
+				36E0B59821008663005838B5 /* ic_hd_button1@3x.png */,
+				36E0B59921008663005838B5 /* ic_hd_button2.png */,
+				36E0B59A21008663005838B5 /* ic_hd_button2@2x.png */,
+				36E0B59B21008663005838B5 /* ic_hd_button2@3x.png */,
+				36E0B59C21008663005838B5 /* ic_hd_button3.png */,
+				36E0B59D21008663005838B5 /* ic_hd_button3@2x.png */,
+				36E0B59E21008663005838B5 /* ic_hd_button3@3x.png */,
+				36E0B59F21008663005838B5 /* ic_huoodng_1.png */,
+				36E0B5A021008663005838B5 /* ic_huoodng_1@2x.png */,
+				36E0B5A121008663005838B5 /* ic_huoodng_1@3x.png */,
+				36E0B5A221008663005838B5 /* ic_huoodng_2.png */,
+				36E0B5A321008663005838B5 /* ic_huoodng_2@2x.png */,
+				36E0B5A421008663005838B5 /* ic_huoodng_2@3x.png */,
+				36E0B5A521008663005838B5 /* ic_huoodng_3.png */,
+				36E0B5A621008663005838B5 /* ic_huoodng_3@2x.png */,
+				36E0B5A721008663005838B5 /* ic_huoodng_3@3x.png */,
+			);
+			path = "轮播图详情";
+			sourceTree = "<group>";
+		};
 		3DB0F8DFB5E4EF9DD8187B8A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -2428,6 +2492,8 @@
 			children = (
 				435E594320A18B79005C8BDA /* HomeViewController.h */,
 				435E594420A18B79005C8BDA /* HomeViewController.m */,
+				36E0B59221007DA7005838B5 /* CycleScrollViewDetailsController.h */,
+				36E0B59321007DA7005838B5 /* CycleScrollViewDetailsController.m */,
 				431FC5D020AAABC700EF97CA /* Model */,
 				431FC5CF20AAABC700EF97CA /* View */,
 				438B2AF920B7EC41004A7E2A /* ManageCarViewController.h */,
@@ -2768,6 +2834,7 @@
 		4343EB9420A075B8003AD5FE /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				36E0B59521008663005838B5 /* 轮播图详情 */,
 				4332F8C620D9047600AF386F /* ic_icon4.png */,
 				4332F8C520D9047600AF386F /* ic_icon4@2x.png */,
 				4332F8C720D9047700AF386F /* ic_icon4@3x.png */,
@@ -3632,6 +3699,7 @@
 				4343EBCB20A07621003AD5FE /* 可见@3x.png in Resources */,
 				36C80A6220D89C640036C14A /* StoreDetailsOvervieCell.xib in Resources */,
 				36C80A9520D89C6A0036C14A /* WinterTyreServiceTypeCell.xib in Resources */,
+				36E0B5BC21008663005838B5 /* ic_huoodng_3@3x.png in Resources */,
 				435E5A2A20A19061005C8BDA /* ic_question@2x.png in Resources */,
 				435E5AAA20A19088005C8BDA /* ic_fuwu.png in Resources */,
 				435E5A1B20A19061005C8BDA /* ic_answer.png in Resources */,
@@ -3646,6 +3714,7 @@
 				435E5AC220A19088005C8BDA /* ic_fahuo@3x.png in Resources */,
 				4306781920AED839003BB046 /* 普通公路@3x.png in Resources */,
 				4311E9B320D9FD9A00F74960 /* ic_notlogged@3x.png in Resources */,
+				36E0B5AE21008663005838B5 /* ic_hd_button2.png in Resources */,
 				435E5A2520A19061005C8BDA /* wic_banner@2x.png in Resources */,
 				361CF5BD20E392DD007DFA17 /* ic_add@2x.png in Resources */,
 				435E5A1C20A19061005C8BDA /* ic_month@3x.png in Resources */,
@@ -3667,9 +3736,11 @@
 				4343EBCA20A07621003AD5FE /* 验证码(1)@2x.png in Resources */,
 				4306781620AED839003BB046 /* ic_jincheng.png in Resources */,
 				4318691F20D0F1D80051F16D /* pic_back.png in Resources */,
+				36E0B5AD21008663005838B5 /* ic_hd_button1@3x.png in Resources */,
 				43F874B820CE23CC007D1C2E /* ic_liucheng.png in Resources */,
 				434367FA20DB4DBA009D2657 /* ic_erweima@3x.png in Resources */,
 				43F874D020CE23CC007D1C2E /* ic_check.png in Resources */,
+				36E0B5B021008663005838B5 /* ic_hd_button2@3x.png in Resources */,
 				435E59C020A18FD1005C8BDA /* 汽车保养@1x.png in Resources */,
 				43380E6220E0D62D00B3ABAF /* ic_t_wechat@2x.png in Resources */,
 				43F874BE20CE23CC007D1C2E /* ic_transport@2x.png in Resources */,
@@ -3763,6 +3834,7 @@
 				435E59C720A18FD1005C8BDA /* 活动赠送@1x.png in Resources */,
 				4306781E20AED839003BB046 /* 选中@2x.png in Resources */,
 				439D069F20BE980400379414 /* ic_plus.png in Resources */,
+				36E0B5AF21008663005838B5 /* ic_hd_button2@2x.png in Resources */,
 				43F874CD20CE23CC007D1C2E /* ic_weixuan@3x.png in Resources */,
 				36C80A6420D89C640036C14A /* StoreDetailsPhoneCell.xib in Resources */,
 				430677F420AED838003BB046 /* 删除照片.png in Resources */,
@@ -3777,6 +3849,7 @@
 				435E5AF820A19088005C8BDA /* ic_zise@2x.png in Resources */,
 				435E59CE20A18FD1005C8BDA /* banner1@3x.png in Resources */,
 				435E59CC20A18FD1005C8BDA /* 免费更换@1x.png in Resources */,
+				36E0B5B521008663005838B5 /* ic_huoodng_1@2x.png in Resources */,
 				435E59E520A18FD1005C8BDA /* 畅行无忧@1x.png in Resources */,
 				435E5AE320A19088005C8BDA /* ic_tuiguang.png in Resources */,
 				439D067A20BE980400379414 /* ic_overplus.png in Resources */,
@@ -3798,6 +3871,7 @@
 				435E5AEE20A19088005C8BDA /* ic_icon@2x.png in Resources */,
 				435E5B0420A19088005C8BDA /* ic_fuwu@2x.png in Resources */,
 				4343EBD820A07621003AD5FE /* 箭头@3x.png in Resources */,
+				36E0B5B921008663005838B5 /* ic_huoodng_2@3x.png in Resources */,
 				4311E9A920D9FD4900F74960 /* ic_people@3x.png in Resources */,
 				3676AD6720E9BAA90067EDA0 /* ic_delete1@2x.png in Resources */,
 				430677E620AED838003BB046 /* 普通公路@2x.png in Resources */,
@@ -3819,6 +3893,8 @@
 				43CE8D8A20FDC72600FCD416 /* ic_lianxi@3x.png in Resources */,
 				439D069720BE980400379414 /* ic_wechat@2x.png in Resources */,
 				439D066F20BE980400379414 /* ic_back@3x.png in Resources */,
+				36E0B5B321008663005838B5 /* ic_hd_button3@3x.png in Resources */,
+				36E0B5B121008663005838B5 /* ic_hd_button3.png in Resources */,
 				430677E920AED838003BB046 /* 极端路况道路@2x.png in Resources */,
 				43F874C220CE23CC007D1C2E /* icr_choose@3x.png in Resources */,
 				439D067620BE980400379414 /* ic_install@2x.png in Resources */,
@@ -3832,6 +3908,7 @@
 				361CF5AB20E3900C007DFA17 /* ic_car@2x.png in Resources */,
 				435E5ADF20A19088005C8BDA /* ic_wodeche@3x.png in Resources */,
 				4343EBBF20A07621003AD5FE /* icon@3x.png in Resources */,
+				36E0B5AC21008663005838B5 /* ic_hd_button1@2x.png in Resources */,
 				435E5AA120A19088005C8BDA /* ic_about@2x.png in Resources */,
 				435E5ACA20A19088005C8BDA /* ic_tuiguang@2x.png in Resources */,
 				43A7B1C220CF57D00002B756 /* ic_chang@2x.png in Resources */,
@@ -3890,6 +3967,7 @@
 				4306780E20AED839003BB046 /* 删除照片@3x.png in Resources */,
 				430677F520AED838003BB046 /* ic_jincheng3@3x.png in Resources */,
 				435E59A720A18FD1005C8BDA /* 首页2@1x.png in Resources */,
+				36E0B5B221008663005838B5 /* ic_hd_button3@2x.png in Resources */,
 				4311E9AC20D9FD4900F74960 /* ic_people@2x.png in Resources */,
 				435E59D920A18FD1005C8BDA /* 免费修补@1x.png in Resources */,
 				435E5B0720A19088005C8BDA /* ic_kefu.png in Resources */,
@@ -3898,6 +3976,7 @@
 				439D069920BE980400379414 /* ic_free.png in Resources */,
 				36C80A9920D89C6A0036C14A /* YMDetailedServiceCell.xib in Resources */,
 				435E59BD20A18FD1005C8BDA /* 注册@2x.png in Resources */,
+				36E0B5B621008663005838B5 /* ic_huoodng_1@3x.png in Resources */,
 				439D06A620BE980400379414 /* ic_install@3x.png in Resources */,
 				430677FB20AED838003BB046 /* 下一步@2x.png in Resources */,
 				4306780B20AED839003BB046 /* 返回@3x.png in Resources */,
@@ -3905,6 +3984,7 @@
 				430677EC20AED838003BB046 /* 相机拍照@3x.png in Resources */,
 				4318692020D0F1D80051F16D /* pic_back@3x.png in Resources */,
 				435E5AEB20A19088005C8BDA /* ic_right.png in Resources */,
+				36E0B5BA21008663005838B5 /* ic_huoodng_3.png in Resources */,
 				435E5ABB20A19088005C8BDA /* ic_mima@2x.png in Resources */,
 				435E5AF020A19088005C8BDA /* ic_fahuo.png in Resources */,
 				369520F720C9172F001FA48E /* ic_my_shibai@3x.png in Resources */,
@@ -3925,6 +4005,7 @@
 				439D06AB20BE980400379414 /* ic_banner.png in Resources */,
 				435E5A2F20A19061005C8BDA /* ic_money.png in Resources */,
 				435E59A920A18FD1005C8BDA /* 添加@3x.png in Resources */,
+				36E0B5AB21008663005838B5 /* ic_hd_button1.png in Resources */,
 				435E5AB220A19088005C8BDA /* ic_content.png in Resources */,
 				4311E9B420D9FD9A00F74960 /* ic_notlogged@2x.png in Resources */,
 				435E5AEF20A19088005C8BDA /* ic_weidu@2x.png in Resources */,
@@ -3976,6 +4057,7 @@
 				43F874BC20CE23CC007D1C2E /* ric_done@2x.png in Resources */,
 				435E5B1520A19764005C8BDA /* ic_my@3x.png in Resources */,
 				439D067F20BE980400379414 /* ic_overplus@3x.png in Resources */,
+				36E0B5BB21008663005838B5 /* ic_huoodng_3@2x.png in Resources */,
 				43F874CA20CE23CC007D1C2E /* ric_done@3x.png in Resources */,
 				4343EBCF20A07621003AD5FE /* 可见.png in Resources */,
 				435E59CB20A18FD1005C8BDA /* 答@1x.png in Resources */,
@@ -4047,6 +4129,7 @@
 				4343EBD420A07621003AD5FE /* 密码@2x.png in Resources */,
 				361CF5B420E39191007DFA17 /* ic_daohang@3x.png in Resources */,
 				435E5B2120A19786005C8BDA /* ic_snow@2x.png in Resources */,
+				36E0B5B821008663005838B5 /* ic_huoodng_2@2x.png in Resources */,
 				36C80A5F20D89C640036C14A /* StoreDetailsOneCell.xib in Resources */,
 				4311E9AD20D9FD4900F74960 /* ic_background@3x.png in Resources */,
 				439D068320BE980400379414 /* ic_boxbig@3x.png in Resources */,
@@ -4066,6 +4149,7 @@
 				439D06A920BE980400379414 /* ic_boxbig.png in Resources */,
 				435E5A1420A19061005C8BDA /* ic_backmoney@2x.png in Resources */,
 				435E59DF20A18FD1005C8BDA /* banner3@1x.png in Resources */,
+				36E0B5B421008663005838B5 /* ic_huoodng_1.png in Resources */,
 				435E59DA20A18FD1005C8BDA /* 正常购买@2x.png in Resources */,
 				435F1EEA20FDDEDC003B021F /* ic_yindaoye_2@3x.png in Resources */,
 				4306780920AED839003BB046 /* 对号@2x.png in Resources */,
@@ -4081,6 +4165,7 @@
 				435E5A9F20A19088005C8BDA /* ic_blue@3x.png in Resources */,
 				4332F8C420D9045800AF386F /* ic_shangpin.png in Resources */,
 				435E5AAB20A19088005C8BDA /* ic_fahuo@2x.png in Resources */,
+				36E0B5B721008663005838B5 /* ic_huoodng_2.png in Resources */,
 				43F874B720CE23CC007D1C2E /* icr_choose@2x.png in Resources */,
 				43CE0A7220A922BB00D7FACF /* ic_navback@2x.png in Resources */,
 				4306781720AED839003BB046 /* 自选规格.png in Resources */,
@@ -4468,6 +4553,7 @@
 				430FABA020E5D49400EB27F7 /* TireChaneOrderInfo.m in Sources */,
 				438D449A20C26701008DAD97 /* TirePattern.m in Sources */,
 				36C80A6520D89C640036C14A /* StoreHeadCollectionViewCell.m in Sources */,
+				36E0B59421007DA7005838B5 /* CycleScrollViewDetailsController.m in Sources */,
 				43F955CB20CA57DD00B0E056 /* OrderInfo.m in Sources */,
 				43F874F020CE4D2F007D1C2E /* FirstUpdateCollectionViewCell.m in Sources */,
 				4332362120B29A50008F45FD /* SelectEngineViewController.m in Sources */,
