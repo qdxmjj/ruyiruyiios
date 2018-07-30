@@ -220,13 +220,15 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
     NSString *iconKey = [self.numberArray objectAtIndex:section];
-    if ([[self.cityMutableDic objectForKey:iconKey] count] == 0) {
-
-        return 0.0;
-    }else{
-
-        return 30.0;
+    
+    if ([self.cityMutableDic.allKeys containsObject:iconKey]) {
+        
+        if ([[self.cityMutableDic objectForKey:iconKey] count] == 0) {
+            
+            return 0.0;
+        }
     }
+        return 30.0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{

@@ -255,9 +255,10 @@
     [self addView];
     if (![orderTypeStr isEqualToString:@"1"]) {
         
-        self.payTypeStr = @"2";
+        self.payTypeStr = @"3";
     }else{
         
+        //信誉额度支付 orderTypeStr == 1 显示信誉额度页面 默认信誉额度支付
         self.payTypeStr = @"1";
         [self queryCarCreditInfo];
     }

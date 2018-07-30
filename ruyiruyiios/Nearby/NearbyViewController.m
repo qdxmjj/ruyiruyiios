@@ -17,6 +17,8 @@
 #import "LocationViewController.h"
 #import "DelegateConfiguration.h"
 #import "MBProgressHUD+YYM_category.h"
+
+#import <Masonry.h>
 @interface NearbyViewController ()<UITableViewDelegate,UITableViewDataSource,JJDropdownViewDelegate,JJClickExpandDelegate, CityNameDelegate, LoginStatusDelegate>
 
 @property(nonatomic,strong)UITableView *tableView;
@@ -49,6 +51,8 @@
         [self.leftBtn setTitle:cityName forState:UIControlStateNormal];
     }
     self.navigationController.navigationBar.hidden = NO;
+    
+
 }
 
 - (void)viewDidLoad {
@@ -346,7 +350,6 @@
     FJStoreTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"fjStoreCellID" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    
     YM_FjStoreModel *model= [[YM_FjStoreModel alloc] init];
     [model setValuesForKeysWithDictionary:self.dataArr[indexPath.section]];
         
@@ -424,8 +427,6 @@
         
         _dataArr = [NSMutableArray array];
     }
-    
-    
     return _dataArr;
 }
 
@@ -460,7 +461,6 @@
         _tableView.dataSource = self;
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([FJStoreTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"fjStoreCellID"];
         [_tableView addSubview:self.backgroundImgView];
-//        [_tableView insertSubview:self.backgroundImgView atIndex:0];
 
     }
     return _tableView;

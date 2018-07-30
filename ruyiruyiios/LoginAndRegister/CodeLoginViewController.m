@@ -120,7 +120,8 @@
     
     [self addCustomerView];
     [self addButtons];
-    [self addthridView];
+    //暂时屏蔽微信登录
+//    [self addthridView];
     // Do any additional setup after loading the view.
 }
 

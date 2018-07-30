@@ -58,6 +58,7 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="XM6-2l-6rN" secondAttribute="bottom" id="c8U-wF-1EU"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="129" y="15"/>
         </view>

@@ -566,6 +566,7 @@
     
     DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
     [delegateConfiguration unregisterRoadStatusChangedListener:self];
+    
     [delegateConfiguration unregisterCartypeStatusChangeListener:self];
     [self.navigationController popViewControllerAnimated:YES];
 }

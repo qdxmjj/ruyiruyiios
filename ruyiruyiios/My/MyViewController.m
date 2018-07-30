@@ -25,6 +25,7 @@
 #import "DelegateConfiguration.h"
 #import "ContactCustomerViewController.h"
 
+#import "WXApi.h"
 @interface MyViewController ()<UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UINavigationControllerDelegate, LoginStatusDelegate>
 
 @property(nonatomic, strong)UIScrollView *mainScrollV;
@@ -203,9 +204,15 @@
     DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
     [delegateConfiguration registerLoginStatusChangedListener:self];
     
-    self.titleArray = @[@"待更换轮胎", @"畅行无忧", @"我的宝驹", @"优惠券", @"推广码", @"评价", @"设置", @"联系客服"];
-    self.imgArray = @[@"ic_daigenghuan", @"ic_changxing", @"ic_wodeche", @"ic_youhuiquan", @"ic_tuiguang", @"ic_pingjia", @"ic_shezhi", @"ic_lianxi"];
-    
+    if (![WXApi isWXAppInstalled]){
+        
+        self.titleArray = @[@"待更换轮胎", @"畅行无忧", @"我的宝驹", @"优惠券", @"评价", @"设置", @"联系客服"];
+        self.imgArray = @[@"ic_daigenghuan", @"ic_changxing", @"ic_wodeche", @"ic_youhuiquan", @"ic_pingjia", @"ic_shezhi", @"ic_lianxi"];
+
+    }else{
+        self.titleArray = @[@"待更换轮胎", @"畅行无忧", @"我的宝驹", @"优惠券", @"推广码", @"评价", @"设置", @"联系客服"];
+        self.imgArray = @[@"ic_daigenghuan", @"ic_changxing", @"ic_wodeche", @"ic_youhuiquan", @"ic_tuiguang", @"ic_pingjia", @"ic_shezhi", @"ic_lianxi"];
+    }
     UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20+(SafeAreaTopHeight - 64))];
     statusBarView.backgroundColor = LOGINBACKCOLOR;
     
@@ -252,6 +259,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
+
     return  CGSizeMake((MAINSCREEN.width - 40)/3,80);
 }
 
@@ -294,20 +302,42 @@
             [self.navigationController pushViewController:couponVC animated:YES];
         }else if (indexPath.item == 4){
             
-            ExtensionCodeViewController *extensionVC = [[ExtensionCodeViewController alloc] init];
-            [self.navigationController pushViewController:extensionVC animated:YES];
+            if (![WXApi isWXAppInstalled]){
+
+                MyEvaluationViewController *myEvaluationVC = [[MyEvaluationViewController alloc] init];
+                [self.navigationController pushViewController:myEvaluationVC animated:YES];
+            }else{
+                ExtensionCodeViewController *extensionVC = [[ExtensionCodeViewController alloc] init];
+                [self.navigationController pushViewController:extensionVC animated:YES];
+            }
         }else if (indexPath.item == 5){
             
-            MyEvaluationViewController *myEvaluationVC = [[MyEvaluationViewController alloc] init];
-            [self.navigationController pushViewController:myEvaluationVC animated:YES];
+            if (![WXApi isWXAppInstalled]){
+                
+                MySettingViewController *mysettingVC = [[MySettingViewController alloc] init];
+                [self.navigationController pushViewController:mysettingVC animated:YES];
+            }else{
+                MyEvaluationViewController *myEvaluationVC = [[MyEvaluationViewController alloc] init];
+                [self.navigationController pushViewController:myEvaluationVC animated:YES];
+            }
+            
         }else if (indexPath.item == 6){
             
-            MySettingViewController *mysettingVC = [[MySettingViewController alloc] init];
-            [self.navigationController pushViewController:mysettingVC animated:YES];
+            if (![WXApi isWXAppInstalled]){
+                
+                ContactCustomerViewController *contactCustomerVC = [[ContactCustomerViewController alloc] init];
+                [self.navigationController pushViewController:contactCustomerVC animated:YES];
+            }else{
+                MySettingViewController *mysettingVC = [[MySettingViewController alloc] init];
+                [self.navigationController pushViewController:mysettingVC animated:YES];
+            }
         }else{
             
-            ContactCustomerViewController *contactCustomerVC = [[ContactCustomerViewController alloc] init];
-            [self.navigationController pushViewController:contactCustomerVC animated:YES];
+            if ([WXApi isWXAppInstalled]){
+                
+                ContactCustomerViewController *contactCustomerVC = [[ContactCustomerViewController alloc] init];
+                [self.navigationController pushViewController:contactCustomerVC animated:YES];
+            }
         }
     }
 }

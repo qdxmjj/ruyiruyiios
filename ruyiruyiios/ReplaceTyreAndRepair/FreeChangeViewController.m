@@ -176,6 +176,11 @@
 
 - (void)analysizeDic:(NSDictionary *)dataDic{
     
+    if ([[dataDic objectForKey:@"storeQuaryResVos"] count]<=0) {
+        
+        [PublicClass showHUD:@"门店信息获取失败！" view:self.view];
+        return;
+    }
     NSDictionary *storeInfoDic = [[dataDic objectForKey:@"storeQuaryResVos"] objectAtIndex:0];
     if (storeInfoDic == nil || [storeInfoDic isKindOfClass:[NSNull class]]) {
         

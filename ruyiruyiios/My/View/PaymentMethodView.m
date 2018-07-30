@@ -7,7 +7,7 @@
 //
 
 #import "PaymentMethodView.h"
-
+#import "WXApi.h"
 @implementation PaymentMethodView
 
 - (UILabel *)methodLabel{
@@ -28,7 +28,7 @@
     if (_weixinBtn == nil) {
         
         _weixinBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _weixinBtn.selected = YES;
+        _weixinBtn.selected = NO;
         [_weixinBtn setImage:[UIImage imageNamed:@"ic_no"] forState:UIControlStateNormal];
         [_weixinBtn setImage:[UIImage imageNamed:@"ic_yes"] forState:UIControlStateSelected];
     }
@@ -40,7 +40,7 @@
     if (_alipayBtn == nil) {
         
         _alipayBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _alipayBtn.selected = NO;
+        _alipayBtn.selected = YES;
         [_alipayBtn setImage:[UIImage imageNamed:@"ic_no"] forState:UIControlStateNormal];
         [_alipayBtn setImage:[UIImage imageNamed:@"ic_yes"] forState:UIControlStateSelected];
     }
@@ -60,8 +60,16 @@
 
 - (void)addUnchangeViews{
     
-    NSArray *nameArray = @[@"微信支付", @"支付宝支付"];
-    NSArray *imgArray = @[@"ic_wechat", @"ic_pay"];
+    NSArray *nameArray;
+    NSArray *imgArray;
+    if (![WXApi isWXAppInstalled]){
+
+        nameArray = @[@"支付宝支付"];
+        imgArray = @[@"ic_pay"];
+    }else{
+        nameArray = @[@"微信支付", @"支付宝支付"];
+        imgArray = @[@"ic_wechat", @"ic_pay"];
+    }
     for (int i = 0; i<nameArray.count; i++) {
         
         UIImageView *iconImageV = [[UIImageView alloc] initWithFrame:CGRectMake(35, 50+40*i, 33, 33)];
@@ -79,7 +87,9 @@
 - (void)addChangeViews{
     
     [self addSubview:self.methodLabel];
-    [self addSubview:self.weixinBtn];
+    if ([WXApi isWXAppInstalled]){
+        [self addSubview:self.weixinBtn];
+    }
     [self addSubview:self.alipayBtn];
 }
 
@@ -87,8 +97,12 @@
     
     [super layoutSubviews];
     self.methodLabel.frame = CGRectMake(20, 20, MAINSCREEN.width - 20, 20);
-    self.weixinBtn.frame = CGRectMake(MAINSCREEN.width - 45, 56, 25, 25);
-    self.alipayBtn.frame = CGRectMake(MAINSCREEN.width - 45, 96, 25, 25);
+    if ([WXApi isWXAppInstalled]){
+        self.weixinBtn.frame = CGRectMake(MAINSCREEN.width - 45, 56, 25, 25);
+        self.alipayBtn.frame = CGRectMake(MAINSCREEN.width - 45, 96, 25, 25);
+    }else{
+        self.alipayBtn.frame = CGRectMake(MAINSCREEN.width - 45, 56, 25, 25);
+    }
 }
 
 /*

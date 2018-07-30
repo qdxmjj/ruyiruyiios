@@ -233,7 +233,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chickPayResult) name:@"payStatus" object:nil];
     
-    payFlagStr = @"1";
+    payFlagStr = @"2";
     [self addViews];
     [self queryCarCreditMyQuota];
     // Do any additional setup after loading the view.

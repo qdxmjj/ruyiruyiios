@@ -37,7 +37,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-//    NSLog(@"%@", [DBRecorder getAllBrandData]);
+//    NSLog(@"%@", [DBRecorder getAllBrandData])
     [WXApi registerApp:WEIXINID];
     if (@available(iOS 11.0,*)) {
         

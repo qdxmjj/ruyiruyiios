@@ -215,8 +215,6 @@ static NSInteger const HeadViewH = 150;
         self.headV.serviceTypeList = [self.commodityInfo objectForKey:@"storeServcieList"];
         
     }
-
-    
 }
 
 #pragma mark 获取全部商品信息

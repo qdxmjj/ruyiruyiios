@@ -99,8 +99,9 @@
     
     if (!_storeName) {
         
-        _storeName = [[UILabel alloc] initWithFrame:CGRectMake(self.storeImg.right+10, self.storeImg.top, self.frame.size.width-self.storeImg.right-10-20, self.storeImg.height/3-10)];
+        _storeName = [[UILabel alloc] initWithFrame:CGRectMake(self.storeImg.right+10, self.storeImg.top, self.frame.size.width-self.storeImg.right-10-50, self.storeImg.height/3-10)];
         _storeName.textColor = [UIColor whiteColor];
+        
     }
     return _storeName;
 }

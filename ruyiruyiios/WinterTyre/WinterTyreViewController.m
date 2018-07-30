@@ -87,6 +87,8 @@
     WinterTyreServiceTypeCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
     cell.logoView.hidden = YES;
+    cell.logoView.backgroundColor = [UIColor whiteColor];
+    cell.contentView.backgroundColor = [UIColor whiteColor];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -101,7 +103,7 @@
 
     if ([UserConfig user_id] == NULL) {
         
-        [self alertIsloginView];
+        [PublicClass showHUD:@"请先登录" view:self.view];
         return;
     }
     

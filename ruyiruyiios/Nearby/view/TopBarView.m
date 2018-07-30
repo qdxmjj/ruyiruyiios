@@ -21,14 +21,15 @@
 
 -(instancetype)initWithFrame:(CGRect)frame{
     
-    if (self = [super initWithFrame:frame]) {
+    self = [super initWithFrame:frame];
+    if (self) {
         self.backgroundColor = [UIColor whiteColor];
         
         [self addSubview:self.collectionView];
-
     }
     return self;
 }
+
 
 -(void)setConditionArr:(NSArray *)conditionArr{
     
@@ -58,12 +59,15 @@
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     
-    TopBarCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"topBarCollectionViewCellID" forIndexPath:indexPath];
+    static NSString *identify = @"topBarCollectionViewCellID";
+
+    TopBarCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identify forIndexPath:indexPath];
     
     cell.titleLab.text = [self.dataArr[indexPath.row] allKeys][0];
 
     return cell;
 }
+
 
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -75,7 +79,6 @@
         
         cell.titleLab.text = text;
     };
-    
     
     if ([self.delegate respondsToSelector:@selector(clickExpandView:menuData:didSelectIndex:)]) {
         
@@ -92,11 +95,11 @@
     
     if (!_collectionView) {
         
-        CGRect collectionViewFrame= CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, self.frame.size.height);
+        CGRect collectionViewFrame= CGRectMake(0, 0,self.frame.size.width, self.frame.size.height);
         
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
         // 设置UICollectionView为横向滚动
-        flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+//        flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
 //        // 每一行cell之间的间距
         flowLayout.minimumLineSpacing = 10;
         
@@ -113,9 +116,11 @@
         _collectionView.showsHorizontalScrollIndicator = NO;
         
         _collectionView.backgroundColor = [UIColor whiteColor];
+        
+        [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([TopBarCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:@"topBarCollectionViewCellID"];
+
     }
     
-    [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([TopBarCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:@"topBarCollectionViewCellID"];
 
     
     return _collectionView;

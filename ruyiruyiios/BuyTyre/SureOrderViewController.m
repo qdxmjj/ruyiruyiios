@@ -12,7 +12,7 @@
 #import "OderBottomView.h"
 #import "CashierViewController.h"
 #import "ShoeOrderInfo.h"
-
+#import "MBProgressHUD+YYM_category.h"
 @interface SureOrderViewController ()<UIScrollViewDelegate>
 
 @property(nonatomic, strong)UIScrollView *mainScrollView;
@@ -102,6 +102,8 @@
 }
 
 - (void)chickSureBtn{
+    
+    [MBProgressHUD showWaitMessage:@"" showView:self.view];
     
     self.oderBottomView.sureBtn.enabled = NO;
     NSString *shoeIdStr = [NSString stringWithFormat:@"%@", shoeSpeedLoadResult.shoeId];

@@ -7,7 +7,7 @@
 //
 
 #import "CashierPayView.h"
-
+#import "WXApi.h"
 @implementation CashierPayView
 
 - (UILabel *)blanceLabel{
@@ -55,7 +55,13 @@
     if (_alipayBtn == nil) {
         
         _alipayBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _alipayBtn.frame = CGRectMake(MAINSCREEN.width - 45, 150, 25, 25);
+        
+        if (![WXApi isWXAppInstalled]) {
+            _alipayBtn.frame = CGRectMake(MAINSCREEN.width - 45, 102, 25, 25);
+
+        }else{
+            _alipayBtn.frame = CGRectMake(MAINSCREEN.width - 45, 150, 25, 25);
+        }
         _alipayBtn.selected = NO;
         [_alipayBtn setImage:[UIImage imageNamed:@"ic_no"] forState:UIControlStateNormal];
         [_alipayBtn setImage:[UIImage imageNamed:@"ic_yes"] forState:UIControlStateSelected];
@@ -108,8 +114,17 @@
     self.otherLabel.textColor = [UIColor blackColor];
     [self addSubview:self.otherLabel];
     
-    NSArray *nameArray = @[@"微信支付", @"支付宝支付"];
-    NSArray *imgArray = @[@"ic_wechat", @"ic_pay"];
+    NSArray *nameArray;
+    NSArray *imgArray;
+    
+    if (![WXApi isWXAppInstalled]) {
+        nameArray = @[@"支付宝支付"];
+        imgArray = @[@"ic_pay"];
+    }else{
+        nameArray = @[@"微信支付", @"支付宝支付"];
+        imgArray = @[@"ic_wechat", @"ic_pay"];
+    }
+    
     for (int i = 0; i<nameArray.count; i++) {
         
         UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(45, 95+(15+33)*i, 33, 33)];
@@ -127,7 +142,11 @@
     
     [self addSubview:self.blanceLabel];
     [self addSubview:self.blanceBtn];
-    [self addSubview:self.wxBtn];
+    
+    if ([WXApi isWXAppInstalled]) {
+
+        [self addSubview:self.wxBtn];
+    }
     [self addSubview:self.alipayBtn];
 }
 
