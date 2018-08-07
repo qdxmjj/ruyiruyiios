@@ -73,7 +73,7 @@
     
     if (_choicePatternTableV == nil) {
         
-        _choicePatternTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, MAINSCREEN.width, MAINSCREEN.height - SafeAreaTopHeight - 40 - 40 - (Height_TabBar - 49)) style:UITableViewStylePlain];
+        _choicePatternTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, MAINSCREEN.width, MAINSCREEN.height - SafeAreaTopHeight - 40 - 35 - 10 - (Height_TabBar - 49)) style:UITableViewStylePlain];
         _choicePatternTableV.delegate = self;
         _choicePatternTableV.dataSource = self;
         _choicePatternTableV.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -87,7 +87,7 @@
     if (_nextBtn == nil) {
         
         _nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _nextBtn.frame = CGRectMake(10, MAINSCREEN.height - 40 - SafeAreaTopHeight - (Height_TabBar - 49), MAINSCREEN.width - 20, 34);
+        _nextBtn.frame = CGRectMake(10, MAINSCREEN.height - 40 - SafeAreaTopHeight - (Height_TabBar - 49), MAINSCREEN.width - 20, 35);
         [_nextBtn setTitle:@"下一步" forState:UIControlStateNormal];
         [_nextBtn setBackgroundColor:LOGINBACKCOLOR forState:UIControlStateNormal];
         [_nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -179,7 +179,7 @@
     }
     NSString *token = [UserConfig token];
     NSString *userID = [NSString stringWithFormat:@"%@", [UserConfig user_id]];
-    NSDictionary *postDic = @{@"shoeSize":size, @"userId":userID};
+    NSDictionary *postDic = @{@"shoeSize":size, @"userId":userID,@"userCarId":[UserConfig userCarId]};
     NSString *reqJson = [PublicClass convertToJsonData:postDic];
     [JJRequest postRequest:@"getShoeBySize" params:@{@"reqJson":reqJson, @"token":token} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         
@@ -189,7 +189,6 @@
             
 //            NSLog(@"getShoeBySize:%@", data);
             [self analySize:data];
-            [self.choicePatternTableV reloadData];
         }else if ([statusStr isEqualToString:@"-999"]){
             
             [self alertIsequallyTokenView];
@@ -222,6 +221,8 @@
         }
         [self.shoeFlgureNameDic setValue:resultListMutableA forKey:tirePattern.shoeFlgureName];
     }
+    
+    [self.choicePatternTableV reloadData];
 }
 
 #pragma mark - TableViewDelegate
@@ -250,7 +251,14 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     TirePattern *tirePattern = [self.shoeMutableA objectAtIndex:indexPath.section];
-    return 300 + [[self.shoeFlgureNameDic objectForKey:tirePattern.shoeFlgureName] count] * 40 + 10;
+    
+    /*
+     *  190 == 轮胎图片高度 + 间距
+     *  tirePattern.sectionTextSize.height 文字高度
+     *  40 选择按钮高度 30 + 10 间距 示例 94/W/¥471.0
+     */
+    
+    return 190+tirePattern.sectionTextSize.height+40*[[self.shoeFlgureNameDic objectForKey:tirePattern.shoeFlgureName] count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -286,6 +294,9 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    
+    self.shoeSpeedLoadResult = nil;
     
     TirePattern *tirePattern = [self.shoeMutableA objectAtIndex:section];
     ChoiceTableHeadView *choiceHeadView = [[ChoiceTableHeadView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, 50)];
@@ -328,10 +339,10 @@
     [self.choicePatternTableV reloadData];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    [self.choicePatternTableV deselectRowAtIndexPath:indexPath animated:YES];
-}
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//
+//    [self.choicePatternTableV deselectRowAtIndexPath:indexPath animated:YES];
+//}
 
 //loginStatusDelegate
 - (void)updateLoginStatus{

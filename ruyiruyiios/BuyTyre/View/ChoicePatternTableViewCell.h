@@ -29,6 +29,9 @@
 @property(nonatomic, strong)UIButton *tmpBtn;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier shoeSpeedList:(NSArray *)array;
-- (void)setTirePattern:(TirePattern *)tirePattern;
+
+@property(nonatomic,strong)TirePattern *tirePattern;
+
+//- (void)setTirePattern:(TirePattern *)tirePattern;
 
 @end

@@ -18,4 +18,15 @@
     }
 }
 
+-(CGSize )sectionTextSize{
+    
+    if (self.tire_description) {
+        
+        CGSize sizeToFit = [self.tire_description boundingRectWithSize:CGSizeMake(MAINSCREEN.width-70, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15.f]} context:nil].size;
+        
+        return sizeToFit;
+    }
+    return CGSizeMake(0.1, 0.1);
+}
+
 @end

@@ -117,6 +117,9 @@
         if ([statusStr isEqualToString:@"1"]) {
             
 //            NSLog(@"提交订单获取到的值:%@", data);
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:GenerateTireOrderNotice object:nil];
+            
             [self.shoeOrderInfo setValuesForKeysWithDictionary:data];
             CashierViewController *cashierVC = [[CashierViewController alloc] init];
             cashierVC.totalPriceStr = [NSString stringWithFormat:@"%@", self.shoeOrderInfo.totalPrice];

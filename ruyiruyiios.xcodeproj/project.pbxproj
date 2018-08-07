@@ -18,6 +18,8 @@
 		36071A4820ECCBE80089E633 /* FreeChangeSelectPhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36071A4720ECCBE80089E633 /* FreeChangeSelectPhotoCell.xib */; };
 		360CD54220DCED8E005123B9 /* StoreDetailsPhoneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C80A1B20D89C640036C14A /* StoreDetailsPhoneCell.m */; };
 		360CD54320DCEDB8005123B9 /* MySettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4332F88420D8A19500AF386F /* MySettingViewController.m */; };
+		36148DE22112954600309D31 /* YearSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36148DE12112954600309D31 /* YearSelectViewController.m */; };
+		36148DE52112955E00309D31 /* JJSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 36148DE32112955E00309D31 /* JJSliderView.m */; };
 		3618716E20E22BE500BBAE43 /* RepairHeadAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298620E1E494006E2CCA /* RepairHeadAlertView.m */; };
 		3618716F20E22C3600BBAE43 /* TireRepairViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298020E1DD2D006E2CCA /* TireRepairViewController.m */; };
 		361CF5AB20E3900C007DFA17 /* ic_car@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 361CF5A520E3900A007DFA17 /* ic_car@2x.png */; };
@@ -874,6 +876,10 @@
 		36071A3D20ECCBB70089E633 /* FreeChangUserInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FreeChangUserInfoCell.xib; sourceTree = "<group>"; };
 		36071A3E20ECCBB70089E633 /* FreeChangHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreeChangHeaderView.h; sourceTree = "<group>"; };
 		36071A4720ECCBE80089E633 /* FreeChangeSelectPhotoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FreeChangeSelectPhotoCell.xib; sourceTree = "<group>"; };
+		36148DE02112954600309D31 /* YearSelectViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YearSelectViewController.h; sourceTree = "<group>"; };
+		36148DE12112954600309D31 /* YearSelectViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YearSelectViewController.m; sourceTree = "<group>"; };
+		36148DE32112955E00309D31 /* JJSliderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJSliderView.m; sourceTree = "<group>"; };
+		36148DE42112955E00309D31 /* JJSliderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJSliderView.h; sourceTree = "<group>"; };
 		361CF5A520E3900A007DFA17 /* ic_car@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_car@2x.png"; sourceTree = "<group>"; };
 		361CF5A820E3900B007DFA17 /* ic_car.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_car.png; sourceTree = "<group>"; };
 		361CF5A920E3900B007DFA17 /* ic_car@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_car@3x.png"; sourceTree = "<group>"; };
@@ -2506,6 +2512,10 @@
 			children = (
 				435E594320A18B79005C8BDA /* HomeViewController.h */,
 				435E594420A18B79005C8BDA /* HomeViewController.m */,
+				36148DE02112954600309D31 /* YearSelectViewController.h */,
+				36148DE12112954600309D31 /* YearSelectViewController.m */,
+				36148DE42112955E00309D31 /* JJSliderView.h */,
+				36148DE32112955E00309D31 /* JJSliderView.m */,
 				36E0B59221007DA7005838B5 /* CycleScrollViewDetailsController.h */,
 				36E0B59321007DA7005838B5 /* CycleScrollViewDetailsController.m */,
 				431FC5D020AAABC700EF97CA /* Model */,
@@ -4384,6 +4394,7 @@
 				36C80A7120D89C640036C14A /* UIButton+Subscript.m in Sources */,
 				430CFBCD20F0973C0031DABE /* FreeChargeOrderView.m in Sources */,
 				438B2AFE20B7EF2D004A7E2A /* ManageCarTableViewCell.m in Sources */,
+				36148DE22112954600309D31 /* YearSelectViewController.m in Sources */,
 				432EFEB320B5A5520090DEC8 /* AddressPickerView.m in Sources */,
 				4332361520B261A3008F45FD /* SelectBrandTableViewCell.m in Sources */,
 				43A7B1CB20CF667D0002B756 /* BuyPassViewController.m in Sources */,
@@ -4556,6 +4567,7 @@
 				4343EB8E20A01C49003AD5FE /* CodeLoginViewController.m in Sources */,
 				43B1BEBB20EA1D06008E3E1A /* HXPhotoView.m in Sources */,
 				36C80A3A20D89C640036C14A /* YM_FjStoreModel.m in Sources */,
+				36148DE52112955E00309D31 /* JJSliderView.m in Sources */,
 				43B1BEA520EA1D06008E3E1A /* HXPhotoConfiguration.m in Sources */,
 				36C80A5720D89C640036C14A /* StoreDetailsRequest.m in Sources */,
 				430FABA020E5D49400EB27F7 /* TireChaneOrderInfo.m in Sources */,

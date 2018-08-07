@@ -17,4 +17,6 @@
 @property(nonatomic, strong)NSString *shoeFlgureName;
 @property(nonatomic, strong)NSArray *shoeSpeedLoadResult;
 
+@property(nonatomic,assign)CGSize sectionTextSize;
+
 @end

@@ -18,4 +18,7 @@
 @property(nonatomic, strong)NSNumber *same;
 @property(nonatomic, strong)NSNumber *user_car_id;
 
+@property(nonatomic,strong) NSNumber *service_year;
+@property(nonatomic,strong) NSString *service_end_date;
+
 @end

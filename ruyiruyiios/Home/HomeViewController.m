@@ -27,6 +27,7 @@
 #import "FreeChangeViewController.h"
 
 #import "CycleScrollViewDetailsController.h"
+#import "YearSelectViewController.h"
 @interface HomeViewController ()<UIScrollViewDelegate, SDCycleScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate, CityNameDelegate, UpdateAddCarDelegate, SetDefaultCarDelegate>{
     
     CGFloat nameW;
@@ -99,15 +100,14 @@
             [PublicClass showHUD:messageStr view:self.view];
         }else{
             
-//            NSLog(@"%@", data);
-            _data_carDic = [data objectForKey:@"androidHomeData_cars"];
+            self.data_carDic = [data objectForKey:@"androidHomeData_cars"];
             NSArray *imgArray = [data objectForKey:@"lunbo_infos"];
-            if (_data_carDic == nil || [_data_carDic isKindOfClass:[NSNull class]]) {
+            if (self.data_carDic == nil || [self.data_carDic isKindOfClass:[NSNull class]]) {
                 
                 [UserConfig userDefaultsSetObject:@"0" key:@"userCarId"];
             }else{
                 
-                [self setuserDatacarData:_data_carDic];
+                [self setuserDatacarData:self.data_carDic];
             }
             [self setImageurlData:imgArray];
             [self setElementOffirstView];
@@ -120,6 +120,8 @@
 }
 
 - (void)setuserDatacarData:(NSDictionary *)carDic{
+    
+
     
     if (carDic.count != 0) {
         
@@ -377,7 +379,11 @@
     [_mainScrollV setContentSize:CGSizeMake(MAINSCREEN.width, (tviewY+tviewH+82))];
     [self getAndroidHomeDate];
     // Do any additional setup after loading the view.
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(generateTireOrderNoticeEvent) name:GenerateTireOrderNotice object:nil];
 }
+
+
 
 - (void)locateMap{
     
@@ -551,6 +557,26 @@
 #pragma mark 跳转轮胎购买页面事件
 - (void)chickBuytyreBtn:(UIButton *)btn{
     
+    if ([self.dataCars isEqual:[NSNull null]] || self.dataCars == nil || !self.dataCars) {
+        
+        [PublicClass showHUD:@"轮胎信息获取失败！" view:self.view];
+        return;
+    }
+    
+    if ([self.dataCars.service_end_date isEqualToString:@""]) {
+        
+        NSLog(@"进入选择年限界面");
+        
+        YearSelectViewController *yearsVC = [[YearSelectViewController alloc] init];
+        
+        yearsVC.maximumYears = [NSString stringWithFormat:@"%@",self.dataCars.service_year];
+        yearsVC.data_cars = self.dataCars;
+        [self.navigationController pushViewController:yearsVC animated:YES];
+        
+        return;
+    }
+    
+    
     if ([self.dataCars.font isEqualToString:self.dataCars.rear]) {
         
         ChoicePatternViewController *choicePVC = [[ChoicePatternViewController alloc] init];
@@ -622,6 +648,18 @@
             NSLog(@"location error:%@", error);
         }
     }];
+}
+
+#pragma mark notice
+
+-(void)generateTireOrderNoticeEvent{
+    
+    [self getAndroidHomeDate];
+}
+
+-(void)dealloc{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:GenerateTireOrderNotice object:nil];
 }
 
 #pragma mark CityNameDelegate

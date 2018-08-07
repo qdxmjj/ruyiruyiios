@@ -92,6 +92,7 @@
             break;
             
         default:
+            NSLog(@"跳转异常");
             break;
     }
 }

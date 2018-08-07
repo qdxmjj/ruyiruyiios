@@ -21,9 +21,14 @@
     
     if (_topView == nil) {
         
-        _topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, 325)];
+        
+        _topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, 325-40)];
         _topView.backgroundColor = [UIColor whiteColor];
-        NSArray *leftNameArray = @[@"车型", @"是否是新能源汽车", @"车牌号码", @"常驻地区", @"前轮型号", @"后轮型号", @"行驶证注册日期", @"服务年限"];
+        NSArray *leftNameArray = @[@"车型", @"是否是新能源汽车", @"车牌号码", @"常驻地区", @"前轮型号", @"后轮型号", @"行驶证注册日期"];
+        
+        //于2018.08.01 隐藏掉 服务年限 功能。对应隐藏按钮 serviceBtn
+//        NSArray *leftNameArray = @[@"车型", @"是否是新能源汽车", @"车牌号码", @"常驻地区", @"前轮型号", @"后轮型号", @"行驶证注册日期", @"服务年限"];
+
         for (int i = 0; i<leftNameArray.count; i++) {
             
             CGFloat gap = i*40;
@@ -206,7 +211,7 @@
         [_topView addSubview:self.frontBtn];
         [_topView addSubview:self.rearBtn];
         [_topView addSubview:self.drivingBtn];
-        [_topView addSubview:self.serviceBtn];
+//        [_topView addSubview:self.serviceBtn];
         [_topView addSubview:self.residentAreaBtn];
 //        [self.contentView addSubview:self.bottomView];
         [self addPictureView];

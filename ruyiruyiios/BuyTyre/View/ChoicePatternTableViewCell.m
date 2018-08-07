@@ -11,6 +11,7 @@
 #import <UIButton+WebCache.h>
 #import "ShoeSpeedLoadResult.h"
 
+
 @implementation UIButton(FillColor)
 
 - (void)setBackgroundColor:(UIColor *)backgroundColor forState:(UIControlState)state{
@@ -31,6 +32,7 @@
 }
 
 @end
+
 @implementation ChoicePatternTableViewCell
 
 - (UIImageView *)tireImageV{
@@ -84,6 +86,8 @@
         
         _t_descriptionLabel = [[UILabel alloc] init];
         _t_descriptionLabel.textColor = TEXTCOLOR64;
+        _t_descriptionLabel.font = [UIFont systemFontOfSize:15.f];
+        _t_descriptionLabel.numberOfLines = 0;
     }
     return _t_descriptionLabel;
 }
@@ -109,7 +113,6 @@
         [self.contentView addSubview:self.t_descriptionLabel];
         self.resultArray = array;
         self.tmpBtn = nil;
-        [self addSpeedBtn:array];
     }
     return self;
 }
@@ -117,11 +120,11 @@
 - (void)addSpeedBtn:(NSArray *)speedArray{
     
     for (int p = 0; p<speedArray.count; p++) {
-        
+        //有多个价格button
         ShoeSpeedLoadResult *shoeResult = [speedArray objectAtIndex:p];
         UIButton *speedBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         speedBtn.tag = p;
-        speedBtn.frame = CGRectMake(45, 300+40*p, MAINSCREEN.width - 90, 30);
+        speedBtn.frame = CGRectMake(45, 190+self.tirePattern.sectionTextSize.height+40*p+10, MAINSCREEN.width - 90, 30);
         [speedBtn setTitle:shoeResult.speedLoadStr forState:UIControlStateNormal];
         [speedBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         speedBtn.layer.borderColor = [UIColor blackColor].CGColor;
@@ -161,13 +164,6 @@
     self.leftBtn.frame = CGRectMake(MAINSCREEN.width - 65, 20, 35, 35);
     self.midBtn.frame = CGRectMake(MAINSCREEN.width - 65, 70, 35, 35);
     self.rightBtn.frame = CGRectMake(MAINSCREEN.width - 65, 120, 35, 35);
-    [self.t_descriptionLabel setNumberOfLines:0];
-    self.t_descriptionLabel.font = [UIFont fontWithName:TEXTFONT size:16.0];
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
-    NSDictionary *attributes = @{NSFontAttributeName:self.t_descriptionLabel.font, NSParagraphStyleAttributeName:paragraphStyle.copy};
-    CGSize labelSize = [self.t_descriptionLabel.text boundingRectWithSize:CGSizeMake(MAINSCREEN.width - 55, MAINSCREEN.height) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
-    [self.t_descriptionLabel setFrame:CGRectMake(35, 190, labelSize.width, labelSize.height)];
 }
 
 - (void)chickBtn:(UIButton *)button{
@@ -175,17 +171,17 @@
     switch (button.tag) {
         case 1:
             
-            [self.tireImageV sd_setImageWithURL:[NSURL URLWithString:self.c_tirePattern.imgLeftUrl]];
+            [self.tireImageV sd_setImageWithURL:[NSURL URLWithString:self.tirePattern.imgLeftUrl]];
             break;
             
         case 2:
             
-            [self.tireImageV sd_setImageWithURL:[NSURL URLWithString:self.c_tirePattern.imgMiddleUrl]];
+            [self.tireImageV sd_setImageWithURL:[NSURL URLWithString:self.tirePattern.imgMiddleUrl]];
             break;
             
         case 3:
             
-            [self.tireImageV sd_setImageWithURL:[NSURL URLWithString:self.c_tirePattern.imgRightUrl]];
+            [self.tireImageV sd_setImageWithURL:[NSURL URLWithString:self.tirePattern.imgRightUrl]];
             break;
             
         default:
@@ -195,12 +191,19 @@
 
 - (void)setTirePattern:(TirePattern *)tirePattern{
     
+    _tirePattern = tirePattern;
+    
     self.c_tirePattern = tirePattern;
     [self.tireImageV sd_setImageWithURL:[NSURL URLWithString:tirePattern.imgLeftUrl]];
     [self.leftBtn sd_setImageWithURL:[NSURL URLWithString:tirePattern.imgLeftUrl] forState:UIControlStateNormal];
     [self.midBtn sd_setImageWithURL:[NSURL URLWithString:tirePattern.imgMiddleUrl] forState:UIControlStateNormal];
     [self.rightBtn sd_setImageWithURL:[NSURL URLWithString:tirePattern.imgRightUrl] forState:UIControlStateNormal];
+    
     self.t_descriptionLabel.text = tirePattern.tire_description;
+    
+    self.t_descriptionLabel.frame = CGRectMake(35, 190, tirePattern.sectionTextSize.width, tirePattern.sectionTextSize.height);
+    
+    [self addSpeedBtn:self.resultArray];
 }
 
 - (void)awakeFromNib {
