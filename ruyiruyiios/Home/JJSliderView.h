@@ -9,15 +9,16 @@
 #import <UIKit/UIKit.h>
 @interface JJSliderView : UIView
 
-@property(nonatomic,assign)CGFloat miniNum;
+@property(nonatomic,assign)CGFloat minimum;
 
-@property(nonatomic,assign)CGFloat maxiNum;
+@property(nonatomic,assign)CGFloat maximum;
 
 @property(nonatomic,assign)CGFloat value;
 
 @property(nonatomic,strong)UIImage *thumbImage;
 
-@property(nonatomic,assign)CGFloat currentValue;
+@property(nonatomic,assign,readonly)CGFloat currentValue;
 
-@property(nonatomic,copy)NSString *currentValueStr;
+@property(nonatomic,copy,readonly)NSString *currentValueStr;
+
 @end

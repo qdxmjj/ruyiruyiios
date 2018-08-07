@@ -73,7 +73,7 @@
        
         make.left.and.right.mas_equalTo(self.view).inset(5);
         make.top.mas_equalTo(self.imgView.mas_bottom).inset(10);
-        make.height.mas_equalTo(self.imgView.mas_height).multipliedBy(0.5);
+        make.height.mas_equalTo(self.imgView.mas_height).multipliedBy(0.6);
     }];
     
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -178,7 +178,7 @@
 
 -(void)setMaximumYears:(NSString *)maximumYears{
     
-    self.sliderView.maxiNum = [maximumYears floatValue];   
+    self.sliderView.maximum = [maximumYears floatValue];   
 }
 
 -(JJSliderView *)sliderView{

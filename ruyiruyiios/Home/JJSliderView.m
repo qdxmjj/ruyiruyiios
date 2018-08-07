@@ -23,19 +23,17 @@
     self = [super init];
     if (self) {
         
-
     }
     return self;
 }
-
 
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
 
     if (self) {
         
-        self.miniNum = 0.f;
-        self.maxiNum = 10.f;
+        self.minimum = 0.f;
+        self.maximum = 10.f;
         self.value = 0.f;
         self.thumbImage = [UIImage imageNamed:@"ic_xiaoyuan"];
         [self addSubview:self.slider];
@@ -46,8 +44,26 @@
     return self;
 }
 
--(void)setSubViewFrame{
+-(instancetype)initWithCoder:(NSCoder *)aDecoder{
+    
+    self = [super initWithCoder:aDecoder];
+    
+    if (self) {
+        
+        self.minimum = 0.f;
+        self.maximum = 10.f;
+        self.value = 0.f;
+        self.thumbImage = [UIImage imageNamed:@"ic_xiaoyuan"];
+        [self addSubview:self.slider];
+        [self addSubview:self.label];
+        
+        [self setSubViewFrame];
+    }
+    return self;
+}
 
+
+-(void)setSubViewFrame{
 
     [self.slider mas_makeConstraints:^(MASConstraintMaker *make) {
        
@@ -58,35 +74,40 @@
     
     [self.label mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.centerX.mas_equalTo(self.slider.mas_leading);
-        make.top.mas_equalTo(self.mas_top);
-        make.height.mas_equalTo(@15);
-        make.width.mas_equalTo(35);
+        make.left.mas_equalTo(self.slider.mas_left);
+        make.height.mas_equalTo(@14);// 字体12 高度大约为14 差值约为 2
+        make.width.mas_equalTo(@20);
+        make.bottom.mas_equalTo(self.slider.mas_top).inset(3);
     }];
-    
-    [self layoutIfNeeded];
 }
 
 -(void)sliderValueChangedEvent:(UISlider *)slider{
     
     self.label.text = [NSString stringWithFormat:@"%.0f年",slider.value];
-//    CGSize sizeNew = [self.label.text sizeWithAttributes:@{NSFontAttributeName:self.label.font}];
-//    self.label.frame = CGRectMake(0, 0, sizeNew.width, self.frame.size.height/2);
-    
-    if (self.maxiNum == 0.f) {
+    [self.label sizeToFit];//立即修改更改size
+
+    if (self.maximum == 0.f) {
         
+        //防止  宽度 * 0  出现的异常报错
         return;
     }
     
+    //可能slider嵌套，求出slider在最外层的frame
+    CGRect trackRect = [slider convertRect:slider.bounds toView:nil];
+    //得到滑块的frame
+    CGRect thumbRect = [slider thumbRectForBounds:slider.bounds trackRect:trackRect value:slider.value];
     
-   __block CGFloat changedLength = ( slider.value / self.maxiNum )  * self.slider.frame.size.width ;
+    //两种写法
+    //    CGRect rect = self.label.frame;
+    //    rect.origin.x = (thumbRect.origin.x) - ceil(CGRectGetWidth(self.label.frame) / 2) ;
+    //    self.label.frame = rect;
     
-    [self.label mas_updateConstraints:^(MASConstraintMaker *make) {
-        
-//        make.centerX.mas_equalTo(self.slider.mas_leading).offset(slider.value * changedLength);
-        
-        make.centerX.mas_equalTo(self.slider.mas_leading).offset(changedLength);
-    }];
+    //第二种
+    CGPoint point = self.label.center;
+    
+    point.x = thumbRect.origin.x;
+
+    self.label.center = point;
 }
 
 -(CGFloat )currentValue{
@@ -96,32 +117,30 @@
 -(NSString *)currentValueStr{
     
     NSString *string = [self.label.text stringByReplacingOccurrencesOfString:@"年" withString:@""];
-    
     return string;
 }
 
--(void)setMaxiNum:(CGFloat)maxiNum{
-    _maxiNum = maxiNum;
+-(void)setMaximum:(CGFloat)maximum{
+    _maximum = maximum;
     
-    self.slider.maximumValue = maxiNum;
+    self.slider.maximumValue = maximum;
 }
 
--(void)setMiniNum:(CGFloat)miniNum{
-    _miniNum = miniNum;
+-(void)setMinimum:(CGFloat)minimum{
+    _minimum = minimum;
     
-    self.slider.minimumValue = miniNum;
+    self.slider.minimumValue = minimum;
 }
 
 -(void)setValue:(CGFloat)value{
-    
     _value = value;
     
     self.slider.value = value;
 }
 
 -(void)setThumbImage:(UIImage *)thumbImage{
-    
     _thumbImage = thumbImage;
+    
     [self.slider setThumbImage:self.thumbImage forState:UIControlStateNormal];
 }
 
@@ -130,12 +149,11 @@
     if (!_slider) {
         
         _slider = [[UISlider alloc] init];
-//        _slider.transform = CGAffineTransformMakeScale(1.f, 6.f);
-        
         _slider.maximumTrackTintColor = [UIColor colorWithRed:240.f/255.f green:240.f/255.f blue:240.f/255.f alpha:1.f];
-        _slider.minimumTrackTintColor = LOGINBACKCOLOR;
-        _slider.minimumValue = self.miniNum;
-        _slider.maximumValue = self.maxiNum;
+        
+        _slider.minimumTrackTintColor = [UIColor colorWithRed:255.0/255 green:102.0/255 blue:35.0/255 alpha:1.0];
+        _slider.minimumValue = self.minimum;
+        _slider.maximumValue = self.maximum;
         _slider.value        = self.value;
         
         [_slider setThumbImage:self.thumbImage forState:UIControlStateNormal];
@@ -148,12 +166,12 @@
     
     if (!_label) {
         _label = [[UILabel alloc] init];
-        _label.backgroundColor = LOGINBACKCOLOR;
+        _label.backgroundColor = [UIColor colorWithRed:255.0/255 green:102.0/255 blue:35.0/255 alpha:1.0];
         _label.textColor = [UIColor whiteColor];
         _label.layer.masksToBounds = YES;
         _label.layer.cornerRadius = 3;
         _label.text = [NSString stringWithFormat:@"0年"];
-        _label.font = [UIFont systemFontOfSize:14.f];
+        _label.font = [UIFont systemFontOfSize:12.f];
         _label.textAlignment = NSTextAlignmentCenter;
     }
     return _label;
