@@ -37,7 +37,7 @@
 
     }
     
-    self.countLab.text = [NSString stringWithFormat:@"%ld",self.number];
+    self.countLab.text = [NSString stringWithFormat:@"%ld",(long)self.number];
 }
 
 -(void)setShopCartModel:(CommodityModel *)shopCartModel{
@@ -45,7 +45,7 @@
     _shopCartModel = shopCartModel;
     
     self.commdityName.text = shopCartModel.name;
-    self.priceLab.text = [NSString stringWithFormat:@"%@",shopCartModel.price];
+    self.priceLab.text = [NSString stringWithFormat:@"¥%@",shopCartModel.price];
     self.countLab.text = [NSString stringWithFormat:@"%@",shopCartModel.commodityNumber];
 }
 

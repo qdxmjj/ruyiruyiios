@@ -54,7 +54,7 @@
 
     if (_numberArray == nil) {
 
-        _numberArray = [[NSArray alloc] initWithObjects:@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"W", @"S", @"Y", @"Z", nil];
+        _numberArray = [[NSArray alloc] initWithObjects:@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T",@"U",@"V",@"W", @"X", @"Y", @"Z", nil];
     }
     return _numberArray;
 }

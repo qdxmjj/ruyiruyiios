@@ -79,7 +79,7 @@
     cell.contentView.backgroundColor = [UIColor colorWithRed:235.f/255.f green:235.f/255.f blue:235.f/255.f alpha:1.f];
     cell.logoView.hidden = NO;
     
-    [self getServiceListInfo:[NSString stringWithFormat:@"%ld",indexPath.row+2]];
+    [self getServiceListInfo:[NSString stringWithFormat:@"%d",indexPath.row+2]];
 }
 
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -170,7 +170,7 @@
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"字数不能超过20" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
         [alertController addAction:alertAction];
-        [self presentViewController:alertController animated:nil completion:nil];
+        [self presentViewController:alertController animated:YES completion:nil];
         [_searchBar setText:[searchText substringToIndex:20]];
         
         return;

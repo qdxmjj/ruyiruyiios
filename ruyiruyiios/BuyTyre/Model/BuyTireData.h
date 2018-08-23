@@ -31,4 +31,5 @@
 @property(nonatomic, strong)NSString *userPhone;
 @property(nonatomic, strong)NSString *shoeBasePrice;
 
+@property(nonatomic, strong)id  cxwyPriceParamList;
 @end

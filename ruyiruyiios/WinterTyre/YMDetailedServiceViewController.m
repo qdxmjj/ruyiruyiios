@@ -59,7 +59,7 @@
     [super viewDidLoad];
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    
+    self.view.backgroundColor = [UIColor colorWithRed:230.f/255.f green:230.f/255.f blue:230.f/255.f alpha:1.f];
     NSArray *topBtnTitleArr = @[@"综合",@"价格",@"距离"];
     
     for (int i = 0; i<3; i++) {
@@ -74,6 +74,8 @@
         [topBtn.titleLabel setTextAlignment:NSTextAlignmentCenter];
         
         [topBtn addTarget:self action:@selector(filterCommodityEvent:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [topBtn setBackgroundColor:[UIColor whiteColor] forState:UIControlStateNormal];
         
         [self.view addSubview:topBtn];
     }
@@ -277,7 +279,7 @@
     
     if (!_tableView) {
         
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, CGRectGetWidth(self.view.frame), MAINSCREEN.height-SafeDistance) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 41, CGRectGetWidth(self.view.frame), MAINSCREEN.height-SafeDistance) style:UITableViewStyleGrouped];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([YMDetailedServiceCell class]) bundle:nil] forCellReuseIdentifier:@"YMDetailedServiceCellID"];

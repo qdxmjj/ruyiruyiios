@@ -8,6 +8,7 @@
 
 #import "JJSliderView.h"
 #import <Masonry.h>
+
 @interface JJSliderView ()
 
 @property(nonatomic,strong)UISlider *slider;
@@ -38,7 +39,7 @@
         self.thumbImage = [UIImage imageNamed:@"ic_xiaoyuan"];
         [self addSubview:self.slider];
         [self addSubview:self.label];
-        
+
         [self setSubViewFrame];
     }
     return self;
@@ -67,7 +68,7 @@
 
     [self.slider mas_makeConstraints:^(MASConstraintMaker *make) {
        
-        make.leading.and.trailing.mas_equalTo(self).inset(20);
+        make.leading.and.trailing.mas_equalTo(self);
         make.height.mas_equalTo(self.mas_height).multipliedBy(0.5);
         make.bottom.mas_equalTo(self.mas_bottom).inset(5);
     }];
@@ -108,6 +109,8 @@
     point.x = thumbRect.origin.x;
 
     self.label.center = point;
+    
+    self.numberChangeBlock([self.label.text stringByReplacingOccurrencesOfString:@"年" withString:@""]);
 }
 
 -(CGFloat )currentValue{
@@ -170,7 +173,7 @@
         _label.textColor = [UIColor whiteColor];
         _label.layer.masksToBounds = YES;
         _label.layer.cornerRadius = 3;
-        _label.text = [NSString stringWithFormat:@"0年"];
+        _label.text = [NSString stringWithFormat:@"1年"];
         _label.font = [UIFont systemFontOfSize:12.f];
         _label.textAlignment = NSTextAlignmentCenter;
     }

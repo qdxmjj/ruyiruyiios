@@ -31,7 +31,7 @@
 
         [self.removeMptyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
            
-            make.right.mas_equalTo(self.tableView.mas_right).inset(16);
+            make.right.mas_equalTo(self.tableView.mas_right).inset(10);
             make.bottom.mas_equalTo(self.tableView.mas_top).inset(3);
             make.height.mas_equalTo(@20);
             make.width.mas_equalTo(@20);
@@ -92,7 +92,7 @@
         _tableView.backgroundColor = [UIColor whiteColor];
         _tableView.delegate = self;
         _tableView.dataSource = self;
-
+        _tableView.separatorStyle = UITableViewCellSelectionStyleNone;
         _tableView.estimatedRowHeight = 55;
         
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ShopCartTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"shopCartCellID"];;
@@ -109,8 +109,6 @@
         [_removeMptyBtn setBackgroundColor:[UIColor whiteColor]];
         [_removeMptyBtn addTarget:self action:@selector(removeShopCartContentWithAll) forControlEvents:UIControlEventTouchUpInside];
     }
-    
-    
     return _removeMptyBtn;
 }
 
@@ -122,8 +120,13 @@
 -(void)setCommodityList:(NSArray *)commodityList{
     
     _commodityList = commodityList;
-    
-    self.tableView.frame = CGRectMake(0, self.frame.size.height-_commodityList.count*44, self.frame.size.width, _commodityList.count*44);
+    if (_commodityList.count<=5) {
+        
+        self.tableView.frame = CGRectMake(0, self.frame.size.height-_commodityList.count*44, self.frame.size.width, _commodityList.count*44);
+    }else{
+        
+        self.tableView.frame = CGRectMake(0, self.frame.size.height-5*44, self.frame.size.width, 5*44);
+    }
     
 
     [self.tableView reloadData];

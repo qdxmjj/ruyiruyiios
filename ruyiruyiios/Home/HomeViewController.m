@@ -27,7 +27,8 @@
 #import "FreeChangeViewController.h"
 
 #import "CycleScrollViewDetailsController.h"
-#import "YearSelectViewController.h"
+
+#import "NewTirePurchaseViewController.h"
 @interface HomeViewController ()<UIScrollViewDelegate, SDCycleScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate, CityNameDelegate, UpdateAddCarDelegate, SetDefaultCarDelegate>{
     
     CGFloat nameW;
@@ -557,34 +558,48 @@
 #pragma mark 跳转轮胎购买页面事件
 - (void)chickBuytyreBtn:(UIButton *)btn{
     
+
+    
     if ([self.dataCars isEqual:[NSNull null]] || self.dataCars == nil || !self.dataCars) {
-        
+
         [PublicClass showHUD:@"轮胎信息获取失败！" view:self.view];
         return;
     }
+//
+//    if ([self.dataCars.service_end_date isEqualToString:@""]) {
+//
+//        NSLog(@"进入选择年限界面");
+//
+//        YearSelectViewController *yearsVC = [[YearSelectViewController alloc] init];
+//
+//        yearsVC.maximumYears = [NSString stringWithFormat:@"%@",self.dataCars.service_year];
+//        yearsVC.data_cars = self.dataCars;
+//        [self.navigationController pushViewController:yearsVC animated:YES];
+//
+//        return;
+//    }
+//
     
-    if ([self.dataCars.service_end_date isEqualToString:@""]) {
-        
-        NSLog(@"进入选择年限界面");
-        
-        YearSelectViewController *yearsVC = [[YearSelectViewController alloc] init];
-        
-        yearsVC.maximumYears = [NSString stringWithFormat:@"%@",self.dataCars.service_year];
-        yearsVC.data_cars = self.dataCars;
-        [self.navigationController pushViewController:yearsVC animated:YES];
-        
-        return;
-    }
-    
-    
+    //前后轮一致 直接进入轮胎购买页面 不一致先进入选择前后轮界面 再进入轮胎购买
     if ([self.dataCars.font isEqualToString:self.dataCars.rear]) {
+
+//        ChoicePatternViewController *choicePVC = [[ChoicePatternViewController alloc] init];
+//        choicePVC.tireSize = self.dataCars.font;
+//        choicePVC.fontRearFlag = @"0";
+//        [self.navigationController pushViewController:choicePVC animated:YES];
         
-        ChoicePatternViewController *choicePVC = [[ChoicePatternViewController alloc] init];
-        choicePVC.tireSize = self.dataCars.font;
-        choicePVC.fontRearFlag = @"0";
-        [self.navigationController pushViewController:choicePVC animated:YES];
+        NewTirePurchaseViewController *newTireVC = [[NewTirePurchaseViewController alloc] init];
+
+        newTireVC.fontRearFlag = @"0";
+        newTireVC.tireSize = self.dataCars.font;
+        newTireVC.service_end_date = self.dataCars.service_end_date;
+        newTireVC.service_year = self.dataCars.service_year;
+        newTireVC.service_year_length = self.dataCars.service_year_length;
+
+        [self.navigationController pushViewController:newTireVC animated:YES];
+        
     }else{
-        
+
         SelectTirePositionViewController *selectTPVC = [[SelectTirePositionViewController alloc] init];
         selectTPVC.dataCars = self.dataCars;
         [self.navigationController pushViewController:selectTPVC animated:YES];

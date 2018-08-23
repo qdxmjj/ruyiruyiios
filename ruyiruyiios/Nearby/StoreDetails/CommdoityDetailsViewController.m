@@ -544,8 +544,10 @@ static NSInteger const HeadViewH = 150;
     
         _bootV = [[BootView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-45-(Height_TabBar-49), self.view.frame.size.width, 45)];
         [_bootV.submitBtn addTarget:self action:@selector(pushBuyCommdityWithPayingViewController) forControlEvents:UIControlEventTouchUpInside];
+        _bootV.layer.shadowOffset = CGSizeMake(0, 0);
+        _bootV.layer.shadowOpacity = 0.5;
+        _bootV.layer.shadowColor = [UIColor lightGrayColor].CGColor;
     }
-    
     return _bootV;
 }
 
@@ -575,7 +577,7 @@ static NSInteger const HeadViewH = 150;
     
     if (!_shopCartView) {
         
-        _shopCartView = [[ShopCartView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-self.bootV.frame.size.height)];
+        _shopCartView = [[ShopCartView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-self.bootV.frame.size.height-bottom_height)];
         
         [self.directoryVC.tableView bringSubviewToFront:_shopCartView];
     }

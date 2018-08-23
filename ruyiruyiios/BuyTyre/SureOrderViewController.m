@@ -103,7 +103,6 @@
 
 - (void)chickSureBtn{
     
-    [MBProgressHUD showWaitMessage:@"" showView:self.view];
     
     self.oderBottomView.sureBtn.enabled = NO;
     NSString *shoeIdStr = [NSString stringWithFormat:@"%@", shoeSpeedLoadResult.shoeId];

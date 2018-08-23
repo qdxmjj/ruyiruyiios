@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+
+typedef void (^slideNumberChangeBlock)(NSString *numberStr);
+
 @interface JJSliderView : UIView
 
 @property(nonatomic,assign)CGFloat minimum;
@@ -20,5 +23,8 @@
 @property(nonatomic,assign,readonly)CGFloat currentValue;
 
 @property(nonatomic,copy,readonly)NSString *currentValueStr;
+
+@property(nonatomic,copy)slideNumberChangeBlock numberChangeBlock;
+
 
 @end

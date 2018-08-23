@@ -8,8 +8,8 @@
 
 #import "SelectTirePositionViewController.h"
 #import "SelectTirePositionTableViewCell.h"
-#import "ChoicePatternViewController.h"
-
+//#import "ChoicePatternViewController.h"
+#import "NewTirePurchaseViewController.h"
 @interface SelectTirePositionViewController ()<UITableViewDelegate, UITableViewDataSource>{
     
     CGFloat y, height;
@@ -130,17 +130,33 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    ChoicePatternViewController *choicPVC = [[ChoicePatternViewController alloc] init];
+//    ChoicePatternViewController *choicPVC = [[ChoicePatternViewController alloc] init];
+//    if (indexPath.row == 0) {
+//
+//        choicPVC.tireSize = dataCars.font;
+//        choicPVC.fontRearFlag = @"1";
+//    }else{
+//
+//        choicPVC.tireSize = dataCars.rear;
+//        choicPVC.fontRearFlag = @"2";
+//    }
+    
+    NewTirePurchaseViewController *newTireVC = [[NewTirePurchaseViewController alloc] init];
+    
     if (indexPath.row == 0) {
         
-        choicPVC.tireSize = dataCars.font;
-        choicPVC.fontRearFlag = @"1";
+        newTireVC.tireSize = dataCars.font;
+        newTireVC.fontRearFlag = @"1";
     }else{
         
-        choicPVC.tireSize = dataCars.rear;
-        choicPVC.fontRearFlag = @"2";
+        newTireVC.tireSize = dataCars.rear;
+        newTireVC.fontRearFlag = @"2";
     }
-    [self.navigationController pushViewController:choicPVC animated:YES];
+    newTireVC.service_end_date = self.dataCars.service_end_date;
+    newTireVC.service_year = self.dataCars.service_year;
+    newTireVC.service_year_length = self.dataCars.service_year_length;
+    [self.navigationController pushViewController:newTireVC animated:YES];
+    
 }
 
 - (void)didReceiveMemoryWarning {

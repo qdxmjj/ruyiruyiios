@@ -175,12 +175,7 @@
 }
 
 - (void)analysizeDic:(NSDictionary *)dataDic{
-    
-    if ([[dataDic objectForKey:@"storeQuaryResVos"] count]<=0) {
-        
-        [PublicClass showHUD:@"门店信息获取失败！" view:self.view];
-        return;
-    }
+
     NSDictionary *storeInfoDic = [[dataDic objectForKey:@"storeQuaryResVos"] objectAtIndex:0];
     if (storeInfoDic == nil || [storeInfoDic isKindOfClass:[NSNull class]]) {
         
@@ -208,6 +203,9 @@
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:3] withRowAnimation:(UITableViewRowAnimationNone)];
 }
 //复制粘贴结束
+
+
+
 
 -(void)getFreeChangeTireInfo{
     
@@ -381,7 +379,7 @@
     
     if (indexPath.section == 3) {
         
-        //参数未确定,开机继续
+        //
         NearbyViewController *nearbyVC = [[NearbyViewController alloc] init];
         nearbyVC.condition = @"轮胎服务";
         nearbyVC.status = @"1";
@@ -518,13 +516,13 @@
     if ([self.fontRearFlag isEqualToString:@"0"]) {
 
         NSInteger total = self.fontAmount + self.rearAmount;
-            [tireInfoDic setObject:[NSString stringWithFormat:@"%ld",total] forKey:@"fontAmount"];
+        [tireInfoDic setObject:[NSString stringWithFormat:@"%ld",(long)total] forKey:@"fontAmount"];
             [tireInfoDic setObject:@"0" forKey:@"rearAmount"];
             
     }else{
             
-        [tireInfoDic setObject:[NSString stringWithFormat:@"%ld",self.fontAmount] forKey:@"fontAmount"];
-        [tireInfoDic setObject:[NSString stringWithFormat:@"%ld",self.rearAmount] forKey:@"rearAmount"];
+        [tireInfoDic setObject:[NSString stringWithFormat:@"%ld",(long)self.fontAmount] forKey:@"fontAmount"];
+        [tireInfoDic setObject:[NSString stringWithFormat:@"%ld",(long)self.rearAmount] forKey:@"rearAmount"];
     }
     [tireInfoDic setObject:self.fontRearFlag forKey:@"fontRearFlag"];
     [tireInfoDic setObject:@"3" forKey:@"orderType"];
@@ -660,7 +658,7 @@
         
     }
     
-    cell.numberLab.text = [NSString stringWithFormat:@"%ld",cell.total];
+    cell.numberLab.text = [NSString stringWithFormat:@"%ld",(long)cell.total];
     
     NSIndexPath *index = [self.tableView indexPathForCell:cell];
     

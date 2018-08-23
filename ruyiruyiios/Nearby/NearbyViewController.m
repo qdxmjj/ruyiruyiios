@@ -314,6 +314,7 @@
     }else{
         
         [self.leftBtn setTitle:cityNameStr forState:UIControlStateNormal];
+        [self.tableView.mj_header beginRefreshing];
     }
 }
 
