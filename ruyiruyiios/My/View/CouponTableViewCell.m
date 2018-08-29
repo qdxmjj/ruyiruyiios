@@ -55,6 +55,13 @@
     [self.rightView setdatatoViews:couponInfo];
 }
 
+-(void)setdatatoViews:(CouponInfo *)counponInfo commodityList:(NSArray *)commodityList storeID:(NSString *)storeID{
+    
+    self.leftView.backgroundColor = [UIColor whiteColor];
+    self.rightView.backgroundColor = [UIColor whiteColor];
+    [self.leftView setdatatoViews:counponInfo commodityList:commodityList storeID:storeID];
+    [self.rightView setdatatoViews:counponInfo];
+}
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code

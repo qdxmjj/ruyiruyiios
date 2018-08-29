@@ -83,7 +83,7 @@
     NSString *totalPrice = [NSString stringWithFormat:@"%ld",[self.tireCount integerValue] * [self.tirePrice integerValue] + [self.cxwyPrice integerValue]];
 
     
-    NSDictionary *surePostDic = @{@"shoeId":self.shoeID, @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]], @"fontRearFlag":self.fontRearFlag, @"amount":self.tireCount, @"shoeName":[NSString stringWithFormat:@"%@/%@",self.buyTireData.detailStr,self.speedLevelStr], @"shoeTotalPrice":tireTotalPrice, @"shoePrice":self.tirePrice, @"cxwyAmount":self.cxwyCount, @"cxwyPrice":self.cxwyPrice, @"cxwyTotalPrice":self.cxwyPrice, @"totalPrice":totalPrice, @"orderImg":self.tireImgURL,@"remainYear":self.serviceYear};
+    NSDictionary *surePostDic = @{@"shoeId":self.shoeID, @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]], @"fontRearFlag":self.fontRearFlag, @"amount":self.tireCount, @"shoeName":[NSString stringWithFormat:@"%@/%@",self.buyTireData.detailStr,self.speedLevelStr], @"shoeTotalPrice":tireTotalPrice, @"shoePrice":self.tirePrice, @"cxwyAmount":self.cxwyCount, @"cxwyPrice":self.cxwyPrice, @"cxwyTotalPrice":self.cxwyPrice, @"totalPrice":totalPrice, @"orderImg":self.tireImgURL,@"remainYear":@([self.serviceYear integerValue])};
     
         NSString *reqJsonStr = [PublicClass convertToJsonData:surePostDic];
     

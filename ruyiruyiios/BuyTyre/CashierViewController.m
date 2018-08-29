@@ -139,7 +139,7 @@
         }
     }else if ([self.payTypeStr isEqualToString:@"2"]){
         
-        NSDictionary *wxPostDic = @{@"orderNo":orderNoStr, @"orderName":orderNameStr, @"orderPrice":@"0.01", @"orderType":orderTypeStr, @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]]};
+        NSDictionary *wxPostDic = @{@"orderNo":orderNoStr, @"orderName":orderNameStr, @"orderPrice":totalPriceStr, @"orderType":orderTypeStr, @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]]};
         NSString *reqJson = [PublicClass convertToJsonData:wxPostDic];
         NSString *threeDesStr = [PublicClass doEncryptStr:reqJson key:[[UserConfig token] substringWithRange:NSMakeRange(24, 24)]];
 //        NSLog(@"%@", @{@"reqJson":threeDesStr, @"token":[UserConfig token]});
@@ -255,7 +255,7 @@
     [self addView];
     if (![orderTypeStr isEqualToString:@"1"]) {
         
-        self.payTypeStr = @"3";
+        self.payTypeStr = @"2";
     }else{
         
         //信誉额度支付 orderTypeStr == 1 显示信誉额度页面 默认信誉额度支付
@@ -267,6 +267,7 @@
 
 - (void)queryCarCreditInfo{
 
+    JJWeakSelf
     NSDictionary *postDic = @{@"userId":[NSNumber numberWithInteger:[[UserConfig user_id] integerValue]], @"userCarId":[NSNumber numberWithInteger:[[UserConfig userCarId] integerValue]]};
     NSString *reqJson = [PublicClass convertToJsonData:postDic];
     [JJRequest postRequest:@"userCarInfo/queryCarCreditInfo" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
@@ -277,7 +278,7 @@
             
 //            NSLog(@"%@", data);
             NSString *remainStr = [[data objectAtIndex:0] objectForKey:@"remain"];
-            [_cashierPayView setdatoViews:orderTypeStr price:remainStr];
+            [weakSelf.cashierPayView setdatoViews:orderTypeStr price:remainStr];
         }else{
             
             [PublicClass showHUD:messageStr view:self.view];

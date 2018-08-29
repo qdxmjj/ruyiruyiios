@@ -319,6 +319,8 @@
             NSLog(@"获取数据失败");
         }else{
             
+            NSLog(@"请求车辆品牌数据成功");
+
             dispatch_queue_t factoryQueue = dispatch_queue_create("insetCarFactoryData", NULL);
             dispatch_async(factoryQueue, ^{
 
@@ -344,7 +346,7 @@
             NSLog(@"获取数据失败");
         }else{
             
-//            YLog(@"getCarBrandData:%@", data);
+            NSLog(@"请求车辆图标数据成功");
             dispatch_queue_t brandQueue = dispatch_queue_create("insertCarBrandData", NULL);
             dispatch_async(brandQueue, ^{
 
@@ -369,7 +371,7 @@
             NSLog(@"获取数据失败");
         }else{
             
-//            YLog(@"getCarTypeData:%@", data);
+            NSLog(@"请求车辆型号数据成功");
             dispatch_queue_t verhicleQueue = dispatch_queue_create("insertCarVerhicleData", NULL);
             dispatch_async(verhicleQueue, ^{
 
@@ -394,7 +396,7 @@
             NSLog(@"获取数据失败");
         }else{
             
-//            YLog(@"getCarTireInfoData:%@", data);
+            NSLog(@"请求车辆轮胎和排量数据成功");
             dispatch_queue_t tireInfoQueue = dispatch_queue_create("insertCarTireInfoData", NULL);
             dispatch_async(tireInfoQueue, ^{
 
@@ -420,7 +422,7 @@
             NSLog(@"获取数据失败");
         }else{
             
-//            YLog(@"getCarTireTypeData:%@", data);
+            NSLog(@"请求车辆类型数据成功");
             dispatch_queue_t tireTypeQueue = dispatch_queue_create("insertCarTireTypeData", NULL);
             dispatch_async(tireTypeQueue, ^{
 

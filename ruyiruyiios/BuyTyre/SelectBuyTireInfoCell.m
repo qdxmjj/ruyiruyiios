@@ -17,6 +17,7 @@
     self.titleLab.layer.cornerRadius = 5;
     self.titleLab.layer.masksToBounds = true;
     self.titleLab.layer.borderWidth = 1;
+
 }
 
 @end

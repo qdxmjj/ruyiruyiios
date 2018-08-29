@@ -77,6 +77,9 @@
    
     DelegateConfiguration *delegateCF = [DelegateConfiguration sharedConfiguration];
     [delegateCF registerLoginStatusChangedListener:self];
+    self.scycleScrollView.bannerImageViewContentMode = UIViewContentModeScaleAspectFit;
+    self.scycleScrollView.backgroundColor = [UIColor whiteColor];
+    
 }
 
 #pragma mark loginStatus delegate
@@ -113,20 +116,18 @@
         
         //没有轮胎型号
         
-        //
-        if ([data isEqual:[NSNull null]] || [data isEqualToArray:@[]]) {
+        if ([code longLongValue] == -999) {
             
+            [self alertIsequallyTokenView];
+            return ;
+        }
+
+        if ([data isEqual:[NSNull null]] || [data isEqualToArray:@[]]) {
             [self.navigationController popViewControllerAnimated:YES];
             [MBProgressHUD showTextMessage:@"如驿如意：此轮胎暂未上线"];
             return ;
         }
-        
-        
-        
-        if ([code longLongValue] == -999) {
-            
-            [self alertIsequallyTokenView];
-        }
+    
         if ([code longLongValue] == 1){
             
             if (self.dataArr.count>0) {
@@ -185,7 +186,9 @@
     
     if (self.tireNumber <=0) {
         
-        [PublicClass showHUD:@"最少选择一条轮胎！" view:self.view];
+//        [PublicClass showHUD:@"最少选择一条轮胎！" view:self.view];
+        
+        [self selectBuyTireInfoEvent:sender];
         return;
     }
     
@@ -216,7 +219,7 @@
         return;
     }
     
-    SelectBuyTireInfoViewController *pView = [[SelectBuyTireInfoViewController alloc] init];
+    SelectBuyTireInfoViewController * pView = [[SelectBuyTireInfoViewController alloc] init];
     
     pView.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     

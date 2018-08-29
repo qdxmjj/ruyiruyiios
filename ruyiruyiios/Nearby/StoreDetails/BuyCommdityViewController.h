@@ -10,7 +10,7 @@
 
 @interface BuyCommdityViewController : RootViewController
 
-@property(strong,nonatomic)NSArray *commodityList;//数据源
+@property(strong,nonatomic)NSArray *commodityList;//商品列表数据源
 
 /**
  *用户名

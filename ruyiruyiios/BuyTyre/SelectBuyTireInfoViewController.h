@@ -17,9 +17,9 @@ typedef void (^selectBuyTireInfoBlock)(NSString *tirePrice,NSString *tireInfo,NS
 
 @property(nonatomic, copy)NSString  *service_end_date;
 
-@property(nonatomic, strong)NSNumber  *service_year;
+@property(nonatomic, strong)NSNumber  *service_year;//最大服务年限
 
-@property(nonatomic, strong)NSNumber  *service_year_length;
+@property(nonatomic, strong)NSNumber  *service_year_length;//当前服务年限
 
 @property(nonatomic,copy)selectBuyTireInfoBlock selectTireInfoBlock;
 

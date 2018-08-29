@@ -560,9 +560,14 @@
     
 
     
-    if ([self.dataCars isEqual:[NSNull null]] || self.dataCars == nil || !self.dataCars) {
+    if ([self.dataCars isEqual:[NSNull null]] || self.dataCars == nil || !self.dataCars || [UserConfig userCarId].intValue == 0) {
 
-        [PublicClass showHUD:@"轮胎信息获取失败！" view:self.view];
+//        [PublicClass showHUD:@"轮胎信息获取失败！" view:self.view];
+        
+        CarInfoViewController *carinfoVC = [[CarInfoViewController alloc] init];
+        carinfoVC.is_alter = YES;
+        [self.navigationController pushViewController:carinfoVC animated:YES];
+        
         return;
     }
 //

@@ -32,4 +32,9 @@
 @property(nonatomic, strong)NSNumber *userShoeOrderId;
 @property(nonatomic, strong)NSNumber *viewTypeId;
 
+@property(nonatomic, strong)id storesName;//数组
+@property(nonatomic, copy)NSString *positionsName;
+@property(nonatomic, copy)NSString *rule;
+@property(nonatomic, copy)NSString *storeIdList;// @"100,200,300" 多个  需要以， 隔开分割成数组
+
 @end

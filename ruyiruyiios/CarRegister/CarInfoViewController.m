@@ -835,15 +835,15 @@
         NSLog(@"%ld", button.tag);
         if (button.tag == 10002) {
             
-            fontStr = text;
-
+            self->fontStr = text;
+            self->rearStr = text;
             TopCarInfoTableViewCell *topCell = [weakSelf.carInfoTV cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
             
             [topCell.rearBtn setTitle:text forState:UIControlStateNormal];
 
         }else{
             
-            rearStr = text;
+            self->rearStr = text;
         }
         [button setTitle:text forState:UIControlStateNormal];
     };

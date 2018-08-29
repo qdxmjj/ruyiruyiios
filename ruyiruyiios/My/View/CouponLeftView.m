@@ -158,6 +158,73 @@
     }
 }
 
+
+- (void)setdatatoViews:(CouponInfo *)counponInfo commodityList:(NSArray *)commodityList storeID:(NSString *)storeID{
+    
+    self.titleLabel.text = counponInfo.couponName;
+    self.midView.backgroundColor = [UIColor whiteColor];
+    //    NSLog(@"%@", counponInfo.type);
+    if ([counponInfo.status isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        
+        self.useStateLabel.text = @"已使用";
+        self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+    }else if ([counponInfo.status isEqualToNumber:[NSNumber numberWithInt:2]]){
+        
+        self.useStateLabel.text = @"未使用";
+
+        //判断是否是指定车辆   type == 2 为现金券。现金券 无任何使用限制
+        if ([counponInfo.userCarId integerValue] == [[UserConfig userCarId] integerValue]) {
+            
+            //判断是否是指定门店 门店ID  可以指定多个门店 也就是 可以是多个门店ID
+            NSArray *storeIDArr = [counponInfo.storeIdList componentsSeparatedByString:@","];
+            
+            if ([storeIDArr containsObject:storeID] || [counponInfo.storeIdList isEqualToString:@""] || counponInfo.storeIdList == nil) {
+                
+                if ([counponInfo.type intValue] == 1) {
+                    
+                    //判断购买的商品列表 是否包含此优惠券对应的名称 包含即可使用此优惠券
+                    if ([commodityList containsObject:counponInfo.rule]) {
+                        
+                        self.backImageV.image = [UIImage imageNamed:@"ic_blue"];
+                    }else{
+                        self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+                    }
+                    
+                }else if ([counponInfo.type intValue] == 2){
+                    
+                    if ([counponInfo.viewTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
+                        
+                        self.backImageV.image = [UIImage imageNamed:@"ic_blue"];
+                    }else{
+                        
+                        self.backImageV.image = [UIImage imageNamed:@"ic_red"];
+                    }
+                }
+            }else{
+                
+                if ([counponInfo.type integerValue] == 2){
+                    self.backImageV.image = [UIImage imageNamed:@"ic_red"];}
+                else{
+                    self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+                }
+            }
+        }else{
+            
+            if ([counponInfo.type integerValue] == 2) {
+                
+                self.backImageV.image = [UIImage imageNamed:@"ic_red"];
+            }else{
+                
+                self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+            }
+        }
+    }else{
+        
+        self.useStateLabel.text = @"已过期";
+        self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+    }
+    
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

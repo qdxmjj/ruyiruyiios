@@ -263,60 +263,64 @@
         
         couponInfo = [self.historyMutableA objectAtIndex:indexPath.row];
     }
-    [couponCell setdatatoViews:couponInfo couponType:couponTypeStr];
+//    [couponCell setdatatoViews:couponInfo couponType:couponTypeStr];
+    [couponCell setdatatoViews:couponInfo commodityList:self.commodityList storeID:self.storesID];
+    
     return couponCell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    CouponInfo *couponInfo;
+    couponInfo = [self.availableMutableA objectAtIndex:indexPath.row];
+    
+    //可用优惠券
     if ([self.couponStatusStr isEqualToString:@"1"]) {
         
-        CouponInfo *couponInfo;
-        couponInfo = [self.availableMutableA objectAtIndex:indexPath.row];
-//        NSLog(@"%@--%@",couponInfo.userCarId, [UserConfig userCarId]);
+        //仅限指定车辆可用
         if ([couponInfo.userCarId intValue] == [[UserConfig userCarId] intValue]) {
             
-            if ([couponTypeStr isEqualToString:@"0"]) {
+            //判断是否是指定门店 门店ID  可以指定多个门店 也就是 可以是多个门店ID
+            NSArray *storeIDArr = [couponInfo.storeIdList componentsSeparatedByString:@","];
+            
+            if ([storeIDArr containsObject:_storesID] || [couponInfo.storeIdList isEqualToString:@""]) {
                 
-                if ([couponInfo.type intValue] == 2) {
+                if ([couponInfo.type intValue] == 1) {
                     
-                    self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.coupon_id], [NSString stringWithFormat:@"%@", couponInfo.type], couponInfo.couponName);
+                    //判断购买的商品列表 是否包含此优惠券对应的名称 包含即可使用此优惠券
+                    if ([_commodityList containsObject:couponInfo.rule]) {
+                        
+                        self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.coupon_id], [NSString stringWithFormat:@"%@", couponInfo.type], couponInfo.rule);
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }else{
+                        
+                    }
+                }else if ([couponInfo.type intValue] == 2){
+                    
+                    //2为现金券 所有商品都可以使用 无任何限制条件  不是指定门店也可以使用
+                    self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.coupon_id], [NSString stringWithFormat:@"%@", couponInfo.type], couponInfo.rule);
                     [self.navigationController popViewControllerAnimated:YES];
                 }
-            }else if ([couponTypeStr isEqualToString:@"1"]){
+            }else{
                 
-                if ([couponInfo.couponName isEqualToString:@"精致洗车券"] || [couponInfo.type intValue] == 2) {
+                //2为现金券 所有商品都可以使用 无任何限制条件  不是指定门店也可以使用
+                if ([couponInfo.type integerValue] == 2){
                     
-                    self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.coupon_id], [NSString stringWithFormat:@"%@", couponInfo.type], couponInfo.couponName);
-                    [self.navigationController popViewControllerAnimated:YES];
-                }
-            }else if ([couponTypeStr isEqualToString:@"2"]){
-                
-                if ([couponInfo.couponName isEqualToString:@"四轮定位券"] || [couponInfo.type intValue] == 2) {
-                    
-                    self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.coupon_id], [NSString stringWithFormat:@"%@", couponInfo.type], couponInfo.couponName);
-                    [self.navigationController popViewControllerAnimated:YES];
-                }
-            }else if ([couponTypeStr isEqualToString:@"3"]){
-                
-                if ([couponInfo.couponName isEqualToString:@"精致洗车券"] || [couponInfo.couponName isEqualToString:@"四轮定位券"] || [couponInfo.type intValue] == 2) {
-                    
-                    self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.coupon_id], [NSString stringWithFormat:@"%@", couponInfo.type], couponInfo.couponName);
+                    self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.coupon_id], [NSString stringWithFormat:@"%@", couponInfo.type], couponInfo.rule);
                     [self.navigationController popViewControllerAnimated:YES];
                 }
             }
         }else{
             
-//            NSLog(@"%@", couponTypeStr);
-            if (couponTypeStr != NULL) {
+            //2为现金券 所有商品都可以使用 无任何限制条件 不是指定车辆也可以使用
+            if ([couponInfo.type intValue] == 2) {
                 
-                if ([couponInfo.type intValue] == 2) {
-                    
-                    self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.coupon_id], [NSString stringWithFormat:@"%@", couponInfo.type], couponInfo.couponName);
-                    [self.navigationController popViewControllerAnimated:YES];
-                }
+                self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.coupon_id], [NSString stringWithFormat:@"%@", couponInfo.type], couponInfo.rule);
+                [self.navigationController popViewControllerAnimated:YES];
             }
         }
+    }else{
+       
     }
 }
 

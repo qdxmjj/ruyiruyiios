@@ -79,7 +79,9 @@
     [self.mainView addSubview:self.dismissBtn];
     [self.mainView addSubview:self.contentLab];
     [self.mainView addSubview:self.patternLab];
+    [self.mainView addSubview:self.collectionView];
     [self.mainView addSubview:self.speedLab];
+    [self.mainView addSubview:self.collectionView1];
     [self.mainView addSubview:self.serviceLab];
     [self.mainView addSubview:self.jjSliderView];
     [self.mainView addSubview:self.tireNumberLab];
@@ -87,8 +89,6 @@
     [self.mainView addSubview:self.noWorriesBtn];
     [self.mainView addSubview:self.cxwyPrice];
     [self.mainView addSubview:self.stepper2];
-    [self.mainView addSubview:self.collectionView];
-    [self.mainView addSubview:self.collectionView1];
     [self.mainView addSubview:self.descriptionLab];
     [self setUI];
     
@@ -96,6 +96,12 @@
     self.stepper2.value = [self.cxwuNumber floatValue];
     
     self.jjSliderView.maximum = [self.service_year floatValue];
+    
+    if ([self.service_end_date isEqualToString:@""] || self.service_end_date == nil || [self.service_end_date isEqual:[NSNull null]]) {
+        
+    }else{
+        self.jjSliderView.value = [self.service_year_length floatValue];
+    }
 }
 -(void)setUI{
     
@@ -188,9 +194,9 @@
         
         if ([self.service_end_date isEqualToString:@""] || self.service_end_date == nil || [self.service_end_date isEqual:[NSNull null]]) {
             
-            make.height.mas_equalTo(@0);
-        }else{
             make.height.mas_equalTo(@20);
+        }else{
+            make.height.mas_equalTo(@0);
         }
         make.top.mas_equalTo(self.collectionView1.mas_bottom).inset(5);
         make.left.mas_equalTo(self.view.mas_left).inset(10);
@@ -523,11 +529,17 @@
     
     if ([self.service_end_date isEqualToString:@""] || self.service_end_date == nil || [self.service_end_date isEqual:[NSNull null]]) {
         
-        remainYear = [NSString stringWithFormat:@"%@",self.service_year];
+        remainYear = [NSString stringWithFormat:@"%.0f",self.jjSliderView.currentValue];
         
     }else{
         
-        remainYear = self.jjSliderView.currentValueStr;
+        remainYear = [NSString stringWithFormat:@"%@",self.service_year_length];
+    }
+    
+    if (self.shoeID == 0 ||!self.shoeID) {
+        
+        [PublicClass showHUD:@"请选择速度级别！" view:self.view];
+        return;
     }
     
     if (self.stepper1.value <= 0) {
@@ -535,6 +547,8 @@
         [PublicClass showHUD:@"最少选择一条轮胎！" view:self.view];
         return;
     }
+    
+    
     
     self.selectTireInfoBlock(
                              self.priceLab.text,
@@ -554,19 +568,7 @@
 -(void)setPatternArr:(NSArray *)patternArr{
     
     _patternArr = patternArr;
-    
-    //设置默认值 第1个花纹 第一个速度级别
-    self.shoeSpeedLoadResultList = [patternArr[0] objectForKey:@"shoeSpeedLoadResultList"];
-    
-    //设置默认的轮胎信息
-    [self.buyTireData setValuesForKeysWithDictionary:[patternArr[0] objectForKey:@"shoeDetailResult"]];
-    
-    //设置默认价格
-    self.priceMap = [self.shoeSpeedLoadResultList[0] objectForKey:@"priceMap"];
-    
-    //设置默认的shoeid
-    self.shoeID = [[self.shoeSpeedLoadResultList[0] objectForKey:@"shoeId"] integerValue];
-    
+        
     //设置默认展示图片
     [self.imgView sd_setImageWithURL:[patternArr[0] objectForKey:@"imgMiddleUrl"]];
     
@@ -600,11 +602,11 @@
                 
                 // rate * shoeBasePrice / 100 == 实际显示价格
                 NSInteger shoeBasePrice = [self.buyTireData.shoeBasePrice integerValue];
-
                 NSInteger cxwyPrice =  [[dic objectForKey:@"rate"] integerValue] * shoeBasePrice /100;
                 self.cxwyPrice.text = [NSString stringWithFormat:@"¥%ld",cxwyPrice];
             }
         }
+    }else{
     }
 }
 
@@ -612,61 +614,26 @@
     
     if ([collectionView isEqual:self.collectionView]) {
         
+        //花纹cell
         SelectBuyTireInfoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"tireInfoCollectionViewCellID" forIndexPath:indexPath];
         
         cell.titleLab.text = [[self.patternArr[indexPath.row] objectForKey:@"shoeDetailResult"] objectForKey:@"figure"];
-
         [self.imgView sd_setImageWithURL:[self.patternArr[indexPath.row] objectForKey:@"imgMiddleUrl"]];
-
-        if (indexPath.row == 0) {
-            //默认选中第一个
-            [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
-            cell.selected = YES;
-            cell.titleLab.layer.borderColor = LOGINBACKCOLOR.CGColor;
-            cell.titleLab.textColor = LOGINBACKCOLOR;
-            
-        }else{
-            
-            cell.titleLab.textColor = [UIColor blackColor];
-            cell.titleLab.layer.borderColor = [UIColor lightGrayColor].CGColor;
-        }
 
         return cell;
         
     }else{
         
+        //速度级别cell
         SelectBuyTireInfoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"tireInfoCollectionViewCellID1" forIndexPath:indexPath];
         
         NSString *str = [self.shoeSpeedLoadResultList[indexPath.row] objectForKey:@"speedLoadStr"];
         cell.titleLab.text = [str componentsSeparatedByString:@"/￥"][0];
         
-        if (indexPath.row == 0) {
-            
-            //默认选中第一个
-            [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
-            cell.selected = YES;
-            cell.titleLab.layer.borderColor = LOGINBACKCOLOR.CGColor;
-            cell.titleLab.textColor = LOGINBACKCOLOR;
-
-            //设置进入页面的默认价格
-            //如果已经购买过轮胎 有了服务年限  将不显示服务年限选择功能
-            if ([self.service_end_date isEqualToString:@""]) {
-                
-                self.priceLab.text = [NSString stringWithFormat:@"¥%@",[self.priceMap objectForKey:self.service_year]];
-            }else{
-                
-                self.priceLab.text = [NSString stringWithFormat:@"¥%@",[self.priceMap objectForKey:self.jjSliderView.currentValueStr]];
-            }
-            
-            //设置默认显示的内容 花纹+速度级别 拼接
-            NSString *str = [self.shoeSpeedLoadResultList[indexPath.row] objectForKey:@"speedLoadStr"];
-            self.contentLab.text = [NSString stringWithFormat:@"已选 %@,%@",self.buyTireData.figure,[str componentsSeparatedByString:@"/￥"][0]];
-            
-        }else{
-
-            cell.titleLab.textColor = [UIColor blackColor];
-            cell.titleLab.layer.borderColor = [UIColor lightGrayColor].CGColor;
-        }
+        cell.titleLab.textColor = [UIColor blackColor];
+        cell.titleLab.layer.borderColor = [UIColor blackColor].CGColor;
+        cell.titleLab.backgroundColor = [UIColor whiteColor];
+        
         return cell;
     }
 }
@@ -697,10 +664,11 @@
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    //手动选中
+  
+    
     if ([collectionView isEqual:self.collectionView]) {
 
-        //选择花纹item
+        /*选择花纹item*/
         //重置速度级别数组
         self.shoeSpeedLoadResultList = [_patternArr[indexPath.row] objectForKey:@"shoeSpeedLoadResultList"];
         
@@ -712,6 +680,12 @@
         [self.imgView sd_setImageWithURL:[_patternArr[indexPath.row] objectForKey:@"imgMiddleUrl"]];
         
         self.imgURL = [_patternArr[indexPath.row] objectForKey:@"imgMiddleUrl"];
+        
+        //选择花纹重置价格
+        self.priceLab.text = @"";
+        self.shoeID = 0;
+        //重置已选内容
+        self.contentLab.text = [NSString stringWithFormat:@"已选 %@",self.buyTireData.figure];
 
         //刷新速度级别
         [self.collectionView1 reloadData];
@@ -726,12 +700,19 @@
             }
         }];
         
-    }else{
-
-        //选择速度级别item
-        //重设速度级别对应的价格字典
-        self.priceMap = [self.shoeSpeedLoadResultList[indexPath.row] objectForKey:@"priceMap"];
+        //选中色
+        SelectBuyTireInfoCell *cell = (SelectBuyTireInfoCell *)[collectionView cellForItemAtIndexPath:indexPath];
+        cell.titleLab.textColor = LOGINBACKCOLOR;
+        cell.titleLab.layer.borderColor = LOGINBACKCOLOR.CGColor;
+        cell.titleLab.backgroundColor = [LOGINBACKCOLOR colorWithAlphaComponent:0.1];
         
+    }else if([collectionView isEqual:self.collectionView1]){
+
+        /*选择速度级别item*/
+        
+        //设置速度级别对应的价格字典
+        self.priceMap = [self.shoeSpeedLoadResultList[indexPath.row] objectForKey:@"priceMap"];
+        //设置轮胎ID
         self.shoeID = [[self.shoeSpeedLoadResultList[indexPath.row] objectForKey:@"shoeId"] integerValue];
 
         //重设显示的内容
@@ -739,19 +720,22 @@
         self.contentLab.text = [NSString stringWithFormat:@"已选 %@,%@",self.buyTireData.figure,[str componentsSeparatedByString:@"/￥"][0]];
         
         //重设显示的价格
-        if ([self.service_end_date isEqualToString:@""]) {
-            
-            self.priceLab.text = [NSString stringWithFormat:@"¥%@",[self.priceMap objectForKey:self.service_year]];
+        if ([self.service_end_date isEqualToString:@""] || self.service_end_date == nil || [self.service_end_date isEqual:[NSNull null]]) {
+
+            self.priceLab.text = [NSString stringWithFormat:@"¥%@",[self.priceMap objectForKey:self.jjSliderView.currentValueStr]];
         }else{
             
-            self.priceLab.text = [NSString stringWithFormat:@"¥%@",[self.priceMap objectForKey:self.jjSliderView.currentValueStr]];
+            self.priceLab.text = [NSString stringWithFormat:@"¥%@",[self.priceMap objectForKey:self.service_year_length]];
         }
+        
+        //选中色
+        SelectBuyTireInfoCell *cell = (SelectBuyTireInfoCell *)[collectionView cellForItemAtIndexPath:indexPath];
+        cell.titleLab.textColor = LOGINBACKCOLOR;
+        cell.titleLab.layer.borderColor = LOGINBACKCOLOR.CGColor;
+        cell.titleLab.backgroundColor = [LOGINBACKCOLOR colorWithAlphaComponent:0.1];
     }
-    
-    //选中色
-    SelectBuyTireInfoCell *cell =   (SelectBuyTireInfoCell *) [collectionView cellForItemAtIndexPath:indexPath];
-    cell.titleLab.textColor = LOGINBACKCOLOR;
-    cell.titleLab.layer.borderColor = LOGINBACKCOLOR.CGColor;
+
+
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -760,6 +744,8 @@
     SelectBuyTireInfoCell *cell =   (SelectBuyTireInfoCell *) [collectionView cellForItemAtIndexPath:indexPath];
     cell.titleLab.layer.borderColor = [UIColor lightGrayColor].CGColor;
     cell.titleLab.textColor = [UIColor blackColor];
+    cell.titleLab.backgroundColor = [UIColor whiteColor];
+
 }
 
 - (void)didReceiveMemoryWarning {
