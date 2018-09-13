@@ -49,7 +49,12 @@
         _toOrderTypeControlBtn.layer.masksToBounds = YES;
         _toOrderTypeControlBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
         [_toOrderTypeControlBtn setBackgroundColor:LOGINBACKCOLOR forState:UIControlStateNormal];
-        [_toOrderTypeControlBtn setTitle:@"我的订单" forState:UIControlStateNormal];
+        
+        if ([self.orderTypeStr isEqualToString:@"0"]) {
+            [_toOrderTypeControlBtn setTitle:@"直接更换轮胎" forState:UIControlStateNormal];
+        }else{
+            [_toOrderTypeControlBtn setTitle:@"我的订单" forState:UIControlStateNormal];
+        }
         [_toOrderTypeControlBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_toOrderTypeControlBtn addTarget:self action:@selector(chickOrderTypeBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -58,14 +63,16 @@
 
 - (void)chickOrderTypeBtn:(UIButton *)button{
     
-    MyOrderViewController *myOrderVC = [[MyOrderViewController alloc] init];
-    myOrderVC.statusStr = @"0";
-    [self.navigationController pushViewController:myOrderVC animated:YES];
-//    if ([orderTypeStr isEqualToString:@"0"]) {
-//
-//        FirstUpdateViewController *firstUpdateVC = [[FirstUpdateViewController alloc] init];
-//        [self.navigationController pushViewController:firstUpdateVC animated:YES];
-//    }
+
+    if ([orderTypeStr isEqualToString:@"0"]) {
+
+        FirstUpdateViewController *firstUpdateVC = [[FirstUpdateViewController alloc] init];
+        [self.navigationController pushViewController:firstUpdateVC animated:YES];
+    }else{
+        MyOrderViewController *myOrderVC = [[MyOrderViewController alloc] init];
+        myOrderVC.statusStr = @"0";
+        [self.navigationController pushViewController:myOrderVC animated:YES];
+    }
 }
 
 - (UIButton *)returnHomeControlBtn{

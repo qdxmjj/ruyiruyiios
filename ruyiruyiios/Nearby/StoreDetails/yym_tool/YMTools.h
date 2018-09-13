@@ -21,5 +21,9 @@
 
 
 + (void)openAppleMapWithAddress:( NSString * _Nonnull )address latitude:( NSString * _Nonnull )latitude longitude:( NSString * _Nonnull )longitude;
+@end
 
+@interface NSString (Category)
+
+-(NSString *_Nonnull)UTF8Value;
 @end

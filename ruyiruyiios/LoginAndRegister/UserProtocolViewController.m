@@ -51,7 +51,7 @@
     [SVProgressHUD showWithStatus:BeingLoaded];
     NSDictionary *dealPostDic = @{@"dealId":dealStr};
     NSString *reqJson = [PublicClass convertToJsonData:dealPostDic];
-    [JJRequest postRequest:@"getDeal" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+    [JJRequest postRequest:@"getDeal" params:@{@"reqJson":reqJson} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         
         NSString *statusStr = [NSString stringWithFormat:@"%@", code];
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];

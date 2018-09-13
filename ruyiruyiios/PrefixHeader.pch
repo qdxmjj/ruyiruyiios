@@ -14,7 +14,9 @@
 
 #define GenerateTireOrderNotice @"generateTireOrderNotice"
 
-
+#define NUM @"0123456789"
+#define ALPHA @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+#define ALPHANUM @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 
 #define MAINSCREEN [[UIScreen mainScreen] bounds].size
 #define LOGINBACKCOLOR [UIColor colorWithRed:255.0/255 green:102.0/255 blue:35.0/255 alpha:1.0]

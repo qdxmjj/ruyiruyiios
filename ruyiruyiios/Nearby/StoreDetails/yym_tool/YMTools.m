@@ -100,3 +100,15 @@
 }
 
 @end
+
+@implementation NSString (Category)
+-(NSString *)UTF8Value
+{
+    NSString *encodedString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes( kCFAllocatorDefault, (CFStringRef)self, NULL, NULL,  kCFStringEncodingUTF8));
+    return encodedString;
+}
+
+@end
+
+
+

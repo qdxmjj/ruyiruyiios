@@ -208,6 +208,7 @@
         
     } failure:^(NSError * _Nullable error) {
         
+        NSLog(@"附近：%@",error);
     }];
 }
 

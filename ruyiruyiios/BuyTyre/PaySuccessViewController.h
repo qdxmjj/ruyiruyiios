@@ -10,6 +10,9 @@
 
 @interface PaySuccessViewController : RootViewController
 
+/**
+ * orderType = 0
+ */
 @property(nonatomic, strong)NSString *orderTypeStr;
 
 @end

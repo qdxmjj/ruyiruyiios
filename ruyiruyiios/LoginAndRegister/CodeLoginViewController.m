@@ -409,22 +409,20 @@
                 DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
                 [delegateConfiguration changeLoginStatus];
                 [delegateConfiguration removeAllDelegateMutableA];
-                MainTabBarViewController *mainTabVC = [[MainTabBarViewController alloc] init];
-                
-                if ([[[self.navigationController.viewControllers objectAtIndex:0] class] isEqual:[HomeViewController class]]) {
+
+                [_timer invalidate];
+                _timer = nil;
+        
+                //从修改密码的页面跳转
+                if ([self->homeTologinStr isEqualToString:@"2"]) {
                     
-                    mainTabVC.selectedIndex = 0;
-                }else if ([[[self.navigationController.viewControllers objectAtIndex:0] class] isEqual:[NearbyViewController class]]){
-                    
-                    mainTabVC.selectedIndex = 1;
-                }else if ([[[self.navigationController.viewControllers objectAtIndex:0] class] isEqual:[WinterTyreViewController class]]){
-                    
-                    mainTabVC.selectedIndex = 2;
+                    self.tabBarController.tabBar.hidden = NO;
+                    [self.navigationController popToRootViewControllerAnimated:YES];
                 }else{
                     
-                    mainTabVC.selectedIndex = 3;
+                    [self.navigationController popViewControllerAnimated:YES];
                 }
-                [self.navigationController pushViewController:mainTabVC animated:YES];
+                
             }else if ([statusStr isEqualToString:@"-1"]){
                 
                 [PublicClass showHUD:messStr view:self.view];

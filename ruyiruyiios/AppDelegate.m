@@ -1,4 +1,4 @@
-  //
+//
 //  AppDelegate.m
 //  ruyiruyiios
 //
@@ -20,6 +20,8 @@
 #import "MBProgressHUD+YYM_category.h"
 #import <Bugly/Bugly.h>
 
+#import "FirstStartConfiguration.h"
+
 @interface AppDelegate (){
     
     NSDictionary *_data;
@@ -32,12 +34,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-//    NSLog(@"%@", [DBRecorder getAllBrandData])
+    //    NSLog(@"%@", [DBRecorder getAllBrandData])
     [WXApi registerApp:WEIXINID];
     if (@available(iOS 11.0,*)) {
         
@@ -46,31 +48,44 @@
         UITableView.appearance.estimatedSectionHeaderHeight = 0;
     }
     
-//    QualityServiceViewController *carInfoVC = [[QualityServiceViewController alloc] init];
-//    UINavigationController *carNav = [[UINavigationController alloc] initWithRootViewController:carInfoVC];
-//    self.window.rootViewController = carNav;
     if (![[NSUserDefaults standardUserDefaults] valueForKey:@"isFirst"]) {
-
+        
         WelcomeViewController *welcomeVC = [[WelcomeViewController alloc] init];
         UINavigationController *welNav = [[UINavigationController alloc] initWithRootViewController:welcomeVC];
         welNav.delegate = self;
         self.window.rootViewController = welNav;
     }else{
-
+        
         MainTabBarViewController *mainTabVC = [[MainTabBarViewController alloc] init];
         self.window.rootViewController = mainTabVC;
     }
-
-    if (![[NSUserDefaults standardUserDefaults] valueForKey:@"insertCompletion"]) {
-
-        NSLog(@"开始执行请求数据和插入数据库操作");
-        NSString *timeStr = @"1970-01-01 11:31:03";
-        [self databaseOperation:timeStr];
-    }
+    
+   
+    
+    /**2018年9月6日 更改新的请求方式   只有在第一次启动的时候 加载配置数据
+     * 车辆信息 与城市列表数据
+     * 老版本 即为注释掉的内容
+     */
+    
+//    if (![[NSUserDefaults standardUserDefaults] valueForKey:@"insertCompletion"]) {
+//
+//
+//        NSLog(@"开始执行请求数据和插入数据库操作");
+//        NSString *timeStr = @"1970-01-01 11:31:03";
+//        [self databaseOperation:timeStr];
+//    }
+    
+    //新版本获取首次登录配置信息
+    FirstStartConfiguration *first = [[FirstStartConfiguration alloc] init];
+    [first StartConfigurationDataAndNetwork];
     
     //检测版本更新，新版本提醒
     [self checkVersion];
+    //bugly
     [self configureBugly];
+    
+    
+    
     return YES;
 }
 
@@ -116,7 +131,7 @@
             [alertController addAction:ok];
             [alertController addAction:cancel];
             [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
-//            [s.rootViewController presentViewController:alertController animated:YES completion:nil];
+            //            [s.rootViewController presentViewController:alertController animated:YES completion:nil];
         }
     }
 }
@@ -242,70 +257,13 @@
 
 - (void)databaseOperation:(NSString *)timeStr{
     
-    [self getCarFactoryData:timeStr];
-    [self getCarBrandData:timeStr];
-    [self getCarVerhicleData:timeStr];
-    [self getCarTireTypeData:timeStr];
-    [self getAllPosition:timeStr];
-//    dispatch_queue_t getTimeQueue = dispatch_queue_create("getTimeQueue", NULL);
-//    dispatch_async(getTimeQueue, ^{
-//
-//        NSString *factoryTimeStr = [DBRecorder getFactoryTime];
-//        NSString *brandTimeStr = [DBRecorder getBrandTime];
-//        NSString *carVerhicleTimeStr = [DBRecorder getVerhicleTime];
-//        NSString *carTireTypeTimeStr = [DBRecorder getTiretypeTime];
-//        NSString *positionTimeStr = [DBRecorder getPositionTime];
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//
-//            //get CarFactory Data
-//            if (factoryTimeStr == NULL) {
-//
-//                [self getCarFactoryData:timeStr];
-//            }else{
-//
-//                [self getCarFactoryData:factoryTimeStr];
-//            }
-//
-//            //get CarBrand Data
-//            if (brandTimeStr == NULL) {
-//
-//                [self getCarBrandData:timeStr];
-//            }else{
-//
-//                [self getCarBrandData:brandTimeStr];
-//            }
-//
-//            //get CarVerhicle Data
-//            if (carVerhicleTimeStr == NULL) {
-//
-//                [self getCarVerhicleData:timeStr];
-//            }else{
-//
-//                [self getCarVerhicleData:carVerhicleTimeStr];
-//            }
-//
-//            //    //get carTireInfo Data
-//            //    [self getCarTireInfoData:timeStr];
-//            //get carTireType
-//            if (carTireTypeTimeStr == NULL) {
-//
-//                [self getCarTireTypeData:timeStr];
-//            }else{
-//
-//                [self getCarTireTypeData:carTireTypeTimeStr];
-//            }
-//
-//            //get all Position
-//            if (positionTimeStr == nil) {
-//
-//                [self getAllPosition:timeStr];
-//            }else{
-//
-//                [self getAllPosition:positionTimeStr];
-//            }
-//        });
-//    });
+        [self getCarFactoryData:timeStr];
+        [self getCarBrandData:timeStr];
+        [self getCarVerhicleData:timeStr];
+        [self getCarTireTypeData:timeStr];
+        [self getAllPosition:timeStr];
 }
+
 
 - (void)getCarFactoryData:(NSString *)timeStr{
 
@@ -318,7 +276,7 @@
 
             NSLog(@"获取数据失败");
         }else{
-            
+
             NSLog(@"请求车辆品牌数据成功");
 
             dispatch_queue_t factoryQueue = dispatch_queue_create("insetCarFactoryData", NULL);
@@ -335,17 +293,17 @@
 }
 
 - (void)getCarBrandData:(NSString *)timeStr{
-    
+
     NSDictionary *brandPostDic = @{@"time":timeStr};
     NSString *brandReqJson = [PublicClass convertToJsonData:brandPostDic];
     [JJRequest postRequest:@"getCarBrandData" params:@{@"reqJson":brandReqJson} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
-        
+
         NSString *statusStr = [NSString stringWithFormat:@"%@", code];
         if ([statusStr isEqualToString:@"-1"]) {
-            
+
             NSLog(@"获取数据失败");
         }else{
-            
+
             NSLog(@"请求车辆图标数据成功");
             dispatch_queue_t brandQueue = dispatch_queue_create("insertCarBrandData", NULL);
             dispatch_async(brandQueue, ^{
@@ -354,23 +312,23 @@
             });
         }
     } failure:^(NSError * _Nullable error) {
-        
+
         NSLog(@"请求车辆图标数据错误:%@", error);
     }];
 }
 
 - (void)getCarVerhicleData:(NSString *)timeStr{
-    
+
     NSDictionary *verhiclePostDic = @{@"time":timeStr};
     NSString *verhicleReqJson = [PublicClass convertToJsonData:verhiclePostDic];
     [JJRequest postRequest:@"getCarVerhicleData" params:@{@"reqJson":verhicleReqJson} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
-        
+
         NSString *statusStr = [NSString stringWithFormat:@"%@", code];
         if ([statusStr isEqualToString:@"-1"]) {
-            
+
             NSLog(@"获取数据失败");
         }else{
-            
+
             NSLog(@"请求车辆型号数据成功");
             dispatch_queue_t verhicleQueue = dispatch_queue_create("insertCarVerhicleData", NULL);
             dispatch_async(verhicleQueue, ^{
@@ -379,23 +337,23 @@
             });
         }
     } failure:^(NSError * _Nullable error) {
-        
+
         NSLog(@"请求车辆型号数据错误:%@", error);
     }];
 }
 
 - (void)getCarTireInfoData:(NSString *)timeStr{
-    
+
     NSDictionary *tireInfoPostDic = @{@"time":timeStr};
     NSString *tireInfoReqJson = [PublicClass convertToJsonData:tireInfoPostDic];
     [JJRequest postRequest:@"getCarTireInfoData" params:@{@"reqJson":tireInfoReqJson} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
-        
+
         NSString *statusStr = [NSString stringWithFormat:@"%@", code];
         if ([statusStr isEqualToString:@"-1"]) {
-            
+
             NSLog(@"获取数据失败");
         }else{
-            
+
             NSLog(@"请求车辆轮胎和排量数据成功");
             dispatch_queue_t tireInfoQueue = dispatch_queue_create("insertCarTireInfoData", NULL);
             dispatch_async(tireInfoQueue, ^{
@@ -405,23 +363,23 @@
             });
         }
     } failure:^(NSError * _Nullable error) {
-        
+
         NSLog(@"请求车辆轮胎和排量数据错误:%@", error);
     }];
 }
 
 - (void)getCarTireTypeData:(NSString *)timeStr{
-    
+
     NSDictionary *tireTypePostDic = @{@"time":timeStr};
     NSString *tireTypeReqJson = [PublicClass convertToJsonData:tireTypePostDic];
     [JJRequest postRequest:@"getTireType" params:@{@"reqJson":tireTypeReqJson} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
-        
+
         NSString *statusStr = [NSString stringWithFormat:@"%@", code];
         if ([statusStr isEqualToString:@"-1"]) {
-            
+
             NSLog(@"获取数据失败");
         }else{
-            
+
             NSLog(@"请求车辆类型数据成功");
             dispatch_queue_t tireTypeQueue = dispatch_queue_create("insertCarTireTypeData", NULL);
             dispatch_async(tireTypeQueue, ^{
@@ -430,35 +388,35 @@
             });
         }
     } failure:^(NSError * _Nullable error) {
-        
+
         NSLog(@"请求轮胎类型数据错误:%@", error);
     }];
 }
 
 - (void)getAllPosition:(NSString *)timeStr{
-    
+
     NSDictionary *positionPostDic = @{@"time":timeStr};
     NSString *positionReqJson = [PublicClass convertToJsonData:positionPostDic];
     [JJRequest postRequest:@"getAllPositon" params:@{@"reqJson":positionReqJson} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
-        
+
         NSString *statusStr = [NSString stringWithFormat:@"%@", code];
         if ([statusStr isEqualToString:@"-1"]) {
-            
+
             NSLog(@"获取数据失败");
         }else{
-            
+
 //            YLog(@"getPositionData:%@", data);
             dispatch_queue_t positionQueue = dispatch_queue_create("insertPositionData", NULL);
             dispatch_async(positionQueue, ^{
-                
+
                 [DBRecorder insertPositionArray:data];
                 NSLog(@"数据库插入完成");
                 [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"insertCompletion"];
             });
         }
     } failure:^(NSError * _Nullable error) {
-        
-        NSLog(@"请求车辆轮胎和排量数据错误:%@", error);
+
+        NSLog(@"省县市数据错误:%@", error);
     }];
 }
 
@@ -504,7 +462,7 @@
     navigationController.navigationBar.translucent = YES;
     navigationController.view.backgroundColor = LOGINBACKCOLOR;
     navigationController.navigationBar.backgroundColor = LOGINBACKCOLOR;
-//    navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Helvetica-Bold" size:22.0f], NSFontAttributeName, nil];
+    //    navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Helvetica-Bold" size:22.0f], NSFontAttributeName, nil];
 }
 
 @end

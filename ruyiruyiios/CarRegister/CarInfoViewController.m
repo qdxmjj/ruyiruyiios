@@ -20,7 +20,8 @@
 #import "PlateLicenseView.h"
 #import "CarInfo.h"
 #import <UIButton+WebCache.h>
-
+#import "MBProgressHUD+YYM_category.h"
+#import "JJCouponView.h"
 @interface CarInfoViewController ()<UITableViewDelegate, UITableViewDataSource, RoadStatusDelegate, CartypeStatusDelegate, PickerDateViewDelegate, AddressPickerViewDelegate>{
     
     CGFloat y, height;
@@ -431,12 +432,39 @@
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
         if ([statusStr isEqualToString:@"1"]) {
 
+            if ([[UserConfig firstAddCar] integerValue] ==0) {
+                
+                //两种优惠券
+                
+                JJCouponView *couponView = [[JJCouponView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height)];
+                couponView.popBlock = ^{
+                    
+                    [self.navigationController popViewControllerAnimated:YES];
+
+                };
+                couponView.imgName = @"ic_xcqtanchuang";
+                [couponView show];
+                
+            }else{
+                
+                JJCouponView *couponView = [[JJCouponView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height)];
+                couponView.popBlock = ^{
+                    
+                    [self.navigationController popViewControllerAnimated:YES];
+                    
+                };
+                [couponView show];
+                //一种
+            }
             [UserConfig userDefaultsSetObject:@"1" key:@"firstAddCar"];
             DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
             [delegateConfiguration changeaddCarNumber];
             [delegateConfiguration unregisterRoadStatusChangedListener:self];
             [delegateConfiguration unregisterCartypeStatusChangeListener:self];
-            [self.navigationController popViewControllerAnimated:YES];
+            
+            
+            
+//            [self.navigationController popViewControllerAnimated:YES];
         }else{
 
             [PublicClass showHUD:messageStr view:self.view];

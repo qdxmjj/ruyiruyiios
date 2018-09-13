@@ -35,6 +35,8 @@
         textField.attributedPlaceholder = attrString;
         textField.textColor = [UIColor lightGrayColor];
         textField.delegate = self;
+        textField.keyboardType = UIKeyboardTypeASCIICapable;
+
         self.inputTF = textField;
         [self addSubview:textField];
         
@@ -112,6 +114,32 @@
     
     [textField resignFirstResponder];
     return YES;
+}
+
+// 只能输入大写字母
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    //必须得写不然无法删除
+    if (range.length == 1 && string.length == 0) {
+        return YES;
+    }
+    char lowercaseChar = [string characterAtIndex:0];
+    
+    if (lowercaseChar > 96 && lowercaseChar < 123) {
+        
+        NSString * uppercaseString = string.uppercaseString;
+        NSString * frontStr = [textField.text substringToIndex:range.location];
+        NSString * backStr = [textField.text substringFromIndex:range.location];
+        textField.text = [NSString stringWithFormat:@"%@%@%@",frontStr,uppercaseString,backStr];
+        return NO;
+    }
+    
+    NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:ALPHANUM] invertedSet];
+    NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+    
+    return [string isEqualToString:filtered];
+    
+//    return YES;
 }
 
 /*

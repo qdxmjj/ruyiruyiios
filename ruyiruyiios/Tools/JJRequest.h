@@ -35,6 +35,9 @@ typedef void (^destinationBlock)(NSURL * _Nonnull documentUrl);
 @interface JJRequest : NSObject
 
 
++ (BOOL)checkNetworkStatus;
+
+
 /**
  GET请求
  */

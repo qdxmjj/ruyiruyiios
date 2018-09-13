@@ -21,4 +21,5 @@
 - (IBAction)backButtonAction:(id)sender;
 - (void)alertIsloginView;
 - (void)alertIsequallyTokenView;
+-(void)alertResetHomeInfoView;
 @end

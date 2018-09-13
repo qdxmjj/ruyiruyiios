@@ -84,6 +84,7 @@
     dispatch_async(getAllBrandQueue, ^{
         
         self.carBrandArray = [DBRecorder getAllBrandData];
+
         dispatch_async(dispatch_get_main_queue(), ^{
             
             for (int i = 0; i<self.numberArray.count; i++) {
@@ -100,6 +101,7 @@
                 }
                 [self.dataDic setValue:nameA forKey:icon];
             }
+            
             [self.brandNameTableV reloadData];
         });
     });
@@ -112,10 +114,10 @@
     [super viewDidLoad];
     self.title = @"车型选择";
     headH = 120.0;
+    
     [self.view addSubview:self.headView];
     [self.view addSubview:self.brandNameTableV];
     [self getDataFromDB];
-    // Do any additional setup after loading the view.
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index{
@@ -203,6 +205,7 @@
     selectSystemVC.btosId = carBrand.brandId;
     [self.navigationController pushViewController:selectSystemVC animated:YES];
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

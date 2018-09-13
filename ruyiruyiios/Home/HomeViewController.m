@@ -29,6 +29,10 @@
 #import "CycleScrollViewDetailsController.h"
 
 #import "NewTirePurchaseViewController.h"
+#import "MyWebViewController.h"
+
+#import "FirstStartConfiguration.h"
+#import "MBProgressHUD+YYM_category.h"
 @interface HomeViewController ()<UIScrollViewDelegate, SDCycleScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate, CityNameDelegate, UpdateAddCarDelegate, SetDefaultCarDelegate>{
     
     CGFloat nameW;
@@ -36,9 +40,11 @@
     NSString *userid;
 }
 @property (nonatomic, strong)UIScrollView *mainScrollV;
-@property (nonatomic, strong)SDCycleScrollView *sdcycleScrollV;
-@property (nonatomic, strong)UILabel *centerLabel;
+@property (nonatomic, strong)SDCycleScrollView *sdcycleScrollV;//上部轮播
+@property (nonatomic, strong)SDCycleScrollView *webAdvertisingView;//底部广告轮播
+@property (nonatomic, strong)UILabel *centerLabel;//title
 @property (nonatomic, strong)UIButton *locationBtn;
+@property (nonatomic, strong)UIButton *resetBtn;//重置btn
 @property (nonatomic, strong)UITapGestureRecognizer *fTapGR;
 @property (nonatomic, strong)UIView *changeView;
 @property (nonatomic, strong)HomeFirstView *firstView;
@@ -50,6 +56,9 @@
 @property (nonatomic, strong)Data_cars *dataCars;
 @property (nonatomic, strong)CLLocationManager *locationManager;
 @property (nonatomic, copy)NSString *currentCity;
+
+@property (nonatomic, strong)NSMutableArray *AdvertisingImgURLArr;//底部广告图片数组
+@property (nonatomic, strong)NSMutableArray *AdvertisingWebURLArr;//底部广告URL数组
 
 @end
 
@@ -92,7 +101,10 @@
     NSDictionary *androidHomeDic = @{@"userId":userid};
     NSString *adroidHomereqJson = [PublicClass convertToJsonData:androidHomeDic];
   
+    [MBProgressHUD showWaitMessage:@"正在获取首页数据.." showView:self.view];
+    
     [JJRequest postRequest:@"getAndroidHomeDate" params:@{@"reqJson":adroidHomereqJson} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+        
         
         NSString *statusStr = [NSString stringWithFormat:@"%@", code];
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
@@ -112,17 +124,36 @@
             }
             [self setImageurlData:imgArray];
             [self setElementOffirstView];
-            [self.homeTableV reloadData];
+//            [self.homeTableV reloadData];
+            
+            NSArray *arr = [data objectForKey:@"activityList"];
+            
+            if (self.AdvertisingImgURLArr.count>0) {
+                
+                [self.AdvertisingImgURLArr removeAllObjects];
+            }
+            if (self.AdvertisingWebURLArr.count>0) {
+                [self.AdvertisingWebURLArr removeAllObjects];
+            }
+            
+            for (NSDictionary *dic in arr) {
+                
+                [self.AdvertisingImgURLArr addObject:[dic objectForKey:@"imageUrl"]];
+                [self.AdvertisingWebURLArr addObject:[dic objectForKey:@"webUrl"]];
+            }
+            
+            self.webAdvertisingView.imageURLStringsGroup = self.AdvertisingImgURLArr;
         }
+        [MBProgressHUD hideWaitViewAnimated:self.view];
+        
     } failure:^(NSError * _Nullable error) {
         
         NSLog(@"获取主页信息错误:%@", error);
+        [MBProgressHUD hideWaitViewAnimated:self.view];
     }];
 }
 
 - (void)setuserDatacarData:(NSDictionary *)carDic{
-    
-
     
     if (carDic.count != 0) {
         
@@ -156,6 +187,24 @@
         _imgMutableA = [[NSMutableArray alloc] init];
     }
     return _imgMutableA;
+}
+
+-(NSMutableArray *)AdvertisingImgURLArr{
+    
+    if (!_AdvertisingImgURLArr) {
+        
+        _AdvertisingImgURLArr = [NSMutableArray array];
+    }
+    return _AdvertisingImgURLArr;
+}
+
+-(NSMutableArray *)AdvertisingWebURLArr{
+    
+    if (!_AdvertisingWebURLArr) {
+        
+        _AdvertisingWebURLArr = [NSMutableArray array];
+    }
+    return _AdvertisingWebURLArr;
 }
 
 - (UIScrollView *)mainScrollV{
@@ -192,6 +241,19 @@
     return _sdcycleScrollV;
 }
 
+-(SDCycleScrollView *)webAdvertisingView{
+    
+    if (!_webAdvertisingView) {
+        
+        _webAdvertisingView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, tviewY + tviewH + 2, MAINSCREEN.width, 120) delegate:self placeholderImage:nil];
+        _webAdvertisingView.autoScrollTimeInterval = 3.0;
+        _webAdvertisingView.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
+        [SDCycleScrollView clearImagesCache];
+    }
+    return _webAdvertisingView;
+}
+
+
 - (UILabel *)centerLabel{
 
     if (_centerLabel == nil) {
@@ -220,11 +282,30 @@
     return _locationBtn;
 }
 
+- (UIButton *)resetBtn{
+    
+    if (_resetBtn == nil) {
+        
+        _resetBtn = [[UIButton alloc] initWithFrame:CGRectMake( MAINSCREEN.width-40-16, 27, 40 , 30)];
+        [_resetBtn setImage:[UIImage imageNamed:@"ic_shuaxin"] forState:UIControlStateNormal];
+        [_resetBtn addTarget:self action:@selector(resetHomeInfoWithCarInfo) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _resetBtn;
+}
+
 - (void)selectLocationBtn{
     
     LocationViewController *locationVC = [[LocationViewController alloc] init];
     locationVC.current_cityName = self.locationBtn.titleLabel.text;
     [self.navigationController pushViewController:locationVC animated:YES];
+}
+
+-(void)resetHomeInfoWithCarInfo{
+    [self getAndroidHomeDate];
+
+    //暂不加更新配置信息   网络请求与数据库更新操作 无法顺序进行 更改需要大量时间 防止出错 暂不更新
+//    FirstStartConfiguration *first = [[FirstStartConfiguration alloc] init];
+//    [first configCarInfoWithCityInfo];
 }
 
 - (UITapGestureRecognizer *)fTapGR{
@@ -372,11 +453,13 @@
     [_mainScrollV addSubview:self.sdcycleScrollV];
     [_sdcycleScrollV addSubview:self.centerLabel];
     [_sdcycleScrollV addSubview:self.locationBtn];
+    [_sdcycleScrollV addSubview:self.resetBtn];
     [_mainScrollV addSubview:self.changeView];
     [_mainScrollV addSubview:self.threeBtnView];
     [self addFourButtons];
     [self addThreeButtons];
 //    [_mainScrollV addSubview:self.homeTableV];
+    [_mainScrollV addSubview:self.webAdvertisingView];
     [_mainScrollV setContentSize:CGSizeMake(MAINSCREEN.width, (tviewY+tviewH+82))];
     [self getAndroidHomeDate];
     // Do any additional setup after loading the view.
@@ -531,27 +614,37 @@
 }
 
 #pragma mark cycleScrollViewDelegate
-
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
     
     NSLog(@"点击了第%ld张图片",index);
-    
-    if (index == 2) {
+    if ([cycleScrollView isEqual:self.webAdvertisingView]) {
         
-        if ([UserConfig user_id] == NULL) {
+        if (self.AdvertisingWebURLArr.count <= 0) {
             
-            [self alertIsloginView];
-        }else{
-        
-            [self chickBuytyreBtn:[UIButton new]];
+            return;
         }
+        MyWebViewController *myWebVC = [[MyWebViewController alloc] init];
+        myWebVC.url = [NSString stringWithFormat:@"%@?userId=%@&userCarId=%@",self.AdvertisingWebURLArr[index],[UserConfig user_id],[UserConfig userCarId]];
+        [self.navigationController pushViewController:myWebVC animated:YES];
     }else{
-    
-        CycleScrollViewDetailsController *cycleViewDetails = [[CycleScrollViewDetailsController alloc] init];
-        cycleViewDetails.index = index;
-        cycleViewDetails.tireSize = self.dataCars.font;
-        cycleViewDetails.dataCars = self.dataCars;
-        [self.navigationController pushViewController:cycleViewDetails animated:YES];
+        
+        if (index == 2) {
+            
+            if ([UserConfig user_id] == NULL) {
+                
+                [self alertIsloginView];
+            }else{
+                
+                [self chickBuytyreBtn:[UIButton new]];
+            }
+        }else{
+            
+            CycleScrollViewDetailsController *cycleViewDetails = [[CycleScrollViewDetailsController alloc] init];
+            cycleViewDetails.index = index;
+            cycleViewDetails.tireSize = self.dataCars.font;
+            cycleViewDetails.dataCars = self.dataCars;
+            [self.navigationController pushViewController:cycleViewDetails animated:YES];
+        }
     }
 }
 
@@ -570,8 +663,9 @@
         
         return;
     }
-//
-//    if ([self.dataCars.service_end_date isEqualToString:@""]) {
+
+    
+    //    if ([self.dataCars.service_end_date isEqualToString:@""]) {
 //
 //        NSLog(@"进入选择年限界面");
 //

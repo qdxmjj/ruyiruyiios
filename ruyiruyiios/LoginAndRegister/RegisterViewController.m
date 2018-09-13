@@ -370,6 +370,13 @@
             if (indexPath.row == 4) {
                 
                 registerCell.rightTF.keyboardType = UIKeyboardTypeEmailAddress;
+            }else if (indexPath.row == 3){
+                //设置 昵称 默认为 手机号码
+                registerCell.rightTF.text = teleStr;
+                weakSelf.nickStr = teleStr;
+
+            }else{
+                
             }
             registerCell.block = ^(NSString *text) {
                 

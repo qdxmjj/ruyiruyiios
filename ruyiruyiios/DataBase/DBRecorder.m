@@ -38,7 +38,13 @@
                     FMResultSet *factoryRs = [db executeQuery:@"select * from carFactory where factoryId = ?", factoryId_Str];
                     if ([factoryRs next]) {
                         
-                        [db executeUpdate:@"update carFactory set carBrandId = ?, factory = ?, system = ?, time = ? where factoryId = ?", carBrand_Str, carFactory.factory, system_Str, carFactory.time, factoryId_Str];
+                       BOOL isUpdate = [db executeUpdate:@"update carFactory set carBrandId = ?, factory = ?, system = ?, time = ? where factoryId = ?", carBrand_Str, carFactory.factory, system_Str, carFactory.time, factoryId_Str];
+                        
+                        if (isUpdate) {
+                            
+                            NSLog(@"更新成功");
+                        }
+                        
                     }else{
                         
                         [db executeUpdate:@"insert into carFactory(carBrandId, factory, factoryId, system, time) values(?,?,?,?,?)", carBrand_Str, carFactory.factory, factoryId_Str, system_Str, carFactory.time];

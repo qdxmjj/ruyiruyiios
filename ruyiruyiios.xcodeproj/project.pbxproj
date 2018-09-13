@@ -16,9 +16,11 @@
 		36071A4520ECCBB70089E633 /* FreeChangeSeleceNumberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36071A3A20ECCBB50089E633 /* FreeChangeSeleceNumberCell.m */; };
 		36071A4620ECCBB70089E633 /* FreeChangUserInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36071A3D20ECCBB70089E633 /* FreeChangUserInfoCell.xib */; };
 		36071A4820ECCBE80089E633 /* FreeChangeSelectPhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36071A4720ECCBE80089E633 /* FreeChangeSelectPhotoCell.xib */; };
+		360CB010214904EB0059DF2E /* JJCouponView.m in Sources */ = {isa = PBXBuildFile; fileRef = 360CB00F214904EB0059DF2E /* JJCouponView.m */; };
 		360CD54220DCED8E005123B9 /* StoreDetailsPhoneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C80A1B20D89C640036C14A /* StoreDetailsPhoneCell.m */; };
 		360CD54320DCEDB8005123B9 /* MySettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4332F88420D8A19500AF386F /* MySettingViewController.m */; };
 		36148DE52112955E00309D31 /* JJSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 36148DE32112955E00309D31 /* JJSliderView.m */; };
+		36173DD62140C73D004AA13F /* FirstStartConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 36173DD52140C73D004AA13F /* FirstStartConfiguration.m */; };
 		3618716E20E22BE500BBAE43 /* RepairHeadAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298620E1E494006E2CCA /* RepairHeadAlertView.m */; };
 		3618716F20E22C3600BBAE43 /* TireRepairViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4326298020E1DD2D006E2CCA /* TireRepairViewController.m */; };
 		361CF5AB20E3900C007DFA17 /* ic_car@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 361CF5A520E3900A007DFA17 /* ic_car@2x.png */; };
@@ -35,6 +37,7 @@
 		361CF5C120E392DD007DFA17 /* ic_add.png in Resources */ = {isa = PBXBuildFile; fileRef = 361CF5BB20E392DD007DFA17 /* ic_add.png */; };
 		362167A72126CF92002BE5BF /* ReplacementProcessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 362167A52126CF92002BE5BF /* ReplacementProcessViewController.m */; };
 		362167A82126CF92002BE5BF /* ReplacementProcessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 362167A62126CF92002BE5BF /* ReplacementProcessViewController.xib */; };
+		3640310B213CCF4400BB3A36 /* MyWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36403109213CCF4300BB3A36 /* MyWebViewController.m */; };
 		3676AD6620E9BAA90067EDA0 /* ic_delete1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3676AD6320E9BAA80067EDA0 /* ic_delete1.png */; };
 		3676AD6720E9BAA90067EDA0 /* ic_delete1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3676AD6420E9BAA80067EDA0 /* ic_delete1@2x.png */; };
 		3676AD6820E9BAA90067EDA0 /* ic_delete1@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3676AD6520E9BAA90067EDA0 /* ic_delete1@3x.png */; };
@@ -891,8 +894,12 @@
 		36071A3D20ECCBB70089E633 /* FreeChangUserInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FreeChangUserInfoCell.xib; sourceTree = "<group>"; };
 		36071A3E20ECCBB70089E633 /* FreeChangHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreeChangHeaderView.h; sourceTree = "<group>"; };
 		36071A4720ECCBE80089E633 /* FreeChangeSelectPhotoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FreeChangeSelectPhotoCell.xib; sourceTree = "<group>"; };
+		360CB00E214904EB0059DF2E /* JJCouponView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JJCouponView.h; sourceTree = "<group>"; };
+		360CB00F214904EB0059DF2E /* JJCouponView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JJCouponView.m; sourceTree = "<group>"; };
 		36148DE32112955E00309D31 /* JJSliderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJSliderView.m; sourceTree = "<group>"; };
 		36148DE42112955E00309D31 /* JJSliderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJSliderView.h; sourceTree = "<group>"; };
+		36173DD42140C73D004AA13F /* FirstStartConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstStartConfiguration.h; sourceTree = "<group>"; };
+		36173DD52140C73D004AA13F /* FirstStartConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstStartConfiguration.m; sourceTree = "<group>"; };
 		361CF5A520E3900A007DFA17 /* ic_car@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_car@2x.png"; sourceTree = "<group>"; };
 		361CF5A820E3900B007DFA17 /* ic_car.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_car.png; sourceTree = "<group>"; };
 		361CF5A920E3900B007DFA17 /* ic_car@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_car@3x.png"; sourceTree = "<group>"; };
@@ -908,6 +915,8 @@
 		362167A42126CF92002BE5BF /* ReplacementProcessViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplacementProcessViewController.h; sourceTree = "<group>"; };
 		362167A52126CF92002BE5BF /* ReplacementProcessViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplacementProcessViewController.m; sourceTree = "<group>"; };
 		362167A62126CF92002BE5BF /* ReplacementProcessViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReplacementProcessViewController.xib; sourceTree = "<group>"; };
+		36403109213CCF4300BB3A36 /* MyWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyWebViewController.m; sourceTree = "<group>"; };
+		3640310A213CCF4400BB3A36 /* MyWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyWebViewController.h; sourceTree = "<group>"; };
 		3676AD6320E9BAA80067EDA0 /* ic_delete1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_delete1.png; sourceTree = "<group>"; };
 		3676AD6420E9BAA80067EDA0 /* ic_delete1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_delete1@2x.png"; sourceTree = "<group>"; };
 		3676AD6520E9BAA90067EDA0 /* ic_delete1@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_delete1@3x.png"; sourceTree = "<group>"; };
@@ -2400,6 +2409,8 @@
 		4306779120AE7BCC003BB046 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				360CB00E214904EB0059DF2E /* JJCouponView.h */,
+				360CB00F214904EB0059DF2E /* JJCouponView.m */,
 				4306779820AEB848003BB046 /* TopCarInfoTableViewCell.h */,
 				4306779920AEB848003BB046 /* TopCarInfoTableViewCell.m */,
 				4306779B20AEB864003BB046 /* BottomCarInfoTableViewCell.h */,
@@ -2494,6 +2505,8 @@
 				4343EB8F20A020E4003AD5FE /* Resources */,
 				4343EB69209FE79E003AD5FE /* AppDelegate.h */,
 				4343EB6A209FE79E003AD5FE /* AppDelegate.m */,
+				36173DD42140C73D004AA13F /* FirstStartConfiguration.h */,
+				36173DD52140C73D004AA13F /* FirstStartConfiguration.m */,
 				4343EB88209FFE4D003AD5FE /* RootViewController.h */,
 				4343EB89209FFE4D003AD5FE /* RootViewController.m */,
 				435E595020A18D44005C8BDA /* MainTabBarViewController.h */,
@@ -2564,6 +2577,8 @@
 			children = (
 				435E594320A18B79005C8BDA /* HomeViewController.h */,
 				435E594420A18B79005C8BDA /* HomeViewController.m */,
+				3640310A213CCF4400BB3A36 /* MyWebViewController.h */,
+				36403109213CCF4300BB3A36 /* MyWebViewController.m */,
 				36148DE42112955E00309D31 /* JJSliderView.h */,
 				36148DE32112955E00309D31 /* JJSliderView.m */,
 				36E0B59221007DA7005838B5 /* CycleScrollViewDetailsController.h */,
@@ -4448,6 +4463,7 @@
 				438B2B0120B7F681004A7E2A /* ManageCar.m in Sources */,
 				43BBC3A020C67CEC002C2FE6 /* OderMiddleView.m in Sources */,
 				439D060F20BE446D00379414 /* QualityServiceViewController.m in Sources */,
+				36173DD62140C73D004AA13F /* FirstStartConfiguration.m in Sources */,
 				435E594220A17084005C8BDA /* UIView+LK.m in Sources */,
 				43A7B1CE20CF68EC0002B756 /* BuyPassMiddleView.m in Sources */,
 				36C80A5220D89C640036C14A /* TabbarView.m in Sources */,
@@ -4533,6 +4549,7 @@
 				438D44AD20C2672D008DAD97 /* CustomQualityView.m in Sources */,
 				36C80A5920D89C640036C14A /* StoreDetailsCell.m in Sources */,
 				4311E9B720D9FECC00F74960 /* ExtensionCodeViewController.m in Sources */,
+				3640310B213CCF4400BB3A36 /* MyWebViewController.m in Sources */,
 				435E5B3020A1CBF0005C8BDA /* MBProgressHUD+YYM_category.m in Sources */,
 				4332F88B20D8AD2F00AF386F /* UpdatePasswordViewController.m in Sources */,
 				43F5795220C9211E00E0B588 /* MyBottomCollectionViewCell.m in Sources */,
@@ -4625,6 +4642,7 @@
 				43E2830720DC9CFF0080D3FD /* MyQuotaMiddleView.m in Sources */,
 				4311E9C320DA30B800F74960 /* ExtensionMiddleView.m in Sources */,
 				43B1BEA420EA1D06008E3E1A /* UIViewController+HXExtension.m in Sources */,
+				360CB010214904EB0059DF2E /* JJCouponView.m in Sources */,
 				430FAB9D20E5D2C500EB27F7 /* FirstUpdateOrFreeChangeInfo.m in Sources */,
 				43B1BEA320EA1D06008E3E1A /* HXCustomCameraViewController.m in Sources */,
 				36F27AF02125151500AD9B9F /* NewSureOrderViewController.m in Sources */,
@@ -4824,6 +4842,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = NO;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AW3WK2C3KB;
@@ -4856,6 +4875,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = NO;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AW3WK2C3KB;

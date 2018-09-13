@@ -145,6 +145,12 @@
     dispatch_async(locationQueue, ^{
        
         NSArray *l_cityArray = [DBRecorder getProvinceArray:[NSNumber numberWithInt:2]];
+        
+        if (l_cityArray.count<=0) {
+            
+            return ;
+        }
+        
         NSMutableArray *iconMutable = [[NSMutableArray alloc] init];
         NSMutableArray *city_positionMutableA = [[NSMutableArray alloc] init];
         for (int i = 0; i<l_cityArray.count; i++) {

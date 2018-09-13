@@ -12,7 +12,6 @@
 #import "ShoeSpeedLoadResult.h"
 #import "ChoicePatternTableViewCell.h"
 #import "BuyTireViewController.h"
-#import "CodeLoginViewController.h"
 #import "DelegateConfiguration.h"
 #import "ChoiceTableHeadView.h"
 

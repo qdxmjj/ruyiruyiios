@@ -115,6 +115,22 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
+- (void)alertResetHomeInfoView{
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否重置首页与配置信息,此过程可能需要一些时间!" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"重置" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [alert addAction:ok];
+    [alert addAction:cancel];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
