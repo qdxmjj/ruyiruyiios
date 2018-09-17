@@ -427,50 +427,37 @@
     
     NSString *reqJson = [PublicClass convertToJsonData:dic];
     [JJRequest postRequest:@"addUserCar" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
-        
+
         NSString *statusStr = [NSString stringWithFormat:@"%@", code];
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
+        NSArray *couponArr = (NSArray *)data;
         if ([statusStr isEqualToString:@"1"]) {
 
-            if ([[UserConfig firstAddCar] integerValue] ==0) {
-                
-                //两种优惠券
-                
-                JJCouponView *couponView = [[JJCouponView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height)];
-                couponView.popBlock = ^{
-                    
-                    [self.navigationController popViewControllerAnimated:YES];
-
-                };
-                couponView.imgName = @"ic_xcqtanchuang";
-                [couponView show];
-                
-            }else{
-                
-                JJCouponView *couponView = [[JJCouponView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height)];
-                couponView.popBlock = ^{
-                    
-                    [self.navigationController popViewControllerAnimated:YES];
-                    
-                };
-                [couponView show];
-                //一种
-            }
             [UserConfig userDefaultsSetObject:@"1" key:@"firstAddCar"];
             DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
             [delegateConfiguration changeaddCarNumber];
             [delegateConfiguration unregisterRoadStatusChangedListener:self];
             [delegateConfiguration unregisterCartypeStatusChangeListener:self];
-            
-            
-            
-//            [self.navigationController popViewControllerAnimated:YES];
+
+            if (couponArr.count<=0) {
+                
+                [self.navigationController popViewControllerAnimated:YES];
+                return ;
+            }
+            //两种优惠券
+            JJCouponView *couponView = [[JJCouponView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height)];
+            couponView.counponListArr = couponArr;
+            couponView.popBlock = ^{
+
+                [self.navigationController popViewControllerAnimated:YES];
+            };
+            [couponView show];
         }else{
 
             [PublicClass showHUD:messageStr view:self.view];
         }
     } failure:^(NSError * _Nullable error) {
-        
+
         NSLog(@"添加车辆错误:%@", error);
     }];
 }

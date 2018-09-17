@@ -10,12 +10,16 @@
 #import "ChoicePatternViewController.h"
 #import "SelectTirePositionViewController.h"
 #import "YMDetailedServiceViewController.h"
+#import "NewTirePurchaseViewController.h"
+#import "CarInfoViewController.h"
 @interface CycleScrollViewDetailsController ()
 
 
 @property(nonatomic,strong)UIImageView *backGroupView;
 
 @property(nonatomic,strong)UIButton *btn;
+
+@property(nonatomic,strong)UIScrollView *scrollView;
 
 @end
 
@@ -26,12 +30,16 @@
     
     self.title = @"最新活动";
 
-    [self.view addSubview:self.backGroupView];
+//    [self.view addSubview:self.backGroupView];
+    [self.view addSubview:self.scrollView];
+    [self.scrollView addSubview:self.backGroupView];
     [self.view addSubview:self.btn];
 }
 
 #pragma mark 跳转轮胎购买页面事件
 - (void)chickBuytyreEvent{
+  
+    
     
     if ([self.dataCars.font isEqualToString:self.dataCars.rear]) {
         
@@ -64,14 +72,37 @@
 -(void)pushBuyingTireViewController{
     
     switch (self.index) {
-        case 0:case 1:
+        case 0:case 1:case 3:
+            
+            if ([self.dataCars isEqual:[NSNull null]] || self.dataCars == nil || !self.dataCars || [UserConfig userCarId].intValue == 0) {
+                
+                //        [PublicClass showHUD:@"轮胎信息获取失败！" view:self.view];
+                
+                CarInfoViewController *carinfoVC = [[CarInfoViewController alloc] init];
+                carinfoVC.is_alter = YES;
+                [self.navigationController pushViewController:carinfoVC animated:YES];
+                
+                return;
+            }
 
+            //前后轮一致 直接进入轮胎购买页面 不一致先进入选择前后轮界面 再进入轮胎购买
             if ([self.dataCars.font isEqualToString:self.dataCars.rear]) {
                 
-                ChoicePatternViewController *choicePVC = [[ChoicePatternViewController alloc] init];
-                choicePVC.tireSize = self.dataCars.font;
-                choicePVC.fontRearFlag = @"0";
-                [self.navigationController pushViewController:choicePVC animated:YES];
+                //        ChoicePatternViewController *choicePVC = [[ChoicePatternViewController alloc] init];
+                //        choicePVC.tireSize = self.dataCars.font;
+                //        choicePVC.fontRearFlag = @"0";
+                //        [self.navigationController pushViewController:choicePVC animated:YES];
+                
+                NewTirePurchaseViewController *newTireVC = [[NewTirePurchaseViewController alloc] init];
+                
+                newTireVC.fontRearFlag = @"0";
+                newTireVC.tireSize = self.dataCars.font;
+                newTireVC.service_end_date = self.dataCars.service_end_date;
+                newTireVC.service_year = self.dataCars.service_year;
+                newTireVC.service_year_length = self.dataCars.service_year_length;
+                
+                [self.navigationController pushViewController:newTireVC animated:YES];
+                
             }else{
                 
                 SelectTirePositionViewController *selectTPVC = [[SelectTirePositionViewController alloc] init];
@@ -79,17 +110,17 @@
                 [self.navigationController pushViewController:selectTPVC animated:YES];
             }
             break;
-        case 3:{
-         
-            YMDetailedServiceViewController *detailedServiceVC = [[YMDetailedServiceViewController alloc] init];
-            
-            detailedServiceVC.title = @"搜索商品";
-            detailedServiceVC.serviceID = @"";
-            detailedServiceVC.serviceName = @"精致洗车";
-            
-            [self.navigationController pushViewController:detailedServiceVC animated:YES];
-        }
-            break;
+//        case 3:{
+//
+//            YMDetailedServiceViewController *detailedServiceVC = [[YMDetailedServiceViewController alloc] init];
+//
+//            detailedServiceVC.title = @"搜索商品";
+//            detailedServiceVC.serviceID = @"";
+//            detailedServiceVC.serviceName = @"精致洗车";
+//
+//            [self.navigationController pushViewController:detailedServiceVC animated:YES];
+//        }
+//            break;
             
         default:
             NSLog(@"跳转异常");
@@ -97,22 +128,41 @@
     }
 }
 
+-(UIScrollView *)scrollView{
+    
+    if (!_scrollView) {
+        
+        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height-SafeAreaTopHeight)];
+        _scrollView.showsHorizontalScrollIndicator = NO;
+        _scrollView.showsVerticalScrollIndicator = NO;
+        _scrollView.bounces = NO;
+        _scrollView.scrollsToTop = NO;
+    }
+    return _scrollView;
+}
+
 -(UIImageView *)backGroupView{
     
     if (!_backGroupView) {
-        _backGroupView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height-SafeAreaTopHeight)];
+        _backGroupView = [[UIImageView alloc] init];
         NSString *imgName = @"";
         switch (self.index) {
             case 0:
                 imgName = @"ic_huoodng_3";
+                _backGroupView.frame = CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height-SafeAreaTopHeight);
                 break;
             case 1:
-                imgName = @"ic_huoodng_1";
+                imgName = @"ic_hd5_bj";
+                _backGroupView.frame = CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height-SafeAreaTopHeight);
+
                 break;
             case 2:
                 break;
             case 3:
-                imgName = @"ic_huoodng_2";
+                imgName = @"ic_hd4_bj";
+                _backGroupView.frame = CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height+200);
+                _scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.frame),  MAINSCREEN.height+200);
+
                 break;
                 
             default:
@@ -137,14 +187,14 @@
 
                 break;
             case 1:
-                imgName = @"ic_hd_button1";
+                imgName = @"ic_hd5_button";
                 [_btn setFrame:CGRectMake((MAINSCREEN.width - MAINSCREEN.width*0.51)/2, MAINSCREEN.height-54-20-Height_TabBar, MAINSCREEN.width*0.51, MAINSCREEN.height*0.08)];
 
                 break;
             case 2:
                 break;
             case 3:
-                imgName = @"ic_hd_button2";
+                imgName = @"ic_hd4_button";
                 [_btn setFrame:CGRectMake((MAINSCREEN.width - MAINSCREEN.width*0.7)/2, MAINSCREEN.height-52-20-Height_TabBar, MAINSCREEN.width*0.7, MAINSCREEN.height*0.08)];
 
                 break;

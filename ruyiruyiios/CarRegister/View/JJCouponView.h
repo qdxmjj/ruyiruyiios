@@ -14,6 +14,10 @@ typedef void (^popViewBlock)(void);
 
 @property(nonatomic,copy)NSString *imgName;
 
+@property(nonatomic,copy)NSString *couponType;
+
+@property(nonatomic,strong)NSArray *counponListArr;
+
 @property(nonatomic,copy)popViewBlock popBlock;
 
 -(void)show;
