@@ -66,7 +66,6 @@
      * 车辆信息 与城市列表数据
      * 老版本 即为注释掉的内容
      */
-    
 //    if (![[NSUserDefaults standardUserDefaults] valueForKey:@"insertCompletion"]) {
 //
 //
@@ -75,16 +74,17 @@
 //        [self databaseOperation:timeStr];
 //    }
     
+    
     //新版本获取首次登录配置信息
     FirstStartConfiguration *first = [[FirstStartConfiguration alloc] init];
     [first StartConfigurationDataAndNetwork];
     
+    
     //检测版本更新，新版本提醒
     [self checkVersion];
+    
     //bugly
     [self configureBugly];
-    
-    
     
     return YES;
 }

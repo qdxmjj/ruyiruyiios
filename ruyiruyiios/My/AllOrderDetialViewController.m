@@ -188,7 +188,10 @@
         postStr = @"cancelFirstChangeOrder";
     }else if ([orderTypeStr isEqualToString:@"3"]){
         
-         postStr = @"cancelShoeRepairOrder";
+         postStr = @"cancelFreeChangeOrder";
+    }else if ([orderTypeStr isEqualToString:@"4"]){
+        
+        postStr = @"cancelShoeRepairOrder";
     }
     NSDictionary *cancelPostDic = @{@"orderNo":orderNoStr, @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]]};
     NSString *reqJson = [PublicClass convertToJsonData:cancelPostDic];

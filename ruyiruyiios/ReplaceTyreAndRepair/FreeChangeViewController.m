@@ -175,6 +175,12 @@
 }
 
 - (void)analysizeDic:(NSDictionary *)dataDic{
+    
+    if ([[dataDic objectForKey:@"storeQuaryResVos"] count]<=0) {
+        
+        [PublicClass showHUD:@"周围没有店铺！" view:self.view];
+        return;
+    }
 
     NSDictionary *storeInfoDic = [[dataDic objectForKey:@"storeQuaryResVos"] objectAtIndex:0];
     if (storeInfoDic == nil || [storeInfoDic isKindOfClass:[NSNull class]]) {
@@ -192,6 +198,12 @@
         
         [self.storeServiceMutableA removeAllObjects];
     }
+    
+    if (storeServiceArray.count<=0) {
+        
+        [PublicClass showHUD:@"周围没有店铺！" view:self.view];
+        return;
+    }
     for (int i = 0; i<storeServiceArray.count; i++) {
         
         NSDictionary *serviceDic = [[storeServiceArray objectAtIndex:i] objectForKey:@"service"];
@@ -203,8 +215,6 @@
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:3] withRowAnimation:(UITableViewRowAnimationNone)];
 }
 //复制粘贴结束
-
-
 
 
 -(void)getFreeChangeTireInfo{

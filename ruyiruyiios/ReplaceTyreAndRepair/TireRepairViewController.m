@@ -232,6 +232,12 @@
 
 - (void)analysizeDic:(NSDictionary *)dataDic{
     
+    if ([[dataDic objectForKey:@"storeQuaryResVos"] count]<=0) {
+        
+        [PublicClass showHUD:@"周围没有店铺！" view:self.view];
+        return;
+    }
+    
     NSDictionary *storeInfoDic = [[dataDic objectForKey:@"storeQuaryResVos"] objectAtIndex:0];
     if (storeInfoDic == nil || [storeInfoDic isKindOfClass:[NSNull class]]) {
         
@@ -247,6 +253,11 @@
     if (self.storeServiceMutableA.count != 0) {
         
         [self.storeServiceMutableA removeAllObjects];
+    }
+    if (storeServiceArray.count<=0) {
+        
+        [PublicClass showHUD:@"周围没有店铺！" view:self.view];
+        return;
     }
     for (int i = 0; i<storeServiceArray.count; i++) {
         

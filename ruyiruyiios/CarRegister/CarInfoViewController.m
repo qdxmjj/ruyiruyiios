@@ -408,11 +408,11 @@
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
         if ([statusStr isEqualToString:@"1"]) {
 
-            DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
-            [delegateConfiguration changeaddCarNumber];
-            [delegateConfiguration unregisterRoadStatusChangedListener:self];
-            [delegateConfiguration unregisterCartypeStatusChangeListener:self];
-            [self.navigationController popViewControllerAnimated:YES];
+//            DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+//            [delegateConfiguration changeaddCarNumber];
+//            [delegateConfiguration unregisterRoadStatusChangedListener:self];
+//            [delegateConfiguration unregisterCartypeStatusChangeListener:self];
+            [self.navigationController popToRootViewControllerAnimated:YES];
         }else{
 
             [PublicClass showHUD:messageStr view:self.view];
@@ -435,13 +435,13 @@
 
             [UserConfig userDefaultsSetObject:@"1" key:@"firstAddCar"];
             DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
-            [delegateConfiguration changeaddCarNumber];
+//            [delegateConfiguration changeaddCarNumber];
             [delegateConfiguration unregisterRoadStatusChangedListener:self];
             [delegateConfiguration unregisterCartypeStatusChangeListener:self];
 
             if (couponArr.count<=0) {
                 
-                [self.navigationController popViewControllerAnimated:YES];
+                [self.navigationController popToRootViewControllerAnimated:YES];
                 return ;
             }
             //两种优惠券
@@ -449,7 +449,7 @@
             couponView.counponListArr = couponArr;
             couponView.popBlock = ^{
 
-                [self.navigationController popViewControllerAnimated:YES];
+                [self.navigationController popToRootViewControllerAnimated:YES];
             };
             [couponView show];
         }else{
@@ -515,7 +515,7 @@
         
         [self getCarInfoFromInternet];
     }
-    // Do any additional setup after loading the view.
+
 }
 
 - (void)getCarInfoFromInternet{

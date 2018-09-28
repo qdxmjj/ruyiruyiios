@@ -131,6 +131,8 @@
         
         DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
         [delegateConfiguration unregisterLoginStatusChangedListener:self];
+        [delegateConfiguration unregistercityNameListers:self];
+        
         self.tabBarController.tabBar.hidden = NO;
         [self.navigationController popViewControllerAnimated:YES];
     }else{
@@ -139,7 +141,7 @@
         locationVC.current_cityName = button.titleLabel.text;
         [self.navigationController pushViewController:locationVC animated:YES];
     }
-}
+}  
 
 //下拉刷新
 -(void)loadNewData{

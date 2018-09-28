@@ -13,7 +13,8 @@
 #import "ManageCarViewController.h"
 #import "MyOrderViewController.h"
 #import "TobeReplacedTiresViewController.h"
-#import "PassImpededViewController.h"
+//#import "PassImpededViewController.h"//旧的畅行无忧
+#import "SmoothJourneyViewController.h"//新畅行无忧
 #import "PersonalInformationViewController.h"
 #import "MySettingViewController.h"
 #import "CouponViewController.h"
@@ -48,7 +49,8 @@
 - (void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
-    self.hidesBottomBarWhenPushed = NO;
+
+    self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = YES;
 }
 
@@ -290,8 +292,8 @@
             [self.navigationController pushViewController:tobeReplacedVC animated:YES];
         }else if (indexPath.item == 1){
             
-            PassImpededViewController *passImpededVC = [[PassImpededViewController alloc] init];
-            [self.navigationController pushViewController:passImpededVC animated:YES];
+            SmoothJourneyViewController *smoothJourneyVC = [[SmoothJourneyViewController alloc] init];
+            [self.navigationController pushViewController:smoothJourneyVC animated:YES];
         }else if (indexPath.item == 2){
             
             ManageCarViewController *manageCarVC = [[ManageCarViewController alloc] init];

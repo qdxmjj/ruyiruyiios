@@ -15,7 +15,7 @@
 #import "CodeLoginViewController.h"
 #import "DelegateConfiguration.h"
 
-@interface ManageCarViewController ()<UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate, UpdateAddCarDelegate>
+@interface ManageCarViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property(nonatomic, strong)UIButton *addCarBtn;
 @property(nonatomic, strong)UITableView *addCarTableV;
@@ -96,9 +96,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
-    [delegateConfiguration registerLoginStatusChangedListener:self];
-    [delegateConfiguration registeraddCarListers:self];
+
     [self getDataFromInternet];
     self.title = @"管理车辆";
     
@@ -106,13 +104,6 @@
     // Do any additional setup after loading the view.
 }
 
-- (IBAction)backButtonAction:(id)sender{
-    
-    DelegateConfiguration *delegateConfig = [DelegateConfiguration sharedConfiguration];
-    [delegateConfig unregisterLoginStatusChangedListener:self];
-    [delegateConfig unregisteraddCarListers:self];
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
 - (void)getDataFromInternet{
     
@@ -254,8 +245,9 @@
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
         if ([statusStr isEqualToString:@"1"]) {
             
-            DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
-            [delegateConfiguration changedefaultCarNumber];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:ModifyDefaultCarNotification object:nil];
+            
             [self getDataFromInternet];
         }else{
             
@@ -275,21 +267,15 @@
     }
 }
 
-//LoginStatusDelegate
-- (void)updateLoginStatus{
-    
-    [self getDataFromInternet];
-}
-
 //UpdateAddCarDelegate
-- (void)updateAddCarNumber{
-    
-    [self getDataFromInternet];
-}
+//- (void)updateAddCarNumber{
+//
+//    [self getDataFromInternet];
+//}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
-    NSLog(@"滑动的tableview");
+//    NSLog(@"滑动的tableview");
 }
 
 - (void)didReceiveMemoryWarning {

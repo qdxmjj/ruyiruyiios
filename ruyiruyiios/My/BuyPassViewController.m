@@ -9,13 +9,12 @@
 #import "BuyPassViewController.h"
 #import "BuyPassMiddleView.h"
 #import "BuyPassBottomView.h"
-#import "UILabel+YBAttributeTextTapAction.h"
 #import "UserProtocolViewController.h"
 #import "BuyCXWYUserInfo.h"
 #import "CashierViewController.h"
 #import "CXWYPriceParamInfo.h"
-
-@interface BuyPassViewController ()<UIScrollViewDelegate, YBAttributeTapActionDelegate>
+#import "JJUILabel.h"
+@interface BuyPassViewController ()<UIScrollViewDelegate>
 
 @property(nonatomic, strong)UIScrollView *mainScrollV;
 @property(nonatomic, strong)UIImageView *passDetialImageV;
@@ -76,11 +75,18 @@
 - (BuyPassBottomView *)buypassBottomV{
     
     if (_buypassBottomV == nil) {
-        
+
+        JJWeakSelf
         _buypassBottomV = [[BuyPassBottomView alloc] initWithFrame:CGRectMake(0, MAINSCREEN.height - SafeDistance - 90, MAINSCREEN.width, 90)];
         [_buypassBottomV.sureBuyBtn setBackgroundColor:LOGINBACKCOLOR forState:UIControlStateNormal];
         [_buypassBottomV.sureBuyBtn addTarget:self action:@selector(chickSureBuyBtn:) forControlEvents:UIControlEventTouchUpInside];
-        [_buypassBottomV.agreementLabel yb_addAttributeTapActionWithStrings:@[@"《如驿如意畅行无忧使用协议》"] delegate:self];
+        
+        _buypassBottomV.eventBlock = ^(BOOL isClick) {
+          
+            UserProtocolViewController *userProtocolVC = [[UserProtocolViewController alloc] init];
+            userProtocolVC.dealIdStr = @"3";
+            [weakSelf.navigationController pushViewController:userProtocolVC animated:YES];
+        };
     }
     return _buypassBottomV;
 }
@@ -242,13 +248,6 @@
             }];
         }
     }
-}
-
-- (void)yb_attributeTapReturnString:(NSString *)string range:(NSRange)range index:(NSInteger)index{
-    
-    UserProtocolViewController *userProtocolVC = [[UserProtocolViewController alloc] init];
-    userProtocolVC.dealIdStr = @"3";
-    [self.navigationController pushViewController:userProtocolVC animated:YES];
 }
 
 - (void)setdatatoSubviews:(BuyCXWYUserInfo *)buyCXWYInfo{

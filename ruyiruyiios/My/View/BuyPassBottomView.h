@@ -7,15 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "JJUILabel.h"
 
-@interface BuyPassBottomView : UIView
+typedef void (^ClickProtocolEventBlock)(BOOL isClick);
+
+@interface BuyPassBottomView : UIView <UITextViewDelegate>
 
 @property(nonatomic, strong)UIButton *selectBtn;
-@property(nonatomic, strong)JJUILabel *agreementLabel;
 @property(nonatomic, strong)UIButton *sureBuyBtn;
 @property(nonatomic, strong)UILabel *passPriceLabel;
+@property(nonatomic, strong)UITextView *agreementTextView;
 
 - (void)setdatatoViews:(NSString *)priceStr;
+
+@property(nonatomic,copy)ClickProtocolEventBlock eventBlock;
 
 @end

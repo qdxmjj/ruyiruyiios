@@ -23,7 +23,6 @@
 @property(nonatomic,assign)CGFloat maxValue;
 @property(nonatomic,assign)CGFloat value;
 @property(nonatomic,assign)CGFloat stepValue;
-
 //@property(nonatomic,copy)HYStepperCallback valueChanged;
 
 @property(nonatomic,assign)id <valueChangdDelegate> delagate;

@@ -32,4 +32,7 @@
 @property(nonatomic, strong)NSString *shoeBasePrice;
 
 @property(nonatomic, strong)id  cxwyPriceParamList;
+
+@property(nonatomic, strong)id  cxwyPriceMap;
+
 @end

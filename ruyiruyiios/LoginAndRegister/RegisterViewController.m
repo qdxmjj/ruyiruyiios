@@ -68,6 +68,8 @@
         _registerTabV.showsVerticalScrollIndicator = YES;
         _registerTabV.dataSource = self;
         _registerTabV.delegate = self;
+        
+        [_registerTabV registerClass:[UITableViewCell class] forCellReuseIdentifier:@"nullCell"];
     }
     return _registerTabV;
 }
@@ -414,7 +416,9 @@
         return passCell;
     }else{
 
-        return nil;
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"nullCell" forIndexPath:indexPath];
+        
+        return cell;
     }
 }
 

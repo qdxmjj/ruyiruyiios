@@ -27,23 +27,24 @@
     button.selected = !button.selected;
 }
 
-- (JJUILabel *)agreementLabel{
+-(UITextView *)agreementTextView{
     
-    if (_agreementLabel == nil) {
+    if (!_agreementTextView) {
         
-        _agreementLabel = [[JJUILabel alloc] init];
-        NSString *agreeStr = @"选择即代表您已同意《如驿如意畅行无忧使用协议》";
-        NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:agreeStr];
-        [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:NSMakeRange(agreeStr.length-14, 14)];
-        [attrStr addAttribute:NSForegroundColorAttributeName value:TEXTCOLOR64 range:NSMakeRange(0, agreeStr.length - 14)];
-        _agreementLabel.attributedText = attrStr;
-        _agreementLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
-        _agreementLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        _agreementLabel.numberOfLines = 0;
-        [_agreementLabel setVerticalAlignment:VerticalAlignmentTop];
-//        [_agreementLabel yb_addAttributeTapActionWithStrings:@[@"《如驿如意畅行无忧使用协议》"] delegate:self];
+        _agreementTextView = [[UITextView alloc] init];
+        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc]initWithString:@"选择即代表您已同意《如驿如意畅行无忧使用协议》"];
+        
+        [attStr addAttribute:NSLinkAttributeName
+                       value:@"xmjjProtocol://"
+                       range:[[attStr string] rangeOfString:@"《如驿如意畅行无忧使用协议》"]];
+        _agreementTextView.attributedText = attStr;
+        _agreementTextView.delegate = self;
+        _agreementTextView.editable = NO;
+        _agreementTextView.font = [UIFont systemFontOfSize:14.f];
     }
-    return _agreementLabel;
+    
+    
+    return _agreementTextView;
 }
 
 - (UILabel *)passPriceLabel{
@@ -75,7 +76,7 @@
     if (self) {
         
         [self addSubview:self.selectBtn];
-        [self addSubview:self.agreementLabel];
+        [self addSubview:self.agreementTextView];
         [self addSubview:self.passPriceLabel];
         [self addSubview:self.sureBuyBtn];
     }
@@ -86,9 +87,21 @@
     
     [super layoutSubviews];
     self.selectBtn.frame = CGRectMake(15, 5, 25, 25);
-    self.agreementLabel.frame = CGRectMake(45, 10, MAINSCREEN.width - 45, 28);
+    self.agreementTextView.frame = CGRectMake(45, 0, MAINSCREEN.width - 45, 25);
     self.passPriceLabel.frame = CGRectMake(0, 62, MAINSCREEN.width - 120, 20);
     self.sureBuyBtn.frame = CGRectMake(MAINSCREEN.width - 100, 50, 100, 44);
+}
+
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange{
+    
+    if ([[URL scheme] isEqualToString:@"xmjjProtocol"]) {
+        
+        if (self.eventBlock) {
+            self.eventBlock(YES);
+        }
+        return NO;
+    }
+    return YES;
 }
 
 - (void)setdatatoViews:(NSString *)priceStr{

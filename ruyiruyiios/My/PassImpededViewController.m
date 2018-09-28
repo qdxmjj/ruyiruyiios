@@ -23,6 +23,10 @@
 
 @implementation PassImpededViewController
 
+
+//老版本畅行无忧界面 已经弃用  暂留！
+
+
 - (void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];

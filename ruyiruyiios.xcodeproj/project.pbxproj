@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0421E44F21532B800087FF87 /* SmoothJourneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0421E44E21532B800087FF87 /* SmoothJourneyViewController.m */; };
+		0421E453215334D60087FF87 /* CxwyFreeReplaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0421E451215334D60087FF87 /* CxwyFreeReplaceViewController.m */; };
+		0421E454215334D60087FF87 /* CxwyFreeReplaceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0421E452215334D60087FF87 /* CxwyFreeReplaceViewController.xib */; };
+		0421E4572153480A0087FF87 /* CxwyFreeReplaceFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0421E4562153480A0087FF87 /* CxwyFreeReplaceFlowLayout.m */; };
 		1A3CB3004D62FF11EDC9B585 /* libPods-ruyiruyiios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D40C758474E7181E97834C56 /* libPods-ruyiruyiios.a */; };
 		36071A3F20ECCBB70089E633 /* FreeChangHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 36071A3120ECCBB10089E633 /* FreeChangHeaderView.m */; };
 		36071A4020ECCBB70089E633 /* FreeChangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36071A3320ECCBB20089E633 /* FreeChangeViewController.m */; };
@@ -348,7 +352,6 @@
 		43380E6420E0E3B900B3ABAF /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43380E6320E0E3B900B3ABAF /* Security.framework */; };
 		433EECED20AD85920051DF9F /* Lunbo_infos.m in Sources */ = {isa = PBXBuildFile; fileRef = 433EECEC20AD85920051DF9F /* Lunbo_infos.m */; };
 		433EECF020ADAC500051DF9F /* Data_cars.m in Sources */ = {isa = PBXBuildFile; fileRef = 433EECEF20ADAC500051DF9F /* Data_cars.m */; };
-		433EECF820ADBD6A0051DF9F /* UILabel+YBAttributeTextTapAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 433EECF720ADBD6A0051DF9F /* UILabel+YBAttributeTextTapAction.m */; };
 		434367F220DB389D009D2657 /* ExtensionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 434367F120DB389D009D2657 /* ExtensionInfo.m */; };
 		434367F520DB39E0009D2657 /* SharePersonInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 434367F420DB39E0009D2657 /* SharePersonInfo.m */; };
 		434367F920DB4DBA009D2657 /* ic_erweima.png in Resources */ = {isa = PBXBuildFile; fileRef = 434367F620DB4DBA009D2657 /* ic_erweima.png */; };
@@ -881,6 +884,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0421E44D21532B800087FF87 /* SmoothJourneyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SmoothJourneyViewController.h; sourceTree = "<group>"; };
+		0421E44E21532B800087FF87 /* SmoothJourneyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SmoothJourneyViewController.m; sourceTree = "<group>"; };
+		0421E450215334D60087FF87 /* CxwyFreeReplaceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CxwyFreeReplaceViewController.h; sourceTree = "<group>"; };
+		0421E451215334D60087FF87 /* CxwyFreeReplaceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CxwyFreeReplaceViewController.m; sourceTree = "<group>"; };
+		0421E452215334D60087FF87 /* CxwyFreeReplaceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CxwyFreeReplaceViewController.xib; sourceTree = "<group>"; };
+		0421E4552153480A0087FF87 /* CxwyFreeReplaceFlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CxwyFreeReplaceFlowLayout.h; sourceTree = "<group>"; };
+		0421E4562153480A0087FF87 /* CxwyFreeReplaceFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CxwyFreeReplaceFlowLayout.m; sourceTree = "<group>"; };
 		36071A3120ECCBB10089E633 /* FreeChangHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreeChangHeaderView.m; sourceTree = "<group>"; };
 		36071A3320ECCBB20089E633 /* FreeChangeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreeChangeViewController.m; sourceTree = "<group>"; };
 		36071A3420ECCBB20089E633 /* FreeChangeSelectPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreeChangeSelectPhotoCell.m; sourceTree = "<group>"; };
@@ -1389,8 +1399,6 @@
 		433EECEC20AD85920051DF9F /* Lunbo_infos.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Lunbo_infos.m; sourceTree = "<group>"; };
 		433EECEE20ADAC500051DF9F /* Data_cars.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Data_cars.h; sourceTree = "<group>"; };
 		433EECEF20ADAC500051DF9F /* Data_cars.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Data_cars.m; sourceTree = "<group>"; };
-		433EECF620ADBD6A0051DF9F /* UILabel+YBAttributeTextTapAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+YBAttributeTextTapAction.h"; sourceTree = "<group>"; };
-		433EECF720ADBD6A0051DF9F /* UILabel+YBAttributeTextTapAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+YBAttributeTextTapAction.m"; sourceTree = "<group>"; };
 		434367F020DB389D009D2657 /* ExtensionInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtensionInfo.h; sourceTree = "<group>"; };
 		434367F120DB389D009D2657 /* ExtensionInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExtensionInfo.m; sourceTree = "<group>"; };
 		434367F320DB39E0009D2657 /* SharePersonInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharePersonInfo.h; sourceTree = "<group>"; };
@@ -2472,8 +2480,6 @@
 		433EECF520ADBD6A0051DF9F /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				433EECF620ADBD6A0051DF9F /* UILabel+YBAttributeTextTapAction.h */,
-				433EECF720ADBD6A0051DF9F /* UILabel+YBAttributeTextTapAction.m */,
 				435E5B2E20A1CBEF005C8BDA /* MBProgressHUD+YYM_category.h */,
 				435E5B2F20A1CBEF005C8BDA /* MBProgressHUD+YYM_category.m */,
 			);
@@ -2700,6 +2706,13 @@
 				435E594720A18BEF005C8BDA /* MyViewController.m */,
 				4307036620CA1E030044EBCE /* MyOrderViewController.h */,
 				4307036720CA1E030044EBCE /* MyOrderViewController.m */,
+				0421E44D21532B800087FF87 /* SmoothJourneyViewController.h */,
+				0421E44E21532B800087FF87 /* SmoothJourneyViewController.m */,
+				0421E450215334D60087FF87 /* CxwyFreeReplaceViewController.h */,
+				0421E451215334D60087FF87 /* CxwyFreeReplaceViewController.m */,
+				0421E452215334D60087FF87 /* CxwyFreeReplaceViewController.xib */,
+				0421E4552153480A0087FF87 /* CxwyFreeReplaceFlowLayout.h */,
+				0421E4562153480A0087FF87 /* CxwyFreeReplaceFlowLayout.m */,
 				43A7B1C320CF5B640002B756 /* PassImpededViewController.h */,
 				43A7B1C420CF5B640002B756 /* PassImpededViewController.m */,
 				43A7B1C920CF667D0002B756 /* BuyPassViewController.h */,
@@ -3967,6 +3980,7 @@
 				43F874BD20CE23CC007D1C2E /* ic_shop.png in Resources */,
 				435E5ADD20A19088005C8BDA /* ic_right@3x.png in Resources */,
 				435F1EEF20FDDEDC003B021F /* ic_yindaoye_2.png in Resources */,
+				0421E454215334D60087FF87 /* CxwyFreeReplaceViewController.xib in Resources */,
 				439D069220BE980400379414 /* ic_buy.png in Resources */,
 				435E5AE820A19088005C8BDA /* ic_right@2x.png in Resources */,
 				439D066B20BE980400379414 /* bic_down@3x.png in Resources */,
@@ -4500,7 +4514,6 @@
 				43B1BE5420E9FAEF008E3E1A /* MyEvaluationInfo.m in Sources */,
 				36E2810420E4C46F00192BC9 /* WaitPaymentViewController.m in Sources */,
 				43B1BEBF20EA1D06008E3E1A /* HXDatePhotoViewTransition.m in Sources */,
-				433EECF820ADBD6A0051DF9F /* UILabel+YBAttributeTextTapAction.m in Sources */,
 				43A7B1C820CF5CE40002B756 /* PassImpededTableViewCell.m in Sources */,
 				362167A72126CF92002BE5BF /* ReplacementProcessViewController.m in Sources */,
 				36C80A9120D89C6A0036C14A /* WinterTyreStockModel.m in Sources */,
@@ -4622,6 +4635,8 @@
 				4319D9E120ABFEDB00893026 /* FMDBCarTireInfo.m in Sources */,
 				36C80A6620D89C640036C14A /* StoreDetailsViewController.m in Sources */,
 				4319311520E87A1F006005C8 /* ToServiceViewController.m in Sources */,
+				0421E44F21532B800087FF87 /* SmoothJourneyViewController.m in Sources */,
+				0421E4572153480A0087FF87 /* CxwyFreeReplaceFlowLayout.m in Sources */,
 				432EFEB920B5A5EF0090DEC8 /* City.m in Sources */,
 				43B1BEB620EA1D06008E3E1A /* HXPhotoManager.m in Sources */,
 				43F5794920C8CF5D00E0B588 /* MyHeadView.m in Sources */,
@@ -4629,6 +4644,7 @@
 				434DB63E20BCE3C10077234D /* LocationViewController.m in Sources */,
 				36F2CFC92123BFC500253A1E /* SelectBuyTireInfoCell.m in Sources */,
 				430FABA320E5DBD600EB27F7 /* ToDeliveryTableViewCell.m in Sources */,
+				0421E453215334D60087FF87 /* CxwyFreeReplaceViewController.m in Sources */,
 				4358CAAD20A3EEAF006B456F /* WXZCustomPickView.m in Sources */,
 				43B1BEAB20EA1D06008E3E1A /* UIImageView+HXExtension.m in Sources */,
 				367F985320F5EE570022838C /* SDPhotoBrowser.m in Sources */,

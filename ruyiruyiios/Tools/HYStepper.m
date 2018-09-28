@@ -106,7 +106,6 @@
         
     _value = value;
     
-    
     if (self.delagate && [self.delagate respondsToSelector:@selector(valueChangedWithValue:stepper:)]) {
         
         [self.delagate valueChangedWithValue:_value stepper:self];
@@ -120,6 +119,7 @@
         maxValue = _minValue;
     }
     _maxValue = maxValue;
+    _plusBtn.enabled = _value < _maxValue;
 }
 
 -(void)setMinValue:(CGFloat)minValue{

@@ -12,7 +12,7 @@
 #import "CodeLoginViewController.h"
 
 @implementation JJRequest
-
+//单列 防止AF内存泄漏
 + (AFHTTPSessionManager *)sharedHTTPSession{
     static AFHTTPSessionManager *manager = nil;
     static dispatch_once_t onceToken;
@@ -22,6 +22,7 @@
     return manager;
 }
 
+//无单列 存在内存泄漏
 + (AFHTTPSessionManager *)getRequestManager {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     /**
@@ -128,7 +129,7 @@
         
     }
     
-    AFHTTPSessionManager *manager = [self getRequestManager];
+    AFHTTPSessionManager *manager = [self sharedHTTPSession];
     
     [manager POST:[NSString stringWithFormat:@"%@/%@",SERVERPREFIX,url] parameters:params progress:nil
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject){
@@ -165,7 +166,7 @@
     
     AFSecurityPolicy *securityPolicy = [[AFSecurityPolicy alloc] init];
     [securityPolicy setAllowInvalidCertificates:YES];
-    AFHTTPSessionManager *manager = [self getRequestManager];
+    AFHTTPSessionManager *manager = [self sharedHTTPSession];
     [manager setSecurityPolicy:securityPolicy];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     [manager POST:[NSString stringWithFormat:@"%@/%@",hostAddress,url] parameters:params progress:nil
@@ -285,7 +286,7 @@
         return;
     }
     
-    AFHTTPSessionManager *manager = [self getRequestManager];
+    AFHTTPSessionManager *manager = [self sharedHTTPSession];
     
     //上传图片延长 上传时间
 //    if ([self rangeOfString:url string:@"AddPunchclock"]) {

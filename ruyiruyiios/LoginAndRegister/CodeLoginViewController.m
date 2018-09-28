@@ -12,9 +12,7 @@
 #import "RegisterViewController.h"
 #import "FMDBUserInfo.h"
 #import "DBRecorder.h"
-#import "UILabel+YBAttributeTextTapAction.h"
 #import "UserProtocolViewController.h"
-#import "JJUILabel.h"
 #import "DelegateConfiguration.h"
 #import "WXApi.h"
 #import "AppDelegate.h"
@@ -26,7 +24,7 @@
 #import "WinterTyreViewController.h"
 #import "MyViewController.h"
 
-@interface CodeLoginViewController ()<UITextFieldDelegate, YBAttributeTapActionDelegate, WXApiDelegate>{
+@interface CodeLoginViewController ()<UITextFieldDelegate,UITextViewDelegate, WXApiDelegate>{
     
     UITextField *telephoneTF;
     UITextField *codeTF;
@@ -38,7 +36,8 @@
 }
 
 @property(nonatomic, weak)NSTimer *timer;
-@property(nonatomic, strong)JJUILabel *promptLabel;
+@property(nonatomic, strong)UITextView *promptTextView;
+
 @property(nonatomic, strong)UIView *bottomView;
 @property(nonatomic, strong)UIImageView *headImageView;
 
@@ -78,25 +77,39 @@
     return _headImageView;
 }
 
-- (UILabel *)promptLabel{
+-(UITextView *)promptTextView{
     
-    if (_promptLabel == nil) {
+    if (!_promptTextView) {
         
-        _promptLabel = [[JJUILabel alloc] initWithFrame:CGRectMake(0, 94, _bottomView.frame.size.width, 54)];
-        NSString *str = @"未注册小马驾驾账号的手机号，登录时将自动完成注册，且代表您已阅读并同意《小马驾驾用户协议》";
-        NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:str];
-        [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:NSMakeRange(str.length - 10, 10)];
-        [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, str.length - 10)];
-        _promptLabel.attributedText = attrStr;
-        _promptLabel.numberOfLines = 0;
-        _promptLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        _promptLabel.font = [UIFont systemFontOfSize:14.0];
-        _promptLabel.backgroundColor = [UIColor clearColor];
-        [_promptLabel setVerticalAlignment:VerticalAlignmentTop]; 
-        [_promptLabel yb_addAttributeTapActionWithStrings:@[@"《小马驾驾用户协议》"] delegate:self];
+        _promptTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 94, _bottomView.frame.size.width, 54)];
+        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc]initWithString:@"未注册小马驾驾账号的手机号，登录时将自动完成注册，且代表您已阅读并同意《小马驾驾用户协议》"];
+        [attStr addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, attStr.length - 10)];
+
+        [attStr addAttribute:NSLinkAttributeName
+                       value:@"xmjjProtocol://"
+                       range:[[attStr string] rangeOfString:@"《小马驾驾用户协议》"]];
+        _promptTextView.attributedText = attStr;
+        _promptTextView.delegate = self;
+        _promptTextView.editable = NO;
+        _promptTextView.font = [UIFont systemFontOfSize:14.f];
     }
-    return _promptLabel;
+    return _promptTextView;
 }
+
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange{
+    
+    if ([[URL scheme] isEqualToString:@"xmjjProtocol"]) {
+    
+        UserProtocolViewController *userProtocolVC = [[UserProtocolViewController alloc] init];
+        userProtocolVC.dealIdStr = @"1";
+        [self.navigationController pushViewController:userProtocolVC animated:YES];
+        
+        return NO;
+    }
+    
+    return YES;
+}
+
 
 - (UIView *)bottomView{
     
@@ -175,7 +188,7 @@
     UIView *underLineView1 = [[UIView alloc] initWithFrame:CGRectMake(40, 81, _bottomView.frame.size.width - 40, 0.5)];
     underLineView1.backgroundColor = [UIColor lightGrayColor];
     [_bottomView addSubview:underLineView1];
-    [_bottomView addSubview:self.promptLabel];
+    [_bottomView addSubview:self.promptTextView];
 }
 
 //delegate
@@ -183,13 +196,6 @@
     
     [textField resignFirstResponder];
     return YES;
-}
-
-- (void)yb_attributeTapReturnString:(NSString *)string range:(NSRange)range index:(NSInteger)index{
-    
-    UserProtocolViewController *userProtocolVC = [[UserProtocolViewController alloc] init];
-    userProtocolVC.dealIdStr = @"1";
-    [self.navigationController pushViewController:userProtocolVC animated:YES];
 }
 
 - (void)addButtons{
@@ -420,7 +426,7 @@
                     [self.navigationController popToRootViewControllerAnimated:YES];
                 }else{
                     
-                    [self.navigationController popViewControllerAnimated:YES];
+                    [self.navigationController popToRootViewControllerAnimated:YES];
                 }
                 
             }else if ([statusStr isEqualToString:@"-1"]){
@@ -467,7 +473,8 @@
                 NSLog(@"登录返回的数据:%@", data);
                 [self insertDatabase:data];
                 [delegateConfiguation changeLoginStatus];
-                
+                [delegateConfiguation removeAllDelegateMutableA];
+
                 //从修改密码的页面跳转
                 if ([homeTologinStr isEqualToString:@"2"]) {
                     
@@ -475,7 +482,7 @@
                     [self.navigationController popToRootViewControllerAnimated:YES];
                 }else{
                     
-                    [self.navigationController popViewControllerAnimated:YES];
+                    [self.navigationController popToRootViewControllerAnimated:YES];
                 }
 //                MainTabBarViewController *mainTabVC = [[MainTabBarViewController alloc] init];
 //                [self.navigationController pushViewController:mainTabVC animated:YES];

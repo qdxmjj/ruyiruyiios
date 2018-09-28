@@ -13,7 +13,7 @@
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
 #define GenerateTireOrderNotice @"generateTireOrderNotice"
-
+#define ModifyDefaultCarNotification @"modifyDefaultCarNotification"
 #define NUM @"0123456789"
 #define ALPHA @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 #define ALPHANUM @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
@@ -24,12 +24,13 @@
 #define TEXTCOLOR64 [PublicClass colorWithHexString:@"#646464"]
 
 //#define SERVERPREFIX  @"http://192.168.0.190:8060"  //龚林
-//#define SERVERPREFIX  @"http://192.168.0.105:8060"  //于鹏鹉
+//#define SERVERPREFIX  @"http://192.168.0.233:8060"  //于鹏鹉
 //做项目的地址
 //#define SERVERPREFIX @"http://192.168.0.167:8082/xmjj-webservice"
 //发布测试版本的地址
 //#define SERVERPREFIX @"http://ruyiruyi.s1.natapp.cc/xmjj-webservice/"
-//上线版本的服务器地址
+
+//上线版本的服务器地址  正式提交app 唯一地址！
 #define SERVERPREFIX @"http://180.76.243.205:10002/xmjj-webservice/"
 
 //#define SERVERPREFIX @"http://192.168.0.190:8060"

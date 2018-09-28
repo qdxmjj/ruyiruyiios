@@ -21,7 +21,8 @@
 #import "DelegateConfiguration.h"
 #import "SelectTirePositionViewController.h"
 #import "ChoicePatternViewController.h"
-#import "PassImpededViewController.h"
+//#import "PassImpededViewController.h"
+#import "SmoothJourneyViewController.h"
 #import "NearbyViewController.h"
 #import "TireRepairViewController.h"
 #import "FreeChangeViewController.h"
@@ -33,7 +34,7 @@
 
 #import "FirstStartConfiguration.h"
 #import "MBProgressHUD+YYM_category.h"
-@interface HomeViewController ()<UIScrollViewDelegate, SDCycleScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate, CityNameDelegate, UpdateAddCarDelegate, SetDefaultCarDelegate>{
+@interface HomeViewController ()<UIScrollViewDelegate, SDCycleScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate,LoginStatusDelegate, CityNameDelegate>{
     
     CGFloat nameW;
     CGFloat tviewX, tviewY, tviewW, tviewH;
@@ -76,6 +77,7 @@
     [super viewWillAppear:animated];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     self.hidesBottomBarWhenPushed = NO;
+    self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = YES;
 }
 
@@ -236,6 +238,7 @@
         _sdcycleScrollV = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, MAINSCREEN.width, 180) delegate:self placeholderImage:nil];
         _sdcycleScrollV.autoScrollTimeInterval = 3.0;
         _sdcycleScrollV.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
+        _sdcycleScrollV.backgroundColor = [UIColor whiteColor];
         [SDCycleScrollView clearImagesCache];
     }
     return _sdcycleScrollV;
@@ -248,6 +251,7 @@
         _webAdvertisingView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, tviewY + tviewH + 2, MAINSCREEN.width, 120) delegate:self placeholderImage:nil];
         _webAdvertisingView.autoScrollTimeInterval = 3.0;
         _webAdvertisingView.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
+        _webAdvertisingView.backgroundColor = [UIColor whiteColor];
         [SDCycleScrollView clearImagesCache];
     }
     return _webAdvertisingView;
@@ -340,11 +344,7 @@
     NSLog(@"给changeView添加的手势");
 }
 
-- (void)updateLoginStatus{
-    
-    _user_token = [UserConfig token];
-    [self getAndroidHomeDate];
-}
+
 
 - (UIView *)changeView{
     
@@ -429,24 +429,18 @@
     [super viewDidLoad];
     
     _currentCity = @"定位中";
+    
+    //去掉了 添加车辆代理方法 修改默认车辆代理方法  剩下一个 修改默认城市代理方法  日后再改
     DelegateConfiguration *delegateCF = [DelegateConfiguration sharedConfiguration];
     [delegateCF registercityNameListers:self];
     [delegateCF registerLoginStatusChangedListener:self];
-    [delegateCF registeraddCarListers:self
-     ];
-    [delegateCF registerdefaultCarListers:self];
     
     UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20+(SafeAreaTopHeight - 64))];
     statusBarView.backgroundColor = LOGINBACKCOLOR;
     
     [self locateMap];
     self.navigationController.delegate = self;
-    //消除iOS7自带侧翻的效果
-//    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-//
-//        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-//        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-//    }
+
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:statusBarView];
     [self.view addSubview:self.mainScrollV];
@@ -462,9 +456,12 @@
     [_mainScrollV addSubview:self.webAdvertisingView];
     [_mainScrollV setContentSize:CGSizeMake(MAINSCREEN.width, (tviewY+tviewH+82))];
     [self getAndroidHomeDate];
-    // Do any additional setup after loading the view.
     
+    
+    //生成购买轮胎订单的时候 的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(generateTireOrderNoticeEvent) name:GenerateTireOrderNotice object:nil];
+    //设置默认车辆的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(generateTireOrderNoticeEvent) name:ModifyDefaultCarNotification object:nil];
 }
 
 
@@ -560,8 +557,8 @@
             self.tabBarController.selectedIndex = 2;
         }else if (btn.tag == 2000){
             
-            PassImpededViewController *passImpededVC = [[PassImpededViewController alloc] init];
-            [self.navigationController pushViewController:passImpededVC animated:YES];
+            SmoothJourneyViewController *SmoothJourneyVC = [[SmoothJourneyViewController alloc] init];
+            [self.navigationController pushViewController:SmoothJourneyVC animated:YES];
         }else{
             
             NearbyViewController *nearbyVC = [[NearbyViewController alloc] init];
@@ -774,6 +771,8 @@
 -(void)dealloc{
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:GenerateTireOrderNotice object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:ModifyDefaultCarNotification object:nil];
 }
 
 #pragma mark CityNameDelegate
@@ -783,15 +782,21 @@
     [self.locationBtn setTitle:cityNameStr forState:UIControlStateNormal];
 }
 
-#pragma mark UpdateAddCarDelegate
-- (void)updateAddCarNumber{
-    
-    [self getAndroidHomeDate];
-}
+//#pragma mark UpdateAddCarDelegate
+//- (void)updateAddCarNumber{
+//
+//    [self getAndroidHomeDate];
+//}
 
-#pragma mark SetDefaultCarDelegate
-- (void)updateDefaultCar{
+//#pragma mark SetDefaultCarDelegate
+//- (void)updateDefaultCar{
+//
+//    [self getAndroidHomeDate];
+//}
+
+- (void)updateLoginStatus{
     
+    _user_token = [UserConfig token];
     [self getAndroidHomeDate];
 }
 

@@ -7,7 +7,7 @@
 //
 
 #import "PassImpededTableViewCell.h"
-
+#import <Masonry.h>
 @implementation PassImpededTableViewCell
 
 - (UIImageView *)backGroundImageV{
@@ -45,8 +45,22 @@
 - (void)layoutSubviews{
     
     [super layoutSubviews];
-    self.backGroundImageV.frame = CGRectMake(10, 10, MAINSCREEN.width - 20, 100);
-    self.controlTimeLabel.frame = CGRectMake(30, 80, MAINSCREEN.width - 40, 20);
+    
+    [self.backGroundImageV mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.and.right.mas_equalTo(self.contentView);
+        make.top.mas_equalTo(self.contentView.mas_top).inset(10);
+        make.height.mas_equalTo(@100);
+    }];
+    
+    [self.controlTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.mas_equalTo(self.contentView.mas_left).inset(20);
+        make.right.mas_equalTo(self.contentView.mas_right).inset(20);
+        make.top.mas_equalTo(self.contentView.mas_top).inset(80);
+        make.height.mas_equalTo(@20);
+        
+    }];
 }
 
 - (void)setdatatoCellViews:(CarCXWYInfo *)carCXWYInfo{
@@ -64,9 +78,11 @@
         self.controlTimeLabel.text = @"以前的数据";
     }else{
         
-        NSString *startTimeStr = [PublicClass timestampSwitchTime:[carCXWYInfo.cxwyStarttime integerValue] andFormatter:@"YYYY-MM-dd"];
-        NSString *endTimeStr = [PublicClass timestampSwitchTime:[carCXWYInfo.cxwyEndtime integerValue] andFormatter:@"YYYY-MM-dd"];
-        self.controlTimeLabel.text = [NSString stringWithFormat:@"限制使用时间:%@-%@", startTimeStr, endTimeStr];
+//        NSString *startTimeStr = [PublicClass timestampSwitchTime:[carCXWYInfo.cxwyStarttime integerValue] andFormatter:@"YYYY-MM-dd"];
+//        NSString *endTimeStr = [PublicClass timestampSwitchTime:[carCXWYInfo.cxwyEndtime integerValue] andFormatter:@"YYYY-MM-dd"];
+//        self.controlTimeLabel.text = [NSString stringWithFormat:@"限制使用时间:%@-%@", startTimeStr, endTimeStr];
+        self.controlTimeLabel.text = [NSString stringWithFormat:@"限制使用时间：车辆服务年限内有效"];
+
     }
 }
 

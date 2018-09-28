@@ -18,7 +18,7 @@
 #import <SDCycleScrollView.h>
 
 #import "DelegateConfiguration.h"
-@interface NewTirePurchaseViewController ()<LoginStatusDelegate>
+@interface NewTirePurchaseViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *tirePriceLab;
 @property (weak, nonatomic) IBOutlet UILabel *tireDescriptionLab;
@@ -65,18 +65,13 @@
     [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = NO;
-    
-    DelegateConfiguration *delegateCF = [DelegateConfiguration sharedConfiguration];
-    [delegateCF unregisterLoginStatusChangedListener:self];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.title = @"轮胎购买";
-   
-    DelegateConfiguration *delegateCF = [DelegateConfiguration sharedConfiguration];
-    [delegateCF registerLoginStatusChangedListener:self];
+
     self.scycleScrollView.bannerImageViewContentMode = UIViewContentModeScaleAspectFit;
     self.scycleScrollView.backgroundColor = [UIColor whiteColor];
     
@@ -85,8 +80,12 @@
 #pragma mark loginStatus delegate
 - (void)updateLoginStatus{
 
+    //切换账号登录 建议返回到主页面重新进入
+    //由于前后轮一致 跟前后轮不一致 进入的页面不一样  所以 不适合直接刷新当前页面数据
+    //上次账号登录 前后轮不一致  本次登录前后轮一致  会造成 本次登录购买轮胎 是上次登录账号的规格
     
-    [self getNewTireInfo:self.tireSize];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+//    [self getNewTireInfo:self.tireSize];
 }
 
 
@@ -106,6 +105,8 @@
         return;
     }
     
+    JJWeakSelf
+    
     NSDictionary *params = @{@"shoeSize":tireSize,@"userId":[UserConfig user_id],@"userCarId":[UserConfig userCarId]};
     
     [MBProgressHUD showWaitMessage:@"正在获取..." showView:self.view];
@@ -118,39 +119,39 @@
         
         if ([code longLongValue] == -999) {
             
-            [self alertIsequallyTokenView];
+            [weakSelf alertIsequallyTokenView];
             return ;
         }
 
         if ([data isEqual:[NSNull null]] || [data isEqualToArray:@[]]) {
-            [self.navigationController popViewControllerAnimated:YES];
+            [weakSelf.navigationController popViewControllerAnimated:YES];
             [MBProgressHUD showTextMessage:@"如驿如意：此轮胎暂未上线"];
             return ;
         }
     
         if ([code longLongValue] == 1){
             
-            if (self.dataArr.count>0) {
+            if (weakSelf.dataArr.count>0) {
                 
-                [self.dataArr removeAllObjects];
+                [weakSelf.dataArr removeAllObjects];
             }
             
-            [self.dataArr addObjectsFromArray:data];
+            [weakSelf.dataArr addObjectsFromArray:data];
             
             //首次进入页面 默认显示内容
             
             BuyTireData *bTireData = [[BuyTireData alloc] init];
             [bTireData setValuesForKeysWithDictionary:[data[0] objectForKey:@"shoeDetailResult"]];
             
-            self.tireDescriptionLab.text = bTireData.detailStr;
+            weakSelf.tireDescriptionLab.text = bTireData.detailStr;
             
-            self.scycleScrollView.imageURLStringsGroup = @[bTireData.shoeDownImg,bTireData.shoeLeftImg,bTireData.shoeMiddleImg,bTireData.shoeRightImg,bTireData.shoeUpImg];
+            weakSelf.scycleScrollView.imageURLStringsGroup = @[bTireData.shoeDownImg,bTireData.shoeLeftImg,bTireData.shoeMiddleImg,bTireData.shoeRightImg,bTireData.shoeUpImg];
             
             NSString *mini = [[[data[0] objectForKey:@"shoeSpeedLoadResultList"][0] objectForKey:@"priceMap"] objectForKey:@"1"];
             
             NSString *max = [[[data[0] objectForKey:@"shoeSpeedLoadResultList"][0] objectForKey:@"priceMap"] objectForKey:@"15"];
             
-            self.tirePriceLab.text = [NSString stringWithFormat:@"¥%@ - %@",mini,max];
+            weakSelf.tirePriceLab.text = [NSString stringWithFormat:@"¥%@ - %@",mini,max];
         }
         
     } failure:^(NSError * _Nullable error) {
@@ -291,5 +292,4 @@
     
     [self presentViewController:rpVC animated:YES completion:nil];
 }
-
 @end

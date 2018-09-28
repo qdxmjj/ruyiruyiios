@@ -15,8 +15,8 @@ typedef enum
 } VerticalAlignment;
 @interface JJUILabel : UILabel
 {
-@private
-    VerticalAlignment _verticalAlignment;
+//@private
+//    VerticalAlignment _verticalAlignment;
 }
 
 @property (nonatomic) VerticalAlignment verticalAlignment;

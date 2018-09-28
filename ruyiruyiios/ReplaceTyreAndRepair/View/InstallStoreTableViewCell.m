@@ -130,7 +130,7 @@
     [super layoutSubviews];
     self.installStoreLabel.frame = CGRectMake(20, 15, MAINSCREEN.width/2 - 20, 20);
     self.rightImageV.frame = CGRectMake(MAINSCREEN.width - 32, 15, 10, 18);
-    self.storeImageV.frame = CGRectMake(20, 50, (MAINSCREEN.width - 30)*3/8, 110);
+    self.storeImageV.frame = CGRectMake(20, 50, 110, 110);
     self.storeNameLabel.frame = CGRectMake((MAINSCREEN.width - 30)*3/8 + 30, 50, (MAINSCREEN.width - ((MAINSCREEN.width - 30)*3/8 +30 +20)), 20);
     self.locationLabel.frame = CGRectMake(self.storeNameLabel.frame.origin.x, 140, self.storeNameLabel.frame.size.width/2, 20);
     self.distanceLabel.frame = CGRectMake(MAINSCREEN.width - (self.storeNameLabel.frame.size.width/2 + 10), 140, self.storeNameLabel.frame.size.width/2, 20);

@@ -57,6 +57,8 @@
 
 @property(nonatomic,strong)NSDictionary *priceMap;// 速度级别 对应的 价格字典
 
+@property(nonatomic,strong)NSDictionary *cxwyPriceMap;//速度级别 对应的 价格字典
+
 @property(nonatomic,strong)BuyTireData *buyTireData;//轮胎详情
 
 @property(nonatomic,assign)NSInteger    shoeID;
@@ -69,7 +71,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     self.view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     [self.view addSubview:self.backGroupView];
     [self.backGroupView addSubview:self.mainView];
@@ -106,27 +108,27 @@
 -(void)setUI{
     
     [self.backGroupView mas_makeConstraints:^(MASConstraintMaker *make) {
-       
+        
         make.height.mas_equalTo(self.view.mas_height).multipliedBy(.77);
         make.left.and.right.mas_equalTo(self.view);
         make.bottom.mas_equalTo(self.view.mas_bottom);
     }];
     
     [self.confirmBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-       
+        
         make.left.and.right.mas_equalTo(self.backGroupView).inset(10);
         make.height.mas_equalTo(@40);
         make.bottom.mas_equalTo(self.backGroupView.mas_bottom).inset(bottom_height);
     }];
     
     [self.mainView mas_makeConstraints:^(MASConstraintMaker *make) {
-
+        
         make.top.mas_equalTo(self.backGroupView.mas_top);
         make.left.and.right.mas_equalTo(self.backGroupView);
         make.centerX.mas_equalTo(self.backGroupView.mas_centerX);
         make.bottom.mas_equalTo(self.confirmBtn.mas_top);
     }];
-
+    
     [self.imgView mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.mas_equalTo(self.mainView.mas_top).inset(10);
@@ -135,21 +137,21 @@
     }];
     
     [self.priceLab mas_makeConstraints:^(MASConstraintMaker *make) {
-       
+        
         make.top.mas_equalTo(self.imgView.mas_top);
         make.height.mas_equalTo(20);
         make.left.mas_equalTo(self.imgView.mas_right).inset(5);
     }];
     
     [self.dismissBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-       
+        
         make.right.mas_equalTo(self.view.mas_right).inset(10);
         make.top.mas_equalTo(self.imgView.mas_top);
         make.width.and.height.mas_equalTo(CGSizeMake(30, 30));
     }];
     
     [self.contentLab mas_makeConstraints:^(MASConstraintMaker *make) {
-       
+        
         make.top.mas_equalTo(self.priceLab.mas_bottom).inset(3);
         make.left.mas_equalTo(self.imgView.mas_right).inset(5);
         make.right.mas_equalTo(self.view.mas_right).inset(10);
@@ -166,7 +168,7 @@
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.mas_equalTo(self.view);
         make.top.mas_equalTo(self.patternLab.mas_bottom).inset(5);
-//        make.height.mas_equalTo(@40);
+        //        make.height.mas_equalTo(@40);
         
         if (self.patternArr.count%3 != 0) {
             
@@ -223,7 +225,7 @@
     }];
     
     [self.stepper1 mas_makeConstraints:^(MASConstraintMaker *make) {
-       
+        
         make.right.mas_equalTo(self.view.mas_right).inset(10);
         make.centerY.mas_equalTo(self.tireNumberLab.mas_centerY);
         make.height.mas_equalTo(@35);
@@ -237,12 +239,12 @@
     }];
     
     [self.cxwyPrice mas_makeConstraints:^(MASConstraintMaker *make) {
-
+        
         make.left.mas_equalTo(self.noWorriesBtn.mas_right);
         make.centerY.mas_equalTo(self.noWorriesBtn.mas_centerY);
         make.height.mas_equalTo(@40);
     }];
-
+    
     [self.stepper2 mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.right.mas_equalTo(self.view.mas_right).inset(10);
@@ -251,7 +253,7 @@
     }];
     
     [self.descriptionLab mas_makeConstraints:^(MASConstraintMaker *make) {
-       
+        
         make.left.and.right.mas_equalTo(self.view).inset(10);
         make.top.mas_equalTo(self.noWorriesBtn.mas_bottom);
         make.bottom.mas_equalTo(self.mainView.mas_bottom);
@@ -361,7 +363,7 @@
         _speedLab = [[UILabel alloc] init];
         _speedLab.text = @"速度级别";
         _speedLab.textColor = TEXTCOLOR64;
-
+        
     }
     return _speedLab;
 }
@@ -371,7 +373,7 @@
         _serviceLab = [[UILabel alloc] init];
         _serviceLab.text = @"服务年限";
         _serviceLab.textColor = TEXTCOLOR64;
-
+        
     }
     return _serviceLab;
 }
@@ -381,7 +383,7 @@
         _tireNumberLab = [[UILabel alloc] init];
         _tireNumberLab.text = @"轮胎数量";
         _tireNumberLab.textColor = TEXTCOLOR64;
-
+        
     }
     return _tireNumberLab;
 }
@@ -444,7 +446,7 @@
         _collectionView.dataSource = self;
         _collectionView.backgroundColor = [UIColor whiteColor];
         [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([SelectBuyTireInfoCell class]) bundle:nil] forCellWithReuseIdentifier:@"tireInfoCollectionViewCellID"];
-
+        
     }
     return _collectionView;
 }
@@ -472,7 +474,7 @@
         
         _jjSliderView = [[JJSliderView alloc] init];
         _jjSliderView.backgroundColor = [UIColor whiteColor];
-//        _jjSliderView.maximum = 15.f;
+        //        _jjSliderView.maximum = 15.f;
         _jjSliderView.minimum = 1.f;
     }
     return _jjSliderView;
@@ -508,6 +510,16 @@
         _priceMap = [NSDictionary dictionary];
     }
     return _priceMap;
+}
+
+-(NSDictionary *)cxwyPriceMap{
+    
+    if (!_cxwyPriceMap) {
+        
+        _cxwyPriceMap = [NSDictionary dictionary];
+    }
+    
+    return _cxwyPriceMap;
 }
 -(BuyTireData *)buyTireData{
     
@@ -556,7 +568,7 @@
                              [NSString stringWithFormat:@"%.0f",self.stepper1.value],
                              [NSString stringWithFormat:@"%.0f",self.stepper2.value],
                              self.cxwyPrice.text,
-                             self.buyTireData,[NSString stringWithFormat:@"%ld",self.shoeID],
+                             self.buyTireData,[NSString stringWithFormat:@"%ld",(long)self.shoeID],
                              remainYear,
                              self.imgURL
                              );
@@ -564,50 +576,78 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-
 -(void)setPatternArr:(NSArray *)patternArr{
     
     _patternArr = patternArr;
-        
+    
     //设置默认展示图片
     [self.imgView sd_setImageWithURL:[patternArr[0] objectForKey:@"imgMiddleUrl"]];
     
     self.imgURL = [patternArr[0] objectForKey:@"imgMiddleUrl"];
     
     [self.collectionView reloadData];
-
+    
     JJWeakSelf
     self.jjSliderView.numberChangeBlock = ^(NSString *numberStr) {
         
+        if (weakSelf.priceMap.count<=0) {
+            
+            return ;
+        }
         //根据服务年限改变 当前样式轮胎！ 的价格!
         weakSelf.priceLab.text = [NSString stringWithFormat:@"¥%@",[weakSelf.priceMap objectForKey:numberStr]];
+        
+        if (weakSelf.stepper2.value >0) {
+            
+            //如果存在畅行无忧 修改服务年限 也需要修改畅行无忧价格  仅限于新版本 老版本 不根据服务年限来获取畅行无忧价格
+            [weakSelf valueChangedWithValue:weakSelf.stepper2.value stepper:weakSelf.stepper2];
+        }
     };
 }
 
+//获取畅行无忧价格
 -(void)valueChangedWithValue:(CGFloat)value stepper:(HYStepper *)stepper{
     
     if ([stepper isEqual:self.stepper2]) {
-    
+        
         if ([[NSString stringWithFormat:@"%.0f",value] integerValue] == 0) {
             
             self.cxwyPrice.text =@"";
             return;
         }
         
-        NSArray *arr = self.buyTireData.cxwyPriceParamList;
-
-        for (NSDictionary *dic in arr) {
+        //        //老版本取价格
+        //        NSArray *arr = self.buyTireData.cxwyPriceParamList;
+        //        for (NSDictionary *dic in arr) {
+        //
+        //            if ([[dic objectForKey:@"id"] longLongValue] == [[NSString stringWithFormat:@"%.0f",value] integerValue]) {
+        //
+        //                // rate * shoeBasePrice / 100 == 实际显示价格
+        //                NSInteger shoeBasePrice = [self.buyTireData.shoeBasePrice integerValue];
+        //                NSInteger cxwyPrice =  [[dic objectForKey:@"rate"] integerValue] * shoeBasePrice /100;
+        //                self.cxwyPrice.text = [NSString stringWithFormat:@"¥%ld",cxwyPrice];
+        //            }
+        //        }
+        
+        //新版取价格  先取选了多少年的轮胎服务年限 再取选了多少年的畅行无忧
+        //        NSDictionary *cxwyPriceMap = self.buyTireData.cxwyPriceMap;
+        
+        
+        //新新版 =.= 重设畅行无忧价格 畅行无忧价格赛选条件: 先根据 速度级别列表 查询畅行无忧价格表 然后 查询对应服务年限 对应畅行无忧数量的价格
+        if (self.cxwyPriceMap.count<=0) {
             
-            if ([[dic objectForKey:@"id"] longLongValue] == [[NSString stringWithFormat:@"%.0f",value] integerValue]) {
-                
-                // rate * shoeBasePrice / 100 == 实际显示价格
-                NSInteger shoeBasePrice = [self.buyTireData.shoeBasePrice integerValue];
-                NSInteger cxwyPrice =  [[dic objectForKey:@"rate"] integerValue] * shoeBasePrice /100;
-                self.cxwyPrice.text = [NSString stringWithFormat:@"¥%ld",cxwyPrice];
-            }
+            return;
         }
+        
+        NSString *newCxwyPrice = self.cxwyPriceMap[self.jjSliderView.currentValueStr][[NSString stringWithFormat:@"%.0f",value]];
+        NSLog(@"当前的价格：%@",newCxwyPrice);
+        self.cxwyPrice.text = newCxwyPrice;
+        
     }else{
+        
     }
+    
+    
 }
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -619,7 +659,7 @@
         
         cell.titleLab.text = [[self.patternArr[indexPath.row] objectForKey:@"shoeDetailResult"] objectForKey:@"figure"];
         [self.imgView sd_setImageWithURL:[self.patternArr[indexPath.row] objectForKey:@"imgMiddleUrl"]];
-
+        
         return cell;
         
     }else{
@@ -664,10 +704,10 @@
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-  
+    
     
     if ([collectionView isEqual:self.collectionView]) {
-
+        
         /*选择花纹item*/
         //重置速度级别数组
         self.shoeSpeedLoadResultList = [_patternArr[indexPath.row] objectForKey:@"shoeSpeedLoadResultList"];
@@ -686,19 +726,22 @@
         self.shoeID = 0;
         //重置已选内容
         self.contentLab.text = [NSString stringWithFormat:@"已选 %@",self.buyTireData.figure];
-
+        
         //刷新速度级别
         [self.collectionView1 reloadData];
         
         [self.collectionView1 mas_updateConstraints:^(MASConstraintMaker *make) {
             
             if (self.shoeSpeedLoadResultList.count%3 != 0) {
-
+                
                 make.height.mas_equalTo(40*(self.shoeSpeedLoadResultList.count/3 + 1)+((self.shoeSpeedLoadResultList.count/3)*11));
             }else{
                 make.height.mas_equalTo(40*(self.shoeSpeedLoadResultList.count/3)+((self.shoeSpeedLoadResultList.count/3)*11));
             }
         }];
+        
+        //清空 畅行无忧价格字典
+        self.cxwyPriceMap = @{};
         
         //选中色
         SelectBuyTireInfoCell *cell = (SelectBuyTireInfoCell *)[collectionView cellForItemAtIndexPath:indexPath];
@@ -707,25 +750,36 @@
         cell.titleLab.backgroundColor = [LOGINBACKCOLOR colorWithAlphaComponent:0.1];
         
     }else if([collectionView isEqual:self.collectionView1]){
-
+        
         /*选择速度级别item*/
         
         //设置速度级别对应的价格字典
         self.priceMap = [self.shoeSpeedLoadResultList[indexPath.row] objectForKey:@"priceMap"];
         //设置轮胎ID
         self.shoeID = [[self.shoeSpeedLoadResultList[indexPath.row] objectForKey:@"shoeId"] integerValue];
-
+        
+        self.cxwyPriceMap = [self.shoeSpeedLoadResultList[indexPath.row] objectForKey:@"cxwyPriceMap"];
         //重设显示的内容
         NSString *str = [self.shoeSpeedLoadResultList[indexPath.row] objectForKey:@"speedLoadStr"];
         self.contentLab.text = [NSString stringWithFormat:@"已选 %@,%@",self.buyTireData.figure,[str componentsSeparatedByString:@"/￥"][0]];
         
-        //重设显示的价格
+        //重设显示的轮胎价格
         if ([self.service_end_date isEqualToString:@""] || self.service_end_date == nil || [self.service_end_date isEqual:[NSNull null]]) {
-
+            
             self.priceLab.text = [NSString stringWithFormat:@"¥%@",[self.priceMap objectForKey:self.jjSliderView.currentValueStr]];
         }else{
             
+            //默认年限价格，服务年限不可选
             self.priceLab.text = [NSString stringWithFormat:@"¥%@",[self.priceMap objectForKey:self.service_year_length]];
+        }
+        
+        //重设畅行无忧价格 畅行无忧价格赛选条件: 先根据 速度级别列表 查询畅行无忧价格表 然后 查询对应服务年限 对应畅行无忧数量的价格
+        if (self.cxwyPriceMap.count<=0|| self.stepper2.value<=0) {
+            
+            
+        }else{
+            NSString *newCxwyPrice = self.cxwyPriceMap[self.jjSliderView.currentValueStr][[NSString stringWithFormat:@"%.0f",self.stepper2.value]];
+            self.cxwyPrice.text = newCxwyPrice;
         }
         
         //选中色
@@ -734,8 +788,8 @@
         cell.titleLab.layer.borderColor = LOGINBACKCOLOR.CGColor;
         cell.titleLab.backgroundColor = [LOGINBACKCOLOR colorWithAlphaComponent:0.1];
     }
-
-
+    
+    
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -745,7 +799,7 @@
     cell.titleLab.layer.borderColor = [UIColor lightGrayColor].CGColor;
     cell.titleLab.textColor = [UIColor blackColor];
     cell.titleLab.backgroundColor = [UIColor whiteColor];
-
+    
 }
 
 - (void)didReceiveMemoryWarning {

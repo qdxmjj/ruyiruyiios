@@ -37,7 +37,7 @@
 - (void)layoutSubviews{
     
     [super layoutSubviews];
-    self.functionLabel.frame = CGRectMake(0, 0, 64, 20);
+    self.functionLabel.frame = self.bounds;
 }
 
 - (void)setDatatoBtn:(StoreServiceInfo *)serviceInfo{
