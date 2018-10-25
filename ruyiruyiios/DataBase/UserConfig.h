@@ -72,4 +72,6 @@
 +(NSString *)wxInfoId;
 
 +(NSNumber *)userCarId;
+
++(NSString *)selectCityName;
 @end

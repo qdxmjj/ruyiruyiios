@@ -126,10 +126,9 @@
     AFNetworkReachabilityManager *reachabilityManager = [AFNetworkReachabilityManager sharedManager];
     if (!reachabilityManager.isReachableViaWiFi) {
         
-        
     }
     
-    AFHTTPSessionManager *manager = [self sharedHTTPSession];
+    AFHTTPSessionManager *manager = [self getRequestManager];
     
     [manager POST:[NSString stringWithFormat:@"%@/%@",SERVERPREFIX,url] parameters:params progress:nil
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject){
@@ -286,7 +285,7 @@
         return;
     }
     
-    AFHTTPSessionManager *manager = [self sharedHTTPSession];
+    AFHTTPSessionManager *manager = [self getRequestManager];
     
     //上传图片延长 上传时间
 //    if ([self rangeOfString:url string:@"AddPunchclock"]) {

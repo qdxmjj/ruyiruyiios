@@ -170,4 +170,9 @@
     
     return [self userDefaultsGetObjectForKey:@"userCarId"];
 }
+
++(NSString *)selectCityName{
+    
+    return [self userDefaultsGetObjectForKey:@"selectCityName"];
+}
 @end

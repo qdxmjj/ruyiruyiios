@@ -744,12 +744,14 @@
         if (placemarks.count >0) {
             
             CLPlacemark *placeMark = placemarks[0];
-            _currentCity = placeMark.locality;
+            _currentCity = placeMark.subLocality;//2018.10.24 改为默认显示县 之前默认为市
+            NSString *currentStr = placeMark.locality;//2018.10.24 改为默认显示县 之前默认为市
             if (!_currentCity) {
                 
                 _currentCity = @"无法定位当前城市";
             }
-            [[NSUserDefaults standardUserDefaults] setObject:_currentCity forKey:@"currentCity"];
+            [[NSUserDefaults standardUserDefaults] setObject:_currentCity forKey:@"currentCity"];//存储 当前定位的信息 县
+            [UserConfig userDefaultsSetObject:currentStr key:@"selectCityName"];//初始化 默认选择的城市
             [self.locationBtn setTitle:_currentCity forState:UIControlStateNormal];
         }else if (error == nil && placemarks.count){
             
@@ -778,7 +780,6 @@
 #pragma mark CityNameDelegate
 - (void)updateCityName:(NSString *)cityNameStr{
     
-    [[NSUserDefaults standardUserDefaults] setObject:cityNameStr forKey:@"currentCity"];
     [self.locationBtn setTitle:cityNameStr forState:UIControlStateNormal];
 }
 

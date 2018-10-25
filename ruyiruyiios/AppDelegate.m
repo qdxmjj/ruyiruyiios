@@ -75,6 +75,9 @@
 //    }
     
     
+    
+    
+    
     //新版本获取首次登录配置信息
     FirstStartConfiguration *first = [[FirstStartConfiguration alloc] init];
     [first StartConfigurationDataAndNetwork];

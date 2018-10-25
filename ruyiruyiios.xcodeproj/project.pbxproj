@@ -11,6 +11,11 @@
 		0421E453215334D60087FF87 /* CxwyFreeReplaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0421E451215334D60087FF87 /* CxwyFreeReplaceViewController.m */; };
 		0421E454215334D60087FF87 /* CxwyFreeReplaceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0421E452215334D60087FF87 /* CxwyFreeReplaceViewController.xib */; };
 		0421E4572153480A0087FF87 /* CxwyFreeReplaceFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0421E4562153480A0087FF87 /* CxwyFreeReplaceFlowLayout.m */; };
+		043E0FF2218026740011D648 /* PopularCityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 043E0FF1218026740011D648 /* PopularCityCell.m */; };
+		043E0FF52180427A0011D648 /* CurrentCityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 043E0FF42180427A0011D648 /* CurrentCityView.m */; };
+		04482979217D5EEA00C6E2CE /* FJStoreToppingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04482978217D5EEA00C6E2CE /* FJStoreToppingView.m */; };
+		0448297D217D61FF00C6E2CE /* FJStoreToppingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0448297B217D61FF00C6E2CE /* FJStoreToppingCell.m */; };
+		0448297E217D61FF00C6E2CE /* FJStoreToppingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0448297C217D61FF00C6E2CE /* FJStoreToppingCell.xib */; };
 		1A3CB3004D62FF11EDC9B585 /* libPods-ruyiruyiios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D40C758474E7181E97834C56 /* libPods-ruyiruyiios.a */; };
 		36071A3F20ECCBB70089E633 /* FreeChangHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 36071A3120ECCBB10089E633 /* FreeChangHeaderView.m */; };
 		36071A4020ECCBB70089E633 /* FreeChangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36071A3320ECCBB20089E633 /* FreeChangeViewController.m */; };
@@ -891,6 +896,15 @@
 		0421E452215334D60087FF87 /* CxwyFreeReplaceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CxwyFreeReplaceViewController.xib; sourceTree = "<group>"; };
 		0421E4552153480A0087FF87 /* CxwyFreeReplaceFlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CxwyFreeReplaceFlowLayout.h; sourceTree = "<group>"; };
 		0421E4562153480A0087FF87 /* CxwyFreeReplaceFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CxwyFreeReplaceFlowLayout.m; sourceTree = "<group>"; };
+		043E0FF0218026740011D648 /* PopularCityCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopularCityCell.h; sourceTree = "<group>"; };
+		043E0FF1218026740011D648 /* PopularCityCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PopularCityCell.m; sourceTree = "<group>"; };
+		043E0FF32180427A0011D648 /* CurrentCityView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CurrentCityView.h; sourceTree = "<group>"; };
+		043E0FF42180427A0011D648 /* CurrentCityView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CurrentCityView.m; sourceTree = "<group>"; };
+		04482977217D5EEA00C6E2CE /* FJStoreToppingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FJStoreToppingView.h; sourceTree = "<group>"; };
+		04482978217D5EEA00C6E2CE /* FJStoreToppingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FJStoreToppingView.m; sourceTree = "<group>"; };
+		0448297A217D61FF00C6E2CE /* FJStoreToppingCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FJStoreToppingCell.h; sourceTree = "<group>"; };
+		0448297B217D61FF00C6E2CE /* FJStoreToppingCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FJStoreToppingCell.m; sourceTree = "<group>"; };
+		0448297C217D61FF00C6E2CE /* FJStoreToppingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FJStoreToppingCell.xib; sourceTree = "<group>"; };
 		36071A3120ECCBB10089E633 /* FreeChangHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreeChangHeaderView.m; sourceTree = "<group>"; };
 		36071A3320ECCBB20089E633 /* FreeChangeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreeChangeViewController.m; sourceTree = "<group>"; };
 		36071A3420ECCBB20089E633 /* FreeChangeSelectPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreeChangeSelectPhotoCell.m; sourceTree = "<group>"; };
@@ -2294,6 +2308,11 @@
 				36C80A2B20D89C640036C14A /* JJMenuView.m */,
 				36C80A2F20D89C640036C14A /* TopBarView.h */,
 				36C80A3020D89C640036C14A /* TopBarView.m */,
+				04482977217D5EEA00C6E2CE /* FJStoreToppingView.h */,
+				04482978217D5EEA00C6E2CE /* FJStoreToppingView.m */,
+				0448297A217D61FF00C6E2CE /* FJStoreToppingCell.h */,
+				0448297B217D61FF00C6E2CE /* FJStoreToppingCell.m */,
+				0448297C217D61FF00C6E2CE /* FJStoreToppingCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -2595,6 +2614,10 @@
 				438B2AFA20B7EC41004A7E2A /* ManageCarViewController.m */,
 				434DB63C20BCE3C10077234D /* LocationViewController.h */,
 				434DB63D20BCE3C10077234D /* LocationViewController.m */,
+				043E0FF32180427A0011D648 /* CurrentCityView.h */,
+				043E0FF42180427A0011D648 /* CurrentCityView.m */,
+				043E0FF0218026740011D648 /* PopularCityCell.h */,
+				043E0FF1218026740011D648 /* PopularCityCell.m */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -3911,6 +3934,7 @@
 				43F874B620CE23CC007D1C2E /* ic_weixuan@2x.png in Resources */,
 				435E5AF920A19088005C8BDA /* ic_wodeche.png in Resources */,
 				435E59E720A18FD1005C8BDA /* banner1@2x.png in Resources */,
+				0448297E217D61FF00C6E2CE /* FJStoreToppingCell.xib in Resources */,
 				435E59AC20A18FD1005C8BDA /* 定位@1x.png in Resources */,
 				435E59EC20A18FD1005C8BDA /* 首页2@3x.png in Resources */,
 				435E5ABA20A19088005C8BDA /* ic_kefu@3x.png in Resources */,
@@ -4475,6 +4499,7 @@
 				43F874F320CE654D007D1C2E /* FontAndRearInfo.m in Sources */,
 				431FC5D920AB003E00EF97CA /* FMDBCarFactory.m in Sources */,
 				438B2B0120B7F681004A7E2A /* ManageCar.m in Sources */,
+				04482979217D5EEA00C6E2CE /* FJStoreToppingView.m in Sources */,
 				43BBC3A020C67CEC002C2FE6 /* OderMiddleView.m in Sources */,
 				439D060F20BE446D00379414 /* QualityServiceViewController.m in Sources */,
 				36173DD62140C73D004AA13F /* FirstStartConfiguration.m in Sources */,
@@ -4628,6 +4653,7 @@
 				36C80A4920D89C640036C14A /* BootView.m in Sources */,
 				430677A020AED59F003BB046 /* ZZYPhotoHelper.m in Sources */,
 				4358CAAA20A3DC3D006B456F /* WXZPickDateView.m in Sources */,
+				043E0FF52180427A0011D648 /* CurrentCityView.m in Sources */,
 				36B72DDE20EDB26C00A4BD67 /* FreeChangeFooterView.m in Sources */,
 				439D061E20BE860800379414 /* UserConfig.m in Sources */,
 				4332362420B29BF0008F45FD /* SelectProductYearViewController.m in Sources */,
@@ -4672,6 +4698,7 @@
 				43F874D820CE489B007D1C2E /* TobeReplacedTableViewCell.m in Sources */,
 				43B1BEC120EA1D06008E3E1A /* HXAlbumModel.m in Sources */,
 				43B1BEC220EA1D06008E3E1A /* UIButton+HXExtension.m in Sources */,
+				043E0FF2218026740011D648 /* PopularCityCell.m in Sources */,
 				4326299220E23FE0006E2CCA /* MyEvaluationTableViewCell.m in Sources */,
 				36C80A3F20D89C640036C14A /* SearchCollectionViewCell.m in Sources */,
 				4311E99C20D9F07A00F74960 /* CouponTableViewCell.m in Sources */,
@@ -4708,6 +4735,7 @@
 				4307036820CA1E030044EBCE /* MyOrderViewController.m in Sources */,
 				36C80A4F20D89C640036C14A /* ShopCartTableViewCell.m in Sources */,
 				4307036B20CA29700044EBCE /* MyOrderTableViewCell.m in Sources */,
+				0448297D217D61FF00C6E2CE /* FJStoreToppingCell.m in Sources */,
 				4326299520E26998006E2CCA /* MyEvaluateCollectionViewCell.m in Sources */,
 				36C80A5620D89C640036C14A /* StoreDetailsModel.m in Sources */,
 				43B1BEB920EA1D06008E3E1A /* UIImage+HXExtension.m in Sources */,
