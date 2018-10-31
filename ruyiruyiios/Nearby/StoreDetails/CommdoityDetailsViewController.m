@@ -518,7 +518,7 @@ static NSInteger const HeadViewH = 150;
     if (!_directoryVC) {
         
         _directoryVC = [[DirectoryTableViewController alloc] initWithStyle:UITableViewStylePlain];
-        _directoryVC.tableView.frame = CGRectMake(0, HeadViewH+45+2, self.view.frame.size.width/4+10, self.view.frame.size.height-HeadViewH-45-45-2);
+        _directoryVC.tableView.frame = CGRectMake(0, HeadViewH+45+2, self.view.frame.size.width/4+10, self.view.frame.size.height-HeadViewH-45-45-2-bottom_height);
         _directoryVC.tableView.backgroundColor = [UIColor colorWithRed:230/255.f green:230/255.f blue:230/255.f alpha:1.f];
     }
     
@@ -530,11 +530,8 @@ static NSInteger const HeadViewH = 150;
     if (!_contentVC) {
         
         _contentVC = [[ContentTableViewController alloc] initWithStyle:UITableViewStylePlain];
-        
-        _contentVC.tableView.frame = CGRectMake(self.view.frame.size.width/4+10, HeadViewH+45+2, self.view.frame.size.width-self.view.frame.size.width/4-10, self.view.frame.size.height-HeadViewH-45-45-2);
+        _contentVC.tableView.frame = CGRectMake(self.view.frame.size.width/4+10, HeadViewH+45+2, self.view.frame.size.width-self.view.frame.size.width/4-10, self.view.frame.size.height-HeadViewH-45-45-2-bottom_height);
     }
-    
-    
     return _contentVC;
 }
 
@@ -559,7 +556,6 @@ static NSInteger const HeadViewH = 150;
         [_headV.backBtn addTarget:self action:@selector(popViewController) forControlEvents:UIControlEventTouchUpInside];
         [_headV.itemBtn addTarget:self action:@selector(pushStoreDetailsVC) forControlEvents:UIControlEventTouchUpInside];
     }
-    
     return _headV;
 }
 
@@ -569,7 +565,6 @@ static NSInteger const HeadViewH = 150;
         
         _tabbarV = [[TabbarView alloc] initWithFrame:CGRectMake(0, HeadViewH, self.view.frame.size.width, 45)];
     }
-    
     return _tabbarV;
 }
 
@@ -578,7 +573,6 @@ static NSInteger const HeadViewH = 150;
     if (!_shopCartView) {
         
         _shopCartView = [[ShopCartView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-self.bootV.frame.size.height-bottom_height)];
-        
         [self.directoryVC.tableView bringSubviewToFront:_shopCartView];
     }
     return _shopCartView;
@@ -590,7 +584,6 @@ static NSInteger const HeadViewH = 150;
         
         _contentVCDataArr = [NSMutableArray array];
     }
-    
     return _contentVCDataArr;
 }
 
@@ -600,7 +593,6 @@ static NSInteger const HeadViewH = 150;
         
         _meirongArr = [NSMutableArray array];
     }
-    
     return _meirongArr;
 }
 
@@ -610,7 +602,6 @@ static NSInteger const HeadViewH = 150;
         
         _baoyangArr = [NSMutableArray array];
     }
-    
     return _baoyangArr;
 }
 
@@ -620,7 +611,6 @@ static NSInteger const HeadViewH = 150;
         
         _fuwuArr = [NSMutableArray array];
     }
-    
     return _fuwuArr;
 }
 
@@ -630,7 +620,6 @@ static NSInteger const HeadViewH = 150;
         
         _anzhuangArr = [NSMutableArray array];
     }
-    
     return _anzhuangArr;
 }
 
@@ -643,7 +632,6 @@ static NSInteger const HeadViewH = 150;
         [_badgeNumberDic setObject:@"0" forKey:@"3"];
         [_badgeNumberDic setObject:@"0" forKey:@"4"];
         [_badgeNumberDic setObject:@"0" forKey:@"5"];
-
     }
     return _badgeNumberDic;
 }
@@ -656,7 +644,6 @@ static NSInteger const HeadViewH = 150;
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"ShopCartLessNotification" object:nil];
     
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"ShopCartPlusNotification" object:nil];
-
 }
 
 

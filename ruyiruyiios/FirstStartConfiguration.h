@@ -12,6 +12,6 @@
 
 -(void)StartConfigurationDataAndNetwork;
 
--(void)configCarInfoWithCityInfo;
+-(void)configCarInfoWithCityInfo:(BOOL)firstInsert;
 
 @end

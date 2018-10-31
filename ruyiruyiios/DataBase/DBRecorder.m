@@ -44,7 +44,6 @@
                             
                             NSLog(@"更新成功");
                         }
-                        
                     }else{
                         
                         [db executeUpdate:@"insert into carFactory(carBrandId, factory, factoryId, system, time) values(?,?,?,?,?)", carBrand_Str, carFactory.factory, factoryId_Str, system_Str, carFactory.time];
@@ -120,22 +119,23 @@
                 carFactory.factoryId = [NSNumber numberWithInt:[factoryRs intForColumn:@"factoryId"]];
                 carFactory.system = [NSNumber numberWithInt:[factoryRs intForColumn:@"system"]];
                 carFactory.time = [factoryRs stringForColumn:@"time"];
-                NSString *timeStr = [PublicClass timestampSwitchTime:[carFactory.time integerValue] andFormatter:@"YYYY-MM-dd HH:mm:ss"];
+                NSString *timeStr = [NSString stringWithFormat:@"%ld",[carFactory.time integerValue]];//直接比较时间戳
+//                [PublicClass timestampSwitchTime:[carFactory.time integerValue] andFormatter:@"YYYY-MM-dd HH:mm:ss"];
                 [timeArray addObject:timeStr];
             }
             factoryPaixArray = [timeArray sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
-                if (obj1 == [NSNull null]) {
-                    obj1 = @"0000-00-00 00:00:00";
-                }
-                if (obj2 == [NSNull null]) {
-                    obj2 = @"0000-00-00 00:00:00";
-                }
-                NSDate *date1 = [formatter dateFromString:obj1];
-                NSDate *date2 = [formatter dateFromString:obj2];
-                NSComparisonResult result = [date1 compare:date2];
-                return result = NSOrderedAscending;
+//                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//                [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+//                if (obj1 == [NSNull null]) {
+//                    obj1 = @"0000-00-00 00:00:00";
+//                }
+//                if (obj2 == [NSNull null]) {
+//                    obj2 = @"0000-00-00 00:00:00";
+//                }
+//                NSDate *date1 = [formatter dateFromString:obj1];
+//                NSDate *date2 = [formatter dateFromString:obj2];
+                NSComparisonResult result = [obj1 compare:obj2];
+                return result = NSOrderedDescending;
             }];
             [factoryRs close];
         }else{
@@ -247,21 +247,23 @@
                 carBrand.name = [brandRs stringForColumn:@"name"];
                 carBrand.system = [NSNumber numberWithInt:[brandRs intForColumn:@"system"]];
                 carBrand.time = [brandRs stringForColumn:@"time"];
-                NSString *timeStr = [PublicClass timestampSwitchTime:[carBrand.time integerValue] andFormatter:@"YYYY-MM-dd HH:mm:ss"];
+//                NSString *timeStr = [PublicClass timestampSwitchTime:[carBrand.time integerValue] andFormatter:@"YYYY-MM-dd HH:mm:ss"];
+                NSString *timeStr = [NSString stringWithFormat:@"%ld",[carBrand.time integerValue]];//直接比较时间戳
+
                 [brandTimeArray addObject:timeStr];
             }
             brandPaixArray = [brandTimeArray sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
-                if (obj1 == [NSNull null]) {
-                    obj1 = @"0000-00-00 00:00:00";
-                }
-                if (obj2 == [NSNull null]) {
-                    obj2 = @"0000-00-00 00:00:00";
-                }
-                NSDate *brandDate1 = [formatter dateFromString:obj1];
-                NSDate *brandDate2 = [formatter dateFromString:obj2];
-                NSComparisonResult result = [brandDate1 compare:brandDate2];
+//                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//                [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+//                if (obj1 == [NSNull null]) {
+//                    obj1 = @"0000-00-00 00:00:00";
+//                }
+//                if (obj2 == [NSNull null]) {
+//                    obj2 = @"0000-00-00 00:00:00";
+//                }
+//                NSDate *brandDate1 = [formatter dateFromString:obj1];
+//                NSDate *brandDate2 = [formatter dateFromString:obj2];
+                NSComparisonResult result = [obj1 compare:obj2];
                 return result == NSOrderedAscending;
             }];
             [brandRs close];
@@ -382,21 +384,22 @@
                 carVerhicle.time = [verhicleRs stringForColumn:@"time"];
                 carVerhicle.verhicle = [verhicleRs stringForColumn:@"verhicle"];
                 carVerhicle.verify = [NSNumber numberWithInt:[verhicleRs intForColumn:@"verify"]];
-                NSString *timeStr = [PublicClass timestampSwitchTime:[carVerhicle.time integerValue] andFormatter:@"YYYY-MM-dd HH:mm:ss"];
+//                NSString *timeStr = [PublicClass timestampSwitchTime:[carVerhicle.time integerValue] andFormatter:@"YYYY-MM-dd HH:mm:ss"];
+                NSString *timeStr = [NSString stringWithFormat:@"%ld",[carVerhicle.time integerValue]];//直接比较时间戳
                 [verhicleTimeArry addObject:timeStr];
             }
             verhiclePaixArray = [verhicleTimeArry sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
-                if (obj1 == [NSNull null]) {
-                    obj1 = @"0000-00-00 00:00:00";
-                }
-                if (obj2 == [NSNull null]) {
-                    obj2 = @"0000-00-00 00:00:00";
-                }
-                NSDate *date1 = [formatter dateFromString:obj1];
-                NSDate *date2 = [formatter dateFromString:obj2];
-                NSComparisonResult result = [date1 compare:date2];
+//                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//                [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+//                if (obj1 == [NSNull null]) {
+//                    obj1 = @"0000-00-00 00:00:00";
+//                }
+//                if (obj2 == [NSNull null]) {
+//                    obj2 = @"0000-00-00 00:00:00";
+//                }
+//                NSDate *date1 = [formatter dateFromString:obj1];
+//                NSDate *date2 = [formatter dateFromString:obj2];
+                NSComparisonResult result = [obj1 compare:obj2];
                 return result == NSOrderedAscending;
             }];
             [verhicleRs close];
@@ -698,21 +701,23 @@
                 carTireType.tireFlatnessRatio = [tireTypeRs stringForColumn:@"tireFlatnessRatio"];
                 carTireType.tireState = [NSNumber numberWithInt:[tireTypeRs intForColumn:@"tireState"]];
                 carTireType.tireTypeId = [NSNumber numberWithInt:[tireTypeRs intForColumn:@"tireTypeId"]];
-                NSString *timeStr = [PublicClass timestampSwitchTime:[carTireType.time integerValue] andFormatter:@"YYYY-MM-dd HH:mm:ss"];
+//                NSString *timeStr = [PublicClass timestampSwitchTime:[carTireType.time integerValue] andFormatter:@"YYYY-MM-dd HH:mm:ss"];
+                NSString *timeStr = [NSString stringWithFormat:@"%ld",[carTireType.time integerValue]];//直接比较时间戳
+
                 [tireTypeTimeArray addObject:timeStr];
             }
             tiretypePaixArray = [tireTypeTimeArray sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
-                if (obj1 == [NSNull null]) {
-                    obj1 = @"0000-00-00 00:00:00";
-                }
-                if (obj2 == [NSNull null]) {
-                    obj2 = @"0000-00-00 00:00:00";
-                }
-                NSDate *date1 = [formatter dateFromString:obj1];
-                NSDate *date2 = [formatter dateFromString:obj2];
-                NSComparisonResult result = [date1 compare:date2];
+//                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//                [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+//                if (obj1 == [NSNull null]) {
+//                    obj1 = @"0000-00-00 00:00:00";
+//                }
+//                if (obj2 == [NSNull null]) {
+//                    obj2 = @"0000-00-00 00:00:00";
+//                }
+//                NSDate *date1 = [formatter dateFromString:obj1];
+//                NSDate *date2 = [formatter dateFromString:obj2];
+                NSComparisonResult result = [obj1 compare:obj2];
                 return result == NSOrderedAscending;
             }];
             [tireTypeRs close];
@@ -961,21 +966,23 @@
                 position.level = [NSNumber numberWithInt:[provinceRs intForColumn:@"level"]];
                 position.name = [provinceRs stringForColumn:@"name"];
                 position.time = [provinceRs stringForColumn:@"time"];
-                NSString *timeStr = [PublicClass timestampSwitchTime:[position.time integerValue] andFormatter:@"YYYY-MM-dd HH:mm:ss"];
+//                NSString *timeStr = [PublicClass timestampSwitchTime:[position.time integerValue] andFormatter:@"YYYY-MM-dd HH:mm:ss"];
+                NSString *timeStr = [NSString stringWithFormat:@"%ld",[position.time integerValue]];//直接比较时间戳
+
                 [positionTimeArray addObject:timeStr];
             }
             positionPaixArrray = [positionTimeArray sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
-                if (obj1 == [NSNull null]) {
-                    obj1 = @"0000-00-00 00:00:00";
-                }
-                if (obj2 == [NSNull null]) {
-                    obj2 = @"0000-00-00 00:00:00";
-                }
-                NSDate *date1 = [formatter dateFromString:obj1];
-                NSDate *date2 = [formatter dateFromString:obj2];
-                NSComparisonResult result = [date1 compare:date2];
+//                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//                [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+//                if (obj1 == [NSNull null]) {
+//                    obj1 = @"0000-00-00 00:00:00";
+//                }
+//                if (obj2 == [NSNull null]) {
+//                    obj2 = @"0000-00-00 00:00:00";
+//                }
+//                NSDate *date1 = [formatter dateFromString:obj1];
+//                NSDate *date2 = [formatter dateFromString:obj2];
+                NSComparisonResult result = [obj1 compare:obj2];
                 return result == NSOrderedAscending;
             }];
             [provinceRs close];

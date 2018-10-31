@@ -177,7 +177,7 @@ static CGFloat const headViewAllSubViewsSpacing = 5+5+5+5+5; //headView 所有�
     if (_locationBtn == nil) {
         
         _locationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_locationBtn setTitle:[[NSUserDefaults standardUserDefaults] objectForKey:@"currentCity"] forState:UIControlStateNormal];
+        [_locationBtn setTitle:[[NSUserDefaults standardUserDefaults] objectForKey:@"positionCounty"] forState:UIControlStateNormal];
         [_locationBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_locationBtn setBackgroundColor:[UIColor colorWithRed:240.f/255.f green:240.f/255.f blue:240.f/255.f alpha:1.f] forState:UIControlStateNormal];
         [_locationBtn addTarget:self action:@selector(chickLocationBtn) forControlEvents:UIControlEventTouchUpInside];
@@ -210,14 +210,14 @@ static CGFloat const headViewAllSubViewsSpacing = 5+5+5+5+5; //headView 所有�
 -(void)setSubViewsFrame{
     
     [self.currentCityView mas_makeConstraints:^(MASConstraintMaker *make) {
-       
+        
         make.top.mas_equalTo(self.view.mas_top);
         make.left.and.right.mas_equalTo(self.view);
         make.height.mas_equalTo(35);
     }];
     
     [self.headView mas_makeConstraints:^(MASConstraintMaker *make) {
-       
+        
         make.left.and.right.mas_equalTo(self.view);
         make.top.mas_equalTo(self.currentCityView.mas_bottom).inset(5);
         make.height.mas_equalTo(headH);
@@ -267,7 +267,7 @@ static CGFloat const headViewAllSubViewsSpacing = 5+5+5+5+5; //headView 所有�
     }];
     
     [self.locationTableV mas_makeConstraints:^(MASConstraintMaker *make) {
-       
+        
         make.top.mas_equalTo(self.headView.mas_bottom).inset(15);
         make.left.and.right.mas_equalTo(self.view);
         if (@available(iOS 11.0, *)) {
@@ -361,10 +361,10 @@ static CGFloat const headViewAllSubViewsSpacing = 5+5+5+5+5; //headView 所有�
     }];
 }
 
-#pragma mark currentCityViewDelegate
+#pragma mark FoldCountyListDelegate 切换县区
 -(void)refreshSuperViewFrameWithStatus:(BOOL)status{
     //根据数据 来刷新 视图高度
-   NSArray *newCountyArr = [self inquireCountyListWithCityID:[UserConfig selectCityName]];
+    NSArray *newCountyArr = [self inquireCountyListWithCityID:[UserConfig selectCityName]];
     
     if (status) {
         
@@ -380,18 +380,16 @@ static CGFloat const headViewAllSubViewsSpacing = 5+5+5+5+5; //headView 所有�
         }];
     }
 }
+#define mark FoldCountyListDelegate 选择区的回调
 -(void)selectCurrentWithName:(NSString *)currentName{
     
-    DelegateConfiguration *delegateCF = [DelegateConfiguration sharedConfiguration];
-    
-    [delegateCF changecityNameNumber:currentName];
-    
     [[NSUserDefaults standardUserDefaults] setObject:currentName forKey:@"currentCity"];//更新 当前县 手动选择
-
+    DelegateConfiguration *delegateCF = [DelegateConfiguration sharedConfiguration];
+    [delegateCF changecityNameNumber:currentName];
     [self.navigationController popViewControllerAnimated:YES];
-    
 }
 
+//通过城市筛选符合条件的区
 -(NSMutableArray *)inquireCountyListWithCityID:(NSString *)selectCity{
     
     NSArray *cityArr = [DBRecorder getProvinceArray:[NSNumber numberWithInt:2]];
@@ -416,7 +414,7 @@ static CGFloat const headViewAllSubViewsSpacing = 5+5+5+5+5; //headView 所有�
             [newCountyArr addObject:countyPosition];
         }
     }
-        return newCountyArr;
+    return newCountyArr;
 }
 
 //UITableViewDelegate and UITableViewDatasource
@@ -459,7 +457,7 @@ static CGFloat const headViewAllSubViewsSpacing = 5+5+5+5+5; //headView 所有�
             return 0.0;
         }
     }
-        return 30.0;
+    return 30.0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -495,10 +493,10 @@ static CGFloat const headViewAllSubViewsSpacing = 5+5+5+5+5; //headView 所有�
     
     NSString *city_nameStr = [[self.cityMutableDic objectForKey:iconKey] objectAtIndex:indexPath.row];
     
-    [UserConfig userDefaultsSetObject:city_nameStr key:@"selectCityName"];
-
+    [UserConfig userDefaultsSetObject:city_nameStr key:@"selectCityName"];//修改当前选择城市名 只做显示用
+    
     NSArray *countyArr = [self inquireCountyListWithCityID:city_nameStr];
-
+    
     self.currentCityView.selectCityStr = city_nameStr;
     
     self.currentCityView.viewStatus = YES;
@@ -545,9 +543,9 @@ static CGFloat const headViewAllSubViewsSpacing = 5+5+5+5+5; //headView 所有�
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-
+    
     NSString *popularName = [self.popularCithArr[indexPath.item] objectForKey:@"name"];
-    [UserConfig userDefaultsSetObject:popularName key:@"selectCityName"];
+    [UserConfig userDefaultsSetObject:popularName key:@"selectCityName"];//修改当前选择的城市名
     NSArray *countyArr = [self inquireCountyListWithCityID:popularName];
     
     self.currentCityView.selectCityStr = popularName;

@@ -31,7 +31,7 @@
 + (NSArray *)getVerhicleData:(NSNumber *)factoryId;
 + (NSString *)getVerhicleTime;
 
-//TireInfo
+//TireInfo  弃用
 + (void)insertTireInfoArray:(NSArray *)dataArray;
 + (NSArray *)getTireInfoData:(NSNumber *)verhicleId;
 + (NSArray *)getTireInfoDataByTireinfoId:(NSNumber *)tireinfoId;

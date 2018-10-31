@@ -288,9 +288,7 @@
     AFHTTPSessionManager *manager = [self getRequestManager];
     
     //上传图片延长 上传时间
-//    if ([self rangeOfString:url string:@"AddPunchclock"]) {
-        manager.requestSerializer.timeoutInterval = 40;
-//    }
+    manager.requestSerializer.timeoutInterval = 40;
     
     [manager POST:[NSString stringWithFormat:@"%@/%@",SERVERPREFIX,url] parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  formData) {
         
@@ -322,29 +320,33 @@
 /**
  监控网络状态
  */
-+ (BOOL)checkNetworkStatus {
++ (BOOL)checkNetworkStatus{
+    //废弃  返回值始终都是yes
     
-    __block BOOL isNetworkUse = YES;
-    
-    AFNetworkReachabilityManager *reachabilityManager = [AFNetworkReachabilityManager sharedManager];
-    [reachabilityManager startMonitoring];
-    [reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        if (status == AFNetworkReachabilityStatusUnknown) {
-            isNetworkUse = YES;
-            NSLog(@"未知网络");
-        } else if (status == AFNetworkReachabilityStatusReachableViaWiFi){
-            isNetworkUse = YES;
-            NSLog(@"当前网络为wifi");
-        } else if (status == AFNetworkReachabilityStatusReachableViaWWAN){
-            isNetworkUse = YES;
-            NSLog(@"当前网络为蜂窝数据");
-        } else if (status == AFNetworkReachabilityStatusNotReachable){
-            // 网络异常操作
-            isNetworkUse = NO;
-            [MBProgressHUD showTextMessage:@"网络异常,请检查网络是否可用！"];
-        }
-    }];
-    return isNetworkUse;
+//    __block BOOL isNetworkUse = YES;
+//
+//    AFNetworkReachabilityManager *reachabilityManager = [AFNetworkReachabilityManager sharedManager];
+//    [reachabilityManager startMonitoring];
+//    [reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+//        if (status == AFNetworkReachabilityStatusUnknown) {
+//            isNetworkUse = YES;
+//            NSLog(@"未知网络");
+//        } else if (status == AFNetworkReachabilityStatusReachableViaWiFi){
+//            isNetworkUse = YES;
+//            NSLog(@"当前网络为wifi");
+//        } else if (status == AFNetworkReachabilityStatusReachableViaWWAN){
+//            isNetworkUse = YES;
+//            NSLog(@"当前网络为蜂窝数据");
+//        } else if (status == AFNetworkReachabilityStatusNotReachable){
+//            // 网络异常操作
+//            isNetworkUse = NO;
+//            [MBProgressHUD showTextMessage:@"网络异常,请检查网络是否可用！"];
+//        }else{
+//            isNetworkUse = NO;
+//        }
+//    }];
+
+    return YES;
 }
 
 +(void)requestErrorCode:(NSUInteger )errorCode{

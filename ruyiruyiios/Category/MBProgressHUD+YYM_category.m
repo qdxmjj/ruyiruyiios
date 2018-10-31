@@ -26,17 +26,26 @@
 }
 
 + (void)showWaitMessage:(NSString *)message showView:(UIView *)view{
-    
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    MBProgressHUD *hud;
+    if (!view) {
+        
+        hud = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].windows lastObject] animated:YES];
+    }else{
+        hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    }
     hud.label.text = message;
     [hud showAnimated:YES];
 }
 
 +(void)hideWaitViewAnimated:(UIView *)view{
     
-    //    [self hideAllHUDsForView:[UIApplication sharedApplication].keyWindow animated:YES];
-    
-    [self hideHUDForView:view animated:YES];
+    //    [self hideAllHUDsForView:[UIApplication sharedApplication].keyWindow animated:YES];    
+    if (!view) {
+        
+        [self hideHUDForView:[[UIApplication sharedApplication].windows lastObject] animated:YES];
+    }else{
+        [self hideHUDForView:view animated:YES];
+    }
 }
 
 

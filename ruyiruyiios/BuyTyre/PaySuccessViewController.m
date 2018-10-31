@@ -51,7 +51,7 @@
         [_toOrderTypeControlBtn setBackgroundColor:LOGINBACKCOLOR forState:UIControlStateNormal];
         
         if ([self.orderTypeStr isEqualToString:@"0"]) {
-            [_toOrderTypeControlBtn setTitle:@"直接更换轮胎" forState:UIControlStateNormal];
+            [_toOrderTypeControlBtn setTitle:@"请选择更换轮胎的门店" forState:UIControlStateNormal];
         }else{
             [_toOrderTypeControlBtn setTitle:@"我的订单" forState:UIControlStateNormal];
         }

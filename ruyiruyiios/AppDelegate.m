@@ -59,9 +59,7 @@
         MainTabBarViewController *mainTabVC = [[MainTabBarViewController alloc] init];
         self.window.rootViewController = mainTabVC;
     }
-    
-   
-    
+
     /**2018年9月6日 更改新的请求方式   只有在第一次启动的时候 加载配置数据
      * 车辆信息 与城市列表数据
      * 老版本 即为注释掉的内容
@@ -74,14 +72,9 @@
 //        [self databaseOperation:timeStr];
 //    }
     
-    
-    
-    
-    
     //新版本获取首次登录配置信息
     FirstStartConfiguration *first = [[FirstStartConfiguration alloc] init];
     [first StartConfigurationDataAndNetwork];
-    
     
     //检测版本更新，新版本提醒
     [self checkVersion];
@@ -120,21 +113,37 @@
         NSLog(@"appstorversion:%@  产品版本:%@",lastVersion,currentVersion);
         if ([currentVersion compare:lastVersion]==NSOrderedAscending) {// 比对版本号
             
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"新版本" message:@"是否前往更新" preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"发现新版本" message:@"是否前往更新" preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"前往更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 
                 UIApplication *application = [UIApplication sharedApplication];
                 NSString *url = _data[@"results"][0][@"trackViewUrl"];
                 [application openURL:[NSURL URLWithString:url]];
             }];
-            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                
-                
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消更新" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             }];
-            [alertController addAction:ok];
-            [alertController addAction:cancel];
-            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
-            //            [s.rootViewController presentViewController:alertController animated:YES completion:nil];
+            
+            [JJRequest postRequest:@"getAppNewestVersion" params:@{@"reqJson":[PublicClass convertToJsonData:@{@"appVersion":@"1.0.0",@"versionType":@"ios"}]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+                
+                if ([[data objectForKey:@"forceUpdate"] integerValue] == 1) {
+                    //1 强制更新
+                    [alertController addAction:ok];
+                }else{
+                    //0 不强制更新
+                    [alertController addAction:ok];
+                    [alertController addAction:cancel];
+                }
+                
+                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+                
+            } failure:^(NSError * _Nullable error) {
+                
+                //0 不强制更新
+                [alertController addAction:ok];
+                [alertController addAction:cancel];
+                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+            }];
         }
     }
 }

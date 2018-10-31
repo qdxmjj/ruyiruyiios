@@ -25,6 +25,8 @@
 
 //#define SERVERPREFIX  @"http://192.168.0.190:8060"  //龚林
 //#define SERVERPREFIX  @"http://192.168.0.233:8060"  //于鹏鹉
+//#define SERVERPREFIX  @"http://192.168.0.93:8060"  //于鹏鹉1
+
 //做项目的地址
 //#define SERVERPREFIX @"http://192.168.0.167:8082/xmjj-webservice"
 //发布测试版本的地址

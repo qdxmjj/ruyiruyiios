@@ -323,7 +323,7 @@
 - (void)updateCityName:(NSString *)cityNameStr{
     
     //首次启动app 直接从主页跳转到切换城市页面 此代理无效 因为 那时当前页面还没生成 delegate还未签订
-    //此代理功能 真是糟糕的设计 糟糕的体验  后续整顿废弃此代理用法
+    //后续整顿废弃使用代理用法
     if ([self.isLocation isEqualToString:@"1"]) {
         
     }else{

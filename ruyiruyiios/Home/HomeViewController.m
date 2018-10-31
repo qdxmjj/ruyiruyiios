@@ -100,9 +100,14 @@
         }
     }
     
-    NSDictionary *androidHomeDic = @{@"userId":userid};
+    NSString *currentCity = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentCity"];
+    if (currentCity.length<=0) {
+        
+         currentCity = @"定位失败";
+    }
+    
+    NSDictionary *androidHomeDic = @{@"userId":userid,@"position":currentCity};
     NSString *adroidHomereqJson = [PublicClass convertToJsonData:androidHomeDic];
-  
     [MBProgressHUD showWaitMessage:@"正在获取首页数据.." showView:self.view];
     
     [JJRequest postRequest:@"getAndroidHomeDate" params:@{@"reqJson":adroidHomereqJson} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
@@ -306,10 +311,6 @@
 
 -(void)resetHomeInfoWithCarInfo{
     [self getAndroidHomeDate];
-
-    //暂不加更新配置信息   网络请求与数据库更新操作 无法顺序进行 更改需要大量时间 防止出错 暂不更新
-//    FirstStartConfiguration *first = [[FirstStartConfiguration alloc] init];
-//    [first configCarInfoWithCityInfo];
 }
 
 - (UITapGestureRecognizer *)fTapGR{
@@ -751,6 +752,7 @@
                 _currentCity = @"无法定位当前城市";
             }
             [[NSUserDefaults standardUserDefaults] setObject:_currentCity forKey:@"currentCity"];//存储 当前定位的信息 县
+            [[NSUserDefaults standardUserDefaults] setObject:_currentCity forKey:@"positionCounty"];//存储 当前定位的信息 县
             [UserConfig userDefaultsSetObject:currentStr key:@"selectCityName"];//初始化 默认选择的城市
             [self.locationBtn setTitle:_currentCity forState:UIControlStateNormal];
         }else if (error == nil && placemarks.count){
@@ -781,6 +783,8 @@
 - (void)updateCityName:(NSString *)cityNameStr{
     
     [self.locationBtn setTitle:cityNameStr forState:UIControlStateNormal];
+    [self getAndroidHomeDate];
+
 }
 
 //#pragma mark UpdateAddCarDelegate
