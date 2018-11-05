@@ -46,6 +46,7 @@
 @property(nonatomic, strong)CarInfo *carInfo;
 @property(nonatomic, strong)NSString *updateFlagStr;
 
+@property(nonatomic, strong)DelegateConfiguration *delegateConfiguration;
 @end
 
 @implementation CarInfoViewController
@@ -409,9 +410,9 @@
         if ([statusStr isEqualToString:@"1"]) {
 
 //            DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
-//            [delegateConfiguration changeaddCarNumber];
-//            [delegateConfiguration unregisterRoadStatusChangedListener:self];
-//            [delegateConfiguration unregisterCartypeStatusChangeListener:self];
+            [self.delegateConfiguration changeaddCarNumber];
+            [self.delegateConfiguration unregisterRoadStatusChangedListener:self];
+            [self.delegateConfiguration unregisterCartypeStatusChangeListener:self];
             [self.navigationController popToRootViewControllerAnimated:YES];
         }else{
 
@@ -434,10 +435,10 @@
         if ([statusStr isEqualToString:@"1"]) {
 
             [UserConfig userDefaultsSetObject:@"1" key:@"firstAddCar"];
-            DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
-//            [delegateConfiguration changeaddCarNumber];
-            [delegateConfiguration unregisterRoadStatusChangedListener:self];
-            [delegateConfiguration unregisterCartypeStatusChangeListener:self];
+//            DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+            [self.delegateConfiguration changeaddCarNumber];
+            [self.delegateConfiguration unregisterRoadStatusChangedListener:self];
+            [self.delegateConfiguration unregisterCartypeStatusChangeListener:self];
 
             if (couponArr.count<=0) {
                 
@@ -504,9 +505,9 @@
     nowMonth = [[[PublicClass gettodayDate] substringWithRange:NSMakeRange(5, 2)] intValue];
     nowDay = [[[PublicClass gettodayDate] substringWithRange:NSMakeRange(8, 2)] intValue];
     [self initString];
-    DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
-    [delegateConfiguration registerRoadStatusChangedListener:self];
-    [delegateConfiguration registerCartypeStatusChangeListener:self];
+//    DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+    [self.delegateConfiguration registerRoadStatusChangedListener:self];
+    [self.delegateConfiguration registerCartypeStatusChangeListener:self];
     isodomter = @"1";
     self.title = @"我的宝驹";
     y = 6;
@@ -578,7 +579,6 @@
     
     DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
     [delegateConfiguration unregisterRoadStatusChangedListener:self];
-    
     [delegateConfiguration unregisterCartypeStatusChangeListener:self];
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -948,6 +948,16 @@
     fontStr = @"";
     rearStr = @"";
     [_carInfoTV reloadData];
+}
+
+
+-(DelegateConfiguration *)delegateConfiguration{
+    
+    if (!_delegateConfiguration) {
+        
+        _delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+    }
+    return _delegateConfiguration;
 }
 
 - (void)didReceiveMemoryWarning {

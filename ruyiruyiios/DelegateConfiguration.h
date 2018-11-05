@@ -60,9 +60,9 @@
 - (void)unregisterCartypeStatusChangeListener:(id<CartypeStatusDelegate>)delegate;
 - (void)changeCartypeStatusNumber:(FMDBCarTireInfo *)carTireInfo;
 
-- (void)registercityNameListers:(id<CityNameDelegate>)delegate;
-- (void)unregistercityNameListers:(id<CityNameDelegate>)delegate;
-- (void)changecityNameNumber:(NSString *)city_Str;
+- (void)registercityNameListers:(id<CityNameDelegate>)delegate;//f注册代理  哪里注册代理 就在哪个页面释放
+- (void)unregistercityNameListers:(id<CityNameDelegate>)delegate;//f释放代理
+- (void)changecityNameNumber:(NSString *)city_Str;//f执行代理
 
 - (void)registeraddCarListers:(id<UpdateAddCarDelegate>)delegate;
 - (void)unregisteraddCarListers:(id<UpdateAddCarDelegate>)delegate;

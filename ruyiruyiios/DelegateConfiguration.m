@@ -14,11 +14,25 @@ static DelegateConfiguration *shareConfiguration = nil;
 
 + (DelegateConfiguration *)sharedConfiguration{
     
-    if (shareConfiguration == nil) {
-        
-        [DelegateConfiguration setSharedConfiguration:[[DelegateConfiguration alloc] init]];
-    }
+//    if (shareConfiguration == nil) {
+//
+//        [DelegateConfiguration setSharedConfiguration:[[DelegateConfiguration alloc] init]];
+//    }
+    static dispatch_once_t oneToken;
+    dispatch_once(&oneToken, ^{
+       
+        shareConfiguration = [[DelegateConfiguration alloc] init];
+    });
     return shareConfiguration;
+}
+
++ (instancetype)alloc
+{
+    if(shareConfiguration)
+    {
+        return  shareConfiguration;
+    }
+    return [super alloc];
 }
 
 + (void)setSharedConfiguration:(DelegateConfiguration *)configuration{

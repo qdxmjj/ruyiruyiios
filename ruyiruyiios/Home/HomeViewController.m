@@ -28,13 +28,13 @@
 #import "FreeChangeViewController.h"
 
 #import "CycleScrollViewDetailsController.h"
-
+#import "TobeReplacedTiresViewController.h"
 #import "NewTirePurchaseViewController.h"
 #import "MyWebViewController.h"
 
 #import "FirstStartConfiguration.h"
 #import "MBProgressHUD+YYM_category.h"
-@interface HomeViewController ()<UIScrollViewDelegate, SDCycleScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate,LoginStatusDelegate, CityNameDelegate>{
+@interface HomeViewController ()<UIScrollViewDelegate, SDCycleScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate,LoginStatusDelegate, CityNameDelegate,UpdateAddCarDelegate>{
     
     CGFloat nameW;
     CGFloat tviewX, tviewY, tviewW, tviewH;
@@ -149,7 +149,12 @@
                 [self.AdvertisingWebURLArr addObject:[dic objectForKey:@"webUrl"]];
             }
             
-            self.webAdvertisingView.imageURLStringsGroup = self.AdvertisingImgURLArr;
+            NSLog(@"%@",self.AdvertisingWebURLArr);
+            if (self.AdvertisingWebURLArr.count<=0) {
+                self.webAdvertisingView.imageURLStringsGroup = nil;
+            }else{
+                self.webAdvertisingView.imageURLStringsGroup = self.AdvertisingImgURLArr;
+            }
         }
         [MBProgressHUD hideWaitViewAnimated:self.view];
         
@@ -435,7 +440,7 @@
     DelegateConfiguration *delegateCF = [DelegateConfiguration sharedConfiguration];
     [delegateCF registercityNameListers:self];
     [delegateCF registerLoginStatusChangedListener:self];
-    
+    [delegateCF registeraddCarListers:self];
     UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20+(SafeAreaTopHeight - 64))];
     statusBarView.backgroundColor = LOGINBACKCOLOR;
     
@@ -456,9 +461,9 @@
 //    [_mainScrollV addSubview:self.homeTableV];
     [_mainScrollV addSubview:self.webAdvertisingView];
     [_mainScrollV setContentSize:CGSizeMake(MAINSCREEN.width, (tviewY+tviewH+82))];
-    [self getAndroidHomeDate];
     
-    
+//    [self getAndroidHomeDate];  //定位成功后再请求主页数据 因为 新接口需要传入位置信息
+
     //生成购买轮胎订单的时候 的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(generateTireOrderNoticeEvent) name:GenerateTireOrderNotice object:nil];
     //设置默认车辆的通知
@@ -484,7 +489,7 @@
 
 - (void)addFourButtons{
     
-    NSArray *nameArray = @[@"轮胎购买", @"免费更换", @"免费修补", @"商品分类"];
+    NSArray *nameArray = @[@"轮胎购买", @"免费更换", @"免费修补", @"待更换轮胎"];
     NSArray *imgArray = @[@"轮胎购买", @"免费更换", @"免费修补", @"ic_icon4"];
     for (int i = 0; i<4; i++) {
         
@@ -534,7 +539,7 @@
 
 - (void)chickMidBtn:(UIButton *)btn{
     
-    //1000轮胎购买，1001免费更换，1002免费修补，1003商品分类
+    //1000轮胎购买，1001免费更换，1002免费修补，1003待更换轮胎
     //2000畅行无忧，2001汽车保养，2002美容清洗
     if ([UserConfig user_id] == NULL) {
         
@@ -555,7 +560,11 @@
             [self.navigationController pushViewController:tireRepairVC animated:YES];
         }else if (btn.tag == 1003){
             
-            self.tabBarController.selectedIndex = 2;
+//            self.tabBarController.selectedIndex = 2;
+            //待更换轮胎
+            TobeReplacedTiresViewController *tobeReplacedVC = [[TobeReplacedTiresViewController alloc] init];
+            [self.navigationController pushViewController:tobeReplacedVC animated:YES];
+            
         }else if (btn.tag == 2000){
             
             SmoothJourneyViewController *SmoothJourneyVC = [[SmoothJourneyViewController alloc] init];
@@ -614,7 +623,7 @@
 #pragma mark cycleScrollViewDelegate
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
     
-    NSLog(@"点击了第%ld张图片",index);
+//    NSLog(@"点击了第%ld张图片",(long)index);
     if ([cycleScrollView isEqual:self.webAdvertisingView]) {
         
         if (self.AdvertisingWebURLArr.count <= 0) {
@@ -755,6 +764,9 @@
             [[NSUserDefaults standardUserDefaults] setObject:_currentCity forKey:@"positionCounty"];//存储 当前定位的信息 县
             [UserConfig userDefaultsSetObject:currentStr key:@"selectCityName"];//初始化 默认选择的城市
             [self.locationBtn setTitle:_currentCity forState:UIControlStateNormal];
+            
+            [self getAndroidHomeDate];//定位成功后请求主页数据  定位结果返回会执行多次  重复网络请求 不合理 暂未处理
+            
         }else if (error == nil && placemarks.count){
             
             NSLog(@"NO location and error return");
@@ -788,10 +800,10 @@
 }
 
 //#pragma mark UpdateAddCarDelegate
-//- (void)updateAddCarNumber{
-//
-//    [self getAndroidHomeDate];
-//}
+- (void)updateAddCarNumber{
+
+    [self getAndroidHomeDate];
+}
 
 //#pragma mark SetDefaultCarDelegate
 //- (void)updateDefaultCar{
