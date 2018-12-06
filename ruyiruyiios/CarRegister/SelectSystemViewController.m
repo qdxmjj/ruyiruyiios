@@ -70,12 +70,6 @@
     return _systemTableV;
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    [self.tabBarController.tabBar setHidden:YES];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"车型选择";

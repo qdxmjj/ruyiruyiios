@@ -36,11 +36,6 @@
 
 @implementation YMDetailedServiceViewController
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    
-    self.tabBarController.tabBar.hidden = YES;
-}
 -(instancetype)init{
     
     self = [super init];
@@ -238,7 +233,7 @@
         storeDetails.directoryVC.defaultSelectedIndex = [[self.dataArr[indexPath.row] objectForKey:@"serviceId"] integerValue];
         
         [self.navigationController pushViewController:storeDetails animated:YES];
-        
+        self.hidesBottomBarWhenPushed = YES;
         
     } failure:^(NSError * _Nullable error) {
         

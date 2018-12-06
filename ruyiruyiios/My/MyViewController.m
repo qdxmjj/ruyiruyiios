@@ -19,6 +19,8 @@
 #import "MySettingViewController.h"
 #import "CouponViewController.h"
 #import "ExtensionCodeViewController.h"
+#import "InvitedGiftViewController.h"
+
 #import "MyEvaluationViewController.h"
 #import "MyQuotaViewController.h"
 #import "CreditLineViewController.h"
@@ -26,10 +28,11 @@
 #import "DelegateConfiguration.h"
 #import "ContactCustomerViewController.h"
 
+#import "WithdrawViewController.h"
 #import "WXApi.h"
-@interface MyViewController ()<UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UINavigationControllerDelegate, LoginStatusDelegate>
+#import <Masonry.h>
+@interface MyViewController ()<UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, LoginStatusDelegate,ClickOrderDelegate>
 
-@property(nonatomic, strong)UIScrollView *mainScrollV;
 @property(nonatomic, strong)MyHeadView *myHeadview;
 @property(nonatomic, strong)MyOrderView *myOrderview;
 @property(nonatomic, strong)UICollectionView *myCollectionV;
@@ -39,54 +42,108 @@
 @end
 
 @implementation MyViewController
-
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
+- (void)viewDidLoad {
+    [super viewDidLoad];
     
-    BOOL isShowHomePage = [viewController isKindOfClass:[self class]];
-    [self.navigationController setNavigationBarHidden:isShowHomePage animated:YES];
-}
-
-- (void)viewWillAppear:(BOOL)animated{
+    DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+    [delegateConfiguration registerLoginStatusChangedListener:self];
     
-    [super viewWillAppear:animated];
-
-    self.tabBarController.tabBar.hidden = NO;
-    self.navigationController.navigationBar.hidden = YES;
-}
-
-- (UIScrollView *)mainScrollV{
-    
-    if (_mainScrollV == nil) {
+    if (![WXApi isWXAppInstalled]){
         
-        _mainScrollV = [[UIScrollView alloc] init];
-        _mainScrollV.frame = CGRectMake(0, (SafeAreaTopHeight - 64)+20, MAINSCREEN.width, MAINSCREEN.height - 20 - (SafeAreaTopHeight - 64) - Height_TabBar);
-        _mainScrollV.showsVerticalScrollIndicator = NO;
-        _mainScrollV.showsHorizontalScrollIndicator = NO;
-        _mainScrollV.bounces = NO;
-        _mainScrollV.scrollsToTop = NO;
-        _mainScrollV.tag = 1;
-        _mainScrollV.delegate = self;
+        self.titleArray = @[@"我的钱包",@"待更换轮胎", @"畅行无忧", @"我的宝驹", @"优惠券", @"评价", @"设置", @"联系客服"];
+        self.imgArray = @[@"ic_redbag",@"ic_daigenghuan", @"ic_changxing", @"ic_wodeche", @"ic_youhuiquan", @"ic_pingjia", @"ic_shezhi", @"ic_lianxi"];
+
+    }else{
+        self.titleArray = @[@"我的钱包",@"待更换轮胎", @"畅行无忧", @"我的宝驹", @"优惠券", @"推广码", @"评价", @"设置", @"联系客服"];
+        self.imgArray = @[@"ic_redbag",@"ic_daigenghuan", @"ic_changxing", @"ic_wodeche", @"ic_youhuiquan", @"ic_tuiguang", @"ic_pingjia", @"ic_shezhi", @"ic_lianxi"];
     }
-    return _mainScrollV;
+    
+    [self addView];
+}
+- (void)addView{
+    
+    [self.view addSubview:self.myHeadview];
+    [self.view addSubview:self.myOrderview];
+    [self.view addSubview:self.myCollectionV];
+    
+    [self.myHeadview mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.mas_equalTo(self.view.mas_top);
+        make.left.and.right.mas_equalTo(self.view);
+        make.height.mas_equalTo(MAINSCREEN.height/3);
+    }];
+    [self.myOrderview mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.mas_equalTo(self.myHeadview.mas_bottom);
+        make.left.and.right.mas_equalTo(self.view);
+        make.height.mas_equalTo(MAINSCREEN.height/6);
+    }];
+    [self.myCollectionV mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.mas_equalTo(self.myOrderview.mas_bottom);
+        make.left.and.right.mas_equalTo(self.view);
+        if (@available(iOS 11.0, *)) {
+            make.bottom.mas_equalTo(self.view.mas_safeAreaLayoutGuideBottom);
+        } else {
+            make.bottom.mas_equalTo(self.view.mas_bottom);
+        }
+    }];
+    
+    [self setDatatoViews];
+}
+- (void)setDatatoViews{
+    
+    [_myHeadview setDatatoHeadView];
 }
 
 - (MyHeadView *)myHeadview{
     
     if (_myHeadview == nil) {
         
-        _myHeadview = [[MyHeadView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, 195)];
-        [_myHeadview.nameAndHeadBtn addTarget:self action:@selector(chickNameAndHeadBtn:) forControlEvents:UIControlEventTouchUpInside];
+        _myHeadview = [[MyHeadView alloc] init];
+        [_myHeadview.headPortraitBtn addTarget:self action:@selector(chickNameAndHeadBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [_myHeadview.nameBtn addTarget:self action:@selector(chickNameAndHeadBtn:) forControlEvents:UIControlEventTouchUpInside];
         [_myHeadview.myQuotaBtn addTarget:self action:@selector(chickMyquotaBtn:) forControlEvents:UIControlEventTouchUpInside];
         [_myHeadview.creditLineBtn addTarget:self action:@selector(chickCreaditLineBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _myHeadview;
 }
 
+- (MyOrderView *)myOrderview{
+    
+    if (_myOrderview == nil) {
+        
+        _myOrderview = [[MyOrderView alloc] init];
+        _myOrderview.delegate = self;
+        [_myOrderview.lookAllOrderBtn addTarget:self action:@selector(chickOrderViewBtn:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _myOrderview;
+}
+
+- (UICollectionView *)myCollectionV{
+    
+    if (_myCollectionV == nil) {
+        
+        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+        [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
+        flowLayout.minimumLineSpacing = 10;
+        _myCollectionV = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
+        _myCollectionV.backgroundColor = [UIColor clearColor];
+        _myCollectionV.delegate = self;
+        _myCollectionV.dataSource = self;
+        _myCollectionV.scrollEnabled = YES;
+        [_myCollectionV registerClass:[MyBottomCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
+    }
+    return _myCollectionV;
+}
+
+
 - (void)chickNameAndHeadBtn:(UIButton *)button{
     
     if ([UserConfig user_id] == NULL || [[NSString stringWithFormat:@"%@", [UserConfig user_id]] isEqualToString:@""]) {
-        
-        [self alertIsloginView];
+                
+        CodeLoginViewController *loginVC = [[CodeLoginViewController alloc] init];
+        [self.navigationController pushViewController:loginVC animated:YES];
     }else{
         
         PersonalInformationViewController *personInfoVC = [[PersonalInformationViewController alloc] init];
@@ -122,120 +179,48 @@
     }
 }
 
-- (MyOrderView *)myOrderview{
+-(void)myOrderView:(MyOrderView *)view cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (_myOrderview == nil) {
+    if ([UserConfig user_id] == NULL) {
         
-        _myOrderview = [[MyOrderView alloc] initWithFrame:CGRectMake(0, 196, MAINSCREEN.width, 114)];
-        _myOrderview.topayBtn.tag = 1001;
-        _myOrderview.todeliveryBtn.tag = 1002;
-        _myOrderview.toserviceBtn.tag = 1003;
-        _myOrderview.completedBtn.tag = 1004;
-        _myOrderview.lookAllOrderBtn.tag = 1005;
-        [_myOrderview.topayBtn addTarget:self action:@selector(chickOrderViewBtn:) forControlEvents:UIControlEventTouchUpInside];
-        [_myOrderview.todeliveryBtn addTarget:self action:@selector(chickOrderViewBtn:) forControlEvents:UIControlEventTouchUpInside];
-        [_myOrderview.toserviceBtn addTarget:self action:@selector(chickOrderViewBtn:) forControlEvents:UIControlEventTouchUpInside];
-        [_myOrderview.completedBtn addTarget:self action:@selector(chickOrderViewBtn:) forControlEvents:UIControlEventTouchUpInside];
-        [_myOrderview.lookAllOrderBtn addTarget:self action:@selector(chickOrderViewBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [self alertIsloginView];
+        return;
     }
-    return _myOrderview;
-}
+    
+    MyOrderViewController *myOrderVC = [[MyOrderViewController alloc] init];
+    // 1--topay  2--todelivery  3--toservice  4--completed  0--lookAllOrderBtn
 
-- (UICollectionView *)myCollectionV{
-    
-    if (_myCollectionV == nil) {
-        
-        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
-        _myCollectionV = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 310, MAINSCREEN.width, 250) collectionViewLayout:flowLayout];
-        _myCollectionV.backgroundColor = [UIColor clearColor];
-        _myCollectionV.delegate = self;
-        _myCollectionV.dataSource = self;
-        _myCollectionV.scrollEnabled = YES;
-        [_myCollectionV registerClass:[MyBottomCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
+    switch (indexPath.item) {
+        case 0:
+            myOrderVC.statusStr = @"1";
+            break;
+        case 1:
+            myOrderVC.statusStr = @"2";
+            break;
+        case 2:
+            myOrderVC.statusStr = @"3";
+            break;
+        case 3:
+            myOrderVC.statusStr = @"4";
+            break;
+        default:
+            break;
     }
-    return _myCollectionV;
+    
+    [self.navigationController pushViewController:myOrderVC animated:YES];
 }
 
 - (void)chickOrderViewBtn:(UIButton *)button{
     
-    // 1001--topay  1002--todelivery  1003--toservice  1004--completed  1005--lookAllOrderBtn
     if ([UserConfig user_id] == NULL) {
         
         [self alertIsloginView];
     }else{
-        
         MyOrderViewController *myOrderVC = [[MyOrderViewController alloc] init];
-        switch (button.tag) {
-                
-            case 1001:
-                
-                myOrderVC.statusStr = @"1";
-                break;
-                
-            case 1002:
-                
-                myOrderVC.statusStr = @"2";
-                break;
-                
-            case 1003:
-                
-                myOrderVC.statusStr = @"3";
-                break;
-                
-            case 1004:
-                
-                myOrderVC.statusStr = @"4";
-                break;
-                
-            case 1005:
-                
-                myOrderVC.statusStr = @"0";
-                break;
-                
-            default:
-                break;
-        }
+
+        myOrderVC.statusStr = @"0";
         [self.navigationController pushViewController:myOrderVC animated:YES];
     }
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
-    [delegateConfiguration registerLoginStatusChangedListener:self];
-    
-    if (![WXApi isWXAppInstalled]){
-        
-        self.titleArray = @[@"待更换轮胎", @"畅行无忧", @"我的宝驹", @"优惠券", @"评价", @"设置", @"联系客服"];
-        self.imgArray = @[@"ic_daigenghuan", @"ic_changxing", @"ic_wodeche", @"ic_youhuiquan", @"ic_pingjia", @"ic_shezhi", @"ic_lianxi"];
-
-    }else{
-        self.titleArray = @[@"待更换轮胎", @"畅行无忧", @"我的宝驹", @"优惠券", @"推广码", @"评价", @"设置", @"联系客服"];
-        self.imgArray = @[@"ic_daigenghuan", @"ic_changxing", @"ic_wodeche", @"ic_youhuiquan", @"ic_tuiguang", @"ic_pingjia", @"ic_shezhi", @"ic_lianxi"];
-    }
-    UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20+(SafeAreaTopHeight - 64))];
-    statusBarView.backgroundColor = LOGINBACKCOLOR;
-    
-    [self.view addSubview:statusBarView];
-    [self.view addSubview:self.mainScrollV];
-    [self addView];
-    // Do any additional setup after loading the view.
-}
-
-- (void)addView{
-    
-    [_mainScrollV addSubview:self.myHeadview];
-    [_mainScrollV addSubview:self.myOrderview];
-    [_mainScrollV addSubview:self.myCollectionV];
-    [_mainScrollV setContentSize:CGSizeMake(MAINSCREEN.width, self.myCollectionV.frame.size.height+self.myCollectionV.frame.origin.y)];
-    [self setDatatoViews];
-}
-
-- (void)setDatatoViews{
-    
-    [_myHeadview setDatatoHeadView];
 }
 
 
@@ -261,8 +246,12 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-
-    return  CGSizeMake((MAINSCREEN.width - 40)/3,80);
+//    1/3+1/6
+    
+    CGFloat HEIGHT = MAINSCREEN.height;
+    
+    CGFloat itemH = (HEIGHT - (HEIGHT/3+HEIGHT/6)-Height_TabBar)/3;
+    return  CGSizeMake((MAINSCREEN.width - 40)/3,itemH);
 }
 
 #pragma mark  定义每个UICollectionView的横向间距
@@ -285,34 +274,37 @@
         
         [self alertIsloginView];
     }else{
-        
         if (indexPath.item == 0) {
+            WithdrawViewController *withdrawVC = [[WithdrawViewController alloc] init];
+            [self.navigationController pushViewController:withdrawVC animated:YES];
+
+        }else if (indexPath.item == 1) {
             
             TobeReplacedTiresViewController *tobeReplacedVC = [[TobeReplacedTiresViewController alloc] init];
             [self.navigationController pushViewController:tobeReplacedVC animated:YES];
-        }else if (indexPath.item == 1){
+        }else if (indexPath.item == 2){
             
             SmoothJourneyViewController *smoothJourneyVC = [[SmoothJourneyViewController alloc] init];
             [self.navigationController pushViewController:smoothJourneyVC animated:YES];
-        }else if (indexPath.item == 2){
+        }else if (indexPath.item == 3){
             
             ManageCarViewController *manageCarVC = [[ManageCarViewController alloc] init];
             [self.navigationController pushViewController:manageCarVC animated:YES];
-        }else if (indexPath.item == 3){
+        }else if (indexPath.item == 4){
             
             CouponViewController *couponVC = [[CouponViewController alloc] init];
             [self.navigationController pushViewController:couponVC animated:YES];
-        }else if (indexPath.item == 4){
+        }else if (indexPath.item == 5){
             
             if (![WXApi isWXAppInstalled]){
 
                 MyEvaluationViewController *myEvaluationVC = [[MyEvaluationViewController alloc] init];
                 [self.navigationController pushViewController:myEvaluationVC animated:YES];
             }else{
-                ExtensionCodeViewController *extensionVC = [[ExtensionCodeViewController alloc] init];
+                InvitedGiftViewController *extensionVC = [[InvitedGiftViewController alloc] init];
                 [self.navigationController pushViewController:extensionVC animated:YES];
             }
-        }else if (indexPath.item == 5){
+        }else if (indexPath.item == 6){
             
             if (![WXApi isWXAppInstalled]){
                 
@@ -323,7 +315,7 @@
                 [self.navigationController pushViewController:myEvaluationVC animated:YES];
             }
             
-        }else if (indexPath.item == 6){
+        }else if (indexPath.item == 7){
             
             if (![WXApi isWXAppInstalled]){
                 
@@ -352,8 +344,8 @@
 
 #pragma mark  定义整个CollectionViewCell与整个View的间距
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-    
-    return UIEdgeInsetsMake(0, 20, 0, 20);//（上、左、下、右）
+
+    return UIEdgeInsetsMake(0, 10, 0, 10);//（上、左、下、右）
 }
 
 //LoginStatusDelegate

@@ -235,4 +235,69 @@
     return result;
 }
 
++(BOOL)isCurrentMonth:(NSString *)oldDate{
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    
+    [formatter setDateFormat:@"yyyy-MM"];
+    
+    NSTimeZone* timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];
+    
+    [formatter setTimeZone:timeZone];
+    
+    NSString *dateString = [formatter stringFromDate:[NSDate date]];
+    
+    NSString *oldDates = [self getTimestampFromTime:oldDate formatter:@"yyyy-MM"];
+    
+    NSArray *oldDateArr = [oldDates componentsSeparatedByString:@"-"];
+    
+    NSArray *currentDateArr = [dateString componentsSeparatedByString:@"-"];
+    
+    if ([currentDateArr[0] integerValue] > [oldDateArr[0] integerValue]) {
+        
+        return YES;
+    }else{
+        
+        if ([currentDateArr[1] integerValue] > [oldDateArr[1] integerValue]) {
+            
+            return YES;
+        }
+        return NO;
+    }
+}
+
++(NSString *)getTimestampFromTime:(NSString *)timeStampString formatter:(NSString *)format{
+    
+    // timeStampString 是服务器返回的13位时间戳
+    
+    //
+    NSTimeInterval interval    =[timeStampString doubleValue] / 1000.0;
+    NSDate *date               = [NSDate dateWithTimeIntervalSince1970:interval];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    if (!format) {
+        
+        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    }else{
+        [formatter setDateFormat:format];//@"yyyy-MM-dd HH:mm:ss"
+    }
+    NSString *dateString       = [formatter stringFromDate: date];
+    //    NSLog(@"服务器返回的时间戳对应的时间是:%@",dateString);
+    return dateString;
+}
+
+
++(NSString *)getDateWithformatter:(NSString *)format{
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    if (!format) {
+        
+        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    }else{
+        [formatter setDateFormat:format];//@"yyyy-MM-dd HH:mm:ss"
+    }
+    NSString *dateString       = [formatter stringFromDate:[NSDate date]];
+    return dateString;
+    
+}
 @end

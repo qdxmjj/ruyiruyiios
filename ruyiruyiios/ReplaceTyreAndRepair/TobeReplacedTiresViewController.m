@@ -25,19 +25,6 @@
 
 @implementation TobeReplacedTiresViewController
 
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
-    self.navigationController.navigationBar.hidden = NO;
-}
-
-- (void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = NO;
-}
-
 - (UITableView *)replacedTableV{
     
     if (_replacedTableV == nil) {
@@ -92,6 +79,8 @@
     
     FirstUpdateViewController *firstUpdateVC = [[FirstUpdateViewController alloc] init];
     [self.navigationController pushViewController:firstUpdateVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
+
 }
 
 - (void)viewDidLoad {
@@ -136,7 +125,6 @@
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
         if ([statusStr isEqualToString:@"1"]) {
             
-            //            NSLog(@"%@", data);
             [self analysizeArray:data];
         }else if ([statusStr isEqualToString:@"-999"]){
             
@@ -215,6 +203,7 @@
         [self.replacedTableV.mj_header beginRefreshing];
     };
     [self.navigationController pushViewController:completeVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
 }
 
 //LoginStatusDelegate

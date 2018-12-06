@@ -18,14 +18,6 @@
 @implementation UserProtocolViewController
 @synthesize dealIdStr;
 
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-    [self.navigationController.navigationBar setHidden:NO];
-    self.tabBarController.tabBar.hidden = YES;
-}
-
 - (UIWebView *)mainWebV{
     
     if (_mainWebV == nil) {

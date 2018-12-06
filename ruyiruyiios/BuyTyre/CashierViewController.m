@@ -28,12 +28,6 @@
 @synthesize orderTypeStr;
 @synthesize orderNoStr;
 
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
-}
-
 - (UILabel *)shouldPayLabel{
     
     if (_shouldPayLabel == nil) {
@@ -125,6 +119,8 @@
                     PaySuccessViewController *paySuccessVC = [[PaySuccessViewController alloc] init];
                     paySuccessVC.orderTypeStr = self.orderTypeStr;
                     [self.navigationController pushViewController:paySuccessVC animated:YES];
+                    self.hidesBottomBarWhenPushed = YES;
+
                 }else{
                     
                     [PublicClass showHUD:messageStr view:self.view];
@@ -199,6 +195,8 @@
     PaySuccessViewController *paySuccessVC = [[PaySuccessViewController alloc] init];
     paySuccessVC.orderTypeStr = orderTypeStr;
     [self.navigationController pushViewController:paySuccessVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
+
 }
 
 - (CashierPayView *)cashierPayView{
@@ -301,6 +299,7 @@
             tobePaidVC.totalPriceStr = self.totalPriceStr;
             tobePaidVC.orderTypeStr = self.orderTypeStr;
             [self.navigationController pushViewController:tobePaidVC animated:YES];
+            self.hidesBottomBarWhenPushed = YES;
             
         }else if ([self.orderTypeStr isEqualToString:@"1"]){
             
@@ -311,6 +310,7 @@
             waitPaymentVC.backStatus = @"0";
             
             [self.navigationController pushViewController:waitPaymentVC animated:YES];
+            self.hidesBottomBarWhenPushed = YES;
         }
     }];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {

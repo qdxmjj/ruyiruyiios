@@ -15,18 +15,17 @@
 #import "FMDBCarVerhicle.h"
 #import "FMDBCarTireInfo.h"
 #import "FMDBCarTireType.h"
-#import "QualityServiceViewController.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import "MBProgressHUD+YYM_category.h"
 #import <Bugly/Bugly.h>
 
 #import "FirstStartConfiguration.h"
-
+#import "JJShare.h"
+#import "BaseNavigation.h"
 @interface AppDelegate (){
     
     NSDictionary *_data;
 }
-
 @end
 
 @implementation AppDelegate
@@ -38,27 +37,9 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    
-    //    NSLog(@"%@", [DBRecorder getAllBrandData])
-    [WXApi registerApp:WEIXINID];
-    if (@available(iOS 11.0,*)) {
-        
-        UITableView.appearance.estimatedRowHeight = 0;
-        UITableView.appearance.estimatedSectionFooterHeight = 0;
-        UITableView.appearance.estimatedSectionHeaderHeight = 0;
-    }
-    
-    if (![[NSUserDefaults standardUserDefaults] valueForKey:@"isFirst"]) {
-        
-        WelcomeViewController *welcomeVC = [[WelcomeViewController alloc] init];
-        UINavigationController *welNav = [[UINavigationController alloc] initWithRootViewController:welcomeVC];
-        welNav.delegate = self;
-        self.window.rootViewController = welNav;
-    }else{
-        
-        MainTabBarViewController *mainTabVC = [[MainTabBarViewController alloc] init];
-        self.window.rootViewController = mainTabVC;
-    }
+
+    MainTabBarViewController *mainTabVC = [[MainTabBarViewController alloc] init];
+    self.window.rootViewController = mainTabVC;
 
     /**2018年9月6日 更改新的请求方式   只有在第一次启动的时候 加载配置数据
      * 车辆信息 与城市列表数据
@@ -75,6 +56,10 @@
     //新版本获取首次登录配置信息
     FirstStartConfiguration *first = [[FirstStartConfiguration alloc] init];
     [first StartConfigurationDataAndNetwork];
+    
+    [WXApi registerApp:WEIXINID];
+    //-----------------mob分享---------------------
+    [JJShare ShareRegister];
     
     //检测版本更新，新版本提醒
     [self checkVersion];
@@ -135,14 +120,19 @@
                     [alertController addAction:cancel];
                 }
                 
-                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                   
+                    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+                });
                 
             } failure:^(NSError * _Nullable error) {
                 
                 //0 不强制更新
                 [alertController addAction:ok];
                 [alertController addAction:cancel];
-                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+                });
             }];
         }
     }
@@ -459,22 +449,22 @@
 }
 
 #pragma mark - UINavigationControllerDelegate
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
-    
-    //do nothing
-}
+//- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
+//    
+//    //do nothing
+//}
 
-- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
-    
-    NSString *className = [NSString stringWithFormat:@"%@", [viewController class]];
-    NSLog(@"当前ViewController名称:%@", className);
-    [navigationController setNavigationBarHidden:NO animated:animated];
-    [navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    navigationController.navigationBar.shadowImage = [UIImage new];
-    navigationController.navigationBar.translucent = YES;
-    navigationController.view.backgroundColor = LOGINBACKCOLOR;
-    navigationController.navigationBar.backgroundColor = LOGINBACKCOLOR;
-    //    navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Helvetica-Bold" size:22.0f], NSFontAttributeName, nil];
-}
+//- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
+//
+//    NSString *className = [NSString stringWithFormat:@"%@", [viewController class]];
+//    NSLog(@"当前ViewController名称:%@", className);
+//    [navigationController setNavigationBarHidden:NO animated:animated];
+//    [navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+//    navigationController.navigationBar.shadowImage = [UIImage new];
+//    navigationController.navigationBar.translucent = YES;
+//    navigationController.view.backgroundColor = LOGINBACKCOLOR;
+//    navigationController.navigationBar.backgroundColor = LOGINBACKCOLOR;
+//    //    navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Helvetica-Bold" size:22.0f], NSFontAttributeName, nil];
+//}
 
 @end

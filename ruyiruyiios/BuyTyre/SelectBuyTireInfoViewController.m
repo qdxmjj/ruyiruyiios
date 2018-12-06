@@ -560,18 +560,21 @@
         return;
     }
     
-    
-    
-    self.selectTireInfoBlock(
-                             self.priceLab.text,
-                             self.contentLab.text,
-                             [NSString stringWithFormat:@"%.0f",self.stepper1.value],
-                             [NSString stringWithFormat:@"%.0f",self.stepper2.value],
-                             self.cxwyPrice.text,
-                             self.buyTireData,[NSString stringWithFormat:@"%ld",(long)self.shoeID],
-                             remainYear,
-                             self.imgURL
-                             );
+    if (self.delegate && [self.delegate respondsToSelector:@selector(selectTireInfoWithPrice:tireInfo:tireNumber:cxwyNumber:cxwyPrice:buyTireData:shoeID:remainYear:imgURL:)]) {
+        
+        [self.delegate selectTireInfoWithPrice:self.priceLab.text tireInfo:self.contentLab.text tireNumber:[NSString stringWithFormat:@"%.0f",self.stepper1.value] cxwyNumber:[NSString stringWithFormat:@"%.0f",self.stepper2.value] cxwyPrice:self.cxwyPrice.text buyTireData:self.buyTireData shoeID:[NSString stringWithFormat:@"%ld",(long)self.shoeID] remainYear:remainYear imgURL:self.imgURL];
+    }
+
+//    self.selectTireInfoBlock(
+//                             self.priceLab.text,
+//                             self.contentLab.text,
+//                             [NSString stringWithFormat:@"%.0f",self.stepper1.value],
+//                             [NSString stringWithFormat:@"%.0f",self.stepper2.value],
+//                             self.cxwyPrice.text,
+//                             self.buyTireData,[NSString stringWithFormat:@"%ld",(long)self.shoeID],
+//                             remainYear,
+//                             self.imgURL
+//                             );
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }

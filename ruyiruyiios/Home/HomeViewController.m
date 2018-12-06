@@ -6,6 +6,8 @@
 //  Copyright © 2018年 ruyiruyi. All rights reserved.
 //
 #import "HomeViewController.h"
+#import "BaseNavigation.h"
+#import "WelcomeViewController.h"
 #import <SDCycleScrollView.h>
 #import <UIImageView+WebCache.h>
 #import "HomeFirstView.h"
@@ -20,8 +22,6 @@
 #import <CoreLocation/CoreLocation.h>
 #import "DelegateConfiguration.h"
 #import "SelectTirePositionViewController.h"
-#import "ChoicePatternViewController.h"
-//#import "PassImpededViewController.h"
 #import "SmoothJourneyViewController.h"
 #import "NearbyViewController.h"
 #import "TireRepairViewController.h"
@@ -34,7 +34,8 @@
 
 #import "FirstStartConfiguration.h"
 #import "MBProgressHUD+YYM_category.h"
-@interface HomeViewController ()<UIScrollViewDelegate, SDCycleScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate,LoginStatusDelegate, CityNameDelegate,UpdateAddCarDelegate>{
+#import "ADView.h"
+@interface HomeViewController ()<UIScrollViewDelegate, SDCycleScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate, CLLocationManagerDelegate,LoginStatusDelegate, CityNameDelegate,UpdateAddCarDelegate,ADActivityDelegate>{
     
     CGFloat nameW;
     CGFloat tviewX, tviewY, tviewW, tviewH;
@@ -65,22 +66,53 @@
 
 @implementation HomeViewController
 
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-
-    BOOL isShowHomePage = [viewController isKindOfClass:[self class]];
-
-    [self.navigationController setNavigationBarHidden:isShowHomePage animated:YES];
-}
-
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewDidLoad {
+    [super viewDidLoad];
     
-    [super viewWillAppear:animated];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-    self.hidesBottomBarWhenPushed = NO;
-    self.tabBarController.tabBar.hidden = NO;
-    self.navigationController.navigationBar.hidden = YES;
+    if (![[NSUserDefaults standardUserDefaults] valueForKey:@"isFirst"]) {
+        
+        WelcomeViewController *welcomeVC = [[WelcomeViewController alloc] init];
+        [self.navigationController presentViewController:[[BaseNavigation alloc]initWithRootViewController:welcomeVC] animated:YES completion:nil];
+    }
+    
+    _currentCity = @"定位中";
+    
+    //去掉了 添加车辆代理方法 修改默认车辆代理方法  剩下一个 修改默认城市代理方法  日后再改
+    DelegateConfiguration *delegateCF = [DelegateConfiguration sharedConfiguration];
+    [delegateCF registercityNameListers:self];
+    [delegateCF registerLoginStatusChangedListener:self];
+    [delegateCF registeraddCarListers:self];
+    UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20+(SafeAreaTopHeight - 64))];
+    statusBarView.backgroundColor = LOGINBACKCOLOR;
+    
+    [self locateMap];
+    
+    self.view.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:statusBarView];
+    [self.view addSubview:self.mainScrollV];
+    [_mainScrollV addSubview:self.sdcycleScrollV];
+    [_sdcycleScrollV addSubview:self.centerLabel];
+    [_sdcycleScrollV addSubview:self.locationBtn];
+    [_sdcycleScrollV addSubview:self.resetBtn];
+    [_mainScrollV addSubview:self.changeView];
+    [_mainScrollV addSubview:self.threeBtnView];
+    [self addFourButtons];
+    [self addThreeButtons];
+    //    [_mainScrollV addSubview:self.homeTableV];
+    [_mainScrollV addSubview:self.webAdvertisingView];
+    [_mainScrollV setContentSize:CGSizeMake(MAINSCREEN.width, (tviewY+tviewH+82))];
+
+    
+    //    [self getAndroidHomeDate];  //定位成功后再请求主页数据 因为 新接口需要传入位置信息  日后更改定位方式
+    [self getActivityInfo];
+    
+    //生成购买轮胎订单的时候 的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(generateTireOrderNoticeEvent) name:GenerateTireOrderNotice object:nil];
+    //设置默认车辆的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(generateTireOrderNoticeEvent) name:ModifyDefaultCarNotification object:nil];
 }
 
+#pragma mark setData
 - (void)getAndroidHomeDate{
     
     if (![[NSUserDefaults standardUserDefaults] valueForKey:@"isFirst"]) {
@@ -112,12 +144,13 @@
     
     [JJRequest postRequest:@"getAndroidHomeDate" params:@{@"reqJson":adroidHomereqJson} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         
-        
         NSString *statusStr = [NSString stringWithFormat:@"%@", code];
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
         if ([statusStr isEqualToString:@"-1"]) {
             
-            [PublicClass showHUD:messageStr view:self.view];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [PublicClass showHUD:messageStr view:self.view];
+            });
         }else{
             
             self.data_carDic = [data objectForKey:@"androidHomeData_cars"];
@@ -130,7 +163,6 @@
                 [self setuserDatacarData:self.data_carDic];
             }
             [self setImageurlData:imgArray];
-            [self setElementOffirstView];
 //            [self.homeTableV reloadData];
             
             NSArray *arr = [data objectForKey:@"activityList"];
@@ -149,12 +181,19 @@
                 [self.AdvertisingWebURLArr addObject:[dic objectForKey:@"webUrl"]];
             }
             
-            NSLog(@"%@",self.AdvertisingWebURLArr);
-            if (self.AdvertisingWebURLArr.count<=0) {
-                self.webAdvertisingView.imageURLStringsGroup = nil;
-            }else{
-                self.webAdvertisingView.imageURLStringsGroup = self.AdvertisingImgURLArr;
-            }
+//            NSLog(@"%@",self.AdvertisingWebURLArr);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self setElementOffirstView];
+
+                if (self.AdvertisingWebURLArr.count<=0) {
+                    self.webAdvertisingView.imageURLStringsGroup = nil;
+                }else{
+                    self.webAdvertisingView.imageURLStringsGroup = self.AdvertisingImgURLArr;
+                }
+            });
+            
         }
         [MBProgressHUD hideWaitViewAnimated:self.view];
         
@@ -189,9 +228,357 @@
 
         [self.imgMutableA addObject:lun_info.contentImageUrl];
     }
-    _sdcycleScrollV.imageURLStringsGroup = self.imgMutableA;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        _sdcycleScrollV.imageURLStringsGroup = self.imgMutableA;
+    });
 }
 
+-(void)getActivityInfo{
+    
+    [JJRequest postRequest:@"getAppActivity" params:nil success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+       
+        NSLog(@"%@ %@ %@",code,message,data);
+        
+        if ([data count]>0) {
+            ADView *adView = [[ADView alloc] initWithFrame:self.view.frame];
+            adView.delegate = self;
+            [adView setActivityInfo:data];
+            [adView show:self.view];
+        }
+    } failure:^(NSError * _Nullable error) {
+        
+    }];
+}
+#pragma mark 点击事件
+- (void)selectLocationBtn{
+    
+    LocationViewController *locationVC = [[LocationViewController alloc] init];
+    locationVC.current_cityName = self.locationBtn.titleLabel.text;
+    [self.navigationController pushViewController:locationVC animated:YES];
+}
+
+-(void)resetHomeInfoWithCarInfo{
+    [self getAndroidHomeDate];
+    [self getActivityInfo];
+}
+
+- (void)chickMidBtn:(UIButton *)btn{
+    
+    //1000轮胎购买，1001免费更换，1002免费修补，1003待更换轮胎
+    //2000畅行无忧，2001汽车保养，2002美容清洗
+    if ([UserConfig user_id] == NULL) {
+        
+        [self alertIsloginView];
+    }else{
+        
+        if (btn.tag == 1000) {
+            
+            [self chickBuytyreBtn:btn];
+        }else if (btn.tag == 1001){
+            
+            FreeChangeViewController *tireRepairVC = [[FreeChangeViewController alloc] init];
+            [self.navigationController pushViewController:tireRepairVC animated:YES];
+            
+        }else if (btn.tag == 1002){
+            
+            TireRepairViewController *tireRepairVC = [[TireRepairViewController alloc] init];
+            [self.navigationController pushViewController:tireRepairVC animated:YES];
+        }else if (btn.tag == 1003){
+            
+            //            self.tabBarController.selectedIndex = 2;
+            //待更换轮胎
+            TobeReplacedTiresViewController *tobeReplacedVC = [[TobeReplacedTiresViewController alloc] init];
+            [self.navigationController pushViewController:tobeReplacedVC animated:YES];
+            
+        }else if (btn.tag == 2000){
+            
+            SmoothJourneyViewController *SmoothJourneyVC = [[SmoothJourneyViewController alloc] init];
+            [self.navigationController pushViewController:SmoothJourneyVC animated:YES];
+        }else{
+            
+            NearbyViewController *nearbyVC = [[NearbyViewController alloc] init];
+            nearbyVC.status = @"0";
+            nearbyVC.isLocation = @"1";
+            if (btn.tag == 2001) {
+                
+                nearbyVC.serviceType = @"2";
+                nearbyVC.condition = @"汽车保养";
+            }else{
+                
+                nearbyVC.serviceType = @"3";
+                nearbyVC.condition = @"美容清洗";
+            }
+            [self.navigationController pushViewController:nearbyVC animated:YES];
+        }
+    }
+}
+
+
+- (UITapGestureRecognizer *)fTapGR{
+    
+    if (_fTapGR == nil) {
+        
+        _fTapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGRAction)];
+    }
+    return _fTapGR;
+}
+
+- (void)tapGRAction{
+    
+    if (_user_token.length == 0) {
+        
+        CodeLoginViewController *codeLVC = [[CodeLoginViewController alloc] init];
+        codeLVC.homeTologinStr = @"1";
+        [self.navigationController pushViewController:codeLVC animated:YES];
+    }else{
+        
+        if ([_data_carDic isKindOfClass:[NSNull class]] || _data_carDic == nil) {
+            
+            CarInfoViewController *carinfoVC = [[CarInfoViewController alloc] init];
+            carinfoVC.is_alter = YES;
+            [self.navigationController pushViewController:carinfoVC animated:YES];
+        }else{
+            
+            ManageCarViewController *manageCarVC = [[ManageCarViewController alloc] init];
+            [self.navigationController pushViewController:manageCarVC animated:YES];
+        }
+    }
+    NSLog(@"给changeView添加的手势");
+}
+
+- (void)locateMap{
+    
+    if ([CLLocationManager locationServicesEnabled]) {
+        
+        _locationManager = [[CLLocationManager alloc] init];
+        _locationManager.delegate = self;
+        [_locationManager requestAlwaysAuthorization];
+        _currentCity = [[NSString alloc] init];
+        [_locationManager requestWhenInUseAuthorization];
+        _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        _locationManager.distanceFilter = 5.0;
+        [_locationManager startUpdatingLocation];
+    }
+}
+
+#pragma mark 设置UI
+- (void)addFourButtons{
+    
+    NSArray *nameArray = @[@"轮胎购买", @"免费更换", @"免费修补", @"待更换轮胎"];
+    NSArray *imgArray = @[@"轮胎购买", @"免费更换", @"免费修补", @"ic_icon4"];
+    for (int i = 0; i<4; i++) {
+        
+        CGFloat btnW = MAINSCREEN.width/4;
+        CGFloat btnH = btnW + 15;
+        CGFloat btnX = i*btnW;
+        CGFloat btnY = 240;
+        UIButton *midBtn = [[UIButton alloc] initWithFrame:CGRectMake(btnX, btnY, btnW, btnH)];
+        midBtn.tag = 1000+i;
+        [midBtn setTitle:[nameArray objectAtIndex:i] forState:UIControlStateNormal];
+        [midBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        midBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
+        midBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
+        [midBtn setImage:[UIImage imageNamed:[imgArray objectAtIndex:i]] forState:UIControlStateNormal];
+        midBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+        midBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+        [midBtn setImageEdgeInsets:UIEdgeInsetsMake(-20, 8, 0, 0)];
+        [midBtn setTitleEdgeInsets:UIEdgeInsetsMake(midBtn.frame.size.height, -btnW + btnW*0.30, 25, 0)];
+        [midBtn addTarget:self action:@selector(chickMidBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [_mainScrollV addSubview:midBtn];
+    }
+}
+
+- (void)addThreeButtons{
+    
+    NSArray *threeNameArray = @[@"畅行无忧", @"汽车保养", @"美容清洗"];
+    for (int t = 0; t<threeNameArray.count; t++) {
+        
+        UIButton *button = [[UIButton alloc] init];
+        button.tag = 2000+t;
+        [button setBackgroundImage:[UIImage imageNamed:[threeNameArray objectAtIndex:t]] forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(chickMidBtn:) forControlEvents:UIControlEventTouchUpInside];
+        
+        if (t == 0) {
+
+            button.frame = CGRectMake(0, 1, tviewW/3, tviewH-2);
+        }else if (t == 1){
+
+            button.frame = CGRectMake(tviewW/3, 1, tviewW*2/3, tviewH/2-2.0);
+        }else{
+
+            button.frame = CGRectMake(tviewW/3, tviewH/2, tviewW*2/3, tviewH/2-1);
+        }
+        [_threeBtnView addSubview:button];
+    }
+}
+#pragma mark - TableViewDelegate
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return 80.0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    static NSString *cellIndentifier = @"homeCell";
+    HomeTableViewCell *homeCell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier];
+    if (homeCell == nil) {
+        
+        homeCell = [[HomeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
+        homeCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    homeCell.backImageV.image = [UIImage imageNamed:@"一元洗车"];
+    return homeCell;
+}
+
+#pragma mark cycleScrollViewDelegate
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
+    
+//    NSLog(@"点击了第%ld张图片",(long)index);
+    if ([cycleScrollView isEqual:self.webAdvertisingView]) {
+        
+        if (self.AdvertisingWebURLArr.count <= 0) {
+            
+            return;
+        }
+        MyWebViewController *myWebVC = [[MyWebViewController alloc] init];
+        myWebVC.url = [NSString stringWithFormat:@"%@?userId=%@&userCarId=%@",self.AdvertisingWebURLArr[index],[UserConfig user_id],[UserConfig userCarId]];
+        [self.navigationController pushViewController:myWebVC animated:YES];
+    }else{
+        CycleScrollViewDetailsController *cycleViewDetails = [[CycleScrollViewDetailsController alloc] init];
+        cycleViewDetails.index = index;
+        cycleViewDetails.tireSize = self.dataCars.font;
+        cycleViewDetails.dataCars = self.dataCars;
+        [self.navigationController pushViewController:cycleViewDetails animated:YES];
+    }
+}
+#pragma mark ADViewDelegate
+-(void)adview:(ADView *)adview didSelectItemAtShareType:(shareType)type shareText:(nonnull NSString *)text shareURL:(nonnull NSString *)url{
+    
+    MyWebViewController *myWebVC = [[MyWebViewController alloc] init];
+    NSString *newURL;
+    if ([url rangeOfString:@"http://"].location == NSNotFound) {
+        
+        newURL = [NSString stringWithFormat:@"http://%@", [url stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
+    }else{
+        newURL = [NSString stringWithFormat:@"%@", [url stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
+    }
+    myWebVC.url = newURL;
+    [myWebVC activityInfoWithShareType:type shareText:text shareUrl:url];
+    [self.navigationController pushViewController:myWebVC animated:YES];
+}
+
+#pragma mark 跳转轮胎购买页面事件
+- (void)chickBuytyreBtn:(UIButton *)btn{
+    
+
+    
+    if ([self.dataCars isEqual:[NSNull null]] || self.dataCars == nil || !self.dataCars || [UserConfig userCarId].intValue == 0) {
+        
+        CarInfoViewController *carinfoVC = [[CarInfoViewController alloc] init];
+        carinfoVC.is_alter = YES;
+        [self.navigationController pushViewController:carinfoVC animated:YES];
+        
+        return;
+    }
+    //前后轮一致 直接进入轮胎购买页面 不一致先进入选择前后轮界面 再进入轮胎购买
+    if ([self.dataCars.font isEqualToString:self.dataCars.rear]) {
+        
+        NewTirePurchaseViewController *newTireVC = [[NewTirePurchaseViewController alloc] init];
+
+        newTireVC.fontRearFlag = @"0";
+        newTireVC.tireSize = self.dataCars.font;
+        newTireVC.service_end_date = self.dataCars.service_end_date;
+        newTireVC.service_year = self.dataCars.service_year;
+        newTireVC.service_year_length = self.dataCars.service_year_length;
+
+        [self.navigationController pushViewController:newTireVC animated:YES];
+        
+    }else{
+
+        SelectTirePositionViewController *selectTPVC = [[SelectTirePositionViewController alloc] init];
+        selectTPVC.dataCars = self.dataCars;
+        [self.navigationController pushViewController:selectTPVC animated:YES];
+    }
+}
+
+
+
+#pragma mark - 定位失败
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请在设置中打开定位" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"打开定位" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        NSURL *settingURL = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+        if (@available(iOS 10.0, *)) {
+            [[UIApplication sharedApplication] openURL:settingURL options:@{} completionHandler:nil];
+        } else {
+            // Fallback on earlier versions
+        }
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+        
+    }];
+    [alert addAction:cancel];
+    [alert addAction:ok];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+#pragma mark - 定位成功
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
+    
+    [_locationManager stopUpdatingLocation];
+    CLLocation *currentLocation = [locations lastObject];
+    CLGeocoder *geoCoder = [[CLGeocoder alloc] init];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%f", currentLocation.coordinate.longitude] forKey:@"longitude"];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%f", currentLocation.coordinate.latitude] forKey:@"latitude"];
+//    NSTimeInterval locationAge = -[currentLocation.timestamp timeIntervalSinceNow];
+//    if (locationAge > 1.0) {
+//
+//        return;
+//    }
+    [geoCoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        
+        if (placemarks.count >0) {
+            
+            CLPlacemark *placeMark = placemarks[0];
+            _currentCity = placeMark.subLocality;//2018.10.24 改为默认显示县 之前默认为市
+            NSString *currentStr = placeMark.locality;
+            if (!_currentCity) {
+                
+                _currentCity = @"无法定位当前城市";
+            }
+            [[NSUserDefaults standardUserDefaults] setObject:_currentCity forKey:@"currentCity"];//存储 当前定位的信息 县
+            [[NSUserDefaults standardUserDefaults] setObject:_currentCity forKey:@"positionCounty"];//存储 当前定位的信息 县
+            [UserConfig userDefaultsSetObject:currentStr key:@"selectCityName"];//当前的城市
+            [self.locationBtn setTitle:_currentCity forState:UIControlStateNormal];
+            
+            [self getAndroidHomeDate];//定位成功后请求主页数据  定位结果返回会执行多次  重复网络请求 不合理 暂未处理
+            
+        }else if (error == nil && placemarks.count){
+            
+            NSLog(@"NO location and error return");
+        }else if (error){
+            
+            NSLog(@"location error:%@", error);
+        }
+    }];
+}
+
+
+#pragma mark 懒加载
 - (NSMutableArray *)imgMutableA{
     
     if (_imgMutableA == nil) {
@@ -220,9 +607,9 @@
 }
 
 - (UIScrollView *)mainScrollV{
-
+    
     if (_mainScrollV == nil) {
-
+        
         _mainScrollV = [[UIScrollView alloc] init];
         _mainScrollV.frame = CGRectMake(0, (SafeAreaTopHeight - 64)+20, MAINSCREEN.width, MAINSCREEN.height - 20 - (SafeAreaTopHeight - 64) - Height_TabBar);
         _mainScrollV.backgroundColor = [UIColor clearColor];
@@ -232,11 +619,11 @@
         _mainScrollV.delegate = self;
         _mainScrollV.tag = 2;
         _mainScrollV.scrollsToTop = NO;
-//        if (@available(iOS 11.0, *)) {
-//            _mainScrollV.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
-//        } else {
-//            // Fallback on earlier versions
-//        }
+        //        if (@available(iOS 11.0, *)) {
+        //            _mainScrollV.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
+        //        } else {
+        //            // Fallback on earlier versions
+        //        }
     }
     return _mainScrollV;
 }
@@ -269,9 +656,9 @@
 
 
 - (UILabel *)centerLabel{
-
+    
     if (_centerLabel == nil) {
-
+        
         _centerLabel = [[UILabel alloc] init];
         _centerLabel.textColor = [UIColor whiteColor];
         _centerLabel.text = @"如驿如意";
@@ -306,51 +693,6 @@
     }
     return _resetBtn;
 }
-
-- (void)selectLocationBtn{
-    
-    LocationViewController *locationVC = [[LocationViewController alloc] init];
-    locationVC.current_cityName = self.locationBtn.titleLabel.text;
-    [self.navigationController pushViewController:locationVC animated:YES];
-}
-
--(void)resetHomeInfoWithCarInfo{
-    [self getAndroidHomeDate];
-}
-
-- (UITapGestureRecognizer *)fTapGR{
-    
-    if (_fTapGR == nil) {
-        
-        _fTapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGRAction)];
-    }
-    return _fTapGR;
-}
-
-- (void)tapGRAction{
-    
-    if (_user_token.length == 0) {
-        
-        CodeLoginViewController *codeLVC = [[CodeLoginViewController alloc] init];
-        codeLVC.homeTologinStr = @"1";
-        [self.navigationController pushViewController:codeLVC animated:YES];
-    }else{
-        
-        if ([_data_carDic isKindOfClass:[NSNull class]] || _data_carDic == nil) {
-            
-            CarInfoViewController *carinfoVC = [[CarInfoViewController alloc] init];
-            carinfoVC.is_alter = YES;
-            [self.navigationController pushViewController:carinfoVC animated:YES];
-        }else{
-            
-            ManageCarViewController *manageCarVC = [[ManageCarViewController alloc] init];
-            [self.navigationController pushViewController:manageCarVC animated:YES];
-        }
-    }
-    NSLog(@"给changeView添加的手势");
-}
-
-
 
 - (UIView *)changeView{
     
@@ -431,354 +773,7 @@
     return _homeTableV;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    _currentCity = @"定位中";
-    
-    //去掉了 添加车辆代理方法 修改默认车辆代理方法  剩下一个 修改默认城市代理方法  日后再改
-    DelegateConfiguration *delegateCF = [DelegateConfiguration sharedConfiguration];
-    [delegateCF registercityNameListers:self];
-    [delegateCF registerLoginStatusChangedListener:self];
-    [delegateCF registeraddCarListers:self];
-    UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20+(SafeAreaTopHeight - 64))];
-    statusBarView.backgroundColor = LOGINBACKCOLOR;
-    
-    [self locateMap];
-    self.navigationController.delegate = self;
-
-    self.view.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:statusBarView];
-    [self.view addSubview:self.mainScrollV];
-    [_mainScrollV addSubview:self.sdcycleScrollV];
-    [_sdcycleScrollV addSubview:self.centerLabel];
-    [_sdcycleScrollV addSubview:self.locationBtn];
-    [_sdcycleScrollV addSubview:self.resetBtn];
-    [_mainScrollV addSubview:self.changeView];
-    [_mainScrollV addSubview:self.threeBtnView];
-    [self addFourButtons];
-    [self addThreeButtons];
-//    [_mainScrollV addSubview:self.homeTableV];
-    [_mainScrollV addSubview:self.webAdvertisingView];
-    [_mainScrollV setContentSize:CGSizeMake(MAINSCREEN.width, (tviewY+tviewH+82))];
-    
-//    [self getAndroidHomeDate];  //定位成功后再请求主页数据 因为 新接口需要传入位置信息
-
-    //生成购买轮胎订单的时候 的通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(generateTireOrderNoticeEvent) name:GenerateTireOrderNotice object:nil];
-    //设置默认车辆的通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(generateTireOrderNoticeEvent) name:ModifyDefaultCarNotification object:nil];
-}
-
-
-
-- (void)locateMap{
-    
-    if ([CLLocationManager locationServicesEnabled]) {
-        
-        _locationManager = [[CLLocationManager alloc] init];
-        _locationManager.delegate = self;
-        [_locationManager requestAlwaysAuthorization];
-        _currentCity = [[NSString alloc] init];
-        [_locationManager requestWhenInUseAuthorization];
-        _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        _locationManager.distanceFilter = 5.0;
-        [_locationManager startUpdatingLocation];
-    }
-}
-
-- (void)addFourButtons{
-    
-    NSArray *nameArray = @[@"轮胎购买", @"免费更换", @"免费修补", @"待更换轮胎"];
-    NSArray *imgArray = @[@"轮胎购买", @"免费更换", @"免费修补", @"ic_icon4"];
-    for (int i = 0; i<4; i++) {
-        
-        CGFloat btnW = MAINSCREEN.width/4;
-        CGFloat btnH = btnW + 15;
-        CGFloat btnX = i*btnW;
-        CGFloat btnY = 240;
-        UIButton *midBtn = [[UIButton alloc] initWithFrame:CGRectMake(btnX, btnY, btnW, btnH)];
-        midBtn.tag = 1000+i;
-        [midBtn setTitle:[nameArray objectAtIndex:i] forState:UIControlStateNormal];
-        [midBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        midBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
-        midBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
-        [midBtn setImage:[UIImage imageNamed:[imgArray objectAtIndex:i]] forState:UIControlStateNormal];
-        midBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-        midBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-        [midBtn setImageEdgeInsets:UIEdgeInsetsMake(-20, 8, 0, 0)];
-        [midBtn setTitleEdgeInsets:UIEdgeInsetsMake(midBtn.frame.size.height, -btnW + btnW*0.30, 25, 0)];
-        [midBtn addTarget:self action:@selector(chickMidBtn:) forControlEvents:UIControlEventTouchUpInside];
-        [_mainScrollV addSubview:midBtn];
-    }
-}
-
-- (void)addThreeButtons{
-    
-    NSArray *threeNameArray = @[@"畅行无忧", @"汽车保养", @"美容清洗"];
-    for (int t = 0; t<threeNameArray.count; t++) {
-        
-        UIButton *button = [[UIButton alloc] init];
-        button.tag = 2000+t;
-        [button setBackgroundImage:[UIImage imageNamed:[threeNameArray objectAtIndex:t]] forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(chickMidBtn:) forControlEvents:UIControlEventTouchUpInside];
-        
-        if (t == 0) {
-
-            button.frame = CGRectMake(0, 1, tviewW/3, tviewH-2);
-        }else if (t == 1){
-
-            button.frame = CGRectMake(tviewW/3, 1, tviewW*2/3, tviewH/2-2.0);
-        }else{
-
-            button.frame = CGRectMake(tviewW/3, tviewH/2, tviewW*2/3, tviewH/2-1);
-        }
-        [_threeBtnView addSubview:button];
-    }
-}
-
-- (void)chickMidBtn:(UIButton *)btn{
-    
-    //1000轮胎购买，1001免费更换，1002免费修补，1003待更换轮胎
-    //2000畅行无忧，2001汽车保养，2002美容清洗
-    if ([UserConfig user_id] == NULL) {
-        
-        [self alertIsloginView];
-    }else{
-        
-        if (btn.tag == 1000) {
-            
-            [self chickBuytyreBtn:btn];
-        }else if (btn.tag == 1001){
-            
-            FreeChangeViewController *tireRepairVC = [[FreeChangeViewController alloc] init];
-            [self.navigationController pushViewController:tireRepairVC animated:YES];
-            
-        }else if (btn.tag == 1002){
-            
-            TireRepairViewController *tireRepairVC = [[TireRepairViewController alloc] init];
-            [self.navigationController pushViewController:tireRepairVC animated:YES];
-        }else if (btn.tag == 1003){
-            
-//            self.tabBarController.selectedIndex = 2;
-            //待更换轮胎
-            TobeReplacedTiresViewController *tobeReplacedVC = [[TobeReplacedTiresViewController alloc] init];
-            [self.navigationController pushViewController:tobeReplacedVC animated:YES];
-            
-        }else if (btn.tag == 2000){
-            
-            SmoothJourneyViewController *SmoothJourneyVC = [[SmoothJourneyViewController alloc] init];
-            [self.navigationController pushViewController:SmoothJourneyVC animated:YES];
-        }else{
-            
-            NearbyViewController *nearbyVC = [[NearbyViewController alloc] init];
-            nearbyVC.status = @"0";
-            nearbyVC.isLocation = @"1";
-            if (btn.tag == 2001) {
-                
-                nearbyVC.serviceType = @"2";
-                nearbyVC.condition = @"汽车保养";
-            }else{
-                
-                nearbyVC.serviceType = @"3";
-                nearbyVC.condition = @"美容清洗";
-            }
-            [self.navigationController pushViewController:nearbyVC animated:YES];
-        }
-    }
-}
-
-
-
-#pragma mark - TableViewDelegate
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
-    return 1;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    return 80.0;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    static NSString *cellIndentifier = @"homeCell";
-    HomeTableViewCell *homeCell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier];
-    if (homeCell == nil) {
-        
-        homeCell = [[HomeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
-        homeCell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
-    homeCell.backImageV.image = [UIImage imageNamed:@"一元洗车"];
-    return homeCell;
-}
-
-#pragma mark cycleScrollViewDelegate
-- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
-    
-//    NSLog(@"点击了第%ld张图片",(long)index);
-    if ([cycleScrollView isEqual:self.webAdvertisingView]) {
-        
-        if (self.AdvertisingWebURLArr.count <= 0) {
-            
-            return;
-        }
-        MyWebViewController *myWebVC = [[MyWebViewController alloc] init];
-        myWebVC.url = [NSString stringWithFormat:@"%@?userId=%@&userCarId=%@",self.AdvertisingWebURLArr[index],[UserConfig user_id],[UserConfig userCarId]];
-        [self.navigationController pushViewController:myWebVC animated:YES];
-    }else{
-        
-        if (index == 2) {
-            
-            if ([UserConfig user_id] == NULL) {
-                
-                [self alertIsloginView];
-            }else{
-                
-                [self chickBuytyreBtn:[UIButton new]];
-            }
-        }else{
-            
-            CycleScrollViewDetailsController *cycleViewDetails = [[CycleScrollViewDetailsController alloc] init];
-            cycleViewDetails.index = index;
-            cycleViewDetails.tireSize = self.dataCars.font;
-            cycleViewDetails.dataCars = self.dataCars;
-            [self.navigationController pushViewController:cycleViewDetails animated:YES];
-        }
-    }
-}
-
-#pragma mark 跳转轮胎购买页面事件
-- (void)chickBuytyreBtn:(UIButton *)btn{
-    
-
-    
-    if ([self.dataCars isEqual:[NSNull null]] || self.dataCars == nil || !self.dataCars || [UserConfig userCarId].intValue == 0) {
-
-//        [PublicClass showHUD:@"轮胎信息获取失败！" view:self.view];
-        
-        CarInfoViewController *carinfoVC = [[CarInfoViewController alloc] init];
-        carinfoVC.is_alter = YES;
-        [self.navigationController pushViewController:carinfoVC animated:YES];
-        
-        return;
-    }
-
-    
-    //    if ([self.dataCars.service_end_date isEqualToString:@""]) {
-//
-//        NSLog(@"进入选择年限界面");
-//
-//        YearSelectViewController *yearsVC = [[YearSelectViewController alloc] init];
-//
-//        yearsVC.maximumYears = [NSString stringWithFormat:@"%@",self.dataCars.service_year];
-//        yearsVC.data_cars = self.dataCars;
-//        [self.navigationController pushViewController:yearsVC animated:YES];
-//
-//        return;
-//    }
-//
-    
-    //前后轮一致 直接进入轮胎购买页面 不一致先进入选择前后轮界面 再进入轮胎购买
-    if ([self.dataCars.font isEqualToString:self.dataCars.rear]) {
-
-//        ChoicePatternViewController *choicePVC = [[ChoicePatternViewController alloc] init];
-//        choicePVC.tireSize = self.dataCars.font;
-//        choicePVC.fontRearFlag = @"0";
-//        [self.navigationController pushViewController:choicePVC animated:YES];
-        
-        NewTirePurchaseViewController *newTireVC = [[NewTirePurchaseViewController alloc] init];
-
-        newTireVC.fontRearFlag = @"0";
-        newTireVC.tireSize = self.dataCars.font;
-        newTireVC.service_end_date = self.dataCars.service_end_date;
-        newTireVC.service_year = self.dataCars.service_year;
-        newTireVC.service_year_length = self.dataCars.service_year_length;
-
-        [self.navigationController pushViewController:newTireVC animated:YES];
-        
-    }else{
-
-        SelectTirePositionViewController *selectTPVC = [[SelectTirePositionViewController alloc] init];
-        selectTPVC.dataCars = self.dataCars;
-        [self.navigationController pushViewController:selectTPVC animated:YES];
-    }
-}
-
-
-
-#pragma mark - 定位失败
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
-    
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请在设置中打开定位" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"打开定位" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-        NSURL *settingURL = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-        if (@available(iOS 10.0, *)) {
-            [[UIApplication sharedApplication] openURL:settingURL options:@{} completionHandler:nil];
-        } else {
-            // Fallback on earlier versions
-        }
-    }];
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        
-        
-    }];
-    [alert addAction:cancel];
-    [alert addAction:ok];
-    [self presentViewController:alert animated:YES completion:nil];
-}
-
-#pragma mark - 定位成功
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
-    
-    [_locationManager stopUpdatingLocation];
-    CLLocation *currentLocation = [locations lastObject];
-    CLGeocoder *geoCoder = [[CLGeocoder alloc] init];
-    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%f", currentLocation.coordinate.longitude] forKey:@"longitude"];
-    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%f", currentLocation.coordinate.latitude] forKey:@"latitude"];
-//    NSTimeInterval locationAge = -[currentLocation.timestamp timeIntervalSinceNow];
-//    if (locationAge > 1.0) {
-//
-//        return;
-//    }
-    [geoCoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
-        
-        if (placemarks.count >0) {
-            
-            CLPlacemark *placeMark = placemarks[0];
-            _currentCity = placeMark.subLocality;//2018.10.24 改为默认显示县 之前默认为市
-            NSString *currentStr = placeMark.locality;//2018.10.24 改为默认显示县 之前默认为市
-            if (!_currentCity) {
-                
-                _currentCity = @"无法定位当前城市";
-            }
-            [[NSUserDefaults standardUserDefaults] setObject:_currentCity forKey:@"currentCity"];//存储 当前定位的信息 县
-            [[NSUserDefaults standardUserDefaults] setObject:_currentCity forKey:@"positionCounty"];//存储 当前定位的信息 县
-            [UserConfig userDefaultsSetObject:currentStr key:@"selectCityName"];//初始化 默认选择的城市
-            [self.locationBtn setTitle:_currentCity forState:UIControlStateNormal];
-            
-            [self getAndroidHomeDate];//定位成功后请求主页数据  定位结果返回会执行多次  重复网络请求 不合理 暂未处理
-            
-        }else if (error == nil && placemarks.count){
-            
-            NSLog(@"NO location and error return");
-        }else if (error){
-            
-            NSLog(@"location error:%@", error);
-        }
-    }];
-}
-
 #pragma mark notice
-
 -(void)generateTireOrderNoticeEvent{
     
     [self getAndroidHomeDate];

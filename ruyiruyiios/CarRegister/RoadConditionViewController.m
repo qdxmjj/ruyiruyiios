@@ -117,12 +117,6 @@
     [_roadTableV reloadData];
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    [self.tabBarController.tabBar setHidden:YES];
-}
-
 - (void)getNetworkData{
     
     NSDictionary *roadpostDic = @{};

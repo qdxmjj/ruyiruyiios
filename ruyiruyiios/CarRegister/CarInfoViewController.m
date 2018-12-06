@@ -485,17 +485,6 @@
     NSLog(@"城市的ID:%@", pro_city_id);
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    [self.tabBarController.tabBar setHidden:YES];
-}
-
-- (void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:animated];
-    [self.tabBarController.tabBar setHidden:NO];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -516,7 +505,6 @@
         
         [self getCarInfoFromInternet];
     }
-
 }
 
 - (void)getCarInfoFromInternet{
@@ -704,7 +692,7 @@
             [topCell.frontBtn setTitle:self.carInfo.font forState:UIControlStateNormal];
             [topCell.rearBtn setTitle:self.carInfo.rear forState:UIControlStateNormal];
             NSString *drivingDateStr = [PublicClass timestampSwitchTime:[self.carInfo.drivingLicenseDate integerValue] andFormatter:@"YYYY-MM-dd"];
-            NSString *serviceEndStr = [NSString stringWithFormat:@"%ld 年", [self.carInfo.serviceYearLength integerValue]];
+//            NSString *serviceEndStr = [NSString stringWithFormat:@"%ld 年", [self.carInfo.serviceYearLength integerValue]];
 //            NSLog(@"%@---%@---%@---%@", self.carInfo.drivingLicenseDate, self.carInfo.serviceEndDate, drivingDateStr, serviceEndStr);
             [topCell.drivingBtn setTitle:drivingDateStr forState:UIControlStateNormal];
             [topCell.residentAreaBtn setTitle:self.carInfo.proCityName forState:UIControlStateNormal];

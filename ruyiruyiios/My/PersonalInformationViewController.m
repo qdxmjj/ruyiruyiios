@@ -31,18 +31,6 @@
 
 @implementation PersonalInformationViewController
 
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
-    self.navigationController.navigationBar.hidden = NO;
-}
-
-- (void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = NO;
-}
 
 - (UITableView *)personTableV{
     
@@ -151,8 +139,10 @@
             [UserConfig userDefaultsSetObject:[NSString stringWithFormat:@"%@", [data objectForKey:@"birthday"]] key:@"birthday"];
             self.updateViewBlock(@"update");
             [self.navigationController popViewControllerAnimated:YES];
-        }else{
+        }else if([statusStr isEqualToString:@"-999"]||[message isEqualToString:@"token错误!!!!"]){
             
+            [self alertIsequallyTokenView];
+        }else{
             [PublicClass showHUD:messageStr view:self.view];
         }
     } complete:^(id  _Nullable dataObj, NSError * _Nullable error) {

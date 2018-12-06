@@ -14,10 +14,8 @@
 #import "SharePersonInfo.h"
 #import "MyCodeViewController.h"
 #import "DelegateConfiguration.h"
-#import "WXApi.h"
-#import "WXApiObject.h"
-#import "WXShareView.h"
 
+#import "JJShare.h"
 @interface ExtensionCodeViewController ()<UIScrollViewDelegate, LoginStatusDelegate>
 
 @property(nonatomic, strong)ExtensionInfo *extensionInfo;
@@ -28,25 +26,10 @@
 @property(nonatomic, strong)ExtensionHeadView *extensionHeadView;
 @property(nonatomic, strong)ExtensionMiddleView *extensionMiddleView;
 @property(nonatomic, strong)ExtensionBottomView *extensionBottomView;
-@property(nonatomic, strong)WXShareView *wxShareView;
-@property(nonatomic, strong)UIButton *backBtn;
 
 @end
 
 @implementation ExtensionCodeViewController
-
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
-    self.navigationController.navigationBar.hidden = NO;
-}
-
-- (void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = NO;
-}
 
 - (ExtensionInfo *)extensionInfo{
     
@@ -136,77 +119,11 @@
     return _extensionBottomView;
 }
 
-- (WXShareView *)wxShareView{
-    
-    if (_wxShareView == nil) {
-        
-        _wxShareView = [[WXShareView alloc] initWithFrame:CGRectMake(20, MAINSCREEN.height - SafeDistance - 120, MAINSCREEN.width - 40, 100)];
-        _wxShareView.backgroundColor = [UIColor whiteColor];
-        _wxShareView.layer.cornerRadius = 6.0;
-        _wxShareView.layer.masksToBounds = YES;
-        [_wxShareView.weixinBtn addTarget:self action:@selector(chickWXBtn:) forControlEvents:UIControlEventTouchUpInside];
-        [_wxShareView.friendsBtn addTarget:self action:@selector(chickFriendsBtn:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _wxShareView;
-}
-
-- (UIButton *)backBtn{
-    
-    if (_backBtn == nil) {
-        
-        _backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _backBtn.frame = CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - SafeDistance);
-        _backBtn.backgroundColor = [UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:0.2];
-        [_backBtn addTarget:self action:@selector(chickBackBtn:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _backBtn;
-}
-
-- (void)chickBackBtn:(UIButton *)button{
-    
-    [self.wxShareView removeFromSuperview];
-    [self.backBtn removeFromSuperview];
-}
-
 - (void)chickShareBtn:(UIButton *)button{
     
-    [self.view addSubview:self.backBtn];
-    [self.view addSubview:self.wxShareView];
+    [JJShare ShareDescribe:@"分享下载app，注册并添加车辆即赠送二张精致洗车券，购买轮胎，更有精美大礼赠送！" images:@[[UIImage imageNamed:@"icon"]] url:self.extensionInfo.url title:@"如驿如意" type:SSDKContentTypeAuto];
 }
 
-- (void)chickWXBtn:(UIButton *)button{
-    
-    [self callShareFunction:@"0"];
-}
-
-- (void)chickFriendsBtn:(UIButton *)button{
-    
-    [self callShareFunction:@"1"];
-}
-
-- (void)callShareFunction:(NSString *)scene{
-    
-    [self.backBtn removeFromSuperview];
-    [self.wxShareView removeFromSuperview];
-    if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi]) {
-        
-        SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
-        req.scene = [scene intValue];   //0---好友列表，1---朋友圈， 2---收藏
-        req.bText = NO;
-        WXMediaMessage *medMessage = [WXMediaMessage message];
-        medMessage.title = @"如驿如意";
-        medMessage.description = @"分享下载app，注册并添加车辆即赠送二张精致洗车券，购买轮胎，更有精美大礼赠送！";
-        WXWebpageObject *webPageObj = [WXWebpageObject object];
-        [medMessage setThumbImage:[UIImage imageNamed:@"icon"]];
-        webPageObj.webpageUrl = self.extensionInfo.url;
-        medMessage.mediaObject = webPageObj;
-        req.message = medMessage;
-        [WXApi sendReq:req];
-    }else{
-        
-        [PublicClass showHUD:@"您还没有安装微信" view:self.view];
-    }
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

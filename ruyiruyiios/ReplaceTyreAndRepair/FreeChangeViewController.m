@@ -69,19 +69,6 @@
     [self.view addSubview:self.tableView];
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
-    self.navigationController.navigationBar.hidden = NO;
-}
-
-- (void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = NO;
-}
-
 - (IBAction)backButtonAction:(id)sender{
     
     if (self.popStatus) {
@@ -400,6 +387,7 @@
             [self analysizeDic:dataDic];
         };
         [self.navigationController pushViewController:nearbyVC animated:YES];
+        self.hidesBottomBarWhenPushed = YES;
     }
 }
 

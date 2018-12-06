@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+@class MyOrderView;
+@protocol ClickOrderDelegate<NSObject>
 
+-(void)myOrderView:(MyOrderView *)view cellForItemAtIndexPath:(NSIndexPath *)indexPath;
+@end
 @interface MyOrderView : UIView
 
-@property(nonatomic, strong)UIButton *topayBtn;
-@property(nonatomic, strong)UIButton *todeliveryBtn;
-@property(nonatomic, strong)UIButton *toserviceBtn;
-@property(nonatomic, strong)UIButton *completedBtn;
 @property(nonatomic, strong)UIButton *lookAllOrderBtn;
+
+@property(nonatomic,weak)id <ClickOrderDelegate>delegate;
 
 @end

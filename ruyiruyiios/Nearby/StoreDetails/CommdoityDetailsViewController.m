@@ -24,7 +24,7 @@
 
 static NSInteger const HeadViewH = 150;
 
-@interface CommdoityDetailsViewController ()
+@interface CommdoityDetailsViewController ()<UINavigationControllerDelegate>
 
 @property(nonatomic,strong)ContentTableViewController *contentVC;
 
@@ -52,22 +52,10 @@ static NSInteger const HeadViewH = 150;
 
 @implementation CommdoityDetailsViewController
 
-
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBar.hidden = YES;
-    self.tabBarController.tabBar.hidden = YES;
-}
-
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    
-    self.navigationController.navigationBar.hidden = NO;
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+//    self.navigationController.delegate = self;
     self.view.backgroundColor = [UIColor whiteColor];
 //    NSLog(@"%@  %@",self.directoryRequest?@"YES":@"NO",self.contentRequest?@"YES":@"NO");
     
@@ -498,6 +486,7 @@ static NSInteger const HeadViewH = 150;
     StoreDetailsViewController *storeDetailsVC = [[StoreDetailsViewController alloc] init];
     storeDetailsVC.storeID = [self.commodityInfo objectForKey:@"storeId"];
     [self.navigationController pushViewController:storeDetailsVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
 }
 
 -(void)AutomaticClick:(NSInteger )buttonTag{
@@ -637,6 +626,8 @@ static NSInteger const HeadViewH = 150;
 }
 -(void)dealloc{
     
+    self.navigationController.delegate = nil;
+
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"TotalPriceLessNotification" object:nil];
     
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"TotalPricePlusNotification" object:nil];
@@ -652,6 +643,7 @@ static NSInteger const HeadViewH = 150;
 //
 //    BOOL isShowHomePage = [viewController isKindOfClass:[self class]];
 //    [self.navigationController setNavigationBarHidden:isShowHomePage animated:YES];
+//
 //}
 
 - (void)didReceiveMemoryWarning {

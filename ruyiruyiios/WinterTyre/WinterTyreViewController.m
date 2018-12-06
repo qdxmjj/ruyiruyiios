@@ -29,12 +29,6 @@
 
 @implementation WinterTyreViewController
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    
-    self.tabBarController.tabBar.hidden = NO;
-    self.navigationController.navigationBar.hidden = NO;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -79,7 +73,7 @@
     cell.contentView.backgroundColor = [UIColor colorWithRed:235.f/255.f green:235.f/255.f blue:235.f/255.f alpha:1.f];
     cell.logoView.hidden = NO;
     
-    [self getServiceListInfo:[NSString stringWithFormat:@"%d",indexPath.row+2]];
+    [self getServiceListInfo:[NSString stringWithFormat:@"%ld",indexPath.row+2]];
 }
 
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{

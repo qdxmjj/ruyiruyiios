@@ -31,7 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    
+    self.title = @"畅行无忧";
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.buyPassImpededBtn];
     
@@ -56,19 +56,6 @@
     [self queryCarCxwyInfo];
     [self getFreeChangeTireInfo];
 }
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
-    self.navigationController.navigationBar.hidden = NO;
-}
-
-- (void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = NO;
-}
-
 
 - (void)queryCarCxwyInfo{
     
@@ -243,6 +230,7 @@
     freeReplaceVC.tireInfoDic = self.tireInfo;
     freeReplaceVC.cxwyList = self.couponArr;
     [self.navigationController pushViewController:freeReplaceVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
 }
 
 

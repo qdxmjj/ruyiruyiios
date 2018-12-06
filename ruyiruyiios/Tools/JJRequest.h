@@ -23,6 +23,10 @@ typedef void (^requestFailureBlock) (NSError * _Nullable error);
  */
 typedef void (^responseBlock)(_Nullable id dataObj, NSError * _Nullable error);
 
+typedef void (^interchangeableRequestSuccessBlock)(id _Nullable data);
+
+typedef void (^GL_requestSuccessBlock)( id _Nullable rows, _Nullable id total);
+
 /**
  监听进度响应block
  */
@@ -71,5 +75,15 @@ typedef void (^destinationBlock)(NSURL * _Nonnull documentUrl);
 
 + (void)commonPostRequest:(NSString *)url params:(NSDictionary *)params hostNameStr:(NSString *)hostStr success:(requestSuccessBlock)successHandler failure:(requestFailureBlock)failureHandler;
 
+
 + (void)testPostRequest:(NSString *)url params:(NSDictionary *)params serviceAddress:(NSString *)hostAddress success:(requestSuccessBlock)successHandler failure:(requestFailureBlock)failureHandler;
+
+
+//龚琳 http 通用post
++ (void)interchangeablePostRequest:(NSString *_Nullable)url params:(NSDictionary *_Nullable)params success:(interchangeableRequestSuccessBlock _Nullable )successHandler failure:(requestFailureBlock _Nullable )failureHandler;
+//通用get
++ (void)interchangeableGetRequest:(nonnull NSString *)url params:(NSDictionary * _Nullable)params success:(_Nullable interchangeableRequestSuccessBlock)successHandler failure:(_Nullable requestFailureBlock)failureHandler;
+
++ (void)GL_PostRequest:(NSString *_Nullable)url params:(NSDictionary *_Nullable)params success:(GL_requestSuccessBlock _Nullable )successHandler failure:(requestFailureBlock _Nullable )failureHandler;
+
 @end

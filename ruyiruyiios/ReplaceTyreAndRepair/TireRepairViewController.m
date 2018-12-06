@@ -29,19 +29,6 @@
 
 @implementation TireRepairViewController
 
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
-    self.navigationController.navigationBar.hidden = NO;
-}
-
-- (void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = NO;
-}
-
 - (UIScrollView *)mainScrollV{
     
     if (_mainScrollV == nil) {
@@ -135,6 +122,7 @@
             
             MyOrderViewController *myorderVC = [[MyOrderViewController alloc] init];
             [self.navigationController pushViewController:myorderVC animated:YES];
+            self.hidesBottomBarWhenPushed = YES;
         }else{
             
             [PublicClass showHUD:messageStr view:self.view];
@@ -311,6 +299,7 @@
         [self analysizeDic:dataDic];
     };
     [self.navigationController pushViewController:nearbyVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
 }
 
 - (void)didReceiveMemoryWarning {

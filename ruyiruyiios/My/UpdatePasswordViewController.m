@@ -19,12 +19,6 @@
 
 @implementation UpdatePasswordViewController
 
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
-}
-
 - (UpdatePasswordView *)updatePasswordV{
     
     if (_updatePasswordV == nil) {

@@ -42,19 +42,6 @@
 @implementation RegisterViewController
 @synthesize teleStr;
 
-- (void)viewWillAppear:(BOOL)animated{
-
-    [super viewWillAppear:animated];
-    [self.navigationController.navigationBar setHidden:NO];
-    self.tabBarController.tabBar.hidden = YES;
-}
-
-- (void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:animated];
-    self.navigationController.navigationBar.hidden = YES;
-}
-
 - (UITableView *)registerTabV{
     
     if (_registerTabV == nil) {
@@ -315,9 +302,10 @@
 }
 
 - (void)removeDelegates{
-    
-    DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
-    [delegateConfiguration removeAllDelegateMutableA];
+
+    //此方法不建议使用 点击查看方法详情
+//    DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+//    [delegateConfiguration removeAllDelegateMutableA];
 }
 
 - (void)viewDidLoad {

@@ -7,12 +7,9 @@
 //
 
 #import "MainTabBarViewController.h"
-#import "HomeViewController.h"
-#import "NearbyViewController.h"
-#import "WinterTyreViewController.h"
-#import "MyViewController.h"
+#import "BaseNavigation.h"
 
-@interface MainTabBarViewController ()
+@interface MainTabBarViewController ()<UITabBarControllerDelegate>
 
 @end
 
@@ -20,47 +17,82 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self creatViewControllers];
-    [self creatItems];
-    // Do any additional setup after loading the view.'
-}
+//    [self creatViewControllers];
+//    [self creatItems];
 
-- (void)creatViewControllers{
-    
+
+    [self.tabBar setBarTintColor:[UIColor whiteColor]];
+    self.tabBar.translucent = NO;
+    self.delegate = self;
     HomeViewController *homeVC = [[HomeViewController alloc] init];
-    UINavigationController *homeNav = [[UINavigationController alloc] initWithRootViewController:homeVC];
     
     NearbyViewController *nearbyVC = [[NearbyViewController alloc] init];
-    UINavigationController *nearbyNav = [[UINavigationController alloc] initWithRootViewController:nearbyVC];
     
     WinterTyreViewController *winterVC = [[WinterTyreViewController alloc] init];
-    UINavigationController *winterNav = [[UINavigationController alloc] initWithRootViewController:winterVC];
     
     MyViewController *myVC = [[MyViewController alloc] init];
-    UINavigationController *myNav = [[UINavigationController alloc] initWithRootViewController:myVC];
-    self.viewControllers = @[homeNav, nearbyNav, winterNav, myNav];
-}
-
-- (void)creatItems{
     
-    NSArray *titleArray = @[@"首页", @"附近", @"分类", @"我的"];
-    NSArray *selectImageNameArray = @[@"首页2", @"ic_fujin", @"ic_shangpin_xuanzhong", @"ic_my"];
-    NSArray *unSelectImageNameArray = @[@"ic_index", @"门店", @"ic_shangpin", @"我的"];
-    for (int i = 0; i<self.tabBar.items.count; i++) {
-        
-        UITabBarItem *item = self.tabBar.items[i];
-        item.title = titleArray[i];
-        UIImage *selectImage = [UIImage imageNamed:selectImageNameArray[i]];
-        selectImage = [selectImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIImage *unSeletImage = [UIImage imageNamed:unSelectImageNameArray[i]];
-        unSeletImage = [unSeletImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        item.selectedImage = selectImage;
-        item.image = unSeletImage;
-        
-        [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor grayColor], NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
-        UIColor *titleHightedColor = LOGINBACKCOLOR;
-        [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:titleHightedColor, NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];
-    }
+    
+    [self setController:homeVC title:@"首页" imageString:@"ic_index" selectedImageString:@"首页2"];
+    [self setController:nearbyVC title:@"附近" imageString:@"门店" selectedImageString:@"ic_fujin"];
+    [self setController:winterVC title:@"分类" imageString:@"ic_shangpin" selectedImageString:@"ic_shangpin_xuanzhong"];
+    [self setController:myVC title:@"我的" imageString:@"我的" selectedImageString:@"ic_my"];
+}
+/*
+    https://www.jianshu.com/p/7bec9ea95c86
+ */
+
+
+
+//- (void)creatViewControllers{
+//
+//    HomeViewController *homeVC = [[HomeViewController alloc] init];
+//    BaseNavigation *homeNav = [[BaseNavigation alloc] initWithRootViewController:homeVC];
+//
+//    NearbyViewController *nearbyVC = [[NearbyViewController alloc] init];
+//    BaseNavigation *nearbyNav = [[BaseNavigation alloc] initWithRootViewController:nearbyVC];
+//
+//    WinterTyreViewController *winterVC = [[WinterTyreViewController alloc] init];
+//    BaseNavigation *winterNav = [[BaseNavigation alloc] initWithRootViewController:winterVC];
+//
+//    MyViewController *myVC = [[MyViewController alloc] init];
+//    BaseNavigation *myNav = [[BaseNavigation alloc] initWithRootViewController:myVC];
+//    self.viewControllers = @[homeNav, nearbyNav, winterNav, myNav];
+//}
+//
+//- (void)creatItems{
+//
+//    NSArray *titleArray = @[@"首页", @"附近", @"分类", @"我的"];
+//    NSArray *selectImageNameArray = @[@"首页2", @"ic_fujin", @"ic_shangpin_xuanzhong", @"ic_my"];
+//    NSArray *unSelectImageNameArray = @[@"ic_index", @"门店", @"ic_shangpin", @"我的"];
+//    for (int i = 0; i<self.tabBar.items.count; i++) {
+//
+//        UITabBarItem *item = self.tabBar.items[i];
+//        item.title = titleArray[i];
+//        UIImage *selectImage = [UIImage imageNamed:selectImageNameArray[i]];
+//        selectImage = [selectImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//        UIImage *unSeletImage = [UIImage imageNamed:unSelectImageNameArray[i]];
+//        unSeletImage = [unSeletImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//        item.selectedImage = selectImage;
+//        item.image = unSeletImage;
+//
+//        [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor grayColor], NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
+//        UIColor *titleHightedColor = LOGINBACKCOLOR;
+//        [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:titleHightedColor, NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];
+//    }
+//}
+
+-(void)setController:(UIViewController *)controller title:(NSString *)title imageString:(NSString *)image selectedImageString:(NSString *)selectedImageString
+{
+    BaseNavigation *nav = [[BaseNavigation alloc] initWithRootViewController:controller];
+    nav.tabBarItem.image = [[UIImage imageNamed:image]imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)];
+    nav.tabBarItem.selectedImage=[[UIImage imageNamed:selectedImageString]imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)];
+    nav.navigationBar.titleTextAttributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName, nil];
+    controller.title=title;
+    
+    NSDictionary *dictHome = [NSDictionary dictionaryWithObject:[UIColor orangeColor] forKey:NSForegroundColorAttributeName];
+    [nav.tabBarItem setTitleTextAttributes:dictHome forState:UIControlStateSelected];
+    [self addChildViewController:nav];
 }
 
 - (void)didReceiveMemoryWarning {

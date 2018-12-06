@@ -43,19 +43,6 @@ static CGFloat const headViewAllSubViewsSpacing = 5+5+5+5+5; //headView 所有�
 @implementation LocationViewController
 @synthesize current_cityName;
 
-
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
-}
-
-- (void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = NO;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -380,7 +367,7 @@ static CGFloat const headViewAllSubViewsSpacing = 5+5+5+5+5; //headView 所有�
         }];
     }
 }
-#define mark FoldCountyListDelegate 选择区的回调
+#pragma mark FoldCountyListDelegate 选择区的回调
 -(void)selectCurrentWithName:(NSString *)currentName{
     
     [[NSUserDefaults standardUserDefaults] setObject:currentName forKey:@"currentCity"];//更新 当前县 手动选择

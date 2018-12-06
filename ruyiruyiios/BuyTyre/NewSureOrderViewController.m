@@ -32,18 +32,7 @@
 @end
 
 @implementation NewSureOrderViewController
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
-}
 
-- (void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = NO;
-    self.navigationController.navigationBar.hidden = NO;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -108,6 +97,8 @@
                 cashierVC.orderNoStr = [NSString stringWithFormat:@"%@", self.shoeOrderInfo.orderNo];
                 cashierVC.orderTypeStr = @"0";
                 [self.navigationController pushViewController:cashierVC animated:YES];
+                self.hidesBottomBarWhenPushed = YES;
+
             }else{
     
                 [PublicClass showHUD:messageStr view:self.view];

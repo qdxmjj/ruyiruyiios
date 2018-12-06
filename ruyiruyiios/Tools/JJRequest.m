@@ -182,6 +182,91 @@
               failureHandler(error);
           }];
 }
++ (void)interchangeableGetRequest:(nonnull NSString *)url params:(NSDictionary * _Nullable)params success:(_Nullable interchangeableRequestSuccessBlock)successHandler failure:(_Nullable requestFailureBlock)failureHandler{
+    
+    //网络不可用
+    if ([self checkNetworkStatus] == NO) {
+        successHandler(nil);
+        failureHandler(nil);
+        return;
+    }
+    
+    AFHTTPSessionManager *manager = [self getRequestManager];
+    
+    [manager GET:url parameters:params progress: nil
+         success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject){
+             
+             
+             
+             successHandler(responseObject);
+             
+         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             NSLog(@"------请求失败-------%@",error);
+             failureHandler(error);
+         }];
+}
++(void)interchangeablePostRequest:(NSString *)url params:(NSDictionary *)params success:(interchangeableRequestSuccessBlock )successHandler failure:(requestFailureBlock)failureHandler{
+    
+    if ([self checkNetworkStatus] == NO) {
+        successHandler(nil);
+        failureHandler(nil);
+        return;
+    }
+    
+    AFNetworkReachabilityManager *reachabilityManager = [AFNetworkReachabilityManager sharedManager];
+    if (!reachabilityManager.isReachableViaWiFi) {
+        
+    }
+    
+    AFHTTPSessionManager *manager = [self getRequestManager];
+    
+    [manager POST:[NSString stringWithFormat:@"%@/%@",GL_RuYiRuYiIP,url] parameters:params progress:nil
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject){
+              
+              
+              successHandler(responseObject);
+              
+          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+              NSLog(@"------请求失败-------%@",error);
+              
+              [self requestErrorCode:error.code];
+              
+              failureHandler(error);
+          }];
+    
+    
+}
++ (void)GL_PostRequest:(NSString *)url params:(NSDictionary *)params success:(GL_requestSuccessBlock)successHandler failure:(requestFailureBlock)failureHandler{
+    
+    if ([self checkNetworkStatus] == NO) {
+        successHandler(nil,nil);
+        failureHandler(nil);
+        return;
+    }
+    
+    AFNetworkReachabilityManager *reachabilityManager = [AFNetworkReachabilityManager sharedManager];
+    if (!reachabilityManager.isReachableViaWiFi) {
+        
+    }
+    
+    AFHTTPSessionManager *manager = [self getRequestManager];
+    
+    [manager POST:[NSString stringWithFormat:@"%@/%@",GL_RuYiRuYiIP,url] parameters:params progress:nil
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject){
+              
+              NSString *total = [responseObject objectForKey:@"total"];
+              id rows = [responseObject objectForKey:@"rows"];
+              
+              successHandler(rows,total);
+              
+          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+              NSLog(@"------请求失败-------%@",error);
+              
+              [self requestErrorCode:error.code];
+              
+              failureHandler(error);
+          }];
+}
 
 + (void)putRequest:(NSString *)url params:(NSDictionary *)params success:(requestSuccessBlock)successHandler failure:(requestFailureBlock)failureHandler {
     

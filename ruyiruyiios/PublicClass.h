@@ -23,4 +23,10 @@
 +(NSString *)timestampSwitchTime:(NSInteger)timestamp andFormatter:(NSString *)format;
 + (UIColor *) colorWithHexString: (NSString *)color;
 + (NSString *)doEncryptStr:(NSString *)originalStr key:(NSString *)keyStr;
+
++(BOOL)isCurrentMonth:(NSString *)oldDate;//比较当前时间日期与旧的时间日期 判断是否是当前月
+
++(NSString *)getTimestampFromTime:(NSString *)timeStampString formatter:(NSString *)format;//时间戳转时间
++(NSString *)getDateWithformatter:(NSString *)format;//f基本时间日期
+
 @end

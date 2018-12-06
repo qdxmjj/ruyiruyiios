@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <MJRefresh.h>
-
 @interface UIButton(FillColor)
 
 - (void)setBackgroundColor:(UIColor *)backgroundColor forState:(UIControlState)state;

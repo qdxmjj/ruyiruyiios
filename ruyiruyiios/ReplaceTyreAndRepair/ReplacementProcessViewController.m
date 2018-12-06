@@ -16,12 +16,6 @@
 
 @implementation ReplacementProcessViewController
 
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
-}
-
 - (UIImageView *)mainImageV{
     
     if (_mainImageV == nil) {

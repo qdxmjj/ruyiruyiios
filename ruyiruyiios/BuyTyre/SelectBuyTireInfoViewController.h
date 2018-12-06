@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "BuyTireData.h"
+
+@protocol selectTireInfoDelegate <NSObject>
+
+-(void)selectTireInfoWithPrice:(NSString *)price tireInfo:(NSString *)tireInfo tireNumber:(NSString *)tireNumber cxwyNumber:(NSString *)cxwyNumber cxwyPrice:(NSString *)cxwyPrice buyTireData:(BuyTireData *)buyTireData shoeID:(NSString *)shoeID remainYear:(NSString *)remainYear imgURL:(NSString *)imgURL;
+@end
+
 typedef void (^selectBuyTireInfoBlock)(NSString *tirePrice,NSString *tireInfo,NSString *tireNumber,NSString *cxwyNumber,NSString *cxwyPrice,BuyTireData *buyTireData,NSString *shoeID,NSString *remainYear,NSString *imgURL);
 
 @interface SelectBuyTireInfoViewController : UIViewController
@@ -22,6 +28,8 @@ typedef void (^selectBuyTireInfoBlock)(NSString *tirePrice,NSString *tireInfo,NS
 @property(nonatomic, strong)NSNumber  *service_year_length;//当前服务年限
 
 @property(nonatomic,copy)selectBuyTireInfoBlock selectTireInfoBlock;
+
+@property(nonatomic,assign)id<selectTireInfoDelegate> delegate;
 
 @property(nonatomic,strong)NSNumber      *tireNumber;
 @property(nonatomic,strong)NSNumber      *cxwuNumber;

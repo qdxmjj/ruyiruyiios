@@ -136,7 +136,7 @@
  @param failed 失败后的回调
  @return 请求id
  */
-+ (PHImageRequestID)getHighQualityFormatPhoto:(PHAsset *)asset size:(CGSize)size succeed:(void (^)(UIImage *image))succeed failed:(void(^)())failed;
++ (PHImageRequestID)getHighQualityFormatPhoto:(PHAsset *)asset size:(CGSize)size succeed:(void (^)(UIImage *image))succeed failed:(void(^)(void))failed;
 
 /**
  根据PHAsset对象获取指定大小的图片

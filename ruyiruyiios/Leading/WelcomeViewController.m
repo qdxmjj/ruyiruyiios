@@ -21,12 +21,6 @@
 
 @implementation WelcomeViewController
 
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBar.hidden = YES;
-}
-
 - (UIScrollView *)mainScrollV{
     
     if (_mainScrollV == nil) {
@@ -82,9 +76,7 @@
         
         [PublicClass showHUD:@"正在导入数据...." view:self.view];
     }else{
-        
-        MainTabBarViewController *mainTabVC = [[MainTabBarViewController alloc] init];
-        [self.navigationController pushViewController:mainTabVC animated:YES];
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     }
 }
 

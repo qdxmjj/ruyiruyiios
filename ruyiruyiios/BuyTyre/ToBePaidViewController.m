@@ -35,12 +35,6 @@
 @synthesize orderNoStr;
 @synthesize orderTypeStr;
 
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
-}
-
 - (UIScrollView *)mainScrollV{
     
     if (_mainScrollV == nil) {
@@ -154,6 +148,7 @@
         cashierVC.totalPriceStr = totalPriceStr;
         cashierVC.orderTypeStr = orderTypeStr;
         [self.navigationController pushViewController:cashierVC animated:YES];
+
     }else{
         
         [self.navigationController popViewControllerAnimated:YES];

@@ -133,7 +133,7 @@
     model.iCloudRequestID = requestId;
     return requestId;
 }
-+ (PHImageRequestID)getLivePhotoWithModel:(HXPhotoModel *)model size:(CGSize)size startRequestICloud:(void (^)(HXPhotoModel *model, PHImageRequestID iCloudRequestId))startRequestICloud progressHandler:(void (^)(HXPhotoModel *model, double progress))progressHandler completion:(void(^)(HXPhotoModel *model, PHLivePhoto *livePhoto))completion failed:(void(^)(HXPhotoModel *model, NSDictionary *info))failed {
++ (PHImageRequestID)getLivePhotoWithModel:(HXPhotoModel *)model size:(CGSize)size startRequestICloud:(void (^)(HXPhotoModel *model, PHImageRequestID iCloudRequestId))startRequestICloud progressHandler:(void (^)(HXPhotoModel *model, double progress))progressHandler completion:(void(^)(HXPhotoModel *model, PHLivePhoto *livePhoto))completion failed:(void(^)(HXPhotoModel *model, NSDictionary *info))failed  API_AVAILABLE(ios(9.1)){
     PHLivePhotoRequestOptions *option = [[PHLivePhotoRequestOptions alloc] init];
     option.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
     option.networkAccessAllowed = NO;

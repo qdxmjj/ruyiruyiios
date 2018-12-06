@@ -8,7 +8,8 @@
 
 #import "MyHeadView.h"
 #import <UIImageView+WebCache.h>
-
+#import <UIButton+WebCache.h>
+#import <Masonry.h>
 @implementation MyHeadView
 
 - (UIImageView *)backImageV{
@@ -21,37 +22,26 @@
     return _backImageV;
 }
 
-- (UIImageView *)headPortraitImageV{
+- (UIButton *)headPortraitBtn{
     
-    if (_headPortraitImageV == nil) {
+    if (_headPortraitBtn == nil) {
         
-        _headPortraitImageV = [[UIImageView alloc] init];
-        _headPortraitImageV.layer.cornerRadius = 25.0;
-        _headPortraitImageV.layer.masksToBounds = YES;
+        _headPortraitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+
     }
-    return _headPortraitImageV;
+    return _headPortraitBtn;
 }
 
-- (UILabel *)nameLabel{
+- (UIButton *)nameBtn{
     
-    if (_nameLabel == nil) {
+    if (_nameBtn == nil) {
         
-        _nameLabel = [[UILabel alloc] init];
-        _nameLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
-        _nameLabel.textColor = [UIColor whiteColor];
-        _nameLabel.textAlignment = NSTextAlignmentCenter;
+        _nameBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        _nameLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
+        [_nameBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_nameBtn.titleLabel setTextAlignment:NSTextAlignmentCenter];
     }
-    return _nameLabel;
-}
-
-- (UIButton *)nameAndHeadBtn{
-    
-    if (_nameAndHeadBtn == nil) {
-        
-        _nameAndHeadBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//        _nameAndHeadBtn.backgroundColor = [UIColor blackColor];
-    }
-    return _nameAndHeadBtn;
+    return _nameBtn;
 }
 
 - (UIButton *)myQuotaBtn{
@@ -59,6 +49,7 @@
     if (_myQuotaBtn == nil) {
         
         _myQuotaBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_myQuotaBtn setBackgroundColor:[UIColor whiteColor]];
         [_myQuotaBtn setTitle:@"我的额度" forState:UIControlStateNormal];
         [_myQuotaBtn setTitleColor:TEXTCOLOR64 forState:UIControlStateNormal];
         _myQuotaBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
@@ -71,11 +62,30 @@
     if (_creditLineBtn == nil) {
         
         _creditLineBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_creditLineBtn setBackgroundColor:[UIColor whiteColor]];
         [_creditLineBtn setTitle:@"车辆额度列表" forState:UIControlStateNormal];
         [_creditLineBtn setTitleColor:TEXTCOLOR64 forState:UIControlStateNormal];
         _creditLineBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
     }
     return _creditLineBtn;
+}
+-(UIView *)lineView{
+    
+    if (!_lineView) {
+        
+        _lineView = [[UIView alloc] init];
+        _lineView.backgroundColor = [PublicClass colorWithHexString:@"#ececec"];
+    }
+    return _lineView;
+}
+-(UIView *)spacingView{
+    
+    if (!_spacingView) {
+        
+        _spacingView = [[UIView alloc] init];
+        _spacingView.backgroundColor = [PublicClass colorWithHexString:@"#ececec"];
+    }
+    return _spacingView;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame{
@@ -83,62 +93,96 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-        [self addUnchangeView];
         [self addChangeView];
     }
     return self;
 }
 
-- (void)addUnchangeView{
-    
-    UIView *midView = [[UIView alloc] initWithFrame:CGRectMake(MAINSCREEN.width/2, 140, 0.5, 50)];
-    midView.backgroundColor = [PublicClass colorWithHexString:@"#ececec"];
-    [self addSubview:midView];
-    
-    UIView *underLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 190, MAINSCREEN.width, 5)];
-    underLineView.backgroundColor = [PublicClass colorWithHexString:@"#ececec"];
-    [self addSubview:underLineView];
-}
-
 - (void)addChangeView{
     
     [self addSubview:self.backImageV];
-    [self addSubview:self.headPortraitImageV];
-    [self addSubview:self.nameLabel];
-    [self addSubview:self.nameAndHeadBtn];
+    [self addSubview:self.headPortraitBtn];
+    [self addSubview:self.nameBtn];
     [self addSubview:self.myQuotaBtn];
     [self addSubview:self.creditLineBtn];
+    [self addSubview:self.lineView];
+    [self addSubview:self.spacingView];
 }
 
 - (void)layoutSubviews{
-    
     [super layoutSubviews];
-    self.backImageV.frame = CGRectMake(0, 0, MAINSCREEN.width, 140);
-    self.headPortraitImageV.frame = CGRectMake(MAINSCREEN.width/2 - 50/2, 40, 50, 50);
-    self.nameLabel.frame = CGRectMake(MAINSCREEN.width/2 - 50, 100, 100, 20);
-    self.nameAndHeadBtn.frame = CGRectMake(self.headPortraitImageV.frame.origin.x, 40, 100, 100);
-    self.myQuotaBtn.frame = CGRectMake(0, 140, MAINSCREEN.width/2, 50);
-    self.creditLineBtn.frame = CGRectMake(MAINSCREEN.width/2, 140, MAINSCREEN.width/2, 50);
+    
+    [self.backImageV mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.mas_equalTo(self.mas_top);
+        make.left.and.right.mas_equalTo(self);
+        make.height.mas_equalTo(self.mas_height).multipliedBy(0.8);
+    }];
+    [self.headPortraitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.centerX.mas_equalTo(self.backImageV.mas_centerX);
+        make.centerY.mas_equalTo(self.backImageV.mas_centerY);
+        make.width.height.mas_equalTo(self.backImageV.mas_height).multipliedBy(0.4);
+    }];
+    
+    _headPortraitBtn.layer.cornerRadius = (self.frame.size.height*0.8*0.4)/2;
+    _headPortraitBtn.layer.masksToBounds = YES;
+    
+    [self.nameBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.mas_equalTo(self.headPortraitBtn.mas_bottom).inset(3);
+        make.centerX.mas_equalTo(self.headPortraitBtn.mas_centerX);
+        make.height.mas_equalTo(25);
+        
+    }];
+    [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.bottom.mas_equalTo(self.mas_bottom);
+        make.left.right.mas_equalTo(self);
+        make.height.mas_equalTo(2);
+    }];
+    [self.spacingView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.centerX.mas_equalTo(self.mas_centerX);
+        make.width.mas_equalTo(2);
+        make.height.mas_equalTo(self.mas_height).multipliedBy(0.2);
+        make.bottom.mas_equalTo(self.lineView.mas_top);
+    }];
+    [self.myQuotaBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.bottom.mas_equalTo(self.lineView.mas_bottom);
+        make.left.mas_equalTo(self.mas_left);
+        make.right.mas_equalTo(self.spacingView.mas_left);
+        make.height.mas_equalTo(self.spacingView.mas_height).offset(2);
+    }];
+    [self.creditLineBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.bottom.mas_equalTo(self.lineView.mas_bottom);
+        make.left.mas_equalTo(self.spacingView.mas_right);
+        make.right.mas_equalTo(self.mas_right);
+        make.height.mas_equalTo(self.spacingView.mas_height).offset(2);
+    }];
+  
 }
 
 - (void)setDatatoHeadView{
     
     if ([UserConfig user_id] == NULL || [[NSString stringWithFormat:@"%@", [UserConfig user_id]] isEqualToString:@""]) {
         
-        self.headPortraitImageV.image = [UIImage imageNamed:@"ic_notlogged"];
-        self.nameLabel.text = @"立即登录";
-        self.nameLabel.layer.cornerRadius = 4.0;
-        self.nameLabel.layer.masksToBounds = YES;
-        self.nameLabel.layer.borderColor = [[UIColor whiteColor] CGColor];
-        self.nameLabel.layer.borderWidth = 1.0;
+        [self.headPortraitBtn setImage:[UIImage imageNamed:@"ic_notlogged"] forState:UIControlStateNormal];
+        [self.nameBtn setTitle:@" 立 即 登 录 " forState:UIControlStateNormal];
+        self.nameBtn.layer.cornerRadius = 12.5;
+        self.nameBtn.layer.masksToBounds = YES;
+        self.nameBtn.layer.borderColor = [[UIColor whiteColor] CGColor];
+        self.nameBtn.layer.borderWidth = 1.0;
     }else{
         
-        [self.headPortraitImageV sd_setImageWithURL:[NSURL URLWithString:[UserConfig headimgurl]]];
-        self.nameLabel.text = [UserConfig nick];
-        self.nameLabel.layer.cornerRadius = 0.0;
-        self.nameLabel.layer.masksToBounds = YES;
-        self.nameLabel.layer.borderColor = [[UIColor clearColor] CGColor];
-        self.nameLabel.layer.borderWidth = 0.0;
+        [self.headPortraitBtn sd_setImageWithURL:[NSURL URLWithString:[UserConfig headimgurl]] forState:UIControlStateNormal];
+        [self.nameBtn setTitle:[UserConfig nick] forState:UIControlStateNormal];
+        self.nameBtn.layer.cornerRadius = 0.0;
+        self.nameBtn.layer.masksToBounds = YES;
+        self.nameBtn.layer.borderColor = [[UIColor clearColor] CGColor];
+        self.nameBtn.layer.borderWidth = 0.0;
     }
 }
 

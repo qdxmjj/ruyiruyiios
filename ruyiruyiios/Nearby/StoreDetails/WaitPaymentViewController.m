@@ -34,12 +34,6 @@
 
 @implementation WaitPaymentViewController
 
--(void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -223,6 +217,7 @@
     StoreDetailsViewController *storeDetailsVC = [[StoreDetailsViewController alloc] init];
     storeDetailsVC.storeID = self.storeID;
     [self.navigationController pushViewController:storeDetailsVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
     
 }
 

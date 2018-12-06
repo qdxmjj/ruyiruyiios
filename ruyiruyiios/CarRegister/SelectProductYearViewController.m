@@ -101,12 +101,6 @@
     return _yearTableV;
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    [self.tabBarController.tabBar setHidden:YES];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     

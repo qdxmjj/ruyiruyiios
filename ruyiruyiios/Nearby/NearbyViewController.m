@@ -40,19 +40,6 @@
 
 @implementation NearbyViewController
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    
-    if ([self.isLocation isEqualToString: @"1"]) {
-        
-        self.tabBarController.tabBar.hidden = YES;
-    }else {
-        
-        self.tabBarController.tabBar.hidden = NO;
-    }
-    self.navigationController.navigationBar.hidden = NO;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -133,6 +120,9 @@
         LocationViewController *locationVC = [[LocationViewController alloc] init];
         locationVC.current_cityName = button.titleLabel.text;
         [self.navigationController pushViewController:locationVC animated:YES];
+        if ([self.isLocation isEqualToString:@"1"]) {
+            self.hidesBottomBarWhenPushed = YES;
+        }
     }
 }  
 
@@ -192,7 +182,10 @@
             
             [weakSelf.tableView.mj_footer setHidden:YES];
         }
-        [weakSelf.tableView reloadData];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.tableView reloadData];
+        });
     } failure:^(NSError * _Nullable error) {
         
         NSLog(@"附近：%@",error);
@@ -241,6 +234,9 @@
         [self.tableView reloadData];
     };
     [self.navigationController pushViewController:searchVC animated:YES];
+    if ([self.isLocation isEqualToString:@"1"]) {
+        self.hidesBottomBarWhenPushed = YES;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -258,6 +254,9 @@
         storeDetails.commodityInfo = self.topingDataArr[indexPath.item];
         
         [self.navigationController pushViewController:storeDetails animated:YES];
+        if ([self.isLocation isEqualToString:@"1"]) {
+            self.hidesBottomBarWhenPushed = YES;
+        }
     }
 }
 
@@ -388,6 +387,9 @@
         CommdoityDetailsViewController *storeDetails = [[CommdoityDetailsViewController alloc]init];
         storeDetails.commodityInfo = self.dataArr[indexPath.section];
         [self.navigationController pushViewController:storeDetails animated:YES];
+        if ([self.isLocation isEqualToString:@"1"]) {
+            self.hidesBottomBarWhenPushed = YES;
+        }
     }
 }
 

@@ -18,7 +18,7 @@
 #import <SDCycleScrollView.h>
 
 #import "DelegateConfiguration.h"
-@interface NewTirePurchaseViewController ()
+@interface NewTirePurchaseViewController ()<selectTireInfoDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *tirePriceLab;
 @property (weak, nonatomic) IBOutlet UILabel *tireDescriptionLab;
@@ -41,31 +41,17 @@
 
 @property(nonatomic,strong)BuyTireData *buyTireData;
 
-@property(nonatomic,assign)NSInteger    shoeID;//轮胎iD
+@property(nonatomic,assign)NSInteger shoeID;//轮胎iD
 
 @property(nonatomic,copy)NSString *remainYear;//服务年限
 
-@property(nonatomic,copy)  NSString     *speedLevelStr;//速度级别
+@property(nonatomic,copy)NSString *speedLevelStr;//速度级别
 
-@property(nonatomic,copy)  NSString     *imgURL;
+@property(nonatomic,copy)NSString *imgURL;
 
 @end
 
 @implementation NewTirePurchaseViewController
-
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
-    self.navigationController.navigationBar.hidden = NO;
-}
-
-- (void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = NO;
-    self.navigationController.navigationBar.hidden = NO;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -183,6 +169,35 @@
     [super didReceiveMemoryWarning];
 }
 
+-(void)selectTireInfoWithPrice:(NSString *)price tireInfo:(NSString *)tireInfo tireNumber:(NSString *)tireNumber cxwyNumber:(NSString *)cxwyNumber cxwyPrice:(NSString *)cxwyPrice buyTireData:(BuyTireData *)buyTireData shoeID:(NSString *)shoeID remainYear:(NSString *)remainYear imgURL:(NSString *)imgURL{
+    
+    self.tirePriceLab.text = price;
+    
+    self.standardLab.text = [NSString stringWithFormat:@"规格: %@,%@条",tireInfo,tireNumber];
+    
+    self.cxwyLab.text = [NSString stringWithFormat:@"畅行无忧%@次 %@",cxwyNumber,cxwyPrice];
+    
+    self.buyTireData = buyTireData;
+    
+    self.shoeID = [shoeID integerValue];
+    
+    self.remainYear = remainYear;
+    
+    self.tireNumber = [tireNumber integerValue];//轮胎数量
+    
+    self.cxwyNumber = [cxwyNumber integerValue];//畅行无忧数量
+    
+    self.speedLevelStr = [tireInfo componentsSeparatedByString:@","][1];
+    
+    self.cxwyPrice = [[cxwyPrice stringByReplacingOccurrencesOfString:@"¥" withString:@""] integerValue];//畅行无忧价格
+    
+    self.tireDescriptionLab.text = self.buyTireData.detailStr;//轮胎名称
+    
+    self.imgURL = imgURL;
+    
+    self.scycleScrollView.imageURLStringsGroup = @[self.buyTireData.shoeDownImg,self.buyTireData.shoeLeftImg,self.buyTireData.shoeMiddleImg,self.buyTireData.shoeRightImg,self.buyTireData.shoeUpImg];
+}
+
 - (IBAction)BuyNow:(UIButton *)sender{
     
     if (self.tireNumber <=0) {
@@ -211,6 +226,7 @@
     newSureOrderVC.speedLevelStr = self.speedLevelStr;
     newSureOrderVC.tireImgURL = self.imgURL;
     [self.navigationController pushViewController:newSureOrderVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
 }
 - (IBAction)selectBuyTireInfoEvent:(UIButton *)sender {
     
@@ -226,6 +242,7 @@
     
     pView.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     
+    pView.delegate = self;
     pView.patternArr = self.dataArr;
     
     pView.service_end_date = self.service_end_date;
@@ -238,36 +255,36 @@
     
     pView.cxwuNumber = @(self.cxwyNumber);
     
-    JJWeakSelf
-    
-    pView.selectTireInfoBlock = ^(NSString *tirePrice, NSString *tireInfo, NSString *tireNumber, NSString *cxwyNumber, NSString *cxwyPrice, BuyTireData *buyTireData, NSString *shoeID,NSString *remainYear,NSString *imgURL) {
-      
-        weakSelf.tirePriceLab.text = tirePrice;
-        
-        weakSelf.standardLab.text = [NSString stringWithFormat:@"规格: %@,%@条",tireInfo,tireNumber];
-        
-        weakSelf.cxwyLab.text = [NSString stringWithFormat:@"畅行无忧%@次 %@",cxwyNumber,cxwyPrice];
-        
-        weakSelf.buyTireData = buyTireData;
-        
-        weakSelf.shoeID = [shoeID integerValue];
-        
-        weakSelf.remainYear = remainYear;
-        
-        weakSelf.tireNumber = [tireNumber integerValue];//轮胎数量
-        
-        weakSelf.cxwyNumber = [cxwyNumber integerValue];//畅行无忧数量
-        
-        weakSelf.speedLevelStr = [tireInfo componentsSeparatedByString:@","][1];
-        
-        weakSelf.cxwyPrice = [[cxwyPrice stringByReplacingOccurrencesOfString:@"¥" withString:@""] integerValue];//畅行无忧价格
-        
-        weakSelf.tireDescriptionLab.text = weakSelf.buyTireData.detailStr;//轮胎名称
-        
-        weakSelf.imgURL = imgURL;
-        
-        weakSelf.scycleScrollView.imageURLStringsGroup = @[weakSelf.buyTireData.shoeDownImg,weakSelf.buyTireData.shoeLeftImg,weakSelf.buyTireData.shoeMiddleImg,weakSelf.buyTireData.shoeRightImg,weakSelf.buyTireData.shoeUpImg];
-    };
+//    JJWeakSelf
+//
+//    pView.selectTireInfoBlock = ^(NSString *tirePrice, NSString *tireInfo, NSString *tireNumber, NSString *cxwyNumber, NSString *cxwyPrice, BuyTireData *buyTireData, NSString *shoeID,NSString *remainYear,NSString *imgURL) {
+//
+//        weakSelf.tirePriceLab.text = tirePrice;
+//
+//        weakSelf.standardLab.text = [NSString stringWithFormat:@"规格: %@,%@条",tireInfo,tireNumber];
+//
+//        weakSelf.cxwyLab.text = [NSString stringWithFormat:@"畅行无忧%@次 %@",cxwyNumber,cxwyPrice];
+//
+//        weakSelf.buyTireData = buyTireData;
+//
+//        weakSelf.shoeID = [shoeID integerValue];
+//
+//        weakSelf.remainYear = remainYear;
+//
+//        weakSelf.tireNumber = [tireNumber integerValue];//轮胎数量
+//
+//        weakSelf.cxwyNumber = [cxwyNumber integerValue];//畅行无忧数量
+//
+//        weakSelf.speedLevelStr = [tireInfo componentsSeparatedByString:@","][1];
+//
+//        weakSelf.cxwyPrice = [[cxwyPrice stringByReplacingOccurrencesOfString:@"¥" withString:@""] integerValue];//畅行无忧价格
+//
+//        weakSelf.tireDescriptionLab.text = weakSelf.buyTireData.detailStr;//轮胎名称
+//
+//        weakSelf.imgURL = imgURL;
+//
+//        weakSelf.scycleScrollView.imageURLStringsGroup = @[weakSelf.buyTireData.shoeDownImg,weakSelf.buyTireData.shoeLeftImg,weakSelf.buyTireData.shoeMiddleImg,weakSelf.buyTireData.shoeRightImg,weakSelf.buyTireData.shoeUpImg];
+//    };
     
     [self presentViewController:pView animated:YES completion:nil];
 }

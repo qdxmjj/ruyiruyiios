@@ -37,19 +37,6 @@
 @implementation MyOrderViewController
 @synthesize statusStr;
 
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
-    self.navigationController.navigationBar.hidden = NO;
-}
-
-- (void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = NO;
-}
-
 - (UIView *)underBtnView{
     
     if (_underBtnView == nil) {
@@ -554,7 +541,7 @@
                     completeStr = @"订单已取消";
                 }else if ([orderInfo.orderState isEqualToString:@"1"]){
                     
-                    completeStr = @"交易完成";
+                    completeStr = @"交易完成"; //最后
                 }else if ([orderInfo.orderState isEqualToString:@"14"]){
                     
                     completeStr = @"店铺拒绝服务";

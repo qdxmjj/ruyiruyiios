@@ -16,17 +16,27 @@
 #import "ToserviceStoreTableViewCell.h"
 #import "ToDeliveryTableViewCell.h"
 
-@interface CompleteViewController ()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
+#import <Masonry.h>
+#import "JJShare.h"
+@interface CompleteViewController ()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>{
+    
+    id shareData;//红包分享数据
+}
 
 @property(nonatomic, strong)UIScrollView *mainScrollV;
 @property(nonatomic, strong)ToDeliveryView *todeliveryView;
 @property(nonatomic, strong)UITableView *toCompleteTableview;
 @property(nonatomic, strong)NSMutableArray *TireNumberOrStoreMutableA;
 @property(nonatomic, strong)TopayBottomView *topayBottomView;
+@property(nonatomic, strong)UIButton *submitBtn;
+
+@property(nonatomic, strong)UIButton *redEnvelopeBtn;//红包按钮 特定页面显示
+//@property(nonatomic, weak)id shareData;//红包分享数据
+
+
 @property(nonatomic, strong)ShoeOrderVo *shoeOrdervo;
 @property(nonatomic, strong)TobepayInfo *tobepayInfo;
 @property(nonatomic, strong)FirstUpdateOrFreeChangeInfo *firstUpdateInfo;
-@property(nonatomic, strong)UIButton *submitBtn;
 
 @end
 
@@ -35,118 +45,6 @@
 @synthesize orderTypeStr;
 @synthesize orderNoStr;
 @synthesize addRightFlageStr;
-
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
-}
-
-- (UIScrollView *)mainScrollV{
-    
-    if (_mainScrollV == nil) {
-        
-        _mainScrollV = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - SafeDistance - 40)];
-        _mainScrollV.bounces = NO;
-        _mainScrollV.showsVerticalScrollIndicator = NO;
-        _mainScrollV.showsHorizontalScrollIndicator = NO;
-        _mainScrollV.delegate = self;
-        _mainScrollV.scrollsToTop = NO;
-        _mainScrollV.tag = 2;
-    }
-    return _mainScrollV;
-}
-
-- (ToDeliveryView *)todeliveryView{
-    
-    if (_todeliveryView == nil) {
-        
-        _todeliveryView = [[ToDeliveryView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, 190)];
-        [_todeliveryView.storeNameBtn addTarget:self action:@selector(chickDeliveryStoreNameBtn:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _todeliveryView;
-}
-
-- (void)chickDeliveryStoreNameBtn:(UIButton *)button{
-    
-    StoreDetailsViewController *storeDetialVC = [[StoreDetailsViewController alloc] init];
-    storeDetialVC.storeID = [NSString stringWithFormat:@"%@", self.firstUpdateInfo.storeId];
-    [self.navigationController pushViewController:storeDetialVC animated:YES];
-}
-
-- (UITableView *)toCompleteTableview{
-    
-    if (_toCompleteTableview == nil) {
-        
-        _toCompleteTableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 190, MAINSCREEN.width, self.TireNumberOrStoreMutableA.count*150) style:UITableViewStylePlain];
-        _toCompleteTableview.delegate = self;
-        _toCompleteTableview.dataSource = self;
-        _toCompleteTableview.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _toCompleteTableview.bounces = NO;
-    }
-    return _toCompleteTableview;
-}
-
-- (TopayBottomView *)topayBottomView{
-    
-    if (_topayBottomView == nil) {
-        
-        _topayBottomView = [[TopayBottomView alloc] initWithFrame:CGRectMake(0, 190, MAINSCREEN.width, 200)];
-    }
-    return _topayBottomView;
-}
-
-- (ShoeOrderVo *)shoeOrdervo{
-    
-    if (_shoeOrdervo == nil) {
-        
-        _shoeOrdervo = [[ShoeOrderVo alloc] init];
-    }
-    return _shoeOrdervo;
-}
-
-- (TobepayInfo *)tobepayInfo{
-    
-    if (_tobepayInfo == nil) {
-        
-        _tobepayInfo = [[TobepayInfo alloc] init];
-    }
-    return _tobepayInfo;
-}
-
-- (UIButton *)submitBtn{
-    
-    if (_submitBtn == nil) {
-        
-        _submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _submitBtn.frame = CGRectMake(10, MAINSCREEN.height - SafeDistance - 40, MAINSCREEN.width - 20, 34);
-        _submitBtn.userInteractionEnabled = NO;
-        _submitBtn.layer.cornerRadius = 6.0;
-        _submitBtn.layer.masksToBounds = YES;
-        [_submitBtn setTitle:titleStr forState:UIControlStateNormal];
-        [_submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_submitBtn setBackgroundColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-    }
-    return _submitBtn;
-}
-
-- (FirstUpdateOrFreeChangeInfo *)firstUpdateInfo{
-    
-    if (_firstUpdateInfo == nil) {
-        
-        _firstUpdateInfo = [[FirstUpdateOrFreeChangeInfo alloc] init];
-    }
-    return _firstUpdateInfo;
-}
-
-- (NSMutableArray *)TireNumberOrStoreMutableA{
-    
-    if (_TireNumberOrStoreMutableA == nil) {
-        
-        _TireNumberOrStoreMutableA = [[NSMutableArray alloc] init];
-    }
-    return _TireNumberOrStoreMutableA;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -159,8 +57,43 @@
     }
     [self addViews];
     [self getUserOrderInfoByNoAndType];
-    // Do any additional setup after loading the view.
 }
+
+- (void)addViews{
+    
+    [self.view addSubview:self.mainScrollV];
+    [self.mainScrollV addSubview:self.todeliveryView];
+    
+    if ([orderTypeStr isEqualToString:@"0"]) {
+        
+        [self.mainScrollV addSubview:self.topayBottomView];
+    }
+    
+    [self.view addSubview:self.submitBtn];
+    [self.submitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.and.right.mas_equalTo(self.view).inset(10);
+        make.height.mas_equalTo(34);
+        if (@available(iOS 11.0, *)) {
+            make.bottom.mas_equalTo(self.view.mas_safeAreaLayoutGuideBottom);
+        } else {
+            make.bottom.mas_equalTo(self.view.mas_bottom);
+        }
+    }];
+    
+    if ([orderTypeStr isEqualToString:@"2"] && [titleStr isEqualToString:@"交易完成"]) {
+
+        //2018666 测试用订单号
+        [self getFirstChangeShareData:orderNoStr];
+    }else if ([orderTypeStr isEqualToString:@"1"] && [titleStr isEqualToString:@"交易完成"]){
+        
+        //测试环节
+//        [self getCommodityOrderShareData:orderNoStr];
+    }else{
+        
+    }
+}
+
 
 - (void)addRightBtn{
     
@@ -174,6 +107,23 @@
     self.navigationItem.rightBarButtonItem = barButton;
 }
 
+
+#pragma mark ButtonClickEvent
+- (void)chickDeliveryStoreNameBtn:(UIButton *)button{
+    
+    StoreDetailsViewController *storeDetialVC = [[StoreDetailsViewController alloc] init];
+    storeDetialVC.storeID = [NSString stringWithFormat:@"%@", self.firstUpdateInfo.storeId];
+    [self.navigationController pushViewController:storeDetialVC animated:YES];
+}
+
+-(void)shareRedEnvelopeBtnEvent:(UIButton *)sender{
+    
+    if (shareData && shareData != [NSNull null]) {
+             
+        [JJShare ShareDescribe:[shareData objectForKey:@"body"] images:@[[UIImage imageNamed:@"icon"]] url:[shareData objectForKey:@"redpacketUrl"] title:[shareData objectForKey:@"title"] type:SSDKContentTypeAuto];
+    }
+}
+
 - (void)chickRightBtn:(UIButton *)button{
     
     NSString *hostStr = @"";
@@ -181,9 +131,9 @@
         
         hostStr = @"refundShoeCxwyOrder";
     }else{
-        
         hostStr = @"refundStockOrder";
     }
+    
     NSDictionary *refundPostDic = @{@"orderNo":orderNoStr, @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]]};
     NSString *reqJson = [PublicClass convertToJsonData:refundPostDic];
     [JJRequest postRequest:hostStr params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
@@ -204,17 +154,65 @@
     }];
 }
 
-- (void)addViews{
+#pragma mark viewData
+-(void)getFirstChangeShareData:(NSString *)orderNO{
     
-    [self.view addSubview:self.mainScrollV];
-    [_mainScrollV addSubview:self.todeliveryView];
-    if ([orderTypeStr isEqualToString:@"0"]) {
+    NSData *baseOrderNO = [orderNO dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *orderNumber = [baseOrderNO base64EncodedStringWithOptions:(NSDataBase64Encoding64CharacterLineLength)];
+    [JJRequest interchangeableGetRequest:[NSString stringWithFormat:@"http://activity.qdxmjj.com:8888/wechat/appGetRedPacketInfo?orderInfo=%@",orderNumber] params:nil success:^(id  _Nullable data) {
         
-        [_mainScrollV addSubview:self.topayBottomView];
-    }
-    [self.view addSubview:self.submitBtn];
+        NSLog(@"%@",data);
+        //调用分享集成界面
+        
+        if (data && data != [NSNull null]) {
+            
+            if ([[data objectForKey:@"status"] longLongValue] ==1) {
+                
+                [self.view addSubview:self.redEnvelopeBtn];
+                [self.redEnvelopeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+                    
+                    make.right.mas_equalTo(self.view.mas_right).inset(10);
+                    make.width.and.height.mas_equalTo(40);
+                    make.bottom.mas_equalTo(self.submitBtn.mas_top).inset(20);
+                }];
+                
+                shareData = data;
+            }
+        }
+        
+    } failure:^(NSError * _Nullable error) {
+        
+    }];
 }
 
+-(void)getCommodityOrderShareData:(NSString *)orderNO{
+    
+    NSString *reqJson = [PublicClass convertToJsonData:@{@"userId":[NSString stringWithFormat:@"%@",[UserConfig user_id]],@"orderNo":orderNO}];
+    [JJRequest interchangeableGetRequest:@"http://192.168.0.137:8060/preferentialInfo/queryShareUrlHavingOrder" params:@{@"reqJson":reqJson} success:^(id  _Nullable data) {
+        
+        NSLog(@"%@",data);
+        //调用分享集成界面
+        
+        if (data && data != [NSNull null]) {
+            
+            if ([[data objectForKey:@"status"] longLongValue] ==1) {
+                
+                [self.view addSubview:self.redEnvelopeBtn];
+                [self.redEnvelopeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+                    
+                    make.right.mas_equalTo(self.view.mas_right).inset(10);
+                    make.width.and.height.mas_equalTo(40);
+                    make.bottom.mas_equalTo(self.submitBtn.mas_top).inset(20);
+                }];
+                shareData = data;
+            }
+        }
+        
+    } failure:^(NSError * _Nullable error) {
+        
+    }];
+    
+}
 - (void)getUserOrderInfoByNoAndType{
     
     NSDictionary *postDic = @{@"orderNo":orderNoStr, @"orderType":orderTypeStr, @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]]};
@@ -300,7 +298,7 @@
     [_topayBottomView setTopayBottomViewData:self.shoeOrdervo tobePayinfo:self.tobepayInfo];
 }
 
-//UITableViewDelegate and UITableViewDataSource
+#pragma mark UITableViewDelegate and UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     return self.TireNumberOrStoreMutableA.count;
@@ -345,19 +343,130 @@
     }
 }
 
+
+#pragma mark SetUIFrame
+- (UIScrollView *)mainScrollV{
+    
+    if (_mainScrollV == nil) {
+        
+        _mainScrollV = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - SafeDistance - 40)];
+        _mainScrollV.bounces = NO;
+        _mainScrollV.showsVerticalScrollIndicator = NO;
+        _mainScrollV.showsHorizontalScrollIndicator = NO;
+        _mainScrollV.delegate = self;
+        _mainScrollV.scrollsToTop = NO;
+        _mainScrollV.tag = 2;
+    }
+    return _mainScrollV;
+}
+
+- (ToDeliveryView *)todeliveryView{
+    
+    if (_todeliveryView == nil) {
+        
+        _todeliveryView = [[ToDeliveryView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, 190)];
+        [_todeliveryView.storeNameBtn addTarget:self action:@selector(chickDeliveryStoreNameBtn:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _todeliveryView;
+}
+- (UITableView *)toCompleteTableview{
+    
+    if (_toCompleteTableview == nil) {
+        
+        _toCompleteTableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 190, MAINSCREEN.width, self.TireNumberOrStoreMutableA.count*150) style:UITableViewStylePlain];
+        _toCompleteTableview.delegate = self;
+        _toCompleteTableview.dataSource = self;
+        _toCompleteTableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _toCompleteTableview.bounces = NO;
+    }
+    return _toCompleteTableview;
+}
+
+- (TopayBottomView *)topayBottomView{
+    
+    if (_topayBottomView == nil) {
+        
+        _topayBottomView = [[TopayBottomView alloc] initWithFrame:CGRectMake(0, 190, MAINSCREEN.width, 200)];
+    }
+    return _topayBottomView;
+}
+
+- (ShoeOrderVo *)shoeOrdervo{
+    
+    if (_shoeOrdervo == nil) {
+        
+        _shoeOrdervo = [[ShoeOrderVo alloc] init];
+    }
+    return _shoeOrdervo;
+}
+
+- (TobepayInfo *)tobepayInfo{
+    
+    if (_tobepayInfo == nil) {
+        
+        _tobepayInfo = [[TobepayInfo alloc] init];
+    }
+    return _tobepayInfo;
+}
+
+- (UIButton *)submitBtn{
+    
+    if (_submitBtn == nil) {
+        
+        _submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _submitBtn.userInteractionEnabled = NO;
+        _submitBtn.layer.cornerRadius = 17.f;
+        _submitBtn.layer.masksToBounds = YES;
+        [_submitBtn setTitle:titleStr forState:UIControlStateNormal];
+        [_submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_submitBtn setBackgroundColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    }
+    return _submitBtn;
+}
+
+-(UIButton *)redEnvelopeBtn{
+    
+    if (!_redEnvelopeBtn) {
+        
+        _redEnvelopeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_redEnvelopeBtn setImage:[UIImage imageNamed:@"ic_hb"] forState:UIControlStateNormal];
+        [_redEnvelopeBtn addTarget:self action:@selector(shareRedEnvelopeBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _redEnvelopeBtn;
+}
+
+- (FirstUpdateOrFreeChangeInfo *)firstUpdateInfo{
+    
+    if (_firstUpdateInfo == nil) {
+        
+        _firstUpdateInfo = [[FirstUpdateOrFreeChangeInfo alloc] init];
+    }
+    return _firstUpdateInfo;
+}
+
+- (NSMutableArray *)TireNumberOrStoreMutableA{
+    
+    if (_TireNumberOrStoreMutableA == nil) {
+        
+        _TireNumberOrStoreMutableA = [[NSMutableArray alloc] init];
+    }
+    return _TireNumberOrStoreMutableA;
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

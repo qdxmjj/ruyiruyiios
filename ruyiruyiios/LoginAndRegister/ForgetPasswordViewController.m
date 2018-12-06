@@ -24,14 +24,6 @@
 
 @implementation ForgetPasswordViewController
 
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
-    [self.navigationController.navigationBar setHidden:NO];
-    self.tabBarController.tabBar.hidden = YES;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     

@@ -22,18 +22,6 @@
 
 @implementation MySettingViewController
 
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
-    self.navigationController.navigationBar.hidden = NO;
-}
-
-- (void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = NO;
-}
 
 - (UITableView *)settingTableV{
     
@@ -71,6 +59,7 @@
     CodeLoginViewController *codeLoginVC = [[CodeLoginViewController alloc] init];
     codeLoginVC.homeTologinStr = @"2";
     [self.navigationController pushViewController:codeLoginVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
 }
 
 - (void)setdataEmptying{
@@ -147,10 +136,12 @@
         
         UpdatePasswordViewController *updateVC = [[UpdatePasswordViewController alloc] init];
         [self.navigationController pushViewController:updateVC animated:YES];
+        self.hidesBottomBarWhenPushed = YES;
     }else{
         
         AboutUsViewController *aboutVC = [[AboutUsViewController alloc] init];
         [self.navigationController pushViewController:aboutVC animated:YES];
+        self.hidesBottomBarWhenPushed = YES;
     }
 }
 

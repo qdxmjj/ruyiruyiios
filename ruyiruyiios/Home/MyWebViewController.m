@@ -9,6 +9,7 @@
 #import "MyWebViewController.h"
 #import <JavaScriptCore/JavaScriptCore.h>
 #import "YMTools.h"
+#import "JJShare.h"
 #define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
 #define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
 @interface MyWebViewController ()<UIWebViewDelegate>
@@ -17,14 +18,15 @@
 @property(nonatomic,strong)UIWebView *webview;
 @property(nonatomic)UIBarButtonItem* customBackBarItem;//返回按钮
 @property(nonatomic)UIBarButtonItem* closeButtonItem;//关闭按钮
+
+@property(nonatomic,copy)NSString *shareText;//分享页面的内容
+@property(nonatomic,copy)NSString *shareUrl;//分享页面的url
 @end
 
 @implementation MyWebViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //添加右边刷新按钮
-    UIBarButtonItem *roadLoad = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(roadLoadClicked)];
-    self.navigationItem.rightBarButtonItem = roadLoad;
+
     //按钮白色
     self.navigationController.navigationBar.barStyle = UIStatusBarStyleDefault;
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
@@ -41,14 +43,18 @@
     
     self.webview.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-bottom_height-SafeAreaTopHeight);
     self.Progressview.frame = CGRectMake(0, 0, 0, 2);
-    
-    self.tabBarController.tabBar.hidden = YES;
 }
 
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
+-(void)activityInfoWithShareType:(shareType)type shareText:(NSString *)text shareUrl:(NSString *)url{
     
-    self.tabBarController.tabBar.hidden = NO;
+    if (type == shareStatusAble) {
+        self.shareText = text;
+        self.shareUrl = url;
+        
+        //添加右边分享按钮
+        UIBarButtonItem *roadLoad = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(shareClicked)];
+        self.navigationItem.rightBarButtonItem = roadLoad;
+    }
 }
 
 #pragma mark 左侧按钮
@@ -83,8 +89,9 @@
 }
 
 #pragma mark 右侧点击
-- (void)roadLoadClicked{
-    [self.webview reload];
+- (void)shareClicked{
+    
+    [JJShare ShareDescribe:@"如驿如意" images:@[[UIImage imageNamed:@"icon"]] url:self.shareUrl title:self.shareText type:SSDKContentTypeAuto];
 }
 
 #pragma mark WebViewDelegate

@@ -7,7 +7,6 @@
 //
 
 #import "CycleScrollViewDetailsController.h"
-#import "ChoicePatternViewController.h"
 #import "SelectTirePositionViewController.h"
 #import "YMDetailedServiceViewController.h"
 #import "NewTirePurchaseViewController.h"
@@ -37,36 +36,6 @@
 }
 
 #pragma mark 跳转轮胎购买页面事件
-- (void)chickBuytyreEvent{
-  
-    
-    
-    if ([self.dataCars.font isEqualToString:self.dataCars.rear]) {
-        
-        ChoicePatternViewController *choicePVC = [[ChoicePatternViewController alloc] init];
-        choicePVC.tireSize = self.dataCars.font;
-        choicePVC.fontRearFlag = @"0";
-        [self.navigationController pushViewController:choicePVC animated:YES];
-    }else{
-        
-        SelectTirePositionViewController *selectTPVC = [[SelectTirePositionViewController alloc] init];
-        selectTPVC.dataCars = self.dataCars;
-        [self.navigationController pushViewController:selectTPVC animated:YES];
-    }
-}
-
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    
-    self.tabBarController.tabBar.hidden = YES;
-}
-
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    
-    self.tabBarController.tabBar.hidden = NO;
-}
-
 #pragma mark buttoncheckEvent
 
 -(void)pushBuyingTireViewController{
@@ -88,11 +57,6 @@
             //前后轮一致 直接进入轮胎购买页面 不一致先进入选择前后轮界面 再进入轮胎购买
             if ([self.dataCars.font isEqualToString:self.dataCars.rear]) {
                 
-                //        ChoicePatternViewController *choicePVC = [[ChoicePatternViewController alloc] init];
-                //        choicePVC.tireSize = self.dataCars.font;
-                //        choicePVC.fontRearFlag = @"0";
-                //        [self.navigationController pushViewController:choicePVC animated:YES];
-                
                 NewTirePurchaseViewController *newTireVC = [[NewTirePurchaseViewController alloc] init];
                 
                 newTireVC.fontRearFlag = @"0";
@@ -110,17 +74,6 @@
                 [self.navigationController pushViewController:selectTPVC animated:YES];
             }
             break;
-//        case 3:{
-//
-//            YMDetailedServiceViewController *detailedServiceVC = [[YMDetailedServiceViewController alloc] init];
-//
-//            detailedServiceVC.title = @"搜索商品";
-//            detailedServiceVC.serviceID = @"";
-//            detailedServiceVC.serviceName = @"精致洗车";
-//
-//            [self.navigationController pushViewController:detailedServiceVC animated:YES];
-//        }
-//            break;
             
         default:
             NSLog(@"跳转异常");
@@ -157,6 +110,8 @@
 
                 break;
             case 2:
+                imgName = @"ic_duibi";
+                _backGroupView.frame = CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height-SafeAreaTopHeight);
                 break;
             case 3:
                 imgName = @"ic_hd4_bj";

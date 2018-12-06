@@ -79,20 +79,9 @@
     CarInfoViewController *carInfoVC = [[CarInfoViewController alloc] init];
     carInfoVC.is_alter = YES;
     [self.navigationController pushViewController:carInfoVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    [self.navigationController.navigationBar setHidden:NO];
-    [self.tabBarController.tabBar setHidden:YES];
-}
-
-- (void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:animated];
-    [self.tabBarController.tabBar setHidden:NO];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -208,6 +197,7 @@
     carInfoVC.user_car_idStr = [NSString stringWithFormat:@"%@", managerCar.user_car_id];
     carInfoVC.is_alter = NO;
     [self.navigationController pushViewController:carInfoVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{

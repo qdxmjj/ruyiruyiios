@@ -414,7 +414,6 @@
                 
                 DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
                 [delegateConfiguration changeLoginStatus];
-                [delegateConfiguration removeAllDelegateMutableA];
 
                 [_timer invalidate];
                 _timer = nil;
@@ -473,7 +472,6 @@
                 NSLog(@"登录返回的数据:%@", data);
                 [self insertDatabase:data];
                 [delegateConfiguation changeLoginStatus];
-                [delegateConfiguation removeAllDelegateMutableA];
 
                 //从修改密码的页面跳转
                 if ([homeTologinStr isEqualToString:@"2"]) {

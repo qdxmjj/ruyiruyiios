@@ -22,13 +22,6 @@
 @implementation PaySuccessViewController
 @synthesize orderTypeStr;
 
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBar.hidden = NO;
-    self.tabBarController.tabBar.hidden = YES;
-}
-
 - (PaySuccessBackView *)paySuccessBackView{
     
     if (_paySuccessBackView == nil) {
@@ -68,10 +61,14 @@
 
         FirstUpdateViewController *firstUpdateVC = [[FirstUpdateViewController alloc] init];
         [self.navigationController pushViewController:firstUpdateVC animated:YES];
+        self.hidesBottomBarWhenPushed = YES;
+
     }else{
         MyOrderViewController *myOrderVC = [[MyOrderViewController alloc] init];
         myOrderVC.statusStr = @"0";
         [self.navigationController pushViewController:myOrderVC animated:YES];
+        self.hidesBottomBarWhenPushed = YES;
+
     }
 }
 

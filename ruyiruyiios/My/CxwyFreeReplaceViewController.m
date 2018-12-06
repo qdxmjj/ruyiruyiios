@@ -123,12 +123,6 @@
     
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
-    self.navigationController.navigationBar.hidden = NO;
-}
 
 - (IBAction)submitOrderEvent:(UIButton *)sender {
     
@@ -198,6 +192,7 @@
         [self setStoreInfo:dataDic];
     };
     [self.navigationController pushViewController:nearbyVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
 }
 
 -(void)setStoreInfo:(NSDictionary *)info{

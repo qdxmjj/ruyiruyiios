@@ -25,12 +25,6 @@
 @synthesize orderNo;
 @synthesize storeIdStr;
 
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
-}
-
 - (TobeEvaluateHeadView *)tobeHeadView{
     
     if (_tobeHeadView == nil) {

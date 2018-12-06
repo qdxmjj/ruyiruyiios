@@ -35,11 +35,6 @@
 
 @implementation FirstUpdateViewController
 
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
-}
 
 - (UIScrollView *)mainScrollV{
     
@@ -84,6 +79,8 @@
     
     ReplacementProcessViewController *replaceProcessVC = [[ReplacementProcessViewController alloc] init];
     [self.navigationController pushViewController:replaceProcessVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
+
 }
 
 - (UITableView *)installStoreTableV{
@@ -157,6 +154,7 @@
             MyOrderViewController *myorderVC = [[MyOrderViewController alloc] init];
             myorderVC.statusStr = @"0";
             [self.navigationController pushViewController:myorderVC animated:YES];
+            self.hidesBottomBarWhenPushed = YES;
         }else{
             
             [PublicClass showHUD:messageStr view:self.view];
@@ -336,12 +334,26 @@
 }
 
 - (void)analysizeDic:(NSDictionary *)dataDic{
+
+    NSDictionary *storeInfoDic;
     
-    NSDictionary *storeInfoDic = [[dataDic objectForKey:@"storeQuaryResVos"] objectAtIndex:0];
-    if (storeInfoDic == nil || [storeInfoDic isKindOfClass:[NSNull class]]) {
+    if ([dataDic.allKeys containsObject:@"storeQuaryResVos"]) {
         
-        storeInfoDic = dataDic;
+        NSArray *storeQuaryResVosArr = [dataDic objectForKey:@"storeQuaryResVos"];
+
+        if (storeQuaryResVosArr.count<=0) {
+            
+            [PublicClass showHUD:@"周围没有店铺！" view:self.view];
+            return;
+        }
+        storeInfoDic = [storeQuaryResVosArr objectAtIndex:0];
+    }else{
+        if (storeInfoDic == nil || [storeInfoDic isKindOfClass:[NSNull class]]) {
+            
+            storeInfoDic = dataDic;
+        }
     }
+    
     self.storeInfo.storeId = [storeInfoDic objectForKey:@"storeId"];
     self.storeInfo.storeAddress = [storeInfoDic objectForKey:@"storeAddress"];
     self.storeInfo.distance = [storeInfoDic objectForKey:@"distance"];
@@ -406,6 +418,8 @@
         [self analysizeDic:dataDic];
     };
     [self.navigationController pushViewController:nearbyVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
+
 }
 
 - (void)didReceiveMemoryWarning {

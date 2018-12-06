@@ -29,18 +29,6 @@
 @implementation BindingPhoneViewController
 @synthesize weixinIDStr;
 
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBar.hidden = NO;
-    self.tabBarController.tabBar.hidden = YES;
-}
-
-- (void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:animated];
-    self.navigationController.navigationBar.hidden = YES;
-}
 
 - (UITextField *)telephoneTF{
     
@@ -225,9 +213,10 @@
                 //保存数据库操作
                 NSLog(@"验证码登录返回数据:%@", data);
                 [self insertDatabase:data];
-                
-                DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
-                [delegateConfiguration removeAllDelegateMutableA];
+
+                //暂时废弃 原因 点击查看方法详情
+//                DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+//                [delegateConfiguration removeAllDelegateMutableA];
                 MainTabBarViewController *mainTabVC = [[MainTabBarViewController alloc] init];
                 [self.navigationController pushViewController:mainTabVC animated:YES];
             }else if ([statusStr isEqualToString:@"-1"]){

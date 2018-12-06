@@ -37,12 +37,6 @@
 @synthesize orderTypeStr;
 @synthesize orderNoStr;
 
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
-}
-
 - (UIScrollView *)mainScrollV{
     
     if (_mainScrollV == nil) {

@@ -72,12 +72,6 @@
     return _brandNameTableV;
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    [self.tabBarController.tabBar setHidden:YES];
-}
-
 - (void)getDataFromDB{
     
     dispatch_queue_t getAllBrandQueue = dispatch_queue_create("getAllBrandQueue", NULL);

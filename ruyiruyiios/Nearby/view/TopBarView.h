@@ -25,7 +25,7 @@ typedef void (^setTitleLabTextBlcok)(NSString *text);
 
 
 
-@property(nonatomic,assign)id <JJClickExpandDelegate>delegate;
+@property(nonatomic,weak)id <JJClickExpandDelegate>delegate;
 
 @property(nonatomic,strong)NSArray *conditionArr;
 
