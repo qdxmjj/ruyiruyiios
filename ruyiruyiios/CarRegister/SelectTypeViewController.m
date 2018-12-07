@@ -209,7 +209,7 @@
     DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
     FMDBCarTireInfo *carInfo = [self.typeVerhicleArray objectAtIndex:indexPath.row];
     [delegateConfiguration changeCartypeStatusNumber:carInfo];
-    [self.tabBarController.tabBar setHidden:NO];
+//    [self.tabBarController.tabBar setHidden:NO];
     NSLog(@"%@", self.navigationController.viewControllers);
     for (int i = 0; i<self.navigationController.viewControllers.count; i++) {
         

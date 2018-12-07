@@ -207,6 +207,7 @@
     selectTypeVC.typepailiangStr = pailiangStr;
     selectTypeVC.typeyear = [self.yearMutableA objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:selectTypeVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
 }
 
 - (void)didReceiveMemoryWarning {

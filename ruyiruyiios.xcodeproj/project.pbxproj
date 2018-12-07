@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0406509921BA710900F549F9 /* EntranceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0406509821BA710900F549F9 /* EntranceView.m */; };
+		0406509D21BA723C00F549F9 /* EntranceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0406509B21BA723C00F549F9 /* EntranceCell.m */; };
+		0406509E21BA723C00F549F9 /* EntranceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0406509C21BA723C00F549F9 /* EntranceCell.xib */; };
 		041AC23621B8B2B000ADF57A /* OrderTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 041AC23421B8B2B000ADF57A /* OrderTypeCell.m */; };
 		041AC23721B8B2B000ADF57A /* OrderTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041AC23521B8B2B000ADF57A /* OrderTypeCell.xib */; };
 		0421E44F21532B800087FF87 /* SmoothJourneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0421E44E21532B800087FF87 /* SmoothJourneyViewController.m */; };
@@ -945,6 +948,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0406509721BA710900F549F9 /* EntranceView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EntranceView.h; sourceTree = "<group>"; };
+		0406509821BA710900F549F9 /* EntranceView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EntranceView.m; sourceTree = "<group>"; };
+		0406509A21BA723C00F549F9 /* EntranceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EntranceCell.h; sourceTree = "<group>"; };
+		0406509B21BA723C00F549F9 /* EntranceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EntranceCell.m; sourceTree = "<group>"; };
+		0406509C21BA723C00F549F9 /* EntranceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EntranceCell.xib; sourceTree = "<group>"; };
 		041AC23321B8B2B000ADF57A /* OrderTypeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderTypeCell.h; sourceTree = "<group>"; };
 		041AC23421B8B2B000ADF57A /* OrderTypeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderTypeCell.m; sourceTree = "<group>"; };
 		041AC23521B8B2B000ADF57A /* OrderTypeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderTypeCell.xib; sourceTree = "<group>"; };
@@ -2710,6 +2718,8 @@
 				438B2AFD20B7EF2D004A7E2A /* ManageCarTableViewCell.m */,
 				434DB63F20BCE6B80077234D /* LocationTableViewCell.h */,
 				434DB64020BCE6B80077234D /* LocationTableViewCell.m */,
+				36148DE42112955E00309D31 /* JJSliderView.h */,
+				36148DE32112955E00309D31 /* JJSliderView.m */,
 				04F06FC721B4FDEA00588CDF /* ADView.h */,
 				04F06FC621B4FDEA00588CDF /* ADView.m */,
 			);
@@ -2773,6 +2783,8 @@
 				046A140A21916D2C00D5C759 /* BaseTableViewController.m */,
 				435E595020A18D44005C8BDA /* MainTabBarViewController.h */,
 				435E595120A18D44005C8BDA /* MainTabBarViewController.m */,
+				3640310A213CCF4400BB3A36 /* MyWebViewController.h */,
+				36403109213CCF4300BB3A36 /* MyWebViewController.m */,
 				4343EB8B20A01B01003AD5FE /* PrefixHeader.pch */,
 				435E5B2B20A1CA76005C8BDA /* PublicClass.h */,
 				435E5B2C20A1CA76005C8BDA /* PublicClass.m */,
@@ -2836,16 +2848,17 @@
 		4343EB81209FFC1A003AD5FE /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				435E594320A18B79005C8BDA /* HomeViewController.h */,
-				435E594420A18B79005C8BDA /* HomeViewController.m */,
-				3640310A213CCF4400BB3A36 /* MyWebViewController.h */,
-				36403109213CCF4300BB3A36 /* MyWebViewController.m */,
-				36148DE42112955E00309D31 /* JJSliderView.h */,
-				36148DE32112955E00309D31 /* JJSliderView.m */,
-				36E0B59221007DA7005838B5 /* CycleScrollViewDetailsController.h */,
-				36E0B59321007DA7005838B5 /* CycleScrollViewDetailsController.m */,
 				431FC5D020AAABC700EF97CA /* Model */,
 				431FC5CF20AAABC700EF97CA /* View */,
+				435E594320A18B79005C8BDA /* HomeViewController.h */,
+				435E594420A18B79005C8BDA /* HomeViewController.m */,
+				0406509721BA710900F549F9 /* EntranceView.h */,
+				0406509821BA710900F549F9 /* EntranceView.m */,
+				0406509A21BA723C00F549F9 /* EntranceCell.h */,
+				0406509B21BA723C00F549F9 /* EntranceCell.m */,
+				0406509C21BA723C00F549F9 /* EntranceCell.xib */,
+				36E0B59221007DA7005838B5 /* CycleScrollViewDetailsController.h */,
+				36E0B59321007DA7005838B5 /* CycleScrollViewDetailsController.m */,
 				438B2AF920B7EC41004A7E2A /* ManageCarViewController.h */,
 				438B2AFA20B7EC41004A7E2A /* ManageCarViewController.m */,
 				434DB63C20BCE3C10077234D /* LocationViewController.h */,
@@ -4649,6 +4662,7 @@
 				435E5A1A20A19061005C8BDA /* ic_month@2x.png in Resources */,
 				4332F8A520D8D6B200AF386F /* ic_m_kefu@3x.png in Resources */,
 				435F1EE920FDDEDC003B021F /* ic_yindaoye_3.png in Resources */,
+				0406509E21BA723C00F549F9 /* EntranceCell.xib in Resources */,
 				435E5AAC20A19088005C8BDA /* ic_blue@2x.png in Resources */,
 				435E59E020A18FD1005C8BDA /* 美容清洗@1x.png in Resources */,
 				435E5A2C20A19061005C8BDA /* ic_money@3x.png in Resources */,
@@ -4871,6 +4885,7 @@
 				43380E5C20E0CC7C00B3ABAF /* WXShareView.m in Sources */,
 				43F874DE20CE497C007D1C2E /* InstallStoreTableViewCell.m in Sources */,
 				36C80A5520D89C640036C14A /* StoreAssessModel.m in Sources */,
+				0406509921BA710900F549F9 /* EntranceView.m in Sources */,
 				438D44AD20C2672D008DAD97 /* CustomQualityView.m in Sources */,
 				36C80A5920D89C640036C14A /* StoreDetailsCell.m in Sources */,
 				4311E9B720D9FECC00F74960 /* ExtensionCodeViewController.m in Sources */,
@@ -5000,6 +5015,7 @@
 				4306779A20AEB848003BB046 /* TopCarInfoTableViewCell.m in Sources */,
 				43B1BEBA20EA1D06008E3E1A /* HXCustomCollectionReusableView.m in Sources */,
 				43515E6C20A718AC0043C0CC /* FMDBUserInfo.m in Sources */,
+				0406509D21BA723C00F549F9 /* EntranceCell.m in Sources */,
 				36C80A3E20D89C640036C14A /* FJStoreReqeust.m in Sources */,
 				431FC5DC20AB110300EF97CA /* FMDBCarBrand.m in Sources */,
 				439D062320BE961D00379414 /* SelectTirePositionTableViewCell.m in Sources */,

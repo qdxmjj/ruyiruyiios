@@ -198,6 +198,7 @@
     SelectSystemViewController *selectSystemVC = [[SelectSystemViewController alloc] init];
     selectSystemVC.btosId = carBrand.brandId;
     [self.navigationController pushViewController:selectSystemVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
 }
 
 

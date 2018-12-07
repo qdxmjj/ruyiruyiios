@@ -20,7 +20,6 @@
 #import "BindingPhoneViewController.h"
 #import "DelegateConfiguration.h"
 #import "HomeViewController.h"
-#import "NearbyViewController.h"
 #import "WinterTyreViewController.h"
 #import "MyViewController.h"
 

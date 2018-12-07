@@ -113,7 +113,6 @@
         [delegateConfiguration unregisterLoginStatusChangedListener:self];
         [delegateConfiguration unregistercityNameListers:self];
         
-        self.tabBarController.tabBar.hidden = NO;
         [self.navigationController popViewControllerAnimated:YES];
     }else{
         

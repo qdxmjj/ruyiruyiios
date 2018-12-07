@@ -175,6 +175,7 @@
     productYearVC.productVerhicleId = verhicleId;
     productYearVC.pailiangStr = paiLiang_Str;
     [self.navigationController pushViewController:productYearVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
 }
 
 - (void)didReceiveMemoryWarning {

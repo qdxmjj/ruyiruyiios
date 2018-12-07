@@ -158,6 +158,7 @@
     SelectEngineViewController *selectEngineVC = [[SelectEngineViewController alloc] init];
     selectEngineVC.verhicleId = carVerhicle.verhicleId;
     [self.navigationController pushViewController:selectEngineVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -7,7 +7,7 @@
 //
 
 #import "HomeFirstView.h"
-
+#import <Masonry.h>
 @interface HomeFirstView()
 
 @end
@@ -19,23 +19,23 @@
     if (self = [super initWithFrame:frame]) {
         
         UIImageView *iconImageV = [[UIImageView alloc] init];
-//        iconImageV.image = [UIImage imageNamed:@"注册"];
+
         self.iconImageV = iconImageV;
         [self addSubview:iconImageV];
         
         UILabel *top = [[UILabel alloc] init];
-//        top.text = @"新人注册享好礼";
+
         top.textColor = [UIColor blackColor];
         top.textAlignment = NSTextAlignmentLeft;
-        top.font = [UIFont fontWithName:TEXTFONT size:16.0];
+        top.font = [UIFont fontWithName:TEXTFONT size:15.f];
         self.topLabel = top;
         [self addSubview:top];
         
         UILabel *bottom = [[UILabel alloc] init];
-//        bottom.text = @"注册享受价值xx元礼包";
+
         bottom.textColor = [UIColor lightGrayColor];
         bottom.textAlignment = NSTextAlignmentLeft;
-        bottom.font = [UIFont fontWithName:TEXTFONT size:14.0];
+        bottom.font = [UIFont fontWithName:TEXTFONT size:14.f];
         [self addSubview:bottom];
         self.bottomLabel = bottom;
     }
@@ -43,39 +43,30 @@
 }
 
 - (void)layoutSubviews{
-    
     [super layoutSubviews];
-    CGFloat iconImageVX = 20.0;
-    CGFloat iconImageVY = 10.0;
-    CGFloat iconImageVW = 40.0;
-    CGFloat iconImageVH = 40.0;
-    self.iconImageV.frame = CGRectMake(iconImageVX, iconImageVY, iconImageVW, iconImageVH);
     
-    CGFloat topX = iconImageVX + iconImageVW + 10;
-    CGFloat topY = 12.0;
-    CGFloat topW = MAINSCREEN.width - topX;
-    CGFloat topH = 20.0;
-    self.topLabel.frame = CGRectMake(topX, topY, topW, topH);
     
-    CGFloat bottomX = iconImageVX + iconImageVW + 10;
-    CGFloat bottomY = topY + topH;
-    CGFloat bottomW = MAINSCREEN.width - topX;
-    CGFloat bottomH = 16.0;
-    self.bottomLabel.frame = CGRectMake(bottomX, bottomY, bottomW, bottomH);
+    [self.iconImageV mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.mas_equalTo(self.mas_left).inset(16);
+        make.width.height.mas_equalTo(self.mas_height).multipliedBy(0.65);
+        make.centerY.mas_equalTo(self.mas_centerY);
+    }];
+    
+    [self.topLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.mas_equalTo(self.iconImageV.mas_top);
+        make.left.mas_equalTo(self.iconImageV.mas_right).inset(5);
+        make.right.mas_equalTo(self.mas_right).inset(16);
+        make.height.mas_equalTo(self.iconImageV.mas_height).multipliedBy(0.5);
+    }];
+    
+    [self.bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.mas_equalTo(self.topLabel.mas_bottom);
+        make.left.mas_equalTo(self.topLabel.mas_left);
+        make.right.mas_equalTo(self.topLabel.mas_right);
+        make.bottom.mas_equalTo(self.iconImageV.mas_bottom);
+    }];
 }
-
-//设置模型数据
-//- (void)setModel{
-//
-//
-//}
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
-
 @end

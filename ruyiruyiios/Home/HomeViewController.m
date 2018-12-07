@@ -32,10 +32,12 @@
 #import "NewTirePurchaseViewController.h"
 #import "MyWebViewController.h"
 
+#import "EntranceView.h"
 #import "FirstStartConfiguration.h"
 #import "MBProgressHUD+YYM_category.h"
 #import "ADView.h"
-@interface HomeViewController ()<UIScrollViewDelegate, SDCycleScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate, CLLocationManagerDelegate,LoginStatusDelegate, CityNameDelegate,UpdateAddCarDelegate,ADActivityDelegate>{
+#import <Masonry.h>
+@interface HomeViewController ()<UIScrollViewDelegate, SDCycleScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, LoginStatusDelegate, CLLocationManagerDelegate,LoginStatusDelegate, CityNameDelegate,UpdateAddCarDelegate,ADActivityDelegate,EntranceViewDelegate>{
     
     CGFloat nameW;
     CGFloat tviewX, tviewY, tviewW, tviewH;
@@ -43,24 +45,21 @@
 }
 @property (nonatomic, strong)UIScrollView *mainScrollV;
 @property (nonatomic, strong)SDCycleScrollView *sdcycleScrollV;//上部轮播
-@property (nonatomic, strong)SDCycleScrollView *webAdvertisingView;//底部广告轮播
-@property (nonatomic, strong)UILabel *centerLabel;//title
+
 @property (nonatomic, strong)UIButton *locationBtn;
 @property (nonatomic, strong)UIButton *resetBtn;//重置btn
 @property (nonatomic, strong)UITapGestureRecognizer *fTapGR;
 @property (nonatomic, strong)UIView *changeView;
 @property (nonatomic, strong)HomeFirstView *firstView;
-@property (nonatomic, strong)UIView *threeBtnView;
+@property (nonatomic, strong)EntranceView *entranceView;
 @property (nonatomic, strong)UITableView *homeTableV;
+
 @property (nonatomic, strong)NSMutableArray *imgMutableA;
 @property (nonatomic, strong)NSString *user_token;
 @property (nonatomic, strong)NSDictionary *data_carDic;
 @property (nonatomic, strong)Data_cars *dataCars;
 @property (nonatomic, strong)CLLocationManager *locationManager;
 @property (nonatomic, copy)NSString *currentCity;
-
-@property (nonatomic, strong)NSMutableArray *AdvertisingImgURLArr;//底部广告图片数组
-@property (nonatomic, strong)NSMutableArray *AdvertisingWebURLArr;//底部广告URL数组
 
 @end
 
@@ -74,6 +73,10 @@
         WelcomeViewController *welcomeVC = [[WelcomeViewController alloc] init];
         [self.navigationController presentViewController:[[BaseNavigation alloc]initWithRootViewController:welcomeVC] animated:YES completion:nil];
     }
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)])
+    {
+        self.edgesForExtendedLayout = UIRectEdgeAll;
+    }
     
     _currentCity = @"定位中";
     
@@ -82,30 +85,80 @@
     [delegateCF registercityNameListers:self];
     [delegateCF registerLoginStatusChangedListener:self];
     [delegateCF registeraddCarListers:self];
-    UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20+(SafeAreaTopHeight - 64))];
-    statusBarView.backgroundColor = LOGINBACKCOLOR;
-    
-    [self locateMap];
     
     self.view.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:statusBarView];
     [self.view addSubview:self.mainScrollV];
-    [_mainScrollV addSubview:self.sdcycleScrollV];
-    [_sdcycleScrollV addSubview:self.centerLabel];
-    [_sdcycleScrollV addSubview:self.locationBtn];
-    [_sdcycleScrollV addSubview:self.resetBtn];
-    [_mainScrollV addSubview:self.changeView];
-    [_mainScrollV addSubview:self.threeBtnView];
-    [self addFourButtons];
-    [self addThreeButtons];
-    //    [_mainScrollV addSubview:self.homeTableV];
-    [_mainScrollV addSubview:self.webAdvertisingView];
+    [self.mainScrollV addSubview:self.sdcycleScrollV];
+
+    [self.sdcycleScrollV addSubview:self.locationBtn];
+    [self.sdcycleScrollV addSubview:self.resetBtn];
+    [self.mainScrollV addSubview:self.changeView];
+    UIImageView *backImageview = [[UIImageView alloc] init];
+    backImageview.image = [UIImage imageNamed:@"注册框"];
+    [self.changeView addSubview:backImageview];
+    [self.changeView addSubview:self.firstView];
+    [self.mainScrollV addSubview:self.entranceView];
+
+    [self.mainScrollV mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.edges.mas_equalTo(self.view);
+    }];
+    
+    [self.sdcycleScrollV mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.top.mas_equalTo(self.view.mas_top);
+        make.left.and.right.mas_equalTo(self.view);
+        make.height.mas_equalTo(self.view.mas_height).multipliedBy(.35);
+    }];
+    
+    [self.locationBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.top.mas_equalTo(self.sdcycleScrollV.mas_top).inset(getRectStatusHight);
+        make.left.mas_equalTo(self.view.mas_left).inset(16);
+        make.height.mas_equalTo(25);
+    }];
+    
+    [self.resetBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.top.mas_equalTo(self.locationBtn.mas_top);
+        make.right.mas_equalTo(self.view.mas_right).inset(16);
+        make.width.height.mas_equalTo(CGSizeMake(40, 30));
+    }];
+    
+    [self.changeView mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.top.mas_equalTo(self.sdcycleScrollV.mas_bottom).offset(-20);
+        make.left.right.mas_equalTo(16);
+        make.height.mas_equalTo(self.sdcycleScrollV.mas_height).multipliedBy(0.25);
+    }];
+    
+    [backImageview mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.edges.mas_equalTo(self.changeView);
+    }];
+    
+    [self.firstView mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.edges.mas_equalTo(self.changeView);
+    }];
+    
+    [self.entranceView mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.right.mas_equalTo(self.view);
+        make.top.mas_equalTo(self.changeView.mas_bottom);
+        make.height.mas_equalTo((MAINSCREEN.width-50)/4 * 1.2);
+    }];
+    
+//        [_mainScrollV addSubview:self.homeTableV];
     [_mainScrollV setContentSize:CGSizeMake(MAINSCREEN.width, (tviewY+tviewH+82))];
 
-    
-    //    [self getAndroidHomeDate];  //定位成功后再请求主页数据 因为 新接口需要传入位置信息  日后更改定位方式
+     //定位成功后再请求主页数据 因为 新接口需要传入位置信息  日后更改定位方式
+//    [self getAndroidHomeDate];
+    //获取弹窗广告
     [self getActivityInfo];
-    
+    //定位
+    [self locateMap];
+
     //生成购买轮胎订单的时候 的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(generateTireOrderNoticeEvent) name:GenerateTireOrderNotice object:nil];
     //设置默认车辆的通知
@@ -121,7 +174,6 @@
         [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"isFirst"];
     }else{
         
-        //userInfo
         _user_token = [UserConfig token];
         if (_user_token.length == 0) {
             
@@ -163,36 +215,9 @@
                 [self setuserDatacarData:self.data_carDic];
             }
             [self setImageurlData:imgArray];
-//            [self.homeTableV reloadData];
+            [self setElementOffirstView];
             
-            NSArray *arr = [data objectForKey:@"activityList"];
-            
-            if (self.AdvertisingImgURLArr.count>0) {
-                
-                [self.AdvertisingImgURLArr removeAllObjects];
-            }
-            if (self.AdvertisingWebURLArr.count>0) {
-                [self.AdvertisingWebURLArr removeAllObjects];
-            }
-            
-            for (NSDictionary *dic in arr) {
-                
-                [self.AdvertisingImgURLArr addObject:[dic objectForKey:@"imageUrl"]];
-                [self.AdvertisingWebURLArr addObject:[dic objectForKey:@"webUrl"]];
-            }
-            
-//            NSLog(@"%@",self.AdvertisingWebURLArr);
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                [self setElementOffirstView];
-
-                if (self.AdvertisingWebURLArr.count<=0) {
-                    self.webAdvertisingView.imageURLStringsGroup = nil;
-                }else{
-                    self.webAdvertisingView.imageURLStringsGroup = self.AdvertisingImgURLArr;
-                }
-            });
+//                        [self.homeTableV reloadData];
             
         }
         [MBProgressHUD hideWaitViewAnimated:self.view];
@@ -259,60 +284,7 @@
 
 -(void)resetHomeInfoWithCarInfo{
     [self getAndroidHomeDate];
-    [self getActivityInfo];
 }
-
-- (void)chickMidBtn:(UIButton *)btn{
-    
-    //1000轮胎购买，1001免费更换，1002免费修补，1003待更换轮胎
-    //2000畅行无忧，2001汽车保养，2002美容清洗
-    if ([UserConfig user_id] == NULL) {
-        
-        [self alertIsloginView];
-    }else{
-        
-        if (btn.tag == 1000) {
-            
-            [self chickBuytyreBtn:btn];
-        }else if (btn.tag == 1001){
-            
-            FreeChangeViewController *tireRepairVC = [[FreeChangeViewController alloc] init];
-            [self.navigationController pushViewController:tireRepairVC animated:YES];
-            
-        }else if (btn.tag == 1002){
-            
-            TireRepairViewController *tireRepairVC = [[TireRepairViewController alloc] init];
-            [self.navigationController pushViewController:tireRepairVC animated:YES];
-        }else if (btn.tag == 1003){
-            
-            //            self.tabBarController.selectedIndex = 2;
-            //待更换轮胎
-            TobeReplacedTiresViewController *tobeReplacedVC = [[TobeReplacedTiresViewController alloc] init];
-            [self.navigationController pushViewController:tobeReplacedVC animated:YES];
-            
-        }else if (btn.tag == 2000){
-            
-            SmoothJourneyViewController *SmoothJourneyVC = [[SmoothJourneyViewController alloc] init];
-            [self.navigationController pushViewController:SmoothJourneyVC animated:YES];
-        }else{
-            
-            NearbyViewController *nearbyVC = [[NearbyViewController alloc] init];
-            nearbyVC.status = @"0";
-            nearbyVC.isLocation = @"1";
-            if (btn.tag == 2001) {
-                
-                nearbyVC.serviceType = @"2";
-                nearbyVC.condition = @"汽车保养";
-            }else{
-                
-                nearbyVC.serviceType = @"3";
-                nearbyVC.condition = @"美容清洗";
-            }
-            [self.navigationController pushViewController:nearbyVC animated:YES];
-        }
-    }
-}
-
 
 - (UITapGestureRecognizer *)fTapGR{
     
@@ -361,56 +333,6 @@
     }
 }
 
-#pragma mark 设置UI
-- (void)addFourButtons{
-    
-    NSArray *nameArray = @[@"轮胎购买", @"免费更换", @"免费修补", @"待更换轮胎"];
-    NSArray *imgArray = @[@"轮胎购买", @"免费更换", @"免费修补", @"ic_icon4"];
-    for (int i = 0; i<4; i++) {
-        
-        CGFloat btnW = MAINSCREEN.width/4;
-        CGFloat btnH = btnW + 15;
-        CGFloat btnX = i*btnW;
-        CGFloat btnY = 240;
-        UIButton *midBtn = [[UIButton alloc] initWithFrame:CGRectMake(btnX, btnY, btnW, btnH)];
-        midBtn.tag = 1000+i;
-        [midBtn setTitle:[nameArray objectAtIndex:i] forState:UIControlStateNormal];
-        [midBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        midBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
-        midBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
-        [midBtn setImage:[UIImage imageNamed:[imgArray objectAtIndex:i]] forState:UIControlStateNormal];
-        midBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-        midBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-        [midBtn setImageEdgeInsets:UIEdgeInsetsMake(-20, 8, 0, 0)];
-        [midBtn setTitleEdgeInsets:UIEdgeInsetsMake(midBtn.frame.size.height, -btnW + btnW*0.30, 25, 0)];
-        [midBtn addTarget:self action:@selector(chickMidBtn:) forControlEvents:UIControlEventTouchUpInside];
-        [_mainScrollV addSubview:midBtn];
-    }
-}
-
-- (void)addThreeButtons{
-    
-    NSArray *threeNameArray = @[@"畅行无忧", @"汽车保养", @"美容清洗"];
-    for (int t = 0; t<threeNameArray.count; t++) {
-        
-        UIButton *button = [[UIButton alloc] init];
-        button.tag = 2000+t;
-        [button setBackgroundImage:[UIImage imageNamed:[threeNameArray objectAtIndex:t]] forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(chickMidBtn:) forControlEvents:UIControlEventTouchUpInside];
-        
-        if (t == 0) {
-
-            button.frame = CGRectMake(0, 1, tviewW/3, tviewH-2);
-        }else if (t == 1){
-
-            button.frame = CGRectMake(tviewW/3, 1, tviewW*2/3, tviewH/2-2.0);
-        }else{
-
-            button.frame = CGRectMake(tviewW/3, tviewH/2, tviewW*2/3, tviewH/2-1);
-        }
-        [_threeBtnView addSubview:button];
-    }
-}
 #pragma mark - TableViewDelegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -444,23 +366,11 @@
 #pragma mark cycleScrollViewDelegate
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
     
-//    NSLog(@"点击了第%ld张图片",(long)index);
-    if ([cycleScrollView isEqual:self.webAdvertisingView]) {
-        
-        if (self.AdvertisingWebURLArr.count <= 0) {
-            
-            return;
-        }
-        MyWebViewController *myWebVC = [[MyWebViewController alloc] init];
-        myWebVC.url = [NSString stringWithFormat:@"%@?userId=%@&userCarId=%@",self.AdvertisingWebURLArr[index],[UserConfig user_id],[UserConfig userCarId]];
-        [self.navigationController pushViewController:myWebVC animated:YES];
-    }else{
-        CycleScrollViewDetailsController *cycleViewDetails = [[CycleScrollViewDetailsController alloc] init];
-        cycleViewDetails.index = index;
-        cycleViewDetails.tireSize = self.dataCars.font;
-        cycleViewDetails.dataCars = self.dataCars;
-        [self.navigationController pushViewController:cycleViewDetails animated:YES];
-    }
+    CycleScrollViewDetailsController *cycleViewDetails = [[CycleScrollViewDetailsController alloc] init];
+    cycleViewDetails.index = index;
+    cycleViewDetails.tireSize = self.dataCars.font;
+    cycleViewDetails.dataCars = self.dataCars;
+    [self.navigationController pushViewController:cycleViewDetails animated:YES];
 }
 #pragma mark ADViewDelegate
 -(void)adview:(ADView *)adview didSelectItemAtShareType:(shareType)type shareText:(nonnull NSString *)text shareURL:(nonnull NSString *)url{
@@ -477,11 +387,59 @@
     [myWebVC activityInfoWithShareType:type shareText:text shareUrl:url];
     [self.navigationController pushViewController:myWebVC animated:YES];
 }
+#pragma mark EntranceViewDelegate
+-(void)EntranceView:(EntranceView *)view didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    //1000轮胎购买，1001免费更换，1002免费修补，1003待更换轮胎
+    //2000畅行无忧，2001汽车保养，2002美容清洗
+    if ([UserConfig user_id] == NULL) {
+        
+        [self alertIsloginView];
+        return;
+    }
+    
+    switch (indexPath.item) {
+        case 0:{
+            [self chickBuytyreBtn:[UIButton new]];
+        }
+            break;
+        case 1:{
+            FreeChangeViewController *tireRepairVC = [[FreeChangeViewController alloc] init];
+            [self.navigationController pushViewController:tireRepairVC animated:YES];
+        }
+            break;
+        case 2:{
+            TireRepairViewController *tireRepairVC = [[TireRepairViewController alloc] init];
+            [self.navigationController pushViewController:tireRepairVC animated:YES];
+        }
+            break;
+        case 3:{
+            TobeReplacedTiresViewController *tobeReplacedVC = [[TobeReplacedTiresViewController alloc] init];
+            [self.navigationController pushViewController:tobeReplacedVC animated:YES];
+        }
+            break;
+            
+        default:
+            break;
+    }
+//            NearbyViewController *nearbyVC = [[NearbyViewController alloc] init];
+//            nearbyVC.status = @"0";
+//            nearbyVC.isLocation = @"1";
+//            if (1 == 2001) {
+//
+//                nearbyVC.serviceType = @"2";
+//                nearbyVC.condition = @"汽车保养";
+//            }else{
+//
+//                nearbyVC.serviceType = @"3";
+//                nearbyVC.condition = @"美容清洗";
+//            }
+//            [self.navigationController pushViewController:nearbyVC animated:YES];
+
+    
+}
 
 #pragma mark 跳转轮胎购买页面事件
 - (void)chickBuytyreBtn:(UIButton *)btn{
-    
-
     
     if ([self.dataCars isEqual:[NSNull null]] || self.dataCars == nil || !self.dataCars || [UserConfig userCarId].intValue == 0) {
         
@@ -588,30 +546,12 @@
     return _imgMutableA;
 }
 
--(NSMutableArray *)AdvertisingImgURLArr{
-    
-    if (!_AdvertisingImgURLArr) {
-        
-        _AdvertisingImgURLArr = [NSMutableArray array];
-    }
-    return _AdvertisingImgURLArr;
-}
-
--(NSMutableArray *)AdvertisingWebURLArr{
-    
-    if (!_AdvertisingWebURLArr) {
-        
-        _AdvertisingWebURLArr = [NSMutableArray array];
-    }
-    return _AdvertisingWebURLArr;
-}
-
 - (UIScrollView *)mainScrollV{
     
     if (_mainScrollV == nil) {
         
         _mainScrollV = [[UIScrollView alloc] init];
-        _mainScrollV.frame = CGRectMake(0, (SafeAreaTopHeight - 64)+20, MAINSCREEN.width, MAINSCREEN.height - 20 - (SafeAreaTopHeight - 64) - Height_TabBar);
+//        _mainScrollV.frame = CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height - Height_TabBar);
         _mainScrollV.backgroundColor = [UIColor clearColor];
         _mainScrollV.showsHorizontalScrollIndicator = NO;
         _mainScrollV.showsVerticalScrollIndicator = NO;
@@ -619,11 +559,6 @@
         _mainScrollV.delegate = self;
         _mainScrollV.tag = 2;
         _mainScrollV.scrollsToTop = NO;
-        //        if (@available(iOS 11.0, *)) {
-        //            _mainScrollV.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
-        //        } else {
-        //            // Fallback on earlier versions
-        //        }
     }
     return _mainScrollV;
 }
@@ -632,7 +567,7 @@
     
     if (_sdcycleScrollV == nil) {
         
-        _sdcycleScrollV = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, MAINSCREEN.width, 180) delegate:self placeholderImage:nil];
+        _sdcycleScrollV = [SDCycleScrollView cycleScrollViewWithFrame:CGRectZero delegate:self placeholderImage:nil];
         _sdcycleScrollV.autoScrollTimeInterval = 3.0;
         _sdcycleScrollV.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
         _sdcycleScrollV.backgroundColor = [UIColor whiteColor];
@@ -641,42 +576,15 @@
     return _sdcycleScrollV;
 }
 
--(SDCycleScrollView *)webAdvertisingView{
-    
-    if (!_webAdvertisingView) {
-        
-        _webAdvertisingView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, tviewY + tviewH + 2, MAINSCREEN.width, 120) delegate:self placeholderImage:nil];
-        _webAdvertisingView.autoScrollTimeInterval = 3.0;
-        _webAdvertisingView.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
-        _webAdvertisingView.backgroundColor = [UIColor whiteColor];
-        [SDCycleScrollView clearImagesCache];
-    }
-    return _webAdvertisingView;
-}
-
-
-- (UILabel *)centerLabel{
-    
-    if (_centerLabel == nil) {
-        
-        _centerLabel = [[UILabel alloc] init];
-        _centerLabel.textColor = [UIColor whiteColor];
-        _centerLabel.text = @"如驿如意";
-        CGSize size = [PublicClass getLabelSize:_centerLabel fontsize:18.0];
-        nameW = size.width;
-        _centerLabel.frame = CGRectMake((MAINSCREEN.width - nameW)/2, 30, nameW, size.height);
-    }
-    return _centerLabel;
-}
 
 - (UIButton *)locationBtn{
     
     if (_locationBtn == nil) {
         
-        _locationBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 27, MAINSCREEN.width/2 - nameW, 25)];
+        _locationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _locationBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:16.0];
         [_locationBtn setTitle:_currentCity forState:UIControlStateNormal];
-        [_locationBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 15, 0, 0)];
+//        [_locationBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
         [_locationBtn setImage:[UIImage imageNamed:@"定位"] forState:UIControlStateNormal];
         [_locationBtn addTarget:self action:@selector(selectLocationBtn) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -687,7 +595,7 @@
     
     if (_resetBtn == nil) {
         
-        _resetBtn = [[UIButton alloc] initWithFrame:CGRectMake( MAINSCREEN.width-40-16, 27, 40 , 30)];
+        _resetBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_resetBtn setImage:[UIImage imageNamed:@"ic_shuaxin"] forState:UIControlStateNormal];
         [_resetBtn addTarget:self action:@selector(resetHomeInfoWithCarInfo) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -698,15 +606,11 @@
     
     if (_changeView == nil) {
         
-        _changeView = [[UIView alloc] initWithFrame:CGRectMake(10, 168, MAINSCREEN.width-20, 60)];
+        _changeView = [[UIView alloc] init];
         _changeView.backgroundColor = [UIColor clearColor];
         _changeView.layer.cornerRadius = 8.0;
         _changeView.layer.masksToBounds = YES;
-        UIImageView *backImageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width - 20, 60)];
-        backImageview.image = [UIImage imageNamed:@"注册框"];
-        [_changeView addSubview:backImageview];
         [_changeView addGestureRecognizer:self.fTapGR];
-        [_changeView addSubview:self.firstView];
     }
     return _changeView;
 }
@@ -715,7 +619,7 @@
     
     if (_firstView == nil) {
         
-        _firstView = [[HomeFirstView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width-20, 80)];
+        _firstView = [[HomeFirstView alloc] init];
         _firstView.backgroundColor = [UIColor clearColor];
         _firstView.layer.cornerRadius = 8.0;
         _firstView.layer.masksToBounds = YES;
@@ -723,43 +627,38 @@
     return _firstView;
 }
 
+-(EntranceView *)entranceView{
+    
+    if (!_entranceView) {
+        
+        _entranceView = [[EntranceView alloc] init];
+        _entranceView.delegate = self;
+    }
+    return _entranceView;
+}
+
 - (void)setElementOffirstView{
     
     if (_user_token == 0 || [[NSString stringWithFormat:@"%@", [UserConfig user_id]] isEqualToString:@""]) {
         
-        _firstView.iconImageV.image = [UIImage imageNamed:@"注册"];
-        _firstView.topLabel.text = @"新人注册享好礼";
-        _firstView.bottomLabel.text = @"注册享受价值xx元礼包";
+        self.firstView.iconImageV.image = [UIImage imageNamed:@"注册"];
+        self.firstView.topLabel.text = @"新人注册享好礼";
+        self.firstView.bottomLabel.text = @"注册享受价值xx元礼包";
     }else{
         
         if ([_data_carDic isKindOfClass:[NSNull class]] || _data_carDic == nil) {
             
-            _firstView.iconImageV.image = [UIImage imageNamed:@"添加"];
-            _firstView.topLabel.text = @"添加我的宝驹";
-            _firstView.bottomLabel.text = @"邀请好友绑定车辆可免费洗车";
+            self.firstView.iconImageV.image = [UIImage imageNamed:@"添加"];
+            self.firstView.topLabel.text = @"添加我的宝驹";
+            self.firstView.bottomLabel.text = @"邀请好友绑定车辆可免费洗车";
         }else{
             
-            [_firstView.iconImageV sd_setImageWithURL:[NSURL URLWithString:self.dataCars.car_brand_url]];
-            _firstView.topLabel.text = self.dataCars.car_verhicle;
-            _firstView.bottomLabel.text = @"一次性购买四条轮胎送洗车券";
+            [self.firstView.iconImageV sd_setImageWithURL:[NSURL URLWithString:self.dataCars.car_brand_url]];
+            self.firstView.topLabel.text = self.dataCars.car_verhicle;
+            self.firstView.bottomLabel.text = @"一次性购买四条轮胎送洗车券";
         }
     }
 }
-
-- (UIView *)threeBtnView{
-    
-    if (_threeBtnView == nil) {
-        
-        tviewX = 0.0;
-        tviewY = MAINSCREEN.width/4 + 240 + 15 + 20;
-        tviewW = MAINSCREEN.width;
-        tviewH = MAINSCREEN.width/4 + 15 + 60;
-        _threeBtnView = [[UIView alloc] initWithFrame:CGRectMake(tviewX, tviewY, tviewW, tviewH)];
-        _threeBtnView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.2];
-    }
-    return _threeBtnView;
-}
-
 - (UITableView *)homeTableV{
     
     if (_homeTableV == nil) {
@@ -772,6 +671,7 @@
     }
     return _homeTableV;
 }
+
 
 #pragma mark notice
 -(void)generateTireOrderNoticeEvent{

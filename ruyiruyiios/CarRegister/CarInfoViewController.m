@@ -822,6 +822,7 @@
     
     SelectBrandViewController *selectBrandVC = [[SelectBrandViewController alloc] init];
     [self.navigationController pushViewController:selectBrandVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
 }
 
 - (void)chicktireSpecificationBtn:(UIButton *)button{
@@ -851,6 +852,7 @@
         [button setTitle:text forState:UIControlStateNormal];
     };
     [self.navigationController pushViewController:tireSVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
 }
 
 - (void)showPickDateView:(UIButton *)topBtn{
@@ -898,6 +900,7 @@
     
     RoadConditionViewController *roadCVC = [[RoadConditionViewController alloc] init];
     [self.navigationController pushViewController:roadCVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
 }
 
 //PickerDateViewDelegate
