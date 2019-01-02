@@ -50,7 +50,7 @@
                 CarInfoViewController *carinfoVC = [[CarInfoViewController alloc] init];
                 carinfoVC.is_alter = YES;
                 [self.navigationController pushViewController:carinfoVC animated:YES];
-                
+                self.hidesBottomBarWhenPushed = YES;
                 return;
             }
 
@@ -66,12 +66,13 @@
                 newTireVC.service_year_length = self.dataCars.service_year_length;
                 
                 [self.navigationController pushViewController:newTireVC animated:YES];
-                
+                self.hidesBottomBarWhenPushed = YES;
             }else{
                 
                 SelectTirePositionViewController *selectTPVC = [[SelectTirePositionViewController alloc] init];
                 selectTPVC.dataCars = self.dataCars;
                 [self.navigationController pushViewController:selectTPVC animated:YES];
+                self.hidesBottomBarWhenPushed = YES;
             }
             break;
             

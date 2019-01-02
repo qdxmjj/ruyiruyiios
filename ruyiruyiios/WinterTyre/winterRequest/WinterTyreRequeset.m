@@ -35,9 +35,13 @@
        
         if ([code longLongValue]==1) {
             
-            succrsshandler(code,message,data);
+            if ([data isEqual:[NSNull null]]) {
+                
+                
+            }else{
+                succrsshandler(code,message,data);
+            }
         }
-        
         
     } failure:^(NSError * _Nullable error) {
         

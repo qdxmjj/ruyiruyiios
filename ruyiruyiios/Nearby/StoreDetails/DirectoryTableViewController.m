@@ -70,23 +70,34 @@
     //设置选中
     if (self.sevrviceGroup.count>0) {
         
-      __block NSInteger row ;
+        __block NSInteger row; //要滚动到哪一行
+        __block BOOL isError = NO; //异常错误 如 有商品id 无商品目录id
         
         if (self.defaultSelectedIndex) {
             
             [self.sevrviceGroup[_subScript] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-               
-                if ([[obj objectForKey:@"serviceId"] integerValue] == self.defaultSelectedIndex) {
+                
+                if ([obj isKindOfClass:[NSDictionary class]]) {
                     
-                    row = idx;
+                    if ([[obj objectForKey:@"serviceId"] integerValue] == self.defaultSelectedIndex) {
+                        
+                        row = idx;
+                        *stop = YES;
+                    }
+                }else{
                     
-                    *stop = YES;
+                    isError = YES;
                 }
             }];
-            
         }else{
             
             row = [[self.sevrviceGroup[_subScript] lastObject] integerValue];
+        }
+        
+        if (isError == YES) {
+            
+            [PublicClass showHUD:@"查询商品目录失败!" view:self.view];
+            return;
         }
         
         self.defaultSelectedIndex = 0;//每次使用后清0 防止手动点击后造成点击超出小类个数

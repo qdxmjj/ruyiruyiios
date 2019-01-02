@@ -8,6 +8,7 @@
 
 #import "MyWebViewController.h"
 #import <JavaScriptCore/JavaScriptCore.h>
+#import "MBProgressHUD+YYM_category.h"
 #import "YMTools.h"
 #import "JJShare.h"
 #define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
@@ -32,11 +33,12 @@
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     self.view.backgroundColor = [UIColor whiteColor];
     self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    
+
     [self.view addSubview:self.webview];
     [self.view addSubview:self.Progressview];
     [self updateNavigationItems];
 }
+
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -52,7 +54,10 @@
         self.shareUrl = url;
         
         //添加右边分享按钮
-        UIBarButtonItem *roadLoad = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(shareClicked)];
+        UIButton *shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [shareBtn setImage:[UIImage imageNamed:@"fenxiang-2"] forState:UIControlStateNormal];
+        [shareBtn addTarget:self action:@selector(shareClicked) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *roadLoad = [[UIBarButtonItem alloc] initWithCustomView:shareBtn];
         self.navigationItem.rightBarButtonItem = roadLoad;
     }
 }
@@ -61,22 +66,36 @@
 -(void)updateNavigationItems{
     if (self.webview.canGoBack)
     {
-        UIBarButtonItem *spaceButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+        UIBarButtonItem *spaceButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:nil];
         spaceButtonItem.width = -6.5;
         [self.navigationItem setLeftBarButtonItems:@[spaceButtonItem,self.customBackBarItem,self.closeButtonItem] animated:NO];
     }
     else
     {
-        self.navigationController.interactivePopGestureRecognizer.enabled = YES;
-        [self.navigationItem setLeftBarButtonItems:@[self.customBackBarItem]];
+//        self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+//        [self.navigationItem setLeftBarButtonItems:@[self.customBackBarItem]];
     }
 }
+
 #pragma mark 左侧点击事件
--(void)customBackItemClicked{
+-(void)backButtonAction:(id)sender{
     
     if (self.webview.canGoBack)
     {
-       
+        
+        [self.webview goBack];
+    }
+    else
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
+}
+-(void)customBackItemClicked{
+
+    if (self.webview.canGoBack)
+    {
+
         [self.webview goBack];
     }
     else
@@ -91,7 +110,31 @@
 #pragma mark 右侧点击
 - (void)shareClicked{
     
-    [JJShare ShareDescribe:@"如驿如意" images:@[[UIImage imageNamed:@"icon"]] url:self.shareUrl title:self.shareText type:SSDKContentTypeAuto];
+    if ([self.shareUrl isEqualToString:@"1"]) {
+
+        [MBProgressHUD showWaitMessage:@"正在获取分享信息..." showView:self.view];
+        
+        [JJRequest interchangeablePostRequestWithIP:SHAREIP path:@"invite/Url" params:nil success:^(id  _Nullable data) {
+            
+            if (data == NULL || [data isEqual:[NSNull null]] || !data || data == nil) {
+                
+                return ;
+            }
+            
+            [MBProgressHUD hideWaitViewAnimated:self.view];
+         
+            NSDictionary *dic = data[@"inviteRegister"];
+            NSString *shareURL = [NSString stringWithFormat:@"%@?userId=%@",dic[@"shareUrl"],[UserConfig user_id]];
+            
+            [JJShare ShareDescribe:@"如驿如意" images:@[[UIImage imageNamed:@"icon"]] url:shareURL title:dic[@"shareTitle"] type:SSDKContentTypeAuto];
+
+        } failure:^(NSError * _Nullable error) {
+            
+        }];
+    }else{
+        
+        [JJShare ShareDescribe:@"如驿如意" images:@[[UIImage imageNamed:@"icon"]] url:self.shareUrl title:self.shareText type:SSDKContentTypeAuto];
+    }
 }
 
 #pragma mark WebViewDelegate
@@ -140,12 +183,12 @@
     if (!_customBackBarItem)
     {
         UIImage* backItemImage = [[UIImage imageNamed:@"返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        UIImage* backItemHlImage = [[UIImage imageNamed:@"返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+//        UIImage* backItemHlImage = [[UIImage imageNamed:@"返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         UIButton* backButton = [[UIButton alloc] init];
 //        [backButton setTitle:@"返回" forState:UIControlStateNormal];
-//        [backButton.titleLabel setFont:[UIFont systemFontOfSize:17]];
+        [backButton.titleLabel setFont:[UIFont systemFontOfSize:17]];
         [backButton setImage:backItemImage forState:UIControlStateNormal];
-        [backButton setImage:backItemHlImage forState:UIControlStateHighlighted];
+//        [backButton setImage:backItemHlImage forState:UIControlStateHighlighted];
         [backButton sizeToFit];
         [backButton addTarget:self action:@selector(customBackItemClicked) forControlEvents:UIControlEventTouchUpInside];
         _customBackBarItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
@@ -167,7 +210,15 @@
         _webview = [[UIWebView alloc] init];
         _webview.delegate = self;
         _webview.paginationMode = UIWebPaginationModeUnpaginated;
-        NSURL *url = [NSURL URLWithString:[self.url UTF8Value]];
+        NSString *newURL;
+        if ([self.url rangeOfString:@"http://"].location == NSNotFound) {
+            
+            newURL = [NSString stringWithFormat:@"http://%@", [self.url stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
+        }else{
+            newURL = [NSString stringWithFormat:@"%@", [self.url stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
+        }
+        NSURL *url = [NSURL URLWithString:[newURL UTF8Value]];
+
         NSURLRequest *urkRequest = [NSURLRequest requestWithURL:url];
         [self.webview loadRequest:urkRequest];
     }

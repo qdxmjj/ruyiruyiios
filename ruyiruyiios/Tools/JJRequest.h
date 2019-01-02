@@ -41,7 +41,6 @@ typedef void (^destinationBlock)(NSURL * _Nonnull documentUrl);
 
 + (BOOL)checkNetworkStatus;
 
-
 /**
  GET请求
  */
@@ -62,7 +61,6 @@ typedef void (^destinationBlock)(NSURL * _Nonnull documentUrl);
  */
 + (void)deleteRequest:(nonnull NSString *)url params:(NSDictionary *_Nullable )params success:(_Nullable requestSuccessBlock)successHandler failure:(_Nullable requestFailureBlock)failureHandler;
 
-
 /**
  下载文件，监听下载进度
  */
@@ -75,15 +73,16 @@ typedef void (^destinationBlock)(NSURL * _Nonnull documentUrl);
 
 + (void)commonPostRequest:(NSString *)url params:(NSDictionary *)params hostNameStr:(NSString *)hostStr success:(requestSuccessBlock)successHandler failure:(requestFailureBlock)failureHandler;
 
-
 + (void)testPostRequest:(NSString *)url params:(NSDictionary *)params serviceAddress:(NSString *)hostAddress success:(requestSuccessBlock)successHandler failure:(requestFailureBlock)failureHandler;
 
-
-//龚琳 http 通用post
-+ (void)interchangeablePostRequest:(NSString *_Nullable)url params:(NSDictionary *_Nullable)params success:(interchangeableRequestSuccessBlock _Nullable )successHandler failure:(requestFailureBlock _Nullable )failureHandler;
 //通用get
 + (void)interchangeableGetRequest:(nonnull NSString *)url params:(NSDictionary * _Nullable)params success:(_Nullable interchangeableRequestSuccessBlock)successHandler failure:(_Nullable requestFailureBlock)failureHandler;
 
+//通用post
++ (void)interchangeablePostRequestWithIP:(nonnull NSString *)IP path:(NSString *)path params:(NSDictionary * _Nullable)params success:(_Nullable interchangeableRequestSuccessBlock)successHandler failure:(_Nullable requestFailureBlock)failureHandler;
+
+//龚琳 post
 + (void)GL_PostRequest:(NSString *_Nullable)url params:(NSDictionary *_Nullable)params success:(GL_requestSuccessBlock _Nullable )successHandler failure:(requestFailureBlock _Nullable )failureHandler;
+
 
 @end

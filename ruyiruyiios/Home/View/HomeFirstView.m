@@ -57,7 +57,7 @@
         
         make.top.mas_equalTo(self.iconImageV.mas_top);
         make.left.mas_equalTo(self.iconImageV.mas_right).inset(5);
-        make.right.mas_equalTo(self.mas_right).inset(16);
+//        make.right.mas_equalTo(self.mas_right).inset(16);
         make.height.mas_equalTo(self.iconImageV.mas_height).multipliedBy(0.5);
     }];
     

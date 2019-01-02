@@ -10,7 +10,7 @@
 
 @interface CodeLoginViewController : RootViewController
 
-//1---homeVC to Login,  2---setting or updatePassword to Login
+//1 占位,  2 退出登录 修改密码退出登录 返回重置app
 @property(nonatomic, strong)NSString *homeTologinStr;
 
 @end

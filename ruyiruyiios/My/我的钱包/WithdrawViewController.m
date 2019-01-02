@@ -48,7 +48,7 @@
     
     [MBProgressHUD showWaitMessage:@"正在获取提现数据..." showView:self.view];
     
-    [JJRequest interchangeablePostRequest:@"/bindingInfo/queryUserAccountInfo" params:@{@"userId":@([[UserConfig user_id] integerValue])} success:^(id data) {
+    [JJRequest interchangeablePostRequestWithIP:GL_RuYiRuYiIP path:@"/bindingInfo/queryUserAccountInfo" params:@{@"userId":@([[UserConfig user_id] integerValue])} success:^(id  _Nullable data) {
         
         [MBProgressHUD hideWaitViewAnimated:self.view];
         
@@ -77,8 +77,8 @@
             self.alipayAccount = [incomeVCInfo objectForKey:@"aliAccount"];
             self.bindingTime = [incomeVCInfo objectForKey:@"bindingTime"] == [NSNull null] ? 0 : [[incomeVCInfo objectForKey:@"bindingTime"] integerValue];
             self.withdrawing = [NSString stringWithFormat:@"%@",[incomeVCInfo objectForKey:@"withdrawing"]];
-
-//            NSLog(@"%ld",self.bindingTime);
+            
+            //            NSLog(@"%ld",self.bindingTime);
         }else{
             
             [MBProgressHUD showTextMessage:@"获取失败！"];
@@ -88,6 +88,7 @@
         
         [MBProgressHUD hideWaitViewAnimated:self.view];
     }];
+
 }
 
 - (IBAction)withdrawEvent:(UIButton *)sender {
@@ -112,12 +113,12 @@
         return;
     }
     
-    if ([newNum doubleValue] < 10) {
-        
-        [MBProgressHUD showTextMessage:@"最低提现10元！"];
-        return;
-    }
-    
+//    if ([newNum doubleValue] < 10) {
+//
+//        [MBProgressHUD showTextMessage:@"最低提现10元！"];
+//        return;
+//    }
+//
     if ([newNum doubleValue] > [newAvailableBalance doubleValue]) {
         
         [MBProgressHUD showTextMessage:@"提现金额不可大于可提现金额！"];
@@ -166,12 +167,12 @@
 
     NSDictionary *params = @{@"userId":[UserConfig user_id],@"userName":[UserConfig nick],@"type":@(payStatus),@"availableMoney":self.AvailableBalanceLab.text,@"withdrawMoney":self.sumTextField.text,@"wxOpenId":wechatID,@"realName":wechatName};
 
-    [JJRequest interchangeablePostRequest:@"withdrawInfo/applyWithdrawOrder" params:params success:^(id data) {
-
+    [JJRequest interchangeablePostRequestWithIP:GL_RuYiRuYiIP path:@"withdrawInfo/applyWithdrawOrder" params:params success:^(id  _Nullable data) {
+        
         [MBProgressHUD hideWaitViewAnimated:self.view];
-
+        
         if ([[data objectForKey:@"isSuccess"] boolValue] == YES) {
-
+            
             [MBProgressHUD showTextMessage:@"发起提现申请成功！"];
             
             [self.navigationController popViewControllerAnimated:YES];
@@ -179,7 +180,7 @@
             
             [MBProgressHUD showTextMessage:@"提现失败！"];
         }
-
+        
     } failure:^(NSError * _Nullable error) {
         [MBProgressHUD hideWaitViewAnimated:self.view];
     }];
@@ -250,7 +251,7 @@
                     
                     [MBProgressHUD showWaitMessage:@"正在解绑.." showView:self.view];
                     //调用解绑接口
-                    [JJRequest interchangeablePostRequest:@"/bindingInfo/updateUserAccountStatusInfo" params:@{@"storeId":[UserConfig user_id]} success:^(id data) {
+                    [JJRequest interchangeablePostRequestWithIP:GL_RuYiRuYiIP path:@"/bindingInfo/updateUserAccountStatusInfo" params:@{@"storeId":[UserConfig user_id]} success:^(id  _Nullable data) {
                         
                         [MBProgressHUD hideWaitViewAnimated:self.view];
                         

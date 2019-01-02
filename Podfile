@@ -18,6 +18,10 @@ target 'ruyiruyiios' do
   pod 'SVProgressHUD'
   pod 'Bugly'
 
+  #解决scrollView 手势滑动返回冲突
+  pod 'TZScrollViewPopGesture'
+  #侧滑返回
+  pod 'FDFullscreenPopGesture'
   # 主模块(必须)
   pod 'mob_sharesdk'
  

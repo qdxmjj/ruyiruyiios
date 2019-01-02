@@ -9,6 +9,7 @@
 #import "InvitedGiftViewController.h"
 #import "InvitedFriendViewController.h"
 #import "InvitedPrizeViewController.h"
+#import "MyWebViewController.h"
 #import "InvitedGiftCell.h"
 #import <Masonry.h>
 @interface InvitedGiftViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -20,6 +21,7 @@
 }
 @property(nonatomic,strong)UITableView *tableView;
 
+@property(nonatomic,strong)NSDictionary *webInfo;
 @end
 
 @implementation InvitedGiftViewController
@@ -34,6 +36,17 @@
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.view);
+    }];
+    
+    [JJRequest interchangeablePostRequestWithIP:SHAREIP path:@"invite/Url" params:nil success:^(id  _Nullable data) {
+        
+        if (data == NULL || [data isEqual:[NSNull null]] || !data || data == nil) {
+            
+            return ;
+        }
+        self.webInfo = data;
+    } failure:^(NSError * _Nullable error) {
+        
     }];
 }
 
@@ -82,6 +95,35 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     switch (indexPath.section) {
+        case 0: case 1:{
+            if (self.webInfo.count <=0) {
+                
+                return;
+            }
+            NSDictionary *dic;
+            NSString *shareURL;
+            shareType type;
+            if (indexPath.section == 0) {
+                
+                dic = self.webInfo[@"inviteRegister"];
+                type = shareStatusAble;
+                shareURL = [NSString stringWithFormat:@"%@?userId=%@",dic[@"shareUrl"],[UserConfig user_id]];
+            }else{
+                dic = self.webInfo[@"inviteBuy"];
+                type = shareStatusNotAble;
+                shareURL = dic[@"shareUrl"];
+            }
+            
+            MyWebViewController *webview = [[MyWebViewController alloc] init];
+            
+            webview.url = [NSString stringWithFormat:@"%@?userId=%@",dic[@"url"],[UserConfig user_id]];
+            
+            [webview activityInfoWithShareType:type shareText:dic[@"shareTitle"] shareUrl:shareURL];
+            
+            [self.navigationController pushViewController:webview animated:YES];
+            self.hidesBottomBarWhenPushed = YES;
+        }
+            break;
         case 2:{
             InvitedFriendViewController *invitedFriendVC = [[InvitedFriendViewController alloc] init];
             [self.navigationController pushViewController:invitedFriendVC animated:YES];
@@ -99,7 +141,15 @@
         default:
             break;
     }
+}
+
+-(NSDictionary *)webInfo{
     
+    if (!_webInfo) {
+        
+        _webInfo = [NSDictionary dictionary];
+    }
+    return _webInfo;
 }
 
 @end

@@ -67,9 +67,15 @@
                 NSString *messageStr = [NSString stringWithFormat:@"%@", message];
                 if ([statusStr isEqualToString:@"1"]) {
                     
+                    //清空数据
+                    [self setdataEmptying];
+                    
                     CodeLoginViewController *codeLoginVC = [[CodeLoginViewController alloc] init];
+                    
                     codeLoginVC.homeTologinStr = @"2";
+                    
                     [self.navigationController pushViewController:codeLoginVC animated:YES];
+                    
                 }else{
                     
                     [PublicClass showHUD:messageStr view:self.view];

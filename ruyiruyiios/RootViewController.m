@@ -10,6 +10,8 @@
 #import <MBProgressHUD.h>
 #import <AFNetworking.h>
 #import "CodeLoginViewController.h"
+#import "MyWebViewController.h"
+#import "CodeLoginViewController.h"
 @implementation UIButton(FillColor)
 
 - (void)setBackgroundColor:(UIColor *)backgroundColor forState:(UIControlState)state{
@@ -49,38 +51,53 @@
     
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont systemFontOfSize:20], NSFontAttributeName, nil]];
     
-    //又划返回手势
-    id target = self.navigationController.interactivePopGestureRecognizer.delegate;
-    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:target action:@selector(handleNavigationTransition:)];
-    panGesture.delegate = self;
-    [self.view addGestureRecognizer:panGesture];
-    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-    
-    //
     if (@available(iOS 11.0, *)) {
         
-        self.navigationItem.leftBarButtonItems =@[[self BarButtonItemWithImage:[UIImage imageNamed:@"ic_back"] target:self action:@selector(backButtonAction)]];
+        self.navigationItem.leftBarButtonItems =@[[self BarButtonItemWithImage:[UIImage imageNamed:@"ic_back"] target:self action:@selector(backButtonAction:)]];
     }else{
         UIBarButtonItem *spaceBar = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
         spaceBar.width = -20;  //iOS11 已失效
-        self.navigationItem.leftBarButtonItems =@[spaceBar,[self BarButtonItemWithImage:[UIImage imageNamed:@"ic_back"] target:self action:@selector(backButtonAction)]];
+        self.navigationItem.leftBarButtonItems =@[spaceBar,[self BarButtonItemWithImage:[UIImage imageNamed:@"ic_back"] target:self action:@selector(backButtonAction:)]];
     }
 }
 
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
-{
-    // 当当前控制器是根控制器时，不可以侧滑返回
-    if(self.navigationController.childViewControllers.count == 1)
-    {
-        return NO;
-    }
-    return YES;
-}
 
 
-- (void)backButtonAction{
+
+-(void)addRefreshControl{
     
-    [self.navigationController popViewControllerAnimated:YES];
+    //上拉更多
+    self.rootTableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        
+        [self loadMoreData];
+        
+    }];
+    
+    self.rootTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        
+        [self loadNewData];
+        
+    }];
+}
+
+-(void)loadMoreData{
+    
+    
+}
+
+-(void)loadNewData{
+    
+    
+}
+
+-(UITableView *)rootTableView{
+    
+    if (!_rootTableView) {
+        
+        _rootTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _rootTableView.backgroundColor = [UIColor whiteColor];
+    }
+    return _rootTableView;
 }
 
 -(UIBarButtonItem *)BarButtonItemWithImage:(UIImage *)image target:(id)target action:(SEL)action
@@ -165,6 +182,38 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
+- (void)setdataEmptying{
+    
+    [UserConfig userDefaultsSetObject:@"" key:@"age"];
+    [UserConfig userDefaultsSetObject:@"" key:@"birthday"];
+    [UserConfig userDefaultsSetObject:@"" key:@"createTime"];
+    [UserConfig userDefaultsSetObject:@"" key:@"createdBy"];
+    [UserConfig userDefaultsSetObject:@"" key:@"createdTime"];
+    [UserConfig userDefaultsSetObject:@"" key:@"deletedBy"];
+    [UserConfig userDefaultsSetObject:@"" key:@"deletedFlag"];
+    [UserConfig userDefaultsSetObject:@"" key:@"deletedTime"];
+    [UserConfig userDefaultsSetObject:@"" key:@"email"];
+    [UserConfig userDefaultsSetObject:@"" key:@"firstAddCar"];
+    [UserConfig userDefaultsSetObject:@"" key:@"gender"];
+    [UserConfig userDefaultsSetObject:@"" key:@"headimgurl"];
+    [UserConfig userDefaultsSetObject:@"" key:@"user_id"];
+    [UserConfig userDefaultsSetObject:@"" key:@"invitationCode"];
+    [UserConfig userDefaultsSetObject:@"" key:@"lastUpdatedBy"];
+    [UserConfig userDefaultsSetObject:@"" key:@"lastUpdatedTime"];
+    [UserConfig userDefaultsSetObject:@"" key:@"ml"];
+    [UserConfig userDefaultsSetObject:@"" key:@"nick"];
+    [UserConfig userDefaultsSetObject:@"" key:@"password"];
+    [UserConfig userDefaultsSetObject:@"" key:@"payPwd"];
+    [UserConfig userDefaultsSetObject:@"" key:@"phone"];
+    [UserConfig userDefaultsSetObject:@"" key:@"qqInfoId"];
+    [UserConfig userDefaultsSetObject:@"" key:@"remark"];
+    [UserConfig userDefaultsSetObject:@"" key:@"status"];
+    [UserConfig userDefaultsSetObject:@"" key:@"token"];
+    [UserConfig userDefaultsSetObject:@"" key:@"updateTime"];
+    [UserConfig userDefaultsSetObject:@"" key:@"version"];
+    [UserConfig userDefaultsSetObject:@"" key:@"wxInfoId"];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -172,8 +221,10 @@
 
 -(void)dealloc{
     
-    NSLog(@"dealloc：%@",self);
+    
+    [[[AFHTTPSessionManager manager]operationQueue] cancelAllOperations];
 
+    NSLog(@"dealloc：%@",self);
 }
 /*
 #pragma mark - Navigation

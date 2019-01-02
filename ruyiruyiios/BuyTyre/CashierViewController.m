@@ -47,7 +47,7 @@
         
         _moneyLabel = [[UILabel alloc] init];
         _moneyLabel.frame = CGRectMake(90, 19, MAINSCREEN.width - 90, 22);
-        _moneyLabel.text = [NSString stringWithFormat:@"%ld元", [totalPriceStr integerValue]];
+        _moneyLabel.text = [NSString stringWithFormat:@"%.2f元", [totalPriceStr floatValue]];
         _moneyLabel.textColor = [UIColor redColor];
         _moneyLabel.font = [UIFont fontWithName:TEXTFONT size:22.0];
     }
@@ -138,7 +138,7 @@
         NSDictionary *wxPostDic = @{@"orderNo":orderNoStr, @"orderName":orderNameStr, @"orderPrice":totalPriceStr, @"orderType":orderTypeStr, @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]]};
         NSString *reqJson = [PublicClass convertToJsonData:wxPostDic];
         NSString *threeDesStr = [PublicClass doEncryptStr:reqJson key:[[UserConfig token] substringWithRange:NSMakeRange(24, 24)]];
-//        NSLog(@"%@", @{@"reqJson":threeDesStr, @"token":[UserConfig token]});
+
         [JJRequest commonPostRequest:@"getWeixinPaySign" params:@{@"reqJson":threeDesStr, @"token":[UserConfig token]} hostNameStr:SERVERPREFIX success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
             
 //            NSLog(@"%@", data);
@@ -176,7 +176,8 @@
                 NSLog(@"调用网页支付宝回调结果 = %@", resultDic);
                 if ([[resultDic objectForKey:@"resultStatus"] isEqualToString:@"9000"]) {
                     
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"payStatus" object:nil];
+                    [self chickPayResult];
+//                    [[NSNotificationCenter defaultCenter] postNotificationName:@"payStatus" object:nil];
                 }else{
                     
                     [PublicClass showHUD:@"支付宝支付失败" view:self.view];
@@ -260,7 +261,7 @@
         self.payTypeStr = @"1";
         [self queryCarCreditInfo];
     }
-    // Do any additional setup after loading the view.
+
 }
 
 - (void)queryCarCreditInfo{

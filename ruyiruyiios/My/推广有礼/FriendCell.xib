@@ -20,18 +20,18 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18353675618" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FUa-qW-Nvm">
-                        <rect key="frame" x="64" y="10" width="113" height="22"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <rect key="frame" x="66" y="10" width="101.5" height="19.5"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2018-12-05" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Tn-1L-fon">
-                        <rect key="frame" x="64" y="33" width="77" height="17"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <rect key="frame" x="66" y="35.5" width="67.5" height="14.5"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                         <color key="textColor" red="0.37055522200000002" green="0.37056469920000001" blue="0.37055957319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="我的.png" translatesAutoresizingMaskIntoConstraints="NO" id="9rr-bl-iFI">
+                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_touxiang" translatesAutoresizingMaskIntoConstraints="NO" id="9rr-bl-iFI">
                         <rect key="frame" x="16" y="10" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="h6D-oi-ETs"/>
@@ -39,28 +39,33 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zpP-O1-pmf">
-                        <rect key="frame" x="262" y="19.5" width="42" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <rect key="frame" x="269.5" y="21.5" width="34.5" height="16.5"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="zpP-O1-pmf" secondAttribute="trailing" constant="16" id="3I2-yx-Ovh"/>
-                    <constraint firstItem="8Tn-1L-fon" firstAttribute="leading" secondItem="9rr-bl-iFI" secondAttribute="trailing" constant="8" id="JUc-hD-8Ya"/>
+                    <constraint firstItem="8Tn-1L-fon" firstAttribute="leading" secondItem="9rr-bl-iFI" secondAttribute="trailing" constant="10" id="JUc-hD-8Ya"/>
                     <constraint firstItem="8Tn-1L-fon" firstAttribute="bottom" secondItem="9rr-bl-iFI" secondAttribute="bottom" id="WGh-da-xb5"/>
                     <constraint firstItem="FUa-qW-Nvm" firstAttribute="top" secondItem="9rr-bl-iFI" secondAttribute="top" id="bOJ-eo-5Tn"/>
-                    <constraint firstItem="FUa-qW-Nvm" firstAttribute="leading" secondItem="9rr-bl-iFI" secondAttribute="trailing" constant="8" id="cjV-Ta-DJ7"/>
+                    <constraint firstItem="FUa-qW-Nvm" firstAttribute="leading" secondItem="9rr-bl-iFI" secondAttribute="trailing" constant="10" id="cjV-Ta-DJ7"/>
                     <constraint firstItem="9rr-bl-iFI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="gQs-vt-ZKw"/>
                     <constraint firstItem="9rr-bl-iFI" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="gaG-E1-XYx"/>
                     <constraint firstItem="zpP-O1-pmf" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="hmJ-R6-TJ2"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="phoneLab" destination="FUa-qW-Nvm" id="jm8-C7-HdL"/>
+                <outlet property="statusLab" destination="zpP-O1-pmf" id="ST3-r7-Yav"/>
+                <outlet property="timeLab" destination="8Tn-1L-fon" id="ui4-QI-qeB"/>
+            </connections>
             <point key="canvasLocation" x="124.8" y="177.66116941529236"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="我的.png" width="19" height="21"/>
+        <image name="ic_touxiang" width="36" height="36"/>
     </resources>
 </document>

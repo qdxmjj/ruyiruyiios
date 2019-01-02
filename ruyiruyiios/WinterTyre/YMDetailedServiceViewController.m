@@ -227,6 +227,7 @@
         CommdoityDetailsViewController *storeDetails = [[CommdoityDetailsViewController alloc]init];
         storeDetails.commodityInfo = data;
         
+        //服务大类ID 从2开始  2汽车保养3美容清洗4安装改装5轮胎服务  button tag 从0开始 所以-2
         storeDetails.clickButtonTag = [[self.dataArr[indexPath.row] objectForKey:@"serviceTypeId"] integerValue]-2;
         
         //查询对应的商品错误！！！

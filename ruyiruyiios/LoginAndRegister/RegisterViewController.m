@@ -215,6 +215,9 @@
 - (void)chickSaveBtn{
     
     [_registerTabV reloadData];
+    
+    DelegateConfiguration *delegateConfiguation = [DelegateConfiguration sharedConfiguration];
+
     if (_resetPStr.length == 0 || _surePStr == 0 || _nickStr == 0) {
         
         [PublicClass showHUD:@"输入不能为空" view:self.view];
@@ -252,12 +255,12 @@
                 [PublicClass showHUD:messStr view:self.view];
             }else{
                 
-                NSLog(@"注册成功返回的数据:%@", data);
-                //保存数据库操作
+                //设置初始化数据
                 [self insertDatabase:data];
-                [self removeDelegates];
-                MainTabBarViewController *mainTabVC = [[MainTabBarViewController alloc] init];
-                [self.navigationController pushViewController:mainTabVC animated:YES];
+
+                [delegateConfiguation changeLoginStatus];
+
+                [self.navigationController popToRootViewControllerAnimated:YES];
             }
         } failure:^(NSError * _Nullable error) {
             
@@ -318,7 +321,7 @@
     [self.view addSubview:self.dateView];
     [self.view addSubview:self.sexView];
     [self.view addSubview:self.saveBtn];
-    // Do any additional setup after loading the view.
+
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

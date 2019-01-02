@@ -15,12 +15,13 @@
 #import "TobepayInfo.h"
 #import "ToserviceStoreTableViewCell.h"
 #import "ToDeliveryTableViewCell.h"
-
+#import "MyWebViewController.h"
 #import <Masonry.h>
 #import "JJShare.h"
 @interface CompleteViewController ()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>{
     
     id shareData;//红包分享数据
+    BOOL commodityRedBag;
 }
 
 @property(nonatomic, strong)UIScrollView *mainScrollV;
@@ -87,8 +88,7 @@
         [self getFirstChangeShareData:orderNoStr];
     }else if ([orderTypeStr isEqualToString:@"1"] && [titleStr isEqualToString:@"交易完成"]){
         
-        //测试环节
-//        [self getCommodityOrderShareData:orderNoStr];
+        [self getCommodityOrderShareData:orderNoStr];
     }else{
         
     }
@@ -119,8 +119,24 @@
 -(void)shareRedEnvelopeBtnEvent:(UIButton *)sender{
     
     if (shareData && shareData != [NSNull null]) {
-             
-        [JJShare ShareDescribe:[shareData objectForKey:@"body"] images:@[[UIImage imageNamed:@"icon"]] url:[shareData objectForKey:@"redpacketUrl"] title:[shareData objectForKey:@"title"] type:SSDKContentTypeAuto];
+
+        if (commodityRedBag) {
+            
+            NSDictionary *dic = shareData[@"inviteRegister"];
+            NSString *shareURL = [NSString stringWithFormat:@"%@?userId=%@",dic[@"shareUrl"],[UserConfig user_id]];
+            
+            MyWebViewController *webview = [[MyWebViewController alloc] init];
+            
+            webview.url = [NSString stringWithFormat:@"%@?userId=%@",dic[@"url"],[UserConfig user_id]];
+            
+            [webview activityInfoWithShareType:shareStatusAble shareText:dic[@"shareTitle"] shareUrl:shareURL];
+            
+            [self.navigationController pushViewController:webview animated:YES];
+            self.hidesBottomBarWhenPushed = YES;
+        }else{
+            
+            [JJShare ShareDescribe:[shareData objectForKey:@"body"] images:@[[UIImage imageNamed:@"icon"]] url:[shareData objectForKey:@"redpacketUrl"] title:[shareData objectForKey:@"title"] type:SSDKContentTypeAuto];
+        }
     }
 }
 
@@ -172,7 +188,7 @@
                 [self.redEnvelopeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
                     
                     make.right.mas_equalTo(self.view.mas_right).inset(10);
-                    make.width.and.height.mas_equalTo(40);
+                    make.width.and.height.mas_equalTo(60);
                     make.bottom.mas_equalTo(self.submitBtn.mas_top).inset(20);
                 }];
                 
@@ -187,27 +203,23 @@
 
 -(void)getCommodityOrderShareData:(NSString *)orderNO{
     
-    NSString *reqJson = [PublicClass convertToJsonData:@{@"userId":[NSString stringWithFormat:@"%@",[UserConfig user_id]],@"orderNo":orderNO}];
-    [JJRequest interchangeableGetRequest:@"http://192.168.0.137:8060/preferentialInfo/queryShareUrlHavingOrder" params:@{@"reqJson":reqJson} success:^(id  _Nullable data) {
+    [JJRequest interchangeablePostRequestWithIP:SHAREIP path:@"invite/Url" params:nil success:^(id  _Nullable data) {
         
-        NSLog(@"%@",data);
-        //调用分享集成界面
-        
-        if (data && data != [NSNull null]) {
+        if (data == NULL || [data isEqual:[NSNull null]] || !data || data == nil) {
             
-            if ([[data objectForKey:@"status"] longLongValue] ==1) {
-                
-                [self.view addSubview:self.redEnvelopeBtn];
-                [self.redEnvelopeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-                    
-                    make.right.mas_equalTo(self.view.mas_right).inset(10);
-                    make.width.and.height.mas_equalTo(40);
-                    make.bottom.mas_equalTo(self.submitBtn.mas_top).inset(20);
-                }];
-                shareData = data;
-            }
+            return ;
         }
         
+        [self.view addSubview:self.redEnvelopeBtn];
+        [self.redEnvelopeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.right.mas_equalTo(self.view.mas_right).inset(10);
+            make.width.and.height.mas_equalTo(60);
+            make.bottom.mas_equalTo(self.submitBtn.mas_top).inset(20);
+        }];
+
+        shareData = data;
+        commodityRedBag = YES;
     } failure:^(NSError * _Nullable error) {
         
     }];
@@ -429,7 +441,7 @@
     if (!_redEnvelopeBtn) {
         
         _redEnvelopeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_redEnvelopeBtn setImage:[UIImage imageNamed:@"ic_hb"] forState:UIControlStateNormal];
+        [_redEnvelopeBtn setBackgroundImage:[UIImage imageNamed:@"ic_hb"] forState:UIControlStateNormal];
         [_redEnvelopeBtn addTarget:self action:@selector(shareRedEnvelopeBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _redEnvelopeBtn;

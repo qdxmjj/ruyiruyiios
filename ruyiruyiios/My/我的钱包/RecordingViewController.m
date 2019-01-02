@@ -16,6 +16,7 @@
 
 @property(nonatomic,strong)NSMutableArray *dataArr;
 
+@property(nonatomic,strong)UIImageView *backGroundView;
 @end
 
 @implementation RecordingViewController
@@ -24,16 +25,22 @@
     [super viewDidLoad];
     self.title = @"提现明细";
     
-    [self.view addSubview:self.tableView];
+    [self.view addSubview:self.backGroundView];
     
-    self.tableView.tableFooterView = [UIView new];
 
     [JJRequest GL_PostRequest:@"/incomeInfo/queryUserIncomeAndExpensesInfo" params:@{@"userId":[UserConfig user_id]} success:^(id _Nullable rows, id  _Nullable total) {
         
         [self.dataArr addObjectsFromArray:rows];
         
-        [self.tableView reloadData];
-        
+        if (self.dataArr.count>0) {
+            
+            [self.backGroundView removeFromSuperview];
+            [self.view addSubview:self.tableView];
+            self.tableView.tableFooterView = [UIView new];
+            
+            [self.tableView reloadData];
+        }
+
     } failure:^(NSError * _Nullable error) {
         
     }];
@@ -48,6 +55,16 @@
     return _dataArr;
 }
 
+-(UIImageView *)backGroundView{
+    
+    if (!_backGroundView) {
+     
+        _backGroundView = [[UIImageView alloc] initWithFrame:self.view.frame];
+        _backGroundView.image = [UIImage imageNamed:@"ic_dakongbai"];
+        _backGroundView.contentMode = UIViewContentModeCenter;
+    }
+    return _backGroundView;
+}
 -(UITableView *)tableView{
     
     if (!_tableView) {

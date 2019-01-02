@@ -7,7 +7,7 @@
 //
 
 #import "MBProgressHUD+YYM_category.h"
-
+#import "UIView+extension.h"
 @implementation MBProgressHUD (YYM_category)
 
 +(void)showTextMessage:(NSString *)message{
@@ -15,6 +15,24 @@
 
     [self MBProgressHUDWithTextMessage:message];
     return;
+}
+
++(void)showBottomTextMessage:(NSString *)msg showView:(UIView *)view{
+    
+    MBProgressHUD *hud;
+    if (!view) {
+        
+        hud = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].windows lastObject] animated:YES];
+    }else{
+        hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    }
+    hud.offset = CGPointMake(0.f, MBProgressMaxOffset);
+    hud.label.text = msg;
+    hud.mode = MBProgressHUDModeText;
+    
+    [hud showAnimated:YES];
+    [hud hideAnimated:YES afterDelay:2.5];
+    
 }
 
 +(void)showError:(NSString *)message integer:(NSInteger )ErrorCode{

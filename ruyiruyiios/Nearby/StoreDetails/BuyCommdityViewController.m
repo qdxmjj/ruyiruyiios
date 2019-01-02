@@ -201,6 +201,8 @@
     };
     
     [self.navigationController pushViewController:couponVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
+
 }
 
 
@@ -228,6 +230,8 @@
     
     NSMutableArray *commodityInfoArr = [NSMutableArray array];
     
+    __block BOOL isSpecial = NO; //是否包含特殊商品
+    
     for (NSDictionary *commodityInfo in self.commodityList) {
         
         NSMutableDictionary *newCommodityInfo = [NSMutableDictionary dictionary];
@@ -249,14 +253,36 @@
         [newCommodityInfo setValue:@"0" forKey:@"goodsStock"];
         
         [newCommodityInfo setValue:[NSString stringWithFormat:@"%@",[commodityInfo objectForKey:@"serviceTypeId"]] forKey:@"serviceTypeId"];
+        
+        if ([[commodityInfo objectForKey:@"system"] integerValue] == 1) {
+            
+            isSpecial = YES;
+        }
+
+        [newCommodityInfo setValue:[NSString stringWithFormat:@"%@",[commodityInfo objectForKey:@"system"]] forKey:@"discountFlag"];
 
         [commodityInfoArr addObject:newCommodityInfo];
+    }
+    
+    if (isSpecial == YES) {
         
+        if ([[UserConfig userCarId] integerValue] == 0 || ![UserConfig userCarId]) {
+         
+            [MBProgressHUD hideWaitViewAnimated:self.view];
+            
+            [PublicClass showHUD:@"特殊商品，需要绑定车辆购买!" view:self.view];
+            return;
+        }
     }
     
     if (!self.salesIdStr) {
         
         self.salesIdStr = @"0";
+    }
+    
+    if (self.n_TotalPrice<0) {
+        
+        self.n_TotalPrice = 0;
     }
     
     [StoreDetailsRequest generateOrdersWithCommodityInfo:@{@"goodsInfoList":commodityInfoArr,@"userId":[NSString stringWithFormat:@"%@",[UserConfig user_id]],@"salesId":self.salesIdStr,@"storeId":self.storeID,@"storeName":self.storeName,@"totalPrice":self.totalPrice,@"actuallyPrice":[NSString stringWithFormat:@"%.2f",self.n_TotalPrice]}succrss:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
@@ -269,9 +295,10 @@
             CashierViewController *cashierVC = [[CashierViewController alloc] init];
             
             cashierVC.orderNoStr = data;
-            cashierVC.totalPriceStr = [NSString stringWithFormat:@"%ld",(long)self.n_TotalPrice];
+            cashierVC.totalPriceStr = [NSString stringWithFormat:@"%.2f",self.n_TotalPrice];
             cashierVC.orderTypeStr = @"1";
             [self.navigationController pushViewController:cashierVC animated:YES];
+            self.hidesBottomBarWhenPushed = YES;
             
         }else if([code longLongValue] == -999){
         

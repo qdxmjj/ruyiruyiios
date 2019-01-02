@@ -37,7 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"订单确认";
-
+    
     self.bottomVIew.layer.shadowOffset = CGSizeMake(0, 0);
     
     self.bottomVIew.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -59,7 +59,7 @@
     
     self.tireTotalPriceLab.text = [NSString stringWithFormat:@"¥%ld",[self.tireCount integerValue] * [self.tirePrice integerValue]];
     self.cxwyTotalPriceLab.text = [NSString stringWithFormat:@"¥%ld",(long)[self.cxwyPrice integerValue]];
-
+    
     self.totalPriceLab.text = [NSString stringWithFormat:@"¥%ld",[self.tireCount integerValue] * [self.tirePrice integerValue] + [self.cxwyPrice integerValue]];
     
     [self.tireImg sd_setImageWithURL:[NSURL URLWithString:self.tireImgURL]];
@@ -68,47 +68,47 @@
 - (IBAction)buyCommodityEvent:(UIButton *)sender {
     
     NSString *tireTotalPrice = [NSString stringWithFormat:@"%ld",[self.tireCount integerValue] * [self.tirePrice integerValue]];
-
+    
     NSString *totalPrice = [NSString stringWithFormat:@"%ld",[self.tireCount integerValue] * [self.tirePrice integerValue] + [self.cxwyPrice integerValue]];
-
+    
     
     NSDictionary *surePostDic = @{@"shoeId":self.shoeID, @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]], @"fontRearFlag":self.fontRearFlag, @"amount":self.tireCount, @"shoeName":[NSString stringWithFormat:@"%@/%@",self.buyTireData.detailStr,self.speedLevelStr], @"shoeTotalPrice":tireTotalPrice, @"shoePrice":self.tirePrice, @"cxwyAmount":self.cxwyCount, @"cxwyPrice":self.cxwyPrice, @"cxwyTotalPrice":self.cxwyPrice, @"totalPrice":totalPrice, @"orderImg":self.tireImgURL,@"remainYear":@([self.serviceYear integerValue])};
     
-        NSString *reqJsonStr = [PublicClass convertToJsonData:surePostDic];
+    NSString *reqJsonStr = [PublicClass convertToJsonData:surePostDic];
     
     [MBProgressHUD showWaitMessage:@"正在生成订单..." showView:self.view];
     
     
-        [JJRequest postRequest:@"addUserShoeOrder" params:@{@"reqJson":reqJsonStr, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
-    
-            [MBProgressHUD hideWaitViewAnimated:self.view];
+    [JJRequest postRequest:@"addUserShoeOrder" params:@{@"reqJson":reqJsonStr, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+        
+        [MBProgressHUD hideWaitViewAnimated:self.view];
+        
+        NSString *statusStr = [NSString stringWithFormat:@"%@", code];
+        NSString *messageStr = [NSString stringWithFormat:@"%@", message];
+        if ([statusStr isEqualToString:@"1"]) {
             
-            NSString *statusStr = [NSString stringWithFormat:@"%@", code];
-            NSString *messageStr = [NSString stringWithFormat:@"%@", message];
-            if ([statusStr isEqualToString:@"1"]) {
-    
-                //            NSLog(@"提交订单获取到的值:%@", data);
-    
-                [[NSNotificationCenter defaultCenter] postNotificationName:GenerateTireOrderNotice object:nil];
-    
-                [self.shoeOrderInfo setValuesForKeysWithDictionary:data];
-                CashierViewController *cashierVC = [[CashierViewController alloc] init];
-                cashierVC.totalPriceStr = [NSString stringWithFormat:@"%@", self.shoeOrderInfo.totalPrice];
-                cashierVC.orderNoStr = [NSString stringWithFormat:@"%@", self.shoeOrderInfo.orderNo];
-                cashierVC.orderTypeStr = @"0";
-                [self.navigationController pushViewController:cashierVC animated:YES];
-                self.hidesBottomBarWhenPushed = YES;
-
-            }else{
-    
-                [PublicClass showHUD:messageStr view:self.view];
-            }
-    
-        } failure:^(NSError * _Nullable error) {
-    
-            [MBProgressHUD hideWaitViewAnimated:self.view];
-            NSLog(@"提交轮胎购买订单错误:%@", error);
-        }];
+            //            NSLog(@"提交订单获取到的值:%@", data);
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:GenerateTireOrderNotice object:nil];
+            
+            [self.shoeOrderInfo setValuesForKeysWithDictionary:data];
+            CashierViewController *cashierVC = [[CashierViewController alloc] init];
+            cashierVC.totalPriceStr = [NSString stringWithFormat:@"%@", self.shoeOrderInfo.totalPrice];
+            cashierVC.orderNoStr = [NSString stringWithFormat:@"%@", self.shoeOrderInfo.orderNo];
+            cashierVC.orderTypeStr = @"0";
+            [self.navigationController pushViewController:cashierVC animated:YES];
+            self.hidesBottomBarWhenPushed = YES;
+            
+        }else{
+            
+            [PublicClass showHUD:messageStr view:self.view];
+        }
+        
+    } failure:^(NSError * _Nullable error) {
+        
+        [MBProgressHUD hideWaitViewAnimated:self.view];
+        NSLog(@"提交轮胎购买订单错误:%@", error);
+    }];
     
 }
 

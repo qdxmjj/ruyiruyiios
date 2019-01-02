@@ -167,7 +167,7 @@ static CGFloat const headViewAllSubViewsSpacing = 5+5+5+5+5; //headView 所有�
         [_locationBtn setTitle:[[NSUserDefaults standardUserDefaults] objectForKey:@"positionCounty"] forState:UIControlStateNormal];
         [_locationBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_locationBtn setBackgroundColor:[UIColor colorWithRed:240.f/255.f green:240.f/255.f blue:240.f/255.f alpha:1.f] forState:UIControlStateNormal];
-        [_locationBtn addTarget:self action:@selector(chickLocationBtn) forControlEvents:UIControlEventTouchUpInside];
+        [_locationBtn addTarget:self action:@selector(chickLocationBtn:) forControlEvents:UIControlEventTouchUpInside];
         
         CAShapeLayer *dottedLineBorder  = [[CAShapeLayer alloc] init];
         dottedLineBorder.frame = CGRectMake(0, 0, (MAINSCREEN.width-32-30)/3, 40);
@@ -265,10 +265,13 @@ static CGFloat const headViewAllSubViewsSpacing = 5+5+5+5+5; //headView 所有�
     }];
 }
 
-- (void)chickLocationBtn{
+- (void)chickLocationBtn:(UIButton *)sender{
     
+    [[NSUserDefaults standardUserDefaults] setObject:sender.titleLabel.text forKey:@"currentCity"];//更新当前位置信息 县
+
     DelegateConfiguration *delegateCF = [DelegateConfiguration sharedConfiguration];
     [delegateCF changecityNameNumber:self.locationBtn.titleLabel.text];
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 

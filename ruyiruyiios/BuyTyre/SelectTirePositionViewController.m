@@ -146,6 +146,14 @@
     newTireVC.service_year_length = self.dataCars.service_year_length;
     [self.navigationController pushViewController:newTireVC animated:YES];
     
+    self.hidesBottomBarWhenPushed = YES;
+    
+    NSString *str ;
+    
+    [str integerValue];
+    [str floatValue];
+    [str intValue];
+    
 }
 
 - (void)didReceiveMemoryWarning {

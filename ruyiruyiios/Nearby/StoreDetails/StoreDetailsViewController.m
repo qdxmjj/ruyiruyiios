@@ -282,6 +282,8 @@
     allAssessVC.storeId = self.storeDetailsModel.storeId;
     
     [self.navigationController pushViewController:allAssessVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
+
     
 }
 

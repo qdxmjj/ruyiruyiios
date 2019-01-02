@@ -48,7 +48,7 @@
 
     }
     
-    self.numeberLab.text = [NSString stringWithFormat:@"%ld",self.number];
+    self.numeberLab.text = [NSString stringWithFormat:@"%ld",(long)self.number];
     
 }
 -(void)setModel:(CommodityModel *)model{
@@ -58,10 +58,15 @@
     [self.commodityImg sd_setImageWithURL:[NSURL URLWithString:model.imgUrl]];
     self.commodityName.text = model.name;
     self.commodityPrice.text = [NSString stringWithFormat:@"¥%@",model.price];
-    self.commodityStock.text = [NSString stringWithFormat:@"%@",model.amount];
+    
+    NSString *type = [NSString stringWithFormat:@"%@",model.system];
+    if ([type isEqualToString:@"1"]) {
+        self.commodityStock.text = [NSString stringWithFormat:@"%@",model.serviceDesc];
+    }else{
+        self.commodityStock.text = [NSString stringWithFormat:@"库存：%@",model.amount];
+    }
     self.numeberLab.text = [NSString stringWithFormat:@"%@",model.commodityNumber];
 }
-
 
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

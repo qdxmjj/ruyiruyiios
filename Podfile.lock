@@ -15,6 +15,7 @@ PODS:
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
   - Bugly (2.5.0)
+  - FDFullscreenPopGesture (1.1)
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
@@ -40,10 +41,12 @@ PODS:
     - SDWebImage/Core (= 4.4.2)
   - SDWebImage/Core (4.4.2)
   - SVProgressHUD (2.2.5)
+  - TZScrollViewPopGesture (1.0.6)
 
 DEPENDENCIES:
   - AFNetworking
   - Bugly
+  - FDFullscreenPopGesture
   - FMDB
   - GTMBase64
   - Masonry
@@ -55,11 +58,13 @@ DEPENDENCIES:
   - SDCycleScrollView
   - SDWebImage
   - SVProgressHUD
+  - TZScrollViewPopGesture
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AFNetworking
     - Bugly
+    - FDFullscreenPopGesture
     - FMDB
     - GTMBase64
     - Masonry
@@ -70,10 +75,12 @@ SPEC REPOS:
     - SDCycleScrollView
     - SDWebImage
     - SVProgressHUD
+    - TZScrollViewPopGesture
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   Bugly: 3ca9f255c01025582df26f9222893b383c7e4b4e
+  FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   GTMBase64: f0f91be06a7a20b84c8e4fee30c0430395091d82
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
@@ -84,7 +91,8 @@ SPEC CHECKSUMS:
   SDCycleScrollView: 884b88f0266dd4708a0e1934975c69cb971707b1
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  TZScrollViewPopGesture: d36355038259e89372a1f4a2db7e9ca675de2278
 
-PODFILE CHECKSUM: aeb5e962081f98a49353675755af682b65cd0523
+PODFILE CHECKSUM: f02bb7fa6bbf1375c7018397eb59f3be54ba0a1d
 
 COCOAPODS: 1.5.3

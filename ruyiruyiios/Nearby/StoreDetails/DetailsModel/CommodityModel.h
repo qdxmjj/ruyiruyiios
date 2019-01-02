@@ -21,4 +21,9 @@
 @property(nonatomic,copy)NSString *serviceId;
 
 @property(nonatomic,copy)NSString *serviceTypeId;
+
+@property(nonatomic,copy)NSString *system;//是否是特价商品 1特殊商品 其他不是
+@property(nonatomic,copy)NSString *serviceDesc; //特价商品描述
+
+
 @end

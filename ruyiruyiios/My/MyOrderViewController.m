@@ -248,7 +248,7 @@
             [btn setSelected:NO];
         }
     }
-    statusStr = [NSString stringWithFormat:@"%ld", (button.tag - 1000)];
+    statusStr = [NSString stringWithFormat:@"%d", (button.tag - 1000)];
     self.underBtnView.frame = CGRectMake((button.tag - 1000)*(MAINSCREEN.width/_btnNameArray.count), 40, MAINSCREEN.width/_btnNameArray.count, 2);
     
 //    [self.myorderTableV setContentOffset:CGPointMake(0, 5) animated:NO];
@@ -362,6 +362,8 @@
                     [self.myorderTableV.mj_header beginRefreshing];
                 };
                 [self.navigationController pushViewController:tobePayVC animated:YES];
+                self.hidesBottomBarWhenPushed = YES;
+
             }else if ([orderInfo.orderState isEqualToString:@"7"]){
                 
                 [self jumpToAllorderDetailVC:@"退款中" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
@@ -407,6 +409,8 @@
                 waitpayVC.orderNo = orderInfo.orderNo;
                 waitpayVC.orderType = orderInfo.orderType;
                 [self.navigationController pushViewController:waitpayVC animated:YES];
+                self.hidesBottomBarWhenPushed = YES;
+
                 
             }else if ([orderInfo.orderState isEqualToString:@"2"] || [orderInfo.orderState isEqualToString:@"5"] || [orderInfo.orderState isEqualToString:@"9"]){
                 
@@ -461,6 +465,8 @@
                 [self.myorderTableV.mj_header beginRefreshing];
             };
             [self.navigationController pushViewController:tobePayVC animated:YES];
+            self.hidesBottomBarWhenPushed = YES;
+
         }else if ([orderInfo.orderType isEqualToString:@"1"]){
             
             WaitPaymentViewController *waitpayVC = [[WaitPaymentViewController alloc] init];
@@ -468,6 +474,8 @@
             waitpayVC.orderNo = orderInfo.orderNo;
             waitpayVC.orderType = orderInfo.orderType;
             [self.navigationController pushViewController:waitpayVC animated:YES];
+            self.hidesBottomBarWhenPushed = YES;
+
         }else if ([orderInfo.orderType isEqualToString:@"5"]){
             
             //充值信用订单
@@ -564,6 +572,8 @@
         [self.myorderTableV.mj_header beginRefreshing];
     };
     [self.navigationController pushViewController:toServiceVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
+
 }
 
 - (void)jumpToAllorderDetailVC:(NSString *)titleStr orderNo:(NSString *)orderNoStr orderType:(NSString *)orderTypeStr{
@@ -573,6 +583,8 @@
     allOrderDetialVC.orderNoStr = orderNoStr;
     allOrderDetialVC.orderTypeStr = orderTypeStr;
     [self.navigationController pushViewController:allOrderDetialVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
+
 }
 
 - (void)jumpTobeEvaluatedVCorderNo:(NSString *)orderNoStr storeId:(NSString *)storeIdStr{
@@ -585,6 +597,8 @@
         [self.myorderTableV.mj_header beginRefreshing];
     };
     [self.navigationController pushViewController:tobeEvaluatedVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
+
 }
 
 - (void)jumpcompleteVC:(NSString *)titleStr orderNo:(NSString *)orderNoStr orderType:(NSString *)orderTypeStr{
@@ -594,6 +608,7 @@
     completeVC.orderNoStr = orderNoStr;
     completeVC.orderTypeStr = orderTypeStr;
     [self.navigationController pushViewController:completeVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
 }
 
 - (void)jumpFreeChargeOrderVC:(NSString *)titleStr orderNo:(NSString *)orderNoStr orderType:(NSString *)orderTypeStr{
@@ -607,6 +622,7 @@
         [self.myorderTableV.mj_header beginRefreshing];
     };
     [self.navigationController pushViewController:freeOrderVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
 }
 
 - (void)jumpToAuditFailVC:(NSString *)titleStr orderNo:(NSString *)orderNoStr orderType:(NSString *)orderTypeStr{
@@ -620,6 +636,8 @@
         [self.myorderTableV.mj_header beginRefreshing];
     };
     [self.navigationController pushViewController:auditFailVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
+
 }
 
 //LoginStatusDelegate

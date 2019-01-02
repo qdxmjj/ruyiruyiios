@@ -52,21 +52,14 @@
         make.width.mas_equalTo(self.view.frame.size.width/4);
         make.left.mas_equalTo(self.view.frame.size.width/8);
     }];
-    [self.mainView mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.mas_equalTo(self.lineView.mas_bottom);
-        make.left.right.mas_equalTo(self.view);
-        if (@available(iOS 11.0, *)) {
-            make.bottom.mas_equalTo(self.view.mas_safeAreaLayoutGuideBottom);
-        } else {
-            make.bottom.mas_equalTo(self.view.mas_bottom);
-        }
-    }];
+    
+    self.mainView.frame = CGRectMake(0, 47, MAINSCREEN.width, MAINSCREEN.height-45-2-SafeAreaTopHeight);
     
     self.notConsumptionVC.view.frame = CGRectMake(0, 0, MAINSCREEN.width, self.mainView.frame.size.height);
     
     self.ConsumptionVC.view.frame = CGRectMake(MAINSCREEN.width, 0, MAINSCREEN.width, self.mainView.frame.size.height);
 }
+
 
 #pragma mark event
 -(void)topBtnPressed:(UIButton *)btn{
@@ -136,7 +129,7 @@
     
     if (!_notConsumptionVC) {
         
-        _notConsumptionVC = [[FriendListController alloc] initWithStyle:UITableViewStyleGrouped withCellIdentifier:@"notConsumptionCellID"];
+        _notConsumptionVC = [[FriendListController alloc] initWithStyle:UITableViewStyleGrouped withCellIdentifier:@"notConsumptionCellID" withState:@"0"];
 //        _notConsumptionVC.view.backgroundColor = [UIColor redColor];
     }
     return _notConsumptionVC;
@@ -145,7 +138,7 @@
     
     if (!_ConsumptionVC) {
         
-        _ConsumptionVC = [[FriendListController alloc] initWithStyle:UITableViewStyleGrouped withCellIdentifier:@"ConsumptionCellID"];
+        _ConsumptionVC = [[FriendListController alloc] initWithStyle:UITableViewStyleGrouped withCellIdentifier:@"ConsumptionCellID" withState:@"1"];
 //        _ConsumptionVC.view.backgroundColor = [UIColor greenColor];
     }
     return _ConsumptionVC;

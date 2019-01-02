@@ -16,7 +16,7 @@
         
         _commodityID = value;
     }
-    
+  
 }
 
 @end

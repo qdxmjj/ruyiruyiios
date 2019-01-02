@@ -73,5 +73,5 @@
 
 +(NSNumber *)userCarId;
 
-+(NSString *)selectCityName;
++(NSString *)selectCityName; //退出登录不需要清空
 @end

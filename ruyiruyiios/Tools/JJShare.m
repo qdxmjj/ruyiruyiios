@@ -63,7 +63,7 @@
     
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
         
-    [shareParams SSDKSetupShareParamsByText:describe images:images url:[NSURL URLWithString:url] title:title type:type];
+    [shareParams SSDKSetupShareParamsByText:title images:images url:[NSURL URLWithString:url] title:describe type:type];
         
     [ShareSDK showShareActionSheet:nil customItems:nil shareParams:shareParams sheetConfiguration:nil onStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
             

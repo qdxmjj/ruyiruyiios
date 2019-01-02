@@ -231,7 +231,7 @@ static NSInteger const HeadViewH = 150;
                 
                 if (self.clickButtonTag) {
                     
-                    //自动选择时会调用此方法，self.clickButtonTag，分类页面点击商品跳转到对应页面
+                    //如果有默认选择的商品，则跳转到对应的商品分类，self.clickButtonTag，分类页面点击商品跳转到对应页面
                     [self AutomaticClick:100100+self.clickButtonTag];
                     
                 }else{
@@ -266,7 +266,7 @@ static NSInteger const HeadViewH = 150;
             [self.fuwuArr removeAllObjects];
         }
         
-        //0 默认选中的行  badgeNumber 角标数量
+        // badgeNumber 角标数量
         //汽车保养  美容清洗 安装改装 轮胎服务 顺序不能乱
         for (NSMutableDictionary *dic in [data objectForKey:@"汽车保养"]) {
             
@@ -277,6 +277,11 @@ static NSInteger const HeadViewH = 150;
             [dic1 setObject:@"0" forKey:@"badgeNumber"];
             [self.baoyangArr addObject:dic1];
         }
+        
+        /**此参数是用来 确定选中哪一个目录的 不设置默认为0 也就是第一个目录
+         * 如果有手动设置默认的话 那么跳转对应目录
+         * 以下类同
+         */
         [self.baoyangArr addObject:@"0"];
         
         for (NSMutableDictionary *dic in [data objectForKey:@"美容清洗"]) {
@@ -479,6 +484,7 @@ static NSInteger const HeadViewH = 150;
     buyCommdityVC.storeID = [self.commodityInfo objectForKey:@"storeId"];
     buyCommdityVC.commodityList = commodityArr;
     [self.navigationController pushViewController:buyCommdityVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
 }
 
 -(void)pushStoreDetailsVC{

@@ -19,7 +19,10 @@
     [super viewDidLoad];
     
 //    self.navigationBar.barTintColor = LOGINBACKCOLOR;
-    [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"ic_navback"] forBarMetrics:0];
+//    [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"ic_navback"] forBarMetrics:UIBarMetricsDefault];
+    self.navigationBar.barTintColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"ic_navback"]];
+
+
     self.delegate = self;
 }
 

@@ -10,4 +10,5 @@
 
 @interface ExtensionCodeViewController : RootViewController
 
+// 老版本推广有礼页面 已弃用
 @end

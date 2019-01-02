@@ -20,6 +20,7 @@
 #import <Bugly/Bugly.h>
 
 #import "FirstStartConfiguration.h"
+
 #import "JJShare.h"
 #import "BaseNavigation.h"
 @interface AppDelegate (){
@@ -34,12 +35,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
-
-    MainTabBarViewController *mainTabVC = [[MainTabBarViewController alloc] init];
-    self.window.rootViewController = mainTabVC;
+    [self setMainViewController];
 
     /**2018年9月6日 更改新的请求方式   只有在第一次启动的时候 加载配置数据
      * 车辆信息 与城市列表数据
@@ -68,6 +64,16 @@
     [self configureBugly];
     
     return YES;
+}
+
+-(void)setMainViewController{
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
+    
+    MainTabBarViewController *mainTabVC = [[MainTabBarViewController alloc] init];
+    self.window.rootViewController = mainTabVC;
 }
 
 - (void)checkVersion{

@@ -19,5 +19,7 @@
 
 +(void)showTextMessage:(NSString *)message;
 
++(void)showBottomTextMessage:(NSString *)msg showView:(UIView *)view;
+
 +(void)showError:(NSString *)message integer:(NSInteger )ErrorCode;
 @end

@@ -13,14 +13,21 @@
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
 #define GenerateTireOrderNotice @"generateTireOrderNotice"
+
 #define ModifyDefaultCarNotification @"modifyDefaultCarNotification"
+
 #define NUM @"0123456789"
+
 #define ALPHA @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+
 #define ALPHANUM @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 
 #define MAINSCREEN [[UIScreen mainScreen] bounds].size
+
 #define LOGINBACKCOLOR [UIColor colorWithRed:255.0/255 green:102.0/255 blue:35.0/255 alpha:1.0]
+
 #define TEXTCOLORB3 [PublicClass colorWithHexString:@"#B3B3B3"]
+
 #define TEXTCOLOR64 [PublicClass colorWithHexString:@"#646464"]
 
 
@@ -28,24 +35,34 @@
 //#define SERVERPREFIX  @"http://192.168.0.137:8060"  //龚林 测试地址
 //#define GL_RuYiRuYiIP  @"http://192.168.0.137:8030"  //龚林 测试发货ID
 
-//#define SERVERPREFIX  @"http://192.168.0.94:8060"  //于鹏鹉测试地址
+#define SERVERPREFIX  @"http://192.168.0.60:10008"  //于鹏鹉测试地址
 //#define SERVERPREFIX @"http://192.168.0.190:8060"//测试地址
 //#define SERVERPREFIX @"http://192.168.0.167:8082/xmjj-webservice"//做项目的地址
 //#define SERVERPREFIX @"http://ruyiruyi.s1.natapp.cc/xmjj-webservice/"//发布测试版本的地址
+//#define TEXTSERVERPREFIX @"http://192.168.0.105:8060"
+//#define LINSERVERPREFIX @"http://192.168.0.190:8060"
 
 //release
-#define SERVERPREFIX @"http://180.76.243.205:10002/xmjj-webservice/" //正式地址唯一地址！
-#define GL_RuYiRuYiIP  @"http://180.76.243.205:10004"  //龚林  正式发货ID
-#define TEXTSERVERPREFIX @"http://192.168.0.105:8060"
-#define LINSERVERPREFIX @"http://192.168.0.190:8060"
+//#define SERVERPREFIX @"http://180.76.243.205:10002/xmjj-webservice/" //正式地址唯一地址！
+
+#define SHAREIP @"http://activity.qdxmjj.com" //推广有礼专用IP
+
+#define GL_RuYiRuYiIP  @"http://180.76.243.205:10004"  //我的钱包页面IP
+
 #define WEIXINID @"wx407c59de8b10c601"
 
 #define KIsiPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
 
 #define kWJScreenHeight [UIScreen mainScreen].bounds.size.height
+
 #define SafeAreaTopHeight (kWJScreenHeight == 812.0 ? 88 : 64)
+
 #define Height_TabBar    (kWJScreenHeight == 812.0 ? 83.0f: 49.0f)
+
 #define SafeDistance (SafeAreaTopHeight + Height_TabBar - 49)
+
+#define getTabBarHeight self.tabBarController.tabBar.bounds.size.height;
+
 #define getRectStatusHight [[UIApplication sharedApplication] statusBarFrame].size.height
 
 #define bottom_height (KIsiPhoneX ? 34.f : 0.f)
@@ -55,8 +72,6 @@
 #define TEXTFONT @"ArialMT"
 
 #define JJWeakSelf __weak typeof(self) weakSelf = self;
-
-
 
 #ifdef DEBUG
 //#define YLog(format, ...) printf("class: <%p %s:(%d) > method: %s \n%s\n", self, [[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, __PRETTY_FUNCTION__, [[NSString stringWithFormat:(format), ##__VA_ARGS__] UTF8String] )

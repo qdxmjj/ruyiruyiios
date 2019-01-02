@@ -19,7 +19,7 @@ typedef enum : NSUInteger {
 @class ADView;
 @protocol ADActivityDelegate <NSObject>
 
--(void)adview:(ADView *)adview didSelectItemAtShareType:(shareType )type shareText:(NSString *)text shareURL:(NSString *)url;
+-(void)adview:(ADView *)adview didSelectItemAtShareType:(shareType )type webUrl:(NSString *)webURL shareText:(NSString *)text shareURL:(NSString *)url;
 
 @end
 
@@ -28,7 +28,7 @@ typedef enum : NSUInteger {
 
 @property(nonatomic,weak)id <ADActivityDelegate> delegate;
 
--(void)show:(UIView *)view;
+-(void)show:(nullable UIView *)view;
 
 -(void)setActivityInfo:(id)info;
 

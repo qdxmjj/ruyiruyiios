@@ -78,7 +78,8 @@
 
                 NSDictionary *params = @{@"userId":[UserConfig user_id],@"realName":self.NameTextField.text,@"iDNumber":self.idNumberTextField.text,@"aliAccount":self.alipayAccountTextField.text};
                 
-                [JJRequest interchangeablePostRequest:@"bindingInfo/bindingUserAccountInfo" params:params success:^(id data) {
+                //调用解绑接口
+                [JJRequest interchangeablePostRequestWithIP:GL_RuYiRuYiIP path:@"bindingInfo/bindingUserAccountInfo" params:params success:^(id  _Nullable data) {
                     
                     [MBProgressHUD hideWaitViewAnimated:self.view];
                     if ([[data objectForKey:@"isSuccess"] boolValue] == YES) {
@@ -94,7 +95,6 @@
                 } failure:^(NSError * _Nullable error) {
                     [MBProgressHUD hideWaitViewAnimated:self.view];
                 }];
-                
             }
         };
         

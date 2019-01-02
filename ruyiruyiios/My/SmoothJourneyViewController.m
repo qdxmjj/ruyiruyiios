@@ -21,8 +21,8 @@
 @property(nonatomic, strong)NSMutableArray *carCXWYMutableA;
 @property(nonatomic, strong)NSDictionary   *tireInfo;
 
-@property(nonatomic, assign)BOOL tireStatus;
-@property(nonatomic, assign)BOOL couponStatus;
+@property(nonatomic, assign)BOOL tireStatus; //有无可使用优惠券的轮胎
+@property(nonatomic, assign)BOOL couponStatus; //优惠券状态
 
 @end
 
@@ -72,6 +72,7 @@
             NSString *statusStr = [NSString stringWithFormat:@"%@", code];
             NSString *messageStr = [NSString stringWithFormat:@"%@", message];
             if ([statusStr isEqualToString:@"1"]) {
+                
                 self.couponStatus = YES;
                 [self ananysize:data];
             }else if ([statusStr isEqualToString:@"-999"]){
@@ -120,7 +121,7 @@
         if ([statusStr isEqualToString:@"1"]) {
             
             if (data == NULL || data == nil || [data isEqual:[NSNull null]]) {
-                [PublicClass showHUD:@"无可更换轮胎！" view:self.view];
+//                [PublicClass showHUD:@"无可更换轮胎！" view:self.view];
                 return ;
             }
             
@@ -185,7 +186,7 @@
         _buyPassImpededBtn.layer.cornerRadius = 6.0;
         _buyPassImpededBtn.layer.masksToBounds = YES;
         _buyPassImpededBtn.enabled = NO;
-        [_buyPassImpededBtn setTitle:@"购买畅行无忧" forState:UIControlStateNormal];
+        [_buyPassImpededBtn setTitle:@"使用畅行无忧" forState:UIControlStateNormal];
         [_buyPassImpededBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_buyPassImpededBtn setBackgroundColor:LOGINBACKCOLOR forState:UIControlStateNormal];
         [_buyPassImpededBtn addTarget:self action:@selector(chickBuypassImpededBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -221,7 +222,7 @@
     
     if (self.couponArr.count > cxwyTotalNumber) {
         
-        [PublicClass showHUD:[NSString stringWithFormat:@"畅行无忧数量不可超过轮胎数量(%ld个)",cxwyTotalNumber] view:self.view];
+        [PublicClass showHUD:[NSString stringWithFormat:@"畅行无忧数量不可超过轮胎数量(%ld个)",(long)cxwyTotalNumber] view:self.view];
         return;
     }
     

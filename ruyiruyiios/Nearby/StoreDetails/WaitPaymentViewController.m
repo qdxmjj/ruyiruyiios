@@ -204,6 +204,7 @@
     cashierVC.orderTypeStr = @"1";
     
     [self.navigationController pushViewController:cashierVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
 }
 
 - (IBAction)pushStoreDetailsVC:(id)sender {

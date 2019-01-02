@@ -143,8 +143,8 @@
           } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
               NSLog(@"------请求失败-------%@",error);
               
+              //网络请求失败 或 当前页面 退出 取消网络请求将会执行此方法
               [self requestErrorCode:error.code];
-              
               failureHandler(error);
           }];
 }
@@ -205,7 +205,8 @@
              failureHandler(error);
          }];
 }
-+(void)interchangeablePostRequest:(NSString *)url params:(NSDictionary *)params success:(interchangeableRequestSuccessBlock )successHandler failure:(requestFailureBlock)failureHandler{
+
++ (void)interchangeablePostRequestWithIP:(nonnull NSString *)IP path:(NSString *)path params:(NSDictionary * _Nullable)params success:(_Nullable interchangeableRequestSuccessBlock)successHandler failure:(_Nullable requestFailureBlock)failureHandler{
     
     if ([self checkNetworkStatus] == NO) {
         successHandler(nil);
@@ -215,17 +216,15 @@
     
     AFNetworkReachabilityManager *reachabilityManager = [AFNetworkReachabilityManager sharedManager];
     if (!reachabilityManager.isReachableViaWiFi) {
-        
     }
     
     AFHTTPSessionManager *manager = [self getRequestManager];
     
-    [manager POST:[NSString stringWithFormat:@"%@/%@",GL_RuYiRuYiIP,url] parameters:params progress:nil
+    [manager POST:[NSString stringWithFormat:@"%@/%@",IP,path] parameters:params progress:nil
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject){
               
               
               successHandler(responseObject);
-              
           } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
               NSLog(@"------请求失败-------%@",error);
               
@@ -233,9 +232,8 @@
               
               failureHandler(error);
           }];
-    
-    
 }
+
 + (void)GL_PostRequest:(NSString *)url params:(NSDictionary *)params success:(GL_requestSuccessBlock)successHandler failure:(requestFailureBlock)failureHandler{
     
     if ([self checkNetworkStatus] == NO) {

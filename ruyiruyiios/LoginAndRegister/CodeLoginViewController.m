@@ -22,7 +22,7 @@
 #import "HomeViewController.h"
 #import "WinterTyreViewController.h"
 #import "MyViewController.h"
-
+#import "AppDelegate.h"
 @interface CodeLoginViewController ()<UITextFieldDelegate,UITextViewDelegate, WXApiDelegate>{
     
     UITextField *telephoneTF;
@@ -44,27 +44,6 @@
 
 @implementation CodeLoginViewController
 @synthesize homeTologinStr;
-
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
-    self.tabBarController.tabBar.hidden = YES;
-    if ([homeTologinStr isEqualToString:@"1"]) {
-        
-        [self.navigationController.navigationBar setHidden:NO];
-    }else{
-        
-        [self.navigationController.navigationBar setHidden:YES];
-    }
-//    [self.navigationController.navigationBar setHidden:NO];
-}
-
-- (void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = NO;
-}
 
 - (UIImageView *)headImageView{
     
@@ -102,7 +81,7 @@
         UserProtocolViewController *userProtocolVC = [[UserProtocolViewController alloc] init];
         userProtocolVC.dealIdStr = @"1";
         [self.navigationController pushViewController:userProtocolVC animated:YES];
-        
+        self.hidesBottomBarWhenPushed = YES;
         return NO;
     }
     
@@ -135,6 +114,19 @@
     //暂时屏蔽微信登录
 //    [self addthridView];
     // Do any additional setup after loading the view.
+}
+
+- (IBAction)backButtonAction:(id)sender{
+
+    if ([homeTologinStr isEqualToString:@"2"]) {
+        
+        //重新加载页面
+        AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        [delegate setMainViewController];
+    }else{
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void)addCustomerView{
@@ -387,6 +379,7 @@
     
     ForgetPasswordViewController *forgetVC = [[ForgetPasswordViewController alloc] init];
     [self.navigationController pushViewController:forgetVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
 }
 
 - (void)chickLoginBtn{
@@ -416,16 +409,8 @@
 
                 [_timer invalidate];
                 _timer = nil;
-        
-                //从修改密码的页面跳转
-                if ([self->homeTologinStr isEqualToString:@"2"]) {
-                    
-                    self.tabBarController.tabBar.hidden = NO;
-                    [self.navigationController popToRootViewControllerAnimated:YES];
-                }else{
-                    
-                    [self.navigationController popToRootViewControllerAnimated:YES];
-                }
+            
+                [self.navigationController popToRootViewControllerAnimated:YES];
                 
             }else if ([statusStr isEqualToString:@"-1"]){
                 
@@ -440,6 +425,7 @@
                 RegisterViewController *registerVC = [[RegisterViewController alloc] init];
                 registerVC.teleStr = telephoneTF.text;
                 [self.navigationController pushViewController:registerVC animated:YES];
+                self.hidesBottomBarWhenPushed = YES;
             }
         } failure:^(NSError * _Nullable error) {
             
@@ -472,17 +458,8 @@
                 [self insertDatabase:data];
                 [delegateConfiguation changeLoginStatus];
 
-                //从修改密码的页面跳转
-                if ([homeTologinStr isEqualToString:@"2"]) {
-                    
-                    self.tabBarController.tabBar.hidden = NO;
-                    [self.navigationController popToRootViewControllerAnimated:YES];
-                }else{
-                    
-                    [self.navigationController popToRootViewControllerAnimated:YES];
-                }
-//                MainTabBarViewController *mainTabVC = [[MainTabBarViewController alloc] init];
-//                [self.navigationController pushViewController:mainTabVC animated:YES];
+                [self.navigationController popToRootViewControllerAnimated:YES];
+
             }else if ([statusStr isEqualToString:@"100001"]){
                 
                 [PublicClass showHUD:messStr view:self.view];
@@ -561,6 +538,7 @@
             BindingPhoneViewController *bindingVC = [[BindingPhoneViewController alloc] init];
             bindingVC.weixinIDStr = [wxDic objectForKey:@"openid"];
             [self.navigationController pushViewController:bindingVC animated:YES];
+            self.hidesBottomBarWhenPushed = YES;
         }else{
             
             [PublicClass showHUD:messageStr view:self.view];

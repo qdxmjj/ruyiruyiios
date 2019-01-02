@@ -125,15 +125,16 @@
         
         make.top.mas_equalTo(self.backGroupView.mas_top);
         make.left.and.right.mas_equalTo(self.backGroupView);
-        make.centerX.mas_equalTo(self.backGroupView.mas_centerX);
+//        make.centerX.mas_equalTo(self.backGroupView.mas_centerX);
         make.bottom.mas_equalTo(self.confirmBtn.mas_top);
+        make.bottom.mas_equalTo(self.descriptionLab.mas_bottom);
     }];
     
     [self.imgView mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.mas_equalTo(self.mainView.mas_top).inset(10);
+        make.top.mas_equalTo(self.backGroupView.mas_top).inset(10);
         make.width.and.height.mas_equalTo(self.mainView.mas_width).multipliedBy(0.3);
-        make.left.mas_equalTo(self.mainView.mas_left).inset(10);
+        make.left.mas_equalTo(self.backGroupView.mas_left).inset(10);
     }];
     
     [self.priceLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -145,7 +146,7 @@
     
     [self.dismissBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.right.mas_equalTo(self.view.mas_right).inset(10);
+        make.right.mas_equalTo(self.backGroupView.mas_right).inset(10);
         make.top.mas_equalTo(self.imgView.mas_top);
         make.width.and.height.mas_equalTo(CGSizeMake(30, 30));
     }];
@@ -154,19 +155,19 @@
         
         make.top.mas_equalTo(self.priceLab.mas_bottom).inset(3);
         make.left.mas_equalTo(self.imgView.mas_right).inset(5);
-        make.right.mas_equalTo(self.view.mas_right).inset(10);
+        make.right.mas_equalTo(self.backGroupView.mas_right).inset(10);
         make.bottom.mas_equalTo(self.imgView.mas_bottom);
     }];
     
     [self.patternLab mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.mas_equalTo(self.imgView.mas_bottom).inset(15);
-        make.left.mas_equalTo(self.view.mas_left).inset(10);
+        make.left.mas_equalTo(self.backGroupView.mas_left).inset(10);
         make.height.mas_equalTo(20);
     }];
     
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.right.mas_equalTo(self.view);
+        make.left.and.right.mas_equalTo(self.backGroupView);
         make.top.mas_equalTo(self.patternLab.mas_bottom).inset(5);
         //        make.height.mas_equalTo(@40);
         
@@ -181,13 +182,13 @@
     [self.speedLab mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.mas_equalTo(self.collectionView.mas_bottom).inset(5);
-        make.left.mas_equalTo(self.view.mas_left).inset(10);
+        make.left.mas_equalTo(self.backGroupView.mas_left).inset(10);
         make.height.mas_equalTo(@20);
     }];
     
     [self.collectionView1 mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.and.right.mas_equalTo(self.view);
+        make.left.and.right.mas_equalTo(self.backGroupView);
         make.top.mas_equalTo(self.speedLab.mas_bottom).inset(5);
         make.height.mas_equalTo(@40);
     }];
@@ -201,7 +202,7 @@
             make.height.mas_equalTo(@0);
         }
         make.top.mas_equalTo(self.collectionView1.mas_bottom).inset(5);
-        make.left.mas_equalTo(self.view.mas_left).inset(10);
+        make.left.mas_equalTo(self.backGroupView.mas_left).inset(10);
     }];
     
     [self.jjSliderView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -213,27 +214,27 @@
             self.jjSliderView.hidden = YES;
             make.height.mas_equalTo(@0);
         }
-        make.leading.and.trailing.mas_equalTo(self.view).inset(10);
+        make.leading.and.trailing.mas_equalTo(self.backGroupView).inset(10);
         make.top.mas_equalTo(self.serviceLab.mas_bottom).inset(5);
     }];
     
     [self.tireNumberLab mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.mas_equalTo(self.jjSliderView.mas_bottom).inset(10);
-        make.left.mas_equalTo(self.view.mas_left).inset(10);
+        make.left.mas_equalTo(self.backGroupView.mas_left).inset(10);
         make.height.mas_equalTo(@40);
     }];
     
     [self.stepper1 mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.right.mas_equalTo(self.view.mas_right).inset(10);
+        make.right.mas_equalTo(self.backGroupView.mas_right).inset(10);
         make.centerY.mas_equalTo(self.tireNumberLab.mas_centerY);
         make.height.mas_equalTo(@35);
     }];
     
     [self.noWorriesBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.mas_equalTo(self.view.mas_left).inset(10);
+        make.left.mas_equalTo(self.backGroupView.mas_left).inset(10);
         make.top.mas_equalTo(self.tireNumberLab.mas_bottom).inset(5);
         make.height.mas_equalTo(@40);
     }];
@@ -247,18 +248,19 @@
     
     [self.stepper2 mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.right.mas_equalTo(self.view.mas_right).inset(10);
+        make.right.mas_equalTo(self.backGroupView.mas_right).inset(10);
         make.centerY.mas_equalTo(self.noWorriesBtn.mas_centerY);
         make.height.mas_equalTo(@35);
     }];
     
     [self.descriptionLab mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.and.right.mas_equalTo(self.view).inset(10);
+        make.left.and.right.mas_equalTo(self.backGroupView).inset(10);
         make.top.mas_equalTo(self.noWorriesBtn.mas_bottom);
-        make.bottom.mas_equalTo(self.mainView.mas_bottom);
         make.height.mas_equalTo(80);
     }];
+    
+    [self.view layoutIfNeeded];
 }
 
 -(UIView *)backGroupView{
@@ -297,8 +299,6 @@
         _mainView.backgroundColor = [UIColor whiteColor];
         _mainView.showsVerticalScrollIndicator = NO;
         _mainView.showsHorizontalScrollIndicator = NO;
-        //        _mainView.alwaysBounceHorizontal = NO;
-        //        _mainView.alwaysBounceVertical = NO;
         _mainView.scrollsToTop = NO;
     }
     return _mainView;
@@ -474,8 +474,9 @@
         
         _jjSliderView = [[JJSliderView alloc] init];
         _jjSliderView.backgroundColor = [UIColor whiteColor];
-        //        _jjSliderView.maximum = 15.f;
+        
         _jjSliderView.minimum = 1.f;
+        _jjSliderView.value = 1.f;
     }
     return _jjSliderView;
 }
@@ -565,16 +566,6 @@
         [self.delegate selectTireInfoWithPrice:self.priceLab.text tireInfo:self.contentLab.text tireNumber:[NSString stringWithFormat:@"%.0f",self.stepper1.value] cxwyNumber:[NSString stringWithFormat:@"%.0f",self.stepper2.value] cxwyPrice:self.cxwyPrice.text buyTireData:self.buyTireData shoeID:[NSString stringWithFormat:@"%ld",(long)self.shoeID] remainYear:remainYear imgURL:self.imgURL];
     }
 
-//    self.selectTireInfoBlock(
-//                             self.priceLab.text,
-//                             self.contentLab.text,
-//                             [NSString stringWithFormat:@"%.0f",self.stepper1.value],
-//                             [NSString stringWithFormat:@"%.0f",self.stepper2.value],
-//                             self.cxwyPrice.text,
-//                             self.buyTireData,[NSString stringWithFormat:@"%ld",(long)self.shoeID],
-//                             remainYear,
-//                             self.imgURL
-//                             );
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }

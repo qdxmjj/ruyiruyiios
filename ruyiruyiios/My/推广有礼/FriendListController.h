@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FriendListController : BaseTableViewController
 
--(instancetype)initWithStyle:(UITableViewStyle)style withCellIdentifier:(NSString *)identifier;
+-(instancetype)initWithStyle:(UITableViewStyle)style withCellIdentifier:(NSString *)identifier withState:(NSString *)state;
 
 @end
 

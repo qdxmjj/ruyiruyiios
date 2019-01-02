@@ -28,6 +28,8 @@
 #import "DelegateConfiguration.h"
 #import "ContactCustomerViewController.h"
 
+#import "IntegralViewController.h"
+
 #import "WithdrawViewController.h"
 #import "WXApi.h"
 #import <Masonry.h>
@@ -54,7 +56,7 @@
         self.imgArray = @[@"ic_redbag",@"ic_daigenghuan", @"ic_changxing", @"ic_wodeche", @"ic_youhuiquan", @"ic_pingjia", @"ic_shezhi", @"ic_lianxi"];
 
     }else{
-        self.titleArray = @[@"我的钱包",@"待更换轮胎", @"畅行无忧", @"我的宝驹", @"优惠券", @"推广码", @"评价", @"设置", @"联系客服"];
+        self.titleArray = @[@"我的钱包",@"待更换轮胎", @"畅行无忧", @"我的宝驹", @"优惠券", @"推广有礼", @"评价", @"设置", @"联系客服"];
         self.imgArray = @[@"ic_redbag",@"ic_daigenghuan", @"ic_changxing", @"ic_wodeche", @"ic_youhuiquan", @"ic_tuiguang", @"ic_pingjia", @"ic_shezhi", @"ic_lianxi"];
     }
     
@@ -318,8 +320,8 @@
         }else if (indexPath.item == 7){
             
             if (![WXApi isWXAppInstalled]){
-                
-                ContactCustomerViewController *contactCustomerVC = [[ContactCustomerViewController alloc] init];
+                //此为联系客服 临时更改为 积分商城
+                IntegralViewController *contactCustomerVC = [[IntegralViewController alloc] init];
                 [self.navigationController pushViewController:contactCustomerVC animated:YES];
             }else{
                 MySettingViewController *mysettingVC = [[MySettingViewController alloc] init];

@@ -216,12 +216,12 @@
     
     NewSureOrderViewController *newSureOrderVC = [[NewSureOrderViewController alloc] init];
     newSureOrderVC.buyTireData = self.buyTireData;
-    newSureOrderVC.tireCount = [NSString stringWithFormat:@"%ld",self.tireNumber];
+    newSureOrderVC.tireCount = [NSString stringWithFormat:@"%ld",(long)self.tireNumber];
     newSureOrderVC.fontRearFlag = self.fontRearFlag;
     newSureOrderVC.tirePrice = [self.tirePriceLab.text  stringByReplacingOccurrencesOfString:@"¥" withString:@""];
-    newSureOrderVC.cxwyCount = [NSString stringWithFormat:@"%ld",self.cxwyNumber];
-    newSureOrderVC.cxwyPrice = [NSString stringWithFormat:@"%ld",self.cxwyPrice];
-    newSureOrderVC.shoeID = [NSString stringWithFormat:@"%ld",self.shoeID];
+    newSureOrderVC.cxwyCount = [NSString stringWithFormat:@"%ld",(long)self.cxwyNumber];
+    newSureOrderVC.cxwyPrice = [NSString stringWithFormat:@"%ld",(long)self.cxwyPrice];
+    newSureOrderVC.shoeID = [NSString stringWithFormat:@"%ld",(long)self.shoeID];
     newSureOrderVC.serviceYear = self.remainYear;
     newSureOrderVC.speedLevelStr = self.speedLevelStr;
     newSureOrderVC.tireImgURL = self.imgURL;
@@ -254,37 +254,6 @@
     pView.tireNumber = @(self.tireNumber);
     
     pView.cxwuNumber = @(self.cxwyNumber);
-    
-//    JJWeakSelf
-//
-//    pView.selectTireInfoBlock = ^(NSString *tirePrice, NSString *tireInfo, NSString *tireNumber, NSString *cxwyNumber, NSString *cxwyPrice, BuyTireData *buyTireData, NSString *shoeID,NSString *remainYear,NSString *imgURL) {
-//
-//        weakSelf.tirePriceLab.text = tirePrice;
-//
-//        weakSelf.standardLab.text = [NSString stringWithFormat:@"规格: %@,%@条",tireInfo,tireNumber];
-//
-//        weakSelf.cxwyLab.text = [NSString stringWithFormat:@"畅行无忧%@次 %@",cxwyNumber,cxwyPrice];
-//
-//        weakSelf.buyTireData = buyTireData;
-//
-//        weakSelf.shoeID = [shoeID integerValue];
-//
-//        weakSelf.remainYear = remainYear;
-//
-//        weakSelf.tireNumber = [tireNumber integerValue];//轮胎数量
-//
-//        weakSelf.cxwyNumber = [cxwyNumber integerValue];//畅行无忧数量
-//
-//        weakSelf.speedLevelStr = [tireInfo componentsSeparatedByString:@","][1];
-//
-//        weakSelf.cxwyPrice = [[cxwyPrice stringByReplacingOccurrencesOfString:@"¥" withString:@""] integerValue];//畅行无忧价格
-//
-//        weakSelf.tireDescriptionLab.text = weakSelf.buyTireData.detailStr;//轮胎名称
-//
-//        weakSelf.imgURL = imgURL;
-//
-//        weakSelf.scycleScrollView.imageURLStringsGroup = @[weakSelf.buyTireData.shoeDownImg,weakSelf.buyTireData.shoeLeftImg,weakSelf.buyTireData.shoeMiddleImg,weakSelf.buyTireData.shoeRightImg,weakSelf.buyTireData.shoeUpImg];
-//    };
     
     [self presentViewController:pView animated:YES completion:nil];
 }

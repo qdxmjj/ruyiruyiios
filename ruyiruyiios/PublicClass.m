@@ -298,6 +298,6 @@
     }
     NSString *dateString       = [formatter stringFromDate:[NSDate date]];
     return dateString;
-    
 }
+
 @end
