@@ -36,13 +36,19 @@
         [barBackground.subviews setValue:@(1) forKeyPath:@"alpha"];
     } else {
         barBackground.alpha = 1;
-    }    
+    }
+    
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.title = @"积分兑换";
+    
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)])
+    {
+        self.edgesForExtendedLayout = UIRectEdgeAll;
+    }
 
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ChangeCouponCell class]) bundle:nil] forCellReuseIdentifier:@"ChangeCouponCellID"];
 }

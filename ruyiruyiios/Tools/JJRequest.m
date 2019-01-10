@@ -275,7 +275,7 @@
     }
     
     AFHTTPSessionManager *manager = [self getRequestManager];
-    [manager PUT:url parameters:params
+    [manager PUT:[NSString stringWithFormat:@"%@%@",SERVERPREFIX,url] parameters:params
          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
              
              NSString *code = [responseObject objectForKey:@"status"];
@@ -298,7 +298,7 @@
     }
     
     AFHTTPSessionManager *manager = [self getRequestManager];
-    [manager DELETE:url parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [manager DELETE:[NSString stringWithFormat:@"%@%@",SERVERPREFIX,url] parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         NSString *code = [responseObject objectForKey:@"status"];
         NSString *message = [responseObject objectForKey:@"msg"];
@@ -332,6 +332,9 @@
     
     NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:^(NSProgress * _Nonnull downloadProgress) {
         kProgress = downloadProgress;
+        
+        NSLog(@"下载进度：%.0f％", downloadProgress.fractionCompleted * 100);
+
     } destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
         
         NSURL *documentUrl = [[NSFileManager defaultManager] URLForDirectory :NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];

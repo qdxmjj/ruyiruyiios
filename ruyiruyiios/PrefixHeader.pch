@@ -32,10 +32,10 @@
 
 
 //测试版IP debug
-//#define SERVERPREFIX  @"http://192.168.0.137:8060"  //龚林 测试地址
+#define SERVERPREFIX  @"http://192.168.0.122:8060"  //龚林 测试地址
 //#define GL_RuYiRuYiIP  @"http://192.168.0.137:8030"  //龚林 测试发货ID
 
-#define SERVERPREFIX  @"http://192.168.0.60:10008"  //于鹏鹉测试地址
+//#define SERVERPREFIX  @"http://192.168.0.60:10008"  //于鹏鹉测试地址
 //#define SERVERPREFIX @"http://192.168.0.190:8060"//测试地址
 //#define SERVERPREFIX @"http://192.168.0.167:8082/xmjj-webservice"//做项目的地址
 //#define SERVERPREFIX @"http://ruyiruyi.s1.natapp.cc/xmjj-webservice/"//发布测试版本的地址
@@ -82,5 +82,5 @@
 #import "PublicClass.h"
 #import "JJRequest.h"
 #import "UserConfig.h"
-
+#import <Masonry.h>
 #endif /* PrefixHeader_pch */

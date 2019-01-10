@@ -7,7 +7,7 @@
 //
 
 #import "GoodsDetailsViewController.h"
-
+#import "OrderConfirmViewController.h"
 @interface GoodsDetailsViewController ()
 
 @end
@@ -32,6 +32,12 @@
 
     self.title = @"商品详情";
 
+}
+- (IBAction)redeemNowEvent:(UIButton *)sender {
+    
+    OrderConfirmViewController *orderConfirmVC = [[OrderConfirmViewController alloc] init];
+    
+    [self.navigationController pushViewController:orderConfirmVC animated:YES];
 }
 
 

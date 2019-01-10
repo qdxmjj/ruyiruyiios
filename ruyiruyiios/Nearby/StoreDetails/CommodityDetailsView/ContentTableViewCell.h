@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *plusBtn;
 @property (weak, nonatomic) IBOutlet UIButton *lessBtn;
 
+@property (weak, nonatomic) IBOutlet UILabel *originalPriceLab;
 @property(nonatomic,strong)CommodityModel *model;
 
 @property(nonatomic,assign)NSInteger number;//每个商品的初始数量

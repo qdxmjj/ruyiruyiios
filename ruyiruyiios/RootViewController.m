@@ -38,6 +38,11 @@
 
 @implementation RootViewController
 
+- (void)viewWillAppear:(BOOL)animated{
+ 
+    self.automaticallyAdjustsScrollViewInsets = NO;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -47,6 +52,7 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
+
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont systemFontOfSize:20], NSFontAttributeName, nil]];

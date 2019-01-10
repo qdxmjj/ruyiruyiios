@@ -49,7 +49,6 @@
     
     self.title = @"积分兑换";
 
-    // 设置CGRectZero从导航栏下开始计算
     if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)])
     {
         self.edgesForExtendedLayout = UIRectEdgeAll;

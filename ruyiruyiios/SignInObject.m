@@ -25,7 +25,7 @@
                 
                 NSLog(@"未签到");
                 
-                [JJRequest postRequest:@"score/get/sign" params:@{@"userId":[NSString stringWithFormat:@"%@",[UserConfig user_id]]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+                [JJRequest postRequest:@"score/sign" params:@{@"userId":[NSString stringWithFormat:@"%@",[UserConfig user_id]]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
                     
                     if ([code integerValue] != 1) {
                         

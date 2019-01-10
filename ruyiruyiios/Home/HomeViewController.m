@@ -124,7 +124,7 @@ static CGFloat const cellThreeHeigh = 130;
     
     [self.sdcycleScrollV mas_makeConstraints:^(MASConstraintMaker *make) {
        
-        make.top.mas_equalTo(self.mainScrollV.mas_top).offset(-getRectStatusHight);
+        make.top.mas_equalTo(self.mainScrollV.mas_top);
         make.left.and.right.mas_equalTo(self.view);
         make.height.mas_equalTo(self.view.mas_height).multipliedBy(.35);
     }];
@@ -189,7 +189,6 @@ static CGFloat const cellThreeHeigh = 130;
         
         [self getAndroidHomeDate];
     }];
-    
 }
 
 #pragma mark setData
@@ -928,6 +927,12 @@ static CGFloat const cellThreeHeigh = 130;
 //        _mainScrollV.bounces = NO;
         _mainScrollV.delegate = self;
         _mainScrollV.scrollsToTop = NO;
+        if (@available(iOS 11.0, *)) {
+            
+            _mainScrollV.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        } else {
+            
+        }
     }
     return _mainScrollV;
 }

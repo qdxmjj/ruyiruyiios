@@ -86,9 +86,10 @@
 }
 
 -(void)dealloc{
- 
-        [[[AFHTTPSessionManager manager]operationQueue] cancelAllOperations];
-
+    
+    [[[AFHTTPSessionManager manager]operationQueue] cancelAllOperations];
+    
+    NSLog(@"dealloc：%@",self);
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

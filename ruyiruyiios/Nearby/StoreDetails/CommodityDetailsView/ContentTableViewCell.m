@@ -59,6 +59,13 @@
     self.commodityName.text = model.name;
     self.commodityPrice.text = [NSString stringWithFormat:@"¥%@",model.price];
     
+    if ([model.discountFlag integerValue] == 1) {
+        
+        NSMutableAttributedString *newPrice = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"￥%@",model.originalPrice]];
+        [newPrice addAttribute:NSStrikethroughStyleAttributeName value:@(NSUnderlinePatternSolid | NSUnderlineStyleSingle) range:NSMakeRange(0, newPrice.length)];
+        self.originalPriceLab.attributedText = newPrice;
+    }
+    
     NSString *type = [NSString stringWithFormat:@"%@",model.system];
     if ([type isEqualToString:@"1"]) {
         self.commodityStock.text = [NSString stringWithFormat:@"%@",model.serviceDesc];
@@ -67,7 +74,6 @@
     }
     self.numeberLab.text = [NSString stringWithFormat:@"%@",model.commodityNumber];
 }
-
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
