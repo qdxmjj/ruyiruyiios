@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "IntegralGoodsMode.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RealThingCell : UICollectionViewCell
+
+@property (nonatomic, strong) IntegralGoodsMode *goodsModel;
 
 @end
 

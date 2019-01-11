@@ -9,6 +9,7 @@
 #import "GoodsDetailsViewController.h"
 #import "OrderConfirmViewController.h"
 @interface GoodsDetailsViewController ()
+@property (weak, nonatomic) IBOutlet UITextView *textView;
 
 @end
 
@@ -31,6 +32,8 @@
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 
     self.title = @"商品详情";
+    
+    self.textView.text = @"2346572547587635475\nfdggfghxgfhx\nafdghdjjdsfgjjnxdfgufhgsfddgf";
 
 }
 - (IBAction)redeemNowEvent:(UIButton *)sender {

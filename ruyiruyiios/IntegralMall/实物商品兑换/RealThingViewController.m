@@ -13,6 +13,7 @@
 @interface RealThingViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
+@property (strong, nonatomic) NSMutableArray *goodsArr;
 @end
 
 @implementation RealThingViewController
@@ -56,12 +57,31 @@
     
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([RealThingCell class]) bundle:nil] forCellWithReuseIdentifier:@"RealThingCellID"];
     
+    [JJRequest getRequest:[NSString stringWithFormat:@"%@/score/sku",SERVERPREFIX] params:@{} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+        if ([code integerValue] == 1) {
+            
+            for (NSDictionary *dic in data) {
+                
+                IntegralGoodsMode *model = [[IntegralGoodsMode alloc] init];
+                
+                [model setValuesForKeysWithDictionary:dic];
+                
+                [self.goodsArr addObject:model];
+            }
+            
+            [self.collectionView reloadData];
+        }
+        NSLog(@"实物积分商品：%@",data);
+    } failure:^(NSError * _Nullable error) {
+        
+    }];
 }
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     
     RealThingCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"RealThingCellID" forIndexPath:indexPath];
-    
+    IntegralGoodsMode *model = self.goodsArr[indexPath.item];
+    cell.goodsModel = model;
     return cell;
 }
 
@@ -74,8 +94,11 @@
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    
-    return 4;
+    if (self.goodsArr.count>0) {
+        
+        return self.goodsArr.count;
+    }
+    return 0;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -88,5 +111,12 @@
     
     
     return UIEdgeInsetsMake(3, 5, 5, 5);
+}
+
+- (NSMutableArray *)goodsArr{
+    if (!_goodsArr) {
+        _goodsArr = [NSMutableArray array];
+    }
+    return _goodsArr;
 }
 @end

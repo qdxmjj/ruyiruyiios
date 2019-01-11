@@ -256,6 +256,7 @@
 		36C80A9820D89C6A0036C14A /* YMDetailedServiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C80A8920D89C6A0036C14A /* YMDetailedServiceCell.m */; };
 		36C80A9920D89C6A0036C14A /* YMDetailedServiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36C80A8A20D89C6A0036C14A /* YMDetailedServiceCell.xib */; };
 		36C80A9A20D89C6A0036C14A /* YMDetailedServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C80A8C20D89C6A0036C14A /* YMDetailedServiceViewController.m */; };
+		36D6F6AA21E83C23008C0AF0 /* IntegralGoodsMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D6F6A921E83C23008C0AF0 /* IntegralGoodsMode.m */; };
 		36E0B59421007DA7005838B5 /* CycleScrollViewDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36E0B59321007DA7005838B5 /* CycleScrollViewDetailsController.m */; };
 		36E0B5AB21008663005838B5 /* ic_hd_button1.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E0B59621008663005838B5 /* ic_hd_button1.png */; };
 		36E0B5AC21008663005838B5 /* ic_hd_button1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36E0B59721008663005838B5 /* ic_hd_button1@2x.png */; };
@@ -283,6 +284,7 @@
 		36F3CBB02106D2F600B60636 /* ic_huoodng_1@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36F3CBAD2106D2F500B60636 /* ic_huoodng_1@3x.png */; };
 		36F3CBB12106D2F600B60636 /* ic_huoodng_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 36F3CBAE2106D2F600B60636 /* ic_huoodng_1.png */; };
 		36F3CBB22106D2F600B60636 /* ic_huoodng_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36F3CBAF2106D2F600B60636 /* ic_huoodng_1@2x.png */; };
+		36F6D96B21E722890086041D /* GoodsDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F6D96A21E722890086041D /* GoodsDetailsView.m */; };
 		36F78FCC212152E8001A61D4 /* NewTirePurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F78FCA212152E7001A61D4 /* NewTirePurchaseViewController.m */; };
 		36F78FCD212152E8001A61D4 /* NewTirePurchaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36F78FCB212152E8001A61D4 /* NewTirePurchaseViewController.xib */; };
 		36F78FD0212154B2001A61D4 /* SelectBuyTireInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F78FCF212154B2001A61D4 /* SelectBuyTireInfoViewController.m */; };
@@ -1378,6 +1380,8 @@
 		36C80A8A20D89C6A0036C14A /* YMDetailedServiceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YMDetailedServiceCell.xib; sourceTree = "<group>"; };
 		36C80A8B20D89C6A0036C14A /* YMDetailedServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMDetailedServiceViewController.h; sourceTree = "<group>"; };
 		36C80A8C20D89C6A0036C14A /* YMDetailedServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMDetailedServiceViewController.m; sourceTree = "<group>"; };
+		36D6F6A821E83C23008C0AF0 /* IntegralGoodsMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntegralGoodsMode.h; sourceTree = "<group>"; };
+		36D6F6A921E83C23008C0AF0 /* IntegralGoodsMode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntegralGoodsMode.m; sourceTree = "<group>"; };
 		36E0B59221007DA7005838B5 /* CycleScrollViewDetailsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CycleScrollViewDetailsController.h; sourceTree = "<group>"; };
 		36E0B59321007DA7005838B5 /* CycleScrollViewDetailsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CycleScrollViewDetailsController.m; sourceTree = "<group>"; };
 		36E0B59621008663005838B5 /* ic_hd_button1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_hd_button1.png; sourceTree = "<group>"; };
@@ -1411,6 +1415,8 @@
 		36F3CBAD2106D2F500B60636 /* ic_huoodng_1@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_huoodng_1@3x.png"; sourceTree = "<group>"; };
 		36F3CBAE2106D2F600B60636 /* ic_huoodng_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_huoodng_1.png; sourceTree = "<group>"; };
 		36F3CBAF2106D2F600B60636 /* ic_huoodng_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_huoodng_1@2x.png"; sourceTree = "<group>"; };
+		36F6D96921E722890086041D /* GoodsDetailsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoodsDetailsView.h; sourceTree = "<group>"; };
+		36F6D96A21E722890086041D /* GoodsDetailsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodsDetailsView.m; sourceTree = "<group>"; };
 		36F78FC9212152E7001A61D4 /* NewTirePurchaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewTirePurchaseViewController.h; sourceTree = "<group>"; };
 		36F78FCA212152E7001A61D4 /* NewTirePurchaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewTirePurchaseViewController.m; sourceTree = "<group>"; };
 		36F78FCB212152E8001A61D4 /* NewTirePurchaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewTirePurchaseViewController.xib; sourceTree = "<group>"; };
@@ -2398,6 +2404,8 @@
 			children = (
 				04241F1821E33B0000D4F91C /* AddressInfoModel.h */,
 				04241F1921E33B0000D4F91C /* AddressInfoModel.m */,
+				36D6F6A821E83C23008C0AF0 /* IntegralGoodsMode.h */,
+				36D6F6A921E83C23008C0AF0 /* IntegralGoodsMode.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -2732,6 +2740,8 @@
 				36C80A0820D89C640036C14A /* DirectoryTableViewController.m */,
 				36C809FB20D89C640036C14A /* ContentTableViewController.h */,
 				36C809FC20D89C640036C14A /* ContentTableViewController.m */,
+				36F6D96921E722890086041D /* GoodsDetailsView.h */,
+				36F6D96A21E722890086041D /* GoodsDetailsView.m */,
 				36C80A1F20D89C640036C14A /* StoreDetailsViewController.h */,
 				36C80A2020D89C640036C14A /* StoreDetailsViewController.m */,
 				36C809E420D89C640036C14A /* BuyCommdityViewController.h */,
@@ -5089,6 +5099,7 @@
 				36071A4320ECCBB70089E633 /* FreeChangUserInfoCell.m in Sources */,
 				36C80A4C20D89C640036C14A /* DirectoryTableViewCell.m in Sources */,
 				43CE0A7520A93ABF00D7FACF /* JJUILabel.m in Sources */,
+				36D6F6AA21E83C23008C0AF0 /* IntegralGoodsMode.m in Sources */,
 				434367F520DB39E0009D2657 /* SharePersonInfo.m in Sources */,
 				43B1BEC520EA1D06008E3E1A /* HXDateVideoEditViewController.m in Sources */,
 				43B1BEA820EA1D06008E3E1A /* HXDatePhotoPreviewBottomView.m in Sources */,
@@ -5196,6 +5207,7 @@
 				04FEC76621DF442E0060C188 /* ShippingAddressController.m in Sources */,
 				36C80A9420D89C6A0036C14A /* WinterTyreServiceTypeCell.m in Sources */,
 				36C80A5420D89C640036C14A /* CommodityModel.m in Sources */,
+				36F6D96B21E722890086041D /* GoodsDetailsView.m in Sources */,
 				43B1BEB520EA1D06008E3E1A /* HXDatePhotoViewController.m in Sources */,
 				434B2DB020B66A66004F1058 /* TireSpecificationViewController.m in Sources */,
 				435E5B2420A19F45005C8BDA /* ForgetPasswordViewController.m in Sources */,

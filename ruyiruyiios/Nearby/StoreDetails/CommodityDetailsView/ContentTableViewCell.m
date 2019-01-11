@@ -49,7 +49,6 @@
     }
     
     self.numeberLab.text = [NSString stringWithFormat:@"%ld",(long)self.number];
-    
 }
 -(void)setModel:(CommodityModel *)model{
     

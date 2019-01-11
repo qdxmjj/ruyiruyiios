@@ -8,6 +8,7 @@
 
 #import "ContentTableViewController.h"
 #import "ContentTableViewCell.h"
+#import "GoodsDetailsView.h"
 #import "CommodityModel.h"
 @interface ContentTableViewController ()
 
@@ -74,9 +75,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-
+    CommodityModel *model = [[CommodityModel alloc] init];
     
-    NSLog(@"点击商品");
+    [model setValuesForKeysWithDictionary:self.dataArr[indexPath.row]];
+    
+    GoodsDetailsView *goodsDetailsView =[[GoodsDetailsView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height) commodityModel:model];
+
+    [goodsDetailsView show:nil];    
 }
 -(UIImageView *)backgroundImgView{
     

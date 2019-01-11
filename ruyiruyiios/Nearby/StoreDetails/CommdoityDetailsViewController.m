@@ -217,11 +217,10 @@ static NSInteger const HeadViewH = 150;
             NSMutableDictionary *dic = [NSMutableDictionary dictionary];
             
             [dic setValuesForKeysWithDictionary:dic1];
-            [dic setObject:@"0" forKey:@"commodityNumber"];
+            [dic setObject:@"0" forKey:@"commodityNumber"];///增加新字段 选择的商品数量
             
             [self.contentVCDataArr addObject:dic];
         }
-        
         
         if (self.contentVCDataArr) {
             
@@ -343,10 +342,7 @@ static NSInteger const HeadViewH = 150;
                     [self AutomaticClick:100100];
                 } 
             }
-            
         }
-
-        
     } failure:^(NSError * _Nullable error) {
         
     }];
