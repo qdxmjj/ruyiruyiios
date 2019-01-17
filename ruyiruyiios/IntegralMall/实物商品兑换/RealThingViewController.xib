@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RealThingViewController">
             <connections>
                 <outlet property="collectionView" destination="tGD-ki-CTN" id="5v8-bO-Ocv"/>
+                <outlet property="integralLab" destination="MhS-eu-DC7" id="fFt-cY-4kV"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,19 +22,17 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_ground" translatesAutoresizingMaskIntoConstraints="NO" id="Fj6-JH-upc">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_ground.png" translatesAutoresizingMaskIntoConstraints="NO" id="Fj6-JH-upc">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="167"/>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="8000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MhS-eu-DC7">
-                    <rect key="frame" x="166" y="101" width="42" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MhS-eu-DC7">
+                    <rect key="frame" x="182" y="83.5" width="11" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="可用积分" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wzd-xm-CoF">
-                    <rect key="frame" x="152" y="130" width="70" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="可用积分" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wzd-xm-CoF">
+                    <rect key="frame" x="152.5" y="109.5" width="70" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -55,8 +54,12 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="wzd-xm-CoF" firstAttribute="top" secondItem="MhS-eu-DC7" secondAttribute="bottom" constant="5" id="3U4-bN-fgt"/>
                 <constraint firstAttribute="top" secondItem="Fj6-JH-upc" secondAttribute="top" id="5i9-am-ykk"/>
+                <constraint firstItem="wzd-xm-CoF" firstAttribute="centerX" secondItem="MhS-eu-DC7" secondAttribute="centerX" id="6hA-Rt-5rS"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="Fj6-JH-upc" secondAttribute="trailing" id="7gt-GI-XcR"/>
+                <constraint firstItem="MhS-eu-DC7" firstAttribute="top" secondItem="Fj6-JH-upc" secondAttribute="centerY" id="Bik-xT-ysY"/>
+                <constraint firstItem="MhS-eu-DC7" firstAttribute="centerX" secondItem="Fj6-JH-upc" secondAttribute="centerX" id="DtP-Eu-PM7"/>
                 <constraint firstItem="tGD-ki-CTN" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="UJ7-8o-rSu"/>
                 <constraint firstItem="tGD-ki-CTN" firstAttribute="top" secondItem="Fj6-JH-upc" secondAttribute="bottom" constant="2" id="dWB-tm-AXy"/>
                 <constraint firstItem="Fj6-JH-upc" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.25" id="dvb-Ra-el3"/>
@@ -69,6 +72,6 @@
         </view>
     </objects>
     <resources>
-        <image name="ic_ground" width="375" height="150"/>
+        <image name="ic_ground.png" width="375" height="150"/>
     </resources>
 </document>

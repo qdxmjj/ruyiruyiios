@@ -11,7 +11,7 @@
 
 @property(nonatomic, strong)UIImageView *imgView;
 @property(nonatomic, strong)UILabel *consigneeLab;
-
+@property(nonatomic, strong)UIView *view;
 
 @end
 @implementation AddressView
@@ -23,7 +23,8 @@
         [self addSubview:self.consigneeLab];
         [self addSubview:self.userNameLab];
         [self addSubview:self.phoneLab];
-        [self addSubview:self.imgView];
+        [self addSubview:self.view];
+        [self.view addSubview:self.imgView];
         [self addSubview:self.addressLab];
         [self addSubview:self.rightBtn];
     }
@@ -52,12 +53,20 @@
         make.centerY.mas_equalTo(self.consigneeLab.mas_centerY);
     }];
     
-    [self.imgView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.view mas_makeConstraints:^(MASConstraintMaker *make) {
+        
         //父视图高度固定110
         make.left.mas_equalTo(self.mas_left).inset(16);
         make.width.mas_equalTo(50);
         make.top.mas_equalTo(self.consigneeLab.mas_bottom).inset(10);
         make.bottom.mas_equalTo(self.mas_bottom).inset(10);
+    }];
+    
+    [self.imgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        //父视图高度固定110
+        make.centerX.centerY.mas_equalTo(self.view);
+        make.width.mas_equalTo(20);
+        make.height.mas_equalTo(25);
     }];
     
     [self.rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -69,18 +78,28 @@
     
     [self.addressLab mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.mas_equalTo(self.imgView.mas_right).inset(10);
+        make.left.mas_equalTo(self.view.mas_right).inset(10);
         make.right.mas_equalTo(self.rightBtn.mas_left).inset(5);
-        make.top.mas_equalTo(self.imgView.mas_top);
+        make.top.mas_equalTo(self.view.mas_top);
         make.bottom.mas_equalTo(self.mas_bottom).inset(10);
     }];
+}
+
+- (UIView *)view{
+    if (!_view) {
+        
+        _view = [[UIView alloc] init];
+        _view.backgroundColor = [UIColor whiteColor];
+    }
+    return _view;
 }
 - (UIImageView *)imgView{
     
     if (!_imgView) {
         
         _imgView = [[UIImageView alloc] init];
-        _imgView.backgroundColor = [UIColor lightGrayColor];
+        _imgView.image = [UIImage imageNamed:@"ic_weizhiAddress"];
+        _imgView.contentMode = UIViewContentModeScaleToFill;
     }
     return _imgView;
 }

@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChangeCouponViewController">
             <connections>
+                <outlet property="integralLab" destination="SMV-ZJ-C5j" id="SJI-bV-sAM"/>
                 <outlet property="tableView" destination="Gx0-Rg-v2R" id="COL-ez-1fL"/>
                 <outlet property="view" destination="iN0-l3-epB" id="ayp-y8-gIk"/>
             </connections>
@@ -21,38 +22,43 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_ground" translatesAutoresizingMaskIntoConstraints="NO" id="5UG-4J-kqu">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_ground.png" translatesAutoresizingMaskIntoConstraints="NO" id="5UG-4J-kqu">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="167"/>
                 </imageView>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Gx0-Rg-v2R">
-                    <rect key="frame" x="0.0" y="175" width="375" height="492"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SMV-ZJ-C5j">
+                    <rect key="frame" x="166.5" y="83.5" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="可用积分" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="voF-bh-Fen">
+                    <rect key="frame" x="152.5" y="109.5" width="70" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Gx0-Rg-v2R">
+                    <rect key="frame" x="0.0" y="167" width="375" height="500"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="rkC-EJ-rYk"/>
                         <outlet property="delegate" destination="-1" id="b3E-sh-ead"/>
                     </connections>
                 </tableView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="可用积分" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="voF-bh-Fen">
-                    <rect key="frame" x="152" y="130" width="70" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="8000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SMV-ZJ-C5j">
-                    <rect key="frame" x="166" y="101" width="42" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="voF-bh-Fen" firstAttribute="centerX" secondItem="5UG-4J-kqu" secondAttribute="centerX" id="0cM-7E-rX1"/>
+                <constraint firstItem="SMV-ZJ-C5j" firstAttribute="top" secondItem="5UG-4J-kqu" secondAttribute="centerY" id="3Ka-Jf-1Wj"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="5UG-4J-kqu" secondAttribute="trailing" id="4eh-4y-Her"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Gx0-Rg-v2R" secondAttribute="trailing" id="6As-qj-1DY"/>
+                <constraint firstItem="Gx0-Rg-v2R" firstAttribute="top" secondItem="5UG-4J-kqu" secondAttribute="bottom" id="BOW-h5-uOx"/>
                 <constraint firstAttribute="top" secondItem="5UG-4J-kqu" secondAttribute="top" id="EUx-53-wY0"/>
+                <constraint firstItem="SMV-ZJ-C5j" firstAttribute="centerX" secondItem="5UG-4J-kqu" secondAttribute="centerX" id="H4F-Po-y2E"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Gx0-Rg-v2R" secondAttribute="bottom" id="ItS-4N-bDe"/>
                 <constraint firstItem="5UG-4J-kqu" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="f91-ul-k3e"/>
+                <constraint firstItem="voF-bh-Fen" firstAttribute="top" secondItem="SMV-ZJ-C5j" secondAttribute="bottom" constant="5" id="fXz-Q9-haZ"/>
+                <constraint firstItem="Gx0-Rg-v2R" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="ooS-gx-XmC"/>
                 <constraint firstItem="5UG-4J-kqu" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.25" id="r6F-5G-LlK"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
@@ -60,6 +66,6 @@
         </view>
     </objects>
     <resources>
-        <image name="ic_ground" width="375" height="150"/>
+        <image name="ic_ground.png" width="375" height="150"/>
     </resources>
 </document>

@@ -54,12 +54,12 @@ typedef void (^destinationBlock)(NSURL * _Nonnull documentUrl);
 /**
  PUT请求
  */
-+ (void)putRequest:(nonnull NSString *)url params:(NSDictionary *_Nullable )params success:(_Nullable  requestSuccessBlock)successHandler failure:(_Nullable  requestFailureBlock)failureHandler;
++ (void)putRequestWithIP:(nonnull NSString *)IP path:(NSString *)path params:(NSDictionary *_Nullable )params success:(_Nullable  requestSuccessBlock)successHandler failure:(_Nullable  requestFailureBlock)failureHandler;
 
 /**
  DELETE请求
  */
-+ (void)deleteRequest:(nonnull NSString *)url params:(NSDictionary *_Nullable )params success:(_Nullable requestSuccessBlock)successHandler failure:(_Nullable requestFailureBlock)failureHandler;
++ (void)deleteRequestWithIP:(nonnull NSString *)IP path:(NSString *)path params:(NSDictionary *_Nullable )params success:(_Nullable requestSuccessBlock)successHandler failure:(_Nullable requestFailureBlock)failureHandler;
 
 /**
  下载文件，监听下载进度

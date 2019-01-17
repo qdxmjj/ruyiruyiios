@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "IntegralGoodsMode.h"
+#import <UIImageView+WebCache.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GoodsCell : UITableViewCell
 
+@property (nonatomic, strong) IntegralGoodsMode *model;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -45,22 +45,21 @@
         
         make.bottom.mas_equalTo(self.view.mas_centerY);
         make.centerX.mas_equalTo(self.view.mas_centerX);
-        make.height.mas_equalTo(self.view.mas_height).multipliedBy(0.4);
-        make.width.mas_equalTo(self.view.mas_width);
+        make.width.height.mas_equalTo(CGSizeMake(150, 150));
     }];
     
     [self.gotoAddBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.mas_equalTo(self.view.mas_centerY);
+        make.top.mas_equalTo(self.imgView.mas_bottom).inset(5);
         make.centerX.mas_equalTo(self.view.mas_centerX);
         make.width.height.mas_equalTo(CGSizeMake(100, 40));
     }];
-    
+
 }
 
 - (void)getShippingAddressInfo{
     
-    [JJRequest getRequest:[NSString stringWithFormat:@"%@/score/address",SERVERPREFIX] params:@{@"userId": [UserConfig user_id]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+    [JJRequest getRequest:[NSString stringWithFormat:@"%@/score/address",INTEGRAL_IP] params:@{@"userId": [UserConfig user_id]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         
         if ([code integerValue] == 1) {
             
@@ -118,13 +117,16 @@
     NSIndexPath *indexPath = [weakSelf.tableView indexPathForCell:cell];
     NSDictionary *dic = weakSelf.addressList[indexPath.row];
     
-    [JJRequest deleteRequest:@"/score/address" params:@{@"id":dic[@"id"]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+    [JJRequest deleteRequestWithIP:INTEGRAL_IP path:@"/score/address" params:@{@"id":dic[@"id"]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         
         if ([code integerValue] == 1) {
             
+            self.imgView.hidden = YES;
+            self.gotoAddBtn.hidden = YES;
             [weakSelf getShippingAddressInfo];
         }
     } failure:^(NSError * _Nullable error) {
+        
     }];
 }
 
@@ -185,7 +187,6 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
     if ([self.delegate respondsToSelector:@selector(ShippingAddressController:selectAddress:)]) {
         
         [self.delegate ShippingAddressController:self selectAddress:self.addressList[indexPath.row]];
@@ -198,7 +199,8 @@
     if (!_imgView) {
         
         _imgView = [[UIImageView alloc] init];
-        _imgView.backgroundColor = [UIColor lightGrayColor];
+        _imgView.image = [UIImage imageNamed:@"ic_wudizhi"];
+        _imgView.contentMode = UIViewContentModeCenter;
     }
     return _imgView;
 }

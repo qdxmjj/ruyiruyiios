@@ -7,10 +7,12 @@
 //
 
 #import "RootViewController.h"
-
+#import "IntegralGoodsMode.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GoodsDetailsViewController : RootViewController
+
+- (instancetype)initWithIntegralGoodsMode:(IntegralGoodsMode *)model;
 
 @end
 

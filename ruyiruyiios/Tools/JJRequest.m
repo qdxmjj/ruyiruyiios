@@ -42,7 +42,7 @@
      */
     //    manager.requestSerializer=[AFJSONRequestSerializer serializer];
     //    manager.requestSerializer.HTTPMethodsEncodingParametersInURI=[NSSet setWithObjects:@"GET", @"HEAD", @"DELETE", nil];
-//    manager.responseSerializer.acceptableContentTypes= [NSSet setWithObject:@"text/plain",@"text/html"];
+//    manager.responseSerializer.acceptableContentTypes= [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/xml", @"text/plain", nil];
     
     
     //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -266,8 +266,8 @@
           }];
 }
 
-+ (void)putRequest:(NSString *)url params:(NSDictionary *)params success:(requestSuccessBlock)successHandler failure:(requestFailureBlock)failureHandler {
-    
++ (void)putRequestWithIP:(nonnull NSString *)IP path:(NSString *)path params:(NSDictionary *_Nullable )params success:(_Nullable  requestSuccessBlock)successHandler failure:(_Nullable  requestFailureBlock)failureHandler{
+
     if ([self checkNetworkStatus] == NO) {
         successHandler(nil,nil,nil);
         failureHandler(nil);
@@ -275,7 +275,7 @@
     }
     
     AFHTTPSessionManager *manager = [self getRequestManager];
-    [manager PUT:[NSString stringWithFormat:@"%@%@",SERVERPREFIX,url] parameters:params
+    [manager PUT:[NSString stringWithFormat:@"%@/%@",IP,path] parameters:params
          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
              
              NSString *code = [responseObject objectForKey:@"status"];
@@ -289,8 +289,8 @@
          }];
 }
 
-+ (void)deleteRequest:(NSString *)url params:(NSDictionary *)params success:(requestSuccessBlock)successHandler failure:(requestFailureBlock)failureHandler {
-    
++ (void)deleteRequestWithIP:(nonnull NSString *)IP path:(NSString *)path params:(NSDictionary *_Nullable )params success:(_Nullable requestSuccessBlock)successHandler failure:(_Nullable requestFailureBlock)failureHandler{
+
     if ([self checkNetworkStatus] == NO) {
         successHandler(nil,nil,nil);
         failureHandler(nil);
@@ -298,7 +298,7 @@
     }
     
     AFHTTPSessionManager *manager = [self getRequestManager];
-    [manager DELETE:[NSString stringWithFormat:@"%@%@",SERVERPREFIX,url] parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [manager DELETE:[NSString stringWithFormat:@"%@/%@",IP,path] parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         NSString *code = [responseObject objectForKey:@"status"];
         NSString *message = [responseObject objectForKey:@"msg"];

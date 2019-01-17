@@ -11,6 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface integralActivityCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *contentLab;
+@property (weak, nonatomic) IBOutlet UILabel *titleLab;
+@property (weak, nonatomic) IBOutlet UIImageView *imgView;
 
 @end
 

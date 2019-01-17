@@ -14,5 +14,9 @@
     if ([key isEqualToString:@"description"]) {
         self.goods_description = value;
     }
+    
+    if ([key isEqualToString:@"id"]) {
+        self.skuId = value;
+    }
 }
 @end

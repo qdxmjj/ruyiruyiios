@@ -10,25 +10,26 @@
 #import "RealThingViewController.h"
 #import "ChangeCouponViewController.h"
 #import "IntergralDetailsViewController.h"
-
+#import "IntegralOrderViewController.h"
 
 #import <Masonry.h>
 #import "IntegralNavigationView.h"
 #import "GuideView.h"
 #import "integralActivityCell.h"
 
-static CGFloat const cellHeight = 110;
+#import "MBProgressHUD+YYM_category.h"
 
 @interface IntegralViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,GuideViewDelegate,IntegralNavigationViewDelegate>
 {
-    NSInteger cellCount;
+    NSArray *imgArr;
 }
+@property (nonatomic, strong) UIScrollView *mainView;
+@property (nonatomic, strong) IntegralNavigationView *navView;
+@property (nonatomic, strong) GuideView *guideView;
 
-@property(nonatomic,strong)UIScrollView *mainView;
-@property(nonatomic,strong)IntegralNavigationView *navView;
-@property(nonatomic,strong)GuideView *guideView;
+@property (nonatomic, strong) UITableView *tableView;
 
-@property(nonatomic,strong)UITableView *tableView;
+@property (nonatomic, strong) NSArray *contentArr;
 @end
 
 @implementation IntegralViewController
@@ -64,15 +65,15 @@ static CGFloat const cellHeight = 110;
     [super viewDidLoad];
     
     self.title = @"积分兑换";
-    
     if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)])
     {
         self.edgesForExtendedLayout = UIRectEdgeAll;
     }
-    
-    cellCount = 10;
-
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"兑换记录" style:UIBarButtonItemStyleDone target:self action:@selector(pushIntegralOrderViewController)];
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
+    imgArr = @[@"ic_qiandao",@"ic_xiaofei",@"ic_yaoqing"];
     
     [self.view addSubview:self.mainView];
     [self.mainView addSubview:self.navView];
@@ -109,39 +110,65 @@ static CGFloat const cellHeight = 110;
         
         make.top.mas_equalTo(self.guideView.mas_bottom);
         make.left.right.mas_equalTo(self.view);
-        make.height.mas_equalTo(40+cellHeight*self->cellCount+0.01);
+        make.height.mas_equalTo(40+50*3);
     }];
     
+    [self getIntegralInfoWithSignIn];
+}
 
-    [JJRequest getRequest:[NSString stringWithFormat:@"%@/score/info",SERVERPREFIX] params:@{@"userId":[NSString stringWithFormat:@"%@",[UserConfig user_id]]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
-       
+- (void)getIntegralInfoWithSignIn{
+    
+    [MBProgressHUD showWaitMessage:@"正在获取积分..." showView:self.view];
+    [JJRequest getRequest:[NSString stringWithFormat:@"%@/score/info",INTEGRAL_IP] params:@{@"userId":[NSString stringWithFormat:@"%@",[UserConfig user_id]]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+        [MBProgressHUD hideWaitViewAnimated:self.view];
         if ([code integerValue] == 1) {
             
-            if ([data[@"signState"] integerValue] == 0) {
-                
-                NSLog(@"未签到");
-                
-                [JJRequest postRequest:@"score/get/sign" params:@{@"userId":[NSString stringWithFormat:@"%@",[UserConfig user_id]]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
-                    
-                    NSLog(@"%@",data);
-                } failure:^(NSError * _Nullable error) {
-                    
-                }];
-            }
+//            if ([data[@"signState"] integerValue] == 0) {
+//                NSLog(@"未签到");
+//                [JJRequest postRequest:@"score/get/sign" params:@{@"userId":[NSString stringWithFormat:@"%@",[UserConfig user_id]]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+//
+//                    NSLog(@"%@",data);
+//                } failure:^(NSError * _Nullable error) {
+//
+//                }];
+//            }
             
             self.navView.numberLab.text = data[@"totalScore"];
-            NSLog(@"积分：%@",data[@"totalScore"]);
-            NSLog(@"总签到次数：%@",data[@"currentMonthSignAmount"]);
+            
+            [UserConfig userDefaultsSetObject:data[@"totalScore"] key:@"kIntegral"];
+            
+            self.contentArr = data[@"ruleList"];
+            
+            CGFloat tableviewHeight = 0.0;
+            
+            for (NSString *content in self.contentArr) {
+                
+                CGFloat height = [PublicClass getHeightWithText:content width:MAINSCREEN.width-54 font:15.f];
+                tableviewHeight += height;
+            }
+            [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
+                
+                make.height.mas_equalTo(tableviewHeight+35*3+40);
+            }];
+            [self.tableView reloadData];
+        }else{
+            
+            [MBProgressHUD showTextMessage:@"获取积分失败！"];
+            [self.navigationController popViewControllerAnimated:YES];
         }
-        
-       
-       
     } failure:^(NSError * _Nullable error) {
-        
-    }];
-    
-    
+        [MBProgressHUD hideWaitViewAnimated:self.view];
 
+        [MBProgressHUD showTextMessage:@"获取积分失败！"];
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+}
+- (void)pushIntegralOrderViewController{
+    
+    IntegralOrderViewController *integralOrderVC = [[IntegralOrderViewController alloc] init];
+    
+    [self.navigationController pushViewController:integralOrderVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
 }
 
 - (void)integralNavigationView:(IntegralNavigationView *)view didSelectMyIntegral:(NSString *)userId{
@@ -181,7 +208,7 @@ static CGFloat const cellHeight = 110;
             break;
             case 1:{
              
-                RealThingViewController *realThingVc = [[RealThingViewController alloc] init];
+                RealThingViewController *realThingVc = [[RealThingViewController alloc] initWithIntegral:self.navView.numberLab.text];
                 
                 [self.navigationController pushViewController:realThingVc animated:YES];
                 self.hidesBottomBarWhenPushed = YES;
@@ -189,8 +216,11 @@ static CGFloat const cellHeight = 110;
             break;
             case 2:{
                 
-                ChangeCouponViewController *changeCouponVC = [[ChangeCouponViewController alloc] init];
-                
+                ChangeCouponViewController *changeCouponVC = [[ChangeCouponViewController alloc] initWithIntegral:self.navView.numberLab.text];
+                changeCouponVC.block = ^{
+                  
+                    [self getIntegralInfoWithSignIn];
+                };
                 [self.navigationController pushViewController:changeCouponVC animated:YES];
                 self.hidesBottomBarWhenPushed = YES;
             }
@@ -201,6 +231,64 @@ static CGFloat const cellHeight = 110;
     }
 }
 
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    
+    integralActivityCell *cell = [tableView dequeueReusableCellWithIdentifier:@"integralActivityCellID" forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    if (self.contentArr.count > indexPath.row) {
+        cell.contentLab.text = self.contentArr[indexPath.row];
+        cell.titleLab.text = @[@"每日登陆",@"消费送积分",@"邀请送积分"][indexPath.row];
+        cell.imgView.image = [UIImage imageNamed:imgArr[indexPath.row]];
+    }
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+}
+
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return 3;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    //文字高度默认20
+    
+    if (self.contentArr.count>0) {
+        CGFloat height = [PublicClass getHeightWithText:self.contentArr[indexPath.row] width:MAINSCREEN.width-54 font:15.f];
+        return 35 + height;
+    }
+    return 55;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
+    return 40;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    
+    
+    return 0.01;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 40)];
+    
+    lab.text = @"积分轻松赚";
+    lab.textColor = [UIColor whiteColor];
+    lab.font = [UIFont systemFontOfSize:15.f];
+    
+    return lab;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    
+    return [UIView new];
+}
 - (UIScrollView *)mainView{
     
     if (_mainView == nil) {
@@ -251,65 +339,12 @@ static CGFloat const cellHeight = 110;
     return _tableView;
 }
 
-- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    
-    integralActivityCell *cell = [tableView dequeueReusableCellWithIdentifier:@"integralActivityCellID" forIndexPath:indexPath];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-}
-
-- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    return cellCount;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    return cellHeight;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    
-    return 40;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    
-    
-    return 0.01;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    
-    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 40)];
-    
-    lab.text = @"积分轻松赚";
-    lab.textColor = [UIColor whiteColor];
-    lab.font = [UIFont systemFontOfSize:15.f];
-    
-    return lab;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    
-    return [UIView new];
-}
-
-- (void)moreEvent:(UIButton *)sender{
-    
-    cellCount +=1;
-    
-    [self.tableView reloadData];
-    
-    [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
+- (NSArray *)contentArr{
+    if (!_contentArr) {
         
-        make.height.mas_equalTo(80+80*self->cellCount);
-    }];
+        _contentArr = [NSArray array];
+    }
+    return _contentArr;
 }
-
 
 @end

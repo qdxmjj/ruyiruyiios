@@ -7,10 +7,13 @@
 //
 
 #import "RootViewController.h"
+#import "GoodsCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderConfirmViewController : RootViewController
+
+- (instancetype)initWithIntegralGoodsMode:(IntegralGoodsMode *)model;
 
 @end
 

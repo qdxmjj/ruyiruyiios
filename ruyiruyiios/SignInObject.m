@@ -17,7 +17,7 @@
         return;
     }
 
-    [JJRequest getRequest:[NSString stringWithFormat:@"%@/score/info",SERVERPREFIX] params:@{@"userId":[NSString stringWithFormat:@"%@",[UserConfig user_id]]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+    [JJRequest getRequest:[NSString stringWithFormat:@"%@/score/info",INTEGRAL_IP] params:@{@"userId":[NSString stringWithFormat:@"%@",[UserConfig user_id]]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         
         if ([code integerValue] == 1) {
             
@@ -25,29 +25,30 @@
                 
                 NSLog(@"未签到");
                 
-                [JJRequest postRequest:@"score/sign" params:@{@"userId":[NSString stringWithFormat:@"%@",[UserConfig user_id]]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+                [JJRequest interchangeablePostRequestWithIP:INTEGRAL_IP path:@"score/sign" params:@{@"userId":[NSString stringWithFormat:@"%@",[UserConfig user_id]]} success:^(id  _Nullable data) {
                     
-                    if ([code integerValue] != 1) {
+                    if ([data[@"status"] integerValue] != 1) {
                         
                         return ;
                     }
                     
                     NSLog(@"%@",data);
+                    NSDictionary *integralDic = data[@"data"];
                     
-                    NSString *signInCount = data[@"continuousMonth"];
+                    NSString *signInCount = integralDic[@"continuousMonth"];
                     
-                    NSArray *couponArr = data[@"couponList"];
+                    NSArray *couponArr = integralDic[@"couponList"];
                     
                     NSString *couponName;
-
+                    
                     if (couponArr.count>0) {
                         
-                        couponName = data[@"couponList"][0];
+                        couponName = integralDic[@"couponList"][0];
                     }else{
                         couponName = @"";
                     }
                     
-                    NSString *addedScore = data[@"addedScore"];
+                    NSString *addedScore = integralDic[@"addedScore"];
                     
                     NSString *msg = [NSString stringWithFormat:@"已连续签到:%@次，本次签到获取:%@积分 %@",signInCount,addedScore,couponName];
                     
@@ -56,8 +57,8 @@
                     
                 }];
             }
-//            NSLog(@"积分：%@",data[@"totalScore"]);
-//            NSLog(@"总签到次数：%@",data[@"currentMonthSignAmount"]);
+////            NSLog(@"积分：%@",data[@"totalScore"]);
+////            NSLog(@"总签到次数：%@",data[@"currentMonthSignAmount"]);
         }
     } failure:^(NSError * _Nullable error) {
         

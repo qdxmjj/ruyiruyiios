@@ -19,7 +19,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zaishou" translatesAutoresizingMaskIntoConstraints="NO" id="rMj-RH-Q2X">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rMj-RH-Q2X">
                         <rect key="frame" x="10" y="0.0" width="300" height="59.5"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="精致洗车券" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AAq-L0-Uqc">
@@ -46,6 +46,9 @@
                         <state key="normal" title="兑换">
                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </state>
+                        <connections>
+                            <action selector="exchangeGoodsEvent:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="1YL-fl-M59"/>
+                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uei-Dc-Izy">
                         <rect key="frame" x="26" y="19.5" width="38" height="21"/>
@@ -84,7 +87,4 @@
             <point key="canvasLocation" x="44.799999999999997" y="58.47076461769116"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="zaishou" width="355" height="90"/>
-    </resources>
 </document>

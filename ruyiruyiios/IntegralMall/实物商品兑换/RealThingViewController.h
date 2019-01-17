@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RealThingViewController : RootViewController
 
+- (instancetype)initWithIntegral:(NSString *)integral;
+
 @end
 
 NS_ASSUME_NONNULL_END

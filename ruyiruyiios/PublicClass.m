@@ -299,5 +299,19 @@
     NSString *dateString       = [formatter stringFromDate:[NSDate date]];
     return dateString;
 }
+//根据高度度求宽度  text 计算的内容  Height 计算的高度 font字体大小
++(CGFloat)getHeightWithText:(NSString *)text width:(CGFloat)width font:(CGFloat)font{
+    
+    NSDictionary *attrs = @{NSFontAttributeName : [UIFont systemFontOfSize:font]};
+    CGSize maxSize = CGSizeMake(width, MAXFLOAT);
+    
+    NSStringDrawingOptions options = NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading;
+    
+    // 计算文字占据的高度
+    CGSize size = [text boundingRectWithSize:maxSize options:options attributes:attrs context:nil].size;
+    
+//    当你是把获得的高度来布局控件的View的高度的时候.size转化为ceilf(size.height)。
+    return  ceilf(size.height);
+}
 
 @end

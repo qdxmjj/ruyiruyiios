@@ -82,7 +82,7 @@
     
     NSString  *userID = [NSString stringWithFormat:@"%@",[UserConfig user_id]];
     
-    [JJRequest getRequest:[NSString stringWithFormat:@"%@/score/record",SERVERPREFIX] params:@{@"userId":userID,@"type":type,@"page":number,@"rows":@"5"} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+    [JJRequest getRequest:[NSString stringWithFormat:@"%@/score/record",INTEGRAL_IP] params:@{@"userId":userID,@"type":type,@"page":number,@"rows":@"5"} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         
         [self.rootTableView.mj_footer endRefreshing];
         

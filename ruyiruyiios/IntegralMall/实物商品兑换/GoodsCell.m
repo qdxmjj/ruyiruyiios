@@ -7,12 +7,28 @@
 //
 
 #import "GoodsCell.h"
+@interface GoodsCell ()
 
+@property (weak, nonatomic) IBOutlet UILabel *goodsNameLab;
+@property (weak, nonatomic) IBOutlet UIImageView *goodsImgView;
+@property (weak, nonatomic) IBOutlet UILabel *goodsIntegralLab;
+
+
+@end
 @implementation GoodsCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+}
+
+- (void)setModel:(IntegralGoodsMode *)model{
+    
+    NSURL *imgUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@", model.imgUrl]];
+
+    [self.goodsImgView sd_setImageWithURL:imgUrl];
+    self.goodsNameLab.text = model.name;
+    self.goodsIntegralLab.text = [NSString stringWithFormat:@"%@",model.score];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

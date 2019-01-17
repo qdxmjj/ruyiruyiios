@@ -175,4 +175,9 @@
     
     return [self userDefaultsGetObjectForKey:@"selectCityName"];
 }
+
++ (NSString *)integral{
+    
+    return [self userDefaultsGetObjectForKey:@"kIntegral"];
+}
 @end

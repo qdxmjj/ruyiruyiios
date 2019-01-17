@@ -7,8 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "IntegralGoodsMode.h"
+@class ChangeCouponCell;
 NS_ASSUME_NONNULL_BEGIN
+@protocol ChangeCouponCellDelegate <NSObject>
+
+- (void)ClickExchangeButtonWithChangeCouponCell:(ChangeCouponCell *)cell;
+
+@end
 
 @interface ChangeCouponCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *backGroundImgView;
@@ -17,7 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *priceLab;
 @property (weak, nonatomic) IBOutlet UILabel *stockLab;
 @property (weak, nonatomic) IBOutlet UILabel *valueLab;
+@property (nonatomic, strong) IntegralGoodsMode *goodsModel;
 
+@property (weak, nonatomic) id <ChangeCouponCellDelegate> delegate;
 @end
 
 NS_ASSUME_NONNULL_END

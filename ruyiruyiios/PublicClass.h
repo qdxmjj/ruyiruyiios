@@ -29,6 +29,5 @@
 +(NSString *)getTimestampFromTime:(NSString *)timeStampString formatter:(NSString *)format;//时间戳转时间
 +(NSString *)getDateWithformatter:(NSString *)format;//基本时间日期
 
-
-
++(CGFloat)getHeightWithText:(NSString *)text width:(CGFloat)width font:(CGFloat)font;
 @end

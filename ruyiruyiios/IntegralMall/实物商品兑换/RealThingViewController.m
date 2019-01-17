@@ -12,11 +12,22 @@
 #import "GoodsDetailsViewController.h"
 @interface RealThingViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UILabel *integralLab;
 
 @property (strong, nonatomic) NSMutableArray *goodsArr;
+@property (copy, nonatomic) NSString *integral;
 @end
 
 @implementation RealThingViewController
+
+- (instancetype)initWithIntegral:(NSString *)integral{
+    self = [super init];
+    if (self) {
+        
+        self.integral = integral;
+    }
+    return self;
+}
 
 - (void)viewWillAppear:(BOOL)animated{
     
@@ -47,7 +58,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.title = @"积分兑换";
 
     if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)])
@@ -55,9 +65,11 @@
         self.edgesForExtendedLayout = UIRectEdgeAll;
     }
     
+    self.integralLab.text = self.integral;
+    
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([RealThingCell class]) bundle:nil] forCellWithReuseIdentifier:@"RealThingCellID"];
     
-    [JJRequest getRequest:[NSString stringWithFormat:@"%@/score/sku",SERVERPREFIX] params:@{} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+    [JJRequest getRequest:[NSString stringWithFormat:@"%@/score/sku",INTEGRAL_IP] params:@{@"skuType":@"0"} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         if ([code integerValue] == 1) {
             
             for (NSDictionary *dic in data) {
@@ -86,8 +98,9 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-    GoodsDetailsViewController *vc = [[GoodsDetailsViewController alloc] init];
+    IntegralGoodsMode *model = self.goodsArr[indexPath.item];
+
+    GoodsDetailsViewController *vc = [[GoodsDetailsViewController alloc] initWithIntegralGoodsMode:model];
     
     [self.navigationController pushViewController:vc animated:YES];
     self.hidesBottomBarWhenPushed = YES;

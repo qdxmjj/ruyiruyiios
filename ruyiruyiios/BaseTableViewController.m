@@ -48,8 +48,6 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-
-
 -(UIBarButtonItem *)BarButtonItemWithImage:(UIImage *)image target:(id)target action:(SEL)action
 {
     UIButton*bt=[UIButton buttonWithType:UIButtonTypeCustom];

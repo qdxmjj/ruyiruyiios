@@ -62,7 +62,7 @@
     if (!_imgView) {
         
         _imgView = [[UIImageView alloc] init];
-        _imgView.backgroundColor = [UIColor lightGrayColor];
+        _imgView.image = [UIImage imageNamed:@"ic_tianjiaAddress"];
     }
     return _imgView;
 }

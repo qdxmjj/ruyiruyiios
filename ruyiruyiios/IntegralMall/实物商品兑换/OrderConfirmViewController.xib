@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OrderConfirmViewController">
             <connections>
                 <outlet property="addressView" destination="SFv-gT-HfV" id="qgt-HT-Xe2"/>
+                <outlet property="availableIntegralLab" destination="iKN-aJ-PUH" id="8Qd-eF-pTN"/>
                 <outlet property="tableView" destination="0jk-vX-r6s" id="d88-Rq-Bg3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -30,6 +31,9 @@
                             <color key="backgroundColor" red="1" green="0.57810515169999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                             <state key="normal" title="确认购买"/>
+                            <connections>
+                                <action selector="confirmBuyEvent:" destination="-1" eventType="touchUpInside" id="qWe-Sn-HSk"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="积分" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YFf-yM-AjG">
                             <rect key="frame" x="196.5" y="0.0" width="53.5" height="40"/>
@@ -53,7 +57,6 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.96132296323776245" green="0.80461680889129639" blue="0.031126156449317932" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="1za-hN-vBp" firstAttribute="centerY" secondItem="c0G-br-bSB" secondAttribute="centerY" id="3jo-cV-rEr"/>
                         <constraint firstItem="iKN-aJ-PUH" firstAttribute="height" secondItem="c0G-br-bSB" secondAttribute="height" id="FS4-L9-diF"/>

@@ -18,5 +18,6 @@
 @property (nonatomic, copy) NSString *score;
 @property (nonatomic, copy) NSString *soldNo;
 @property (nonatomic, copy) NSString *time;
+@property (nonatomic, copy) NSString *skuId;
 
 @end

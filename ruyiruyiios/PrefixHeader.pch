@@ -35,19 +35,19 @@
 //#define SERVERPREFIX  @"http://192.168.0.122:8060"  //龚林 测试地址
 //#define GL_RuYiRuYiIP  @"http://192.168.0.137:8030"  //龚林 测试发货ID
 
-#define SERVERPREFIX  @"http://192.168.0.60:10008"  //于鹏鹉测试地址
-//#define SERVERPREFIX @"http://192.168.0.190:8060"//测试地址
-//#define SERVERPREFIX @"http://192.168.0.167:8082/xmjj-webservice"//做项目的地址
-//#define SERVERPREFIX @"http://ruyiruyi.s1.natapp.cc/xmjj-webservice/"//发布测试版本的地址
-//#define TEXTSERVERPREFIX @"http://192.168.0.105:8060"
-//#define LINSERVERPREFIX @"http://192.168.0.190:8060"
+#define SERVERPREFIX  @"http://192.168.0.60:8060/"  //主测试地址
+#define INTEGRAL_IP @"http://192.168.0.60:10008"  ///积分商城测试IP
+
+
 
 //release
-//#define SERVERPREFIX @"http://180.76.243.205:10002/xmjj-webservice/" //正式地址唯一地址！
+//#define SERVERPREFIX @"http://180.76.243.205:10002/xmjj-webservice/" ///主地址！
 
-#define SHAREIP @"http://activity.qdxmjj.com" //推广有礼专用IP
+//#define INTEGRAL_IP @"http://192.168.0.60:10008"  ///积分商城IP
 
-#define GL_RuYiRuYiIP  @"http://180.76.243.205:10004"  //我的钱包页面IP
+#define SHAREIP @"http://activity.qdxmjj.com" ///推广有礼专用IP
+
+#define GL_RuYiRuYiIP  @"http://180.76.243.205:10004"  ///我的钱包页面IP
 
 #define WEIXINID @"wx407c59de8b10c601"
 

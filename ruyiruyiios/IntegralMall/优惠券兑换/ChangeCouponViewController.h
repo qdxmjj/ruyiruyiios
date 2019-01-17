@@ -9,9 +9,12 @@
 #import "RootViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
+typedef void (^getIntegralInfoBlock)(void);
 @interface ChangeCouponViewController : RootViewController
 
+- (instancetype)initWithIntegral:(NSString *)integral;
+
+@property (nonatomic, copy) getIntegralInfoBlock block;
 @end
 
 NS_ASSUME_NONNULL_END

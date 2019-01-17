@@ -129,8 +129,7 @@
         NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:params];
         
         [dic setObject:[NSString stringWithFormat:@"%@",self.defaultInfo.address_id] forKey:@"id"];
-        
-        [JJRequest putRequest:@"/score/address" params:dic success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+        [JJRequest putRequestWithIP:INTEGRAL_IP path:@"/score/address" params:dic success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
             
             if ([code integerValue] == 1) {
                 
@@ -141,23 +140,25 @@
                 
                 [MBProgressHUD showTextMessage:message];
             }
+            
         } failure:^(NSError * _Nullable error) {
             
         }];
     }else{
         
-        [JJRequest postRequest:@"/score/address" params:params success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+        [JJRequest interchangeablePostRequestWithIP:INTEGRAL_IP path:@"/score/address" params:params success:^(id  _Nullable data) {
             
-            if ([code integerValue] == 1) {
+            if ([data[@"status"] integerValue] == 1) {
                 
                 [MBProgressHUD showTextMessage:@"添加成功！"];
                 self.refreshBlock();
                 [self.navigationController popViewControllerAnimated:YES];
             }else{
                 
-                [MBProgressHUD showTextMessage:message];
+                [MBProgressHUD showTextMessage:data[@"msg"]];
             }
-            NSLog(@"%@",data);
+//            NSLog(@"%@",data);
+            
         } failure:^(NSError * _Nullable error) {
             
         }];
