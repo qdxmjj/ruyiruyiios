@@ -19,6 +19,7 @@
                 <outlet property="goodsNameLab" destination="zs4-IY-4yh" id="fC0-en-mVd"/>
                 <outlet property="goodsPriceLab" destination="Zfx-q1-IvG" id="Da3-6f-Yoh"/>
                 <outlet property="goodsStockLab" destination="q9C-7m-mtC" id="m7e-8V-UMF"/>
+                <outlet property="numberPeopleLab" destination="t7R-PL-fWX" id="nwK-V7-o10"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Vtf-mC-ALo"/>
             </connections>
         </placeholder>

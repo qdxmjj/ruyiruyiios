@@ -72,7 +72,9 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"兑换记录" style:UIBarButtonItemStyleDone target:self action:@selector(pushIntegralOrderViewController)];
+    
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
+    
     imgArr = @[@"ic_qiandao",@"ic_xiaofei",@"ic_yaoqing"];
     
     [self.view addSubview:self.mainView];
@@ -114,6 +116,13 @@
     }];
     
     [self getIntegralInfoWithSignIn];
+    
+    __weak __typeof(self)weakSelf = self;
+    
+    self.block = ^{
+      
+        [weakSelf getIntegralInfoWithSignIn];
+    };
 }
 
 - (void)getIntegralInfoWithSignIn{
@@ -122,16 +131,6 @@
     [JJRequest getRequest:[NSString stringWithFormat:@"%@/score/info",INTEGRAL_IP] params:@{@"userId":[NSString stringWithFormat:@"%@",[UserConfig user_id]]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         [MBProgressHUD hideWaitViewAnimated:self.view];
         if ([code integerValue] == 1) {
-            
-//            if ([data[@"signState"] integerValue] == 0) {
-//                NSLog(@"未签到");
-//                [JJRequest postRequest:@"score/get/sign" params:@{@"userId":[NSString stringWithFormat:@"%@",[UserConfig user_id]]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
-//
-//                    NSLog(@"%@",data);
-//                } failure:^(NSError * _Nullable error) {
-//
-//                }];
-//            }
             
             self.navView.numberLab.text = data[@"totalScore"];
             
@@ -278,8 +277,8 @@
     
     UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 40)];
     
-    lab.text = @"积分轻松赚";
-    lab.textColor = [UIColor whiteColor];
+    lab.text = @"  积分轻松赚";
+    lab.textColor = [UIColor blackColor];
     lab.font = [UIFont systemFontOfSize:15.f];
     
     return lab;

@@ -13,6 +13,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.exchangeBtn.layer.masksToBounds = YES;
+    self.exchangeBtn.layer.cornerRadius = 3;
 }
 
 - (void)setGoodsModel:(IntegralGoodsMode *)goodsModel{

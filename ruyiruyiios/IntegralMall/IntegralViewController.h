@@ -8,9 +8,10 @@
 
 #import "RootViewController.h"
 NS_ASSUME_NONNULL_BEGIN
-
+typedef void (^refreshBlock)(void);
 @interface IntegralViewController : RootViewController
 
+@property (nonatomic, copy) refreshBlock block;
 @end
 
 NS_ASSUME_NONNULL_END

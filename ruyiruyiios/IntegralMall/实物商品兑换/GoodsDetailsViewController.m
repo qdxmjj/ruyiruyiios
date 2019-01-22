@@ -11,7 +11,6 @@
 #import <UIImageView+WebCache.h>
 #import "UIView+BorderLine.h"
 @interface GoodsDetailsViewController ()
-@property (weak, nonatomic) IBOutlet UITextView *textView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *goodsImageView;
 @property (weak, nonatomic) IBOutlet UILabel *goodsNameLab;
@@ -20,8 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *goodsStockLab;
 @property (weak, nonatomic) IBOutlet UILabel *goodsDetailsLab;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
-
-
+@property (weak, nonatomic) IBOutlet UILabel *numberPeopleLab;
 
 @property (strong, nonatomic) IntegralGoodsMode *integralGoodsModel;
 @end
@@ -62,7 +60,7 @@
     self.goodsIntegralLab.text = [NSString stringWithFormat:@"%@",self.integralGoodsModel.score];
     self.goodsStockLab.text = [NSString stringWithFormat:@"剩余%@件",self.integralGoodsModel.amount];
     self.goodsDetailsLab.text = self.integralGoodsModel.goods_description;
-    
+    self.numberPeopleLab.text = [NSString stringWithFormat:@"%@人已换购",self.integralGoodsModel.soldNo];
 }
 - (IBAction)redeemNowEvent:(UIButton *)sender {
     

@@ -31,7 +31,7 @@
     self.goodsNameLab.text = goodsModel.name;
     self.goodsScoreLab.text = [NSString stringWithFormat:@"%@",goodsModel.score];
     self.goodsPriceLab.text = [NSString stringWithFormat:@"市场价：%@元",goodsModel.price];
-//    self.numberPeopleLab.text = [NSString stringWithFormat:@"%@",goodsModel]
+    self.numberPeopleLab.text = [NSString stringWithFormat:@"%@人已换购",goodsModel.soldNo];
     
     
 }

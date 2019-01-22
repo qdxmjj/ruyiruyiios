@@ -104,6 +104,7 @@
         if ([data[@"status"] integerValue] == 1) {
             ///刷新主页积分
             self.block();
+            [MBProgressHUD showTextMessage:@"兑换成功!"];
             [self.navigationController popViewControllerAnimated:YES];
         }
     } failure:^(NSError * _Nullable error) {

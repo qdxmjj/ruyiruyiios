@@ -8,6 +8,7 @@
 
 #import "OrderConfirmViewController.h"
 #import "ShippingAddressController.h"
+#import "IntegralViewController.h"
 #import "AddAddressView.h"
 #import "AddressView.h"
 
@@ -20,7 +21,6 @@
 @property (strong, nonatomic)AddressView *myAddressView;
 @property (weak, nonatomic) IBOutlet UILabel *availableIntegralLab;
 
-@property (strong, nonatomic) ShippingAddressController *shippingAddressVC;
 @property (strong, nonatomic) IntegralGoodsMode *integralGoodsModel;
 @property (copy, nonatomic) NSString *addressID;
 @end
@@ -67,7 +67,7 @@
                     self.myAddressView.phoneLab.text = [NSString stringWithFormat:@"%@",obj[@"phone"]];
                     self.myAddressView.addressLab.text = cityInfo;
                     
-                    self.addressID = obj[@"id"];
+                    self.addressID = [NSString stringWithFormat:@"%@",obj[@"id"]];
                     *stop = YES;
                 }
             }];
@@ -98,7 +98,18 @@
         if ([data[@"status"] integerValue] == 1) {
             
             [MBProgressHUD showTextMessage:@"兑换成功！"];
-            [self.navigationController popToRootViewControllerAnimated:YES];
+            
+            for (UIViewController *vc in self.navigationController.viewControllers) {
+                
+                if ([vc isKindOfClass:[IntegralViewController class]]) {
+                    
+                    IntegralViewController *integralVc = (IntegralViewController *)vc;
+                    
+                    integralVc.block();
+                    
+                    [self.navigationController popToViewController:vc animated:YES];
+                }
+            }
         }
     } failure:^(NSError * _Nullable error) {
         [MBProgressHUD hideWaitViewAnimated:self.view];
@@ -107,9 +118,10 @@
 }
 
 - (void)pushAddShippingAddressEvent:(UIButton *)sender{
-    
-    
-    [self.navigationController pushViewController:self.shippingAddressVC animated:YES];
+    ShippingAddressController *shippingAddressVC = [[ShippingAddressController alloc] init];
+    shippingAddressVC.delegate = self;
+    shippingAddressVC.selectAddressID = self.addressID;
+    [self.navigationController pushViewController:shippingAddressVC animated:YES];
 }
 
 - (void)ShippingAddressController:(ShippingAddressController *)viewController selectAddress:(NSDictionary *)addressInfo{
@@ -124,7 +136,7 @@
     self.myAddressView.phoneLab.text = [NSString stringWithFormat:@"%@",addressInfo[@"phone"]];
     self.myAddressView.addressLab.text = cityInfo;
     
-    self.addressID = addressInfo[@"id"];
+    self.addressID = [NSString stringWithFormat:@"%@",addressInfo[@"id"]];
 
 //    NSLog(@"更换视图数据");
 }
@@ -172,14 +184,7 @@
     
     return [UIView new];
 }
-- (ShippingAddressController *)shippingAddressVC{
-    
-    if (!_shippingAddressVC) {
-        _shippingAddressVC = [[ShippingAddressController alloc] init];
-        _shippingAddressVC.delegate = self;
-    }
-    return _shippingAddressVC;
-}
+
 - (AddressView *)myAddressView{
     
     if (!_myAddressView) {

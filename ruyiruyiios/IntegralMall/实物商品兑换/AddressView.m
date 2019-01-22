@@ -70,7 +70,7 @@
     }];
     
     [self.rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
+         
         make.centerY.mas_equalTo(self.mas_centerY);
         make.width.mas_equalTo(40);
         make.right.mas_equalTo(self.mas_right).inset(16);

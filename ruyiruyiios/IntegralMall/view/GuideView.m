@@ -56,7 +56,7 @@
         make.left.mas_equalTo(self.mas_left).inset(16);
         make.top.mas_equalTo(self.mas_top).inset(5);
         make.width.mas_equalTo(5);
-        make.height.mas_equalTo(30);
+        make.height.mas_equalTo(20);
     }];
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         

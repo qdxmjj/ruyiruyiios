@@ -10,6 +10,8 @@
 #import "AddShippingAddressViewController.h"
 #import "ShippingAddressCell.h"
 #import "AddressInfoModel.h"
+#import "MBProgressHUD+YYM_category.h"
+
 @interface ShippingAddressController ()<ShippingAddressCellDelegate>
 
 @property (nonatomic, strong) UIImageView *imgView;
@@ -113,21 +115,42 @@
 - (void)ClickDeleteButtonWithShippingAddressCell:(ShippingAddressCell *)cell{
     //删除
     JJWeakSelf
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"是否删除此地址" message:@"" preferredStyle:UIAlertControllerStyleAlert];
     
-    NSIndexPath *indexPath = [weakSelf.tableView indexPathForCell:cell];
-    NSDictionary *dic = weakSelf.addressList[indexPath.row];
-    
-    [JJRequest deleteRequestWithIP:INTEGRAL_IP path:@"/score/address" params:@{@"id":dic[@"id"]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
-        
-        if ([code integerValue] == 1) {
-            
-            self.imgView.hidden = YES;
-            self.gotoAddBtn.hidden = YES;
-            [weakSelf getShippingAddressInfo];
-        }
-    } failure:^(NSError * _Nullable error) {
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }];
+    
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        NSIndexPath *indexPath = [weakSelf.tableView indexPathForCell:cell];
+        NSDictionary *dic = weakSelf.addressList[indexPath.row];
+        
+        NSString *addressID = [NSString stringWithFormat:@"%@",dic[@"id"]];
+        
+        if ([addressID isEqualToString:self.selectAddressID]) {
+            
+            [MBProgressHUD showTextMessage:@"当前选择的地址不可删除"];
+            return ;
+        }
+        
+        [JJRequest deleteRequestWithIP:INTEGRAL_IP path:@"/score/address" params:@{@"id":addressID} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+            
+            if ([code integerValue] == 1) {
+                
+                self.imgView.hidden = YES;
+                self.gotoAddBtn.hidden = YES;
+                [weakSelf getShippingAddressInfo];
+            }
+        } failure:^(NSError * _Nullable error) {
+            
+        }];
+    }];
+    
+    [alert addAction:cancel];
+    [alert addAction:confirm];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)ClickEditButtonWithShippingAddressCell:(ShippingAddressCell *)cell{
