@@ -23,6 +23,7 @@
 #import "WinterTyreViewController.h"
 #import "MyViewController.h"
 #import "AppDelegate.h"
+#import "SignInObject.h"
 @interface CodeLoginViewController ()<UITextFieldDelegate,UITextViewDelegate, WXApiDelegate>{
     
     UITextField *telephoneTF;
@@ -409,6 +410,9 @@
 
                 [_timer invalidate];
                 _timer = nil;
+                
+                //开始签到并显示
+                [SignInObject startSignInAndshowView:nil];
             
                 [self.navigationController popToRootViewControllerAnimated:YES];
                 
@@ -454,9 +458,12 @@
                 
                 [_timer invalidate];
                 _timer = nil;
-                NSLog(@"登录返回的数据:%@", data);
+//                NSLog(@"登录返回的数据:%@", data);
                 [self insertDatabase:data];
                 [delegateConfiguation changeLoginStatus];
+                
+                //开始签到并显示
+                [SignInObject startSignInAndshowView:nil];
 
                 [self.navigationController popToRootViewControllerAnimated:YES];
 
@@ -584,6 +591,9 @@
 }
 
 - (void)dealloc{
+    
+    [_timer invalidate];
+    _timer = nil;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"weiXinLoginCallBack" object:nil];
 }

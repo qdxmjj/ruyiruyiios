@@ -15,6 +15,7 @@
 @property(nonatomic, strong)UILabel *limitLabel;
 @property(nonatomic, strong)UILabel *startLabel;
 @property(nonatomic, strong)UILabel *endLabel;
+@property(nonatomic, strong)UILabel *fullReductionLab;
 
 - (void)setdatatoViews:(CouponInfo *)counponInfo;
 

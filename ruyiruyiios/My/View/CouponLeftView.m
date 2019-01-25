@@ -74,149 +74,223 @@
     self.useStateLabel.frame = CGRectMake(0, 90, self.backImageV.frame.size.width, 20);
 }
 
-- (void)setdatatoViews:(CouponInfo *)counponInfo couponType:(NSString *)couponTypeStr{
+- (void)setdatatoViews:(CouponInfo *)counponInfo{
     
-    self.titleLabel.text = counponInfo.couponName;
     self.midView.backgroundColor = [UIColor whiteColor];
-//    NSLog(@"%@", counponInfo.type);
+
     if ([counponInfo.status isEqualToNumber:[NSNumber numberWithInt:1]]) {
         
         self.useStateLabel.text = @"已使用";
         self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
     }else if ([counponInfo.status isEqualToNumber:[NSNumber numberWithInt:2]]){
-        
         self.useStateLabel.text = @"未使用";
-//        NSLog(@"%@-----%@", counponInfo.userCarId, [UserConfig userCarId]);
-        if ([counponInfo.userCarId integerValue] == [[UserConfig userCarId] integerValue]) {
-            
-            if ([counponInfo.type intValue] == 1) {
+        
+        NSInteger counponType = [counponInfo.type integerValue];
+        
+        switch (counponType) {
+            case 1:
                 
-                if ([couponTypeStr isEqualToString:@"0"]) {
-                    
-                    self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
-                }else if ([couponTypeStr isEqualToString:@"1"]){
-                    
-                    if ([counponInfo.couponName isEqualToString:@"精致洗车券"]) {
-                        
-                        self.backImageV.image = [UIImage imageNamed:@"ic_blue"];
-                    }else{
-                        
-                        self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
-                    }
-                }else if ([couponTypeStr isEqualToString:@"2"]){
-                    
-                    if ([counponInfo.couponName isEqualToString:@"四轮定位券"]) {
-                        
-                        self.backImageV.image = [UIImage imageNamed:@"ic_blue"];
-                    }else{
-                        
-                        self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
-                    }
-                }else if ([couponTypeStr isEqualToString:@"3"]){
-                    
-                    if ([counponInfo.viewTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
-                        
-                        self.backImageV.image = [UIImage imageNamed:@"ic_blue"];
-                    }else{
-                        
-                        self.backImageV.image = [UIImage imageNamed:@"ic_red"];
-                    }
-                }else{
-                    
-                    if ([counponInfo.viewTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
-                        
-                        self.backImageV.image = [UIImage imageNamed:@"ic_blue"];
-                    }else{
-                        
-                        self.backImageV.image = [UIImage imageNamed:@"ic_red"];
-                    }
-                }
-            }else if ([counponInfo.type intValue] == 2){
-                
-                if ([counponInfo.viewTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
-                    
-                    self.backImageV.image = [UIImage imageNamed:@"ic_blue"];
-                }else{
-                    
-                    self.backImageV.image = [UIImage imageNamed:@"ic_red"];
-                }
-            }
-        }else{
-            
-            if ([counponInfo.type integerValue] == 2) {
-                
+                self.titleLabel.text = @"服务券";
+                self.backImageV.image = [UIImage imageNamed:@"ic_blue"];
+                break;
+            case 2:
                 self.backImageV.image = [UIImage imageNamed:@"ic_red"];
-            }else{
+                self.titleLabel.text = @"现金券";
+
+                break;
+            case 3:
+                self.backImageV.image = [UIImage imageNamed:@"ic_yellow"];
+                self.titleLabel.text = @"满减券";
+
+                break;
+            case 4:
+                self.backImageV.image = [UIImage imageNamed:@"ic_zise"];
+                self.titleLabel.text = @"小额券";
+
+                break;
+            case 5:
+                self.backImageV.image = [UIImage imageNamed:@"ic_pink"];
+                self.titleLabel.text = @"折扣券";
+
+                break;
+            default:
                 
-                self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
-            }
+                self.titleLabel.text = @"未知类型";
+                self.backImageV.image = [UIImage imageNamed:@"ic_green"];
+                break;
         }
     }else{
-        
+
         self.useStateLabel.text = @"已过期";
         self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
     }
 }
 
+- (void)setdatatoViews:(CouponInfo *)counponInfo goodsNameArr:(NSArray *)goodsNameArr totalPrice:(NSString *)totalPrice storeID:(NSString *)storeID{
 
-- (void)setdatatoViews:(CouponInfo *)counponInfo commodityList:(NSArray *)commodityList storeID:(NSString *)storeID{
-    
-    self.titleLabel.text = counponInfo.couponName;
     self.midView.backgroundColor = [UIColor whiteColor];
-    //    NSLog(@"%@", counponInfo.type);
+    
+    CGFloat totalPriceFloat = [totalPrice floatValue];
+
     if ([counponInfo.status isEqualToNumber:[NSNumber numberWithInt:1]]) {
         
         self.useStateLabel.text = @"已使用";
         self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
-    }else if ([counponInfo.status isEqualToNumber:[NSNumber numberWithInt:2]]){
-        
-        self.useStateLabel.text = @"未使用";
 
-        //判断是否是指定车辆   type == 2 为现金券。现金券 无任何使用限制
-        if ([counponInfo.userCarId integerValue] == [[UserConfig userCarId] integerValue]) {
-            
-            //判断是否是指定门店 门店ID  可以指定多个门店 也就是 可以是多个门店ID
-            NSArray *storeIDArr = [counponInfo.storeIdList componentsSeparatedByString:@","];
-            
-            if ([storeIDArr containsObject:storeID] || [counponInfo.storeIdList isEqualToString:@""] || counponInfo.storeIdList == nil) {
-                
-                if ([counponInfo.type intValue] == 1) {
-                    
-                    //判断购买的商品列表 是否包含此优惠券对应的名称 包含即可使用此优惠券
-                    if ([commodityList containsObject:counponInfo.rule]) {
+    }else if ([counponInfo.status isEqualToNumber:[NSNumber numberWithInt:2]]){
+        self.useStateLabel.text = @"未使用";
+        
+        NSInteger counponType = [counponInfo.type integerValue];
+        //判断是否是指定门店 门店ID  可以指定多个门店 也就是 可以是多个门店ID
+        NSArray *storeIDArr = [counponInfo.storeIdList componentsSeparatedByString:@","];
+        
+        switch (counponType) {
+            case 1:
+                if ([counponInfo.userCarId integerValue] == [[UserConfig userCarId] integerValue]) {
+                    if ([counponInfo.storeIdList isEqualToString:@""] || [counponInfo.storeIdList isEqual:[NSNull null]]) {
                         
-                        self.backImageV.image = [UIImage imageNamed:@"ic_blue"];
+                        //服务券 判断商品名称
+                        if ([goodsNameArr containsObject:counponInfo.rule]) {
+                            
+                            self.backImageV.image = [UIImage imageNamed:@"ic_blue"];
+                        }else{
+                            self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+                        }
+                        
                     }else{
-                        self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+                        if ([storeIDArr containsObject:storeID]) {
+                            
+                            //服务券 判断商品名称
+                            if ([goodsNameArr containsObject:counponInfo.rule]) {
+                                
+                                self.backImageV.image = [UIImage imageNamed:@"ic_blue"];
+                            }else{
+                                self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+                            }
+                        }else{
+                            
+                            self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+                        }
                     }
-                    
-                }else if ([counponInfo.type intValue] == 2){
-                    
-                    if ([counponInfo.viewTypeId isEqualToNumber:[NSNumber numberWithInt:2]]) {
-                        
-                        self.backImageV.image = [UIImage imageNamed:@"ic_blue"];
-                    }else{
-                        
-                        self.backImageV.image = [UIImage imageNamed:@"ic_red"];
-                    }
-                }
-            }else{
-                
-                if ([counponInfo.type integerValue] == 2){
-                    self.backImageV.image = [UIImage imageNamed:@"ic_red"];}
-                else{
+                }else{
                     self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
                 }
-            }
-        }else{
-            
-            if ([counponInfo.type integerValue] == 2) {
+                self.titleLabel.text = @"服务券";
+                break;
+            case 2:
                 
+                self.titleLabel.text = @"现金券";
                 self.backImageV.image = [UIImage imageNamed:@"ic_red"];
-            }else{
+                break;
+            case 3:
+                if ([counponInfo.userCarId integerValue] == [[UserConfig userCarId] integerValue]) {
+                    if ([counponInfo.storeIdList isEqualToString:@""] || [counponInfo.storeIdList isEqual:[NSNull null]]) {
+                        
+                        //满减券 判断是否满减
+                        if (totalPriceFloat >= [counponInfo.moneyFull integerValue]) {
+                            
+                            self.backImageV.image = [UIImage imageNamed:@"ic_yellow"];
+                        }else{
+                            self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+                        }
+                        
+                    }else{
+                        if ([storeIDArr containsObject:storeID]) {
+                            
+                            //满减券 判断是否满减
+                            if (totalPriceFloat >= [counponInfo.moneyFull integerValue]) {
+                                
+                                self.backImageV.image = [UIImage imageNamed:@"ic_yellow"];
+                            }else{
+                                self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+                            }
+                        }else{
+                            
+                            self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+                        }
+                    }
+                }else{
+                    self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+                }
+                self.titleLabel.text = @"满减券";
+
+                break;
+            case 4:
+                //判断是否是指定车辆   type == 4 小额券  将指定商品变成小额券 的价格
+                if ([counponInfo.userCarId integerValue] == [[UserConfig userCarId] integerValue]) {
+                    
+                    if ([counponInfo.storeIdList isEqualToString:@""] || [counponInfo.storeIdList isEqual:[NSNull null]]) {
+                        
+                        //小额券 判断商品名称
+                        if ([goodsNameArr containsObject:counponInfo.rule]) {
+                            
+                            self.backImageV.image = [UIImage imageNamed:@"ic_zise"];
+                        }else{
+                            self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+                        }
+                        
+                    }else{
+                        if ([storeIDArr containsObject:storeID]) {
+                            
+                            //小额券 判断商品名称
+                            if ([goodsNameArr containsObject:counponInfo.rule]) {
+                                
+                                self.backImageV.image = [UIImage imageNamed:@"ic_zise"];
+                            }else{
+                                self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+                            }
+                        }else{
+                            
+                            self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+                        }
+                    }
+                    
+                }else{
+                    self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+                }
                 
-                self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
-            }
+                self.titleLabel.text = @"小额券";
+                
+                break;
+            case 5:
+                //判断是否是指定车辆   type == 5 抵扣券  对应商品 抵扣掉 对应金额
+                if ([counponInfo.userCarId integerValue] == [[UserConfig userCarId] integerValue]) {
+                    
+                    if ([counponInfo.storeIdList isEqualToString:@""] || [counponInfo.storeIdList isEqual:[NSNull null]]) {
+                        
+                        //折扣券 判断商品名称
+                        if ([goodsNameArr containsObject:counponInfo.rule]) {
+                            
+                            self.backImageV.image = [UIImage imageNamed:@"ic_pink"];
+                        }else{
+                            self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+                        }
+                        
+                    }else{
+                        if ([storeIDArr containsObject:storeID]) {
+                            
+                            //折扣券 判断商品名称
+                            if ([goodsNameArr containsObject:counponInfo.rule]) {
+                                
+                                self.backImageV.image = [UIImage imageNamed:@"ic_pink"];
+                            }else{
+                                self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+                            }
+                        }else{
+                            
+                            self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+                        }
+                    }
+                }else{
+                    self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+                }
+                self.titleLabel.text = @"折扣券";
+                break;
+            default:
+                
+                self.titleLabel.text = @"未知类型";
+                self.backImageV.image = [UIImage imageNamed:@"ic_green"];
+                break;
         }
     }else{
         

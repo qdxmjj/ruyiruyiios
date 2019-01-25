@@ -12,6 +12,7 @@
 @property(nonatomic, strong)UIImageView *imgView;
 @property(nonatomic, strong)UILabel *consigneeLab;
 @property(nonatomic, strong)UIView *view;
+@property(nonatomic, strong)UIButton *rightBtn;
 
 @end
 @implementation AddressView

@@ -12,7 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AddAddressView : UIView
 
-@property(nonatomic, strong)UIButton *rightBtn;
 
 @end
 

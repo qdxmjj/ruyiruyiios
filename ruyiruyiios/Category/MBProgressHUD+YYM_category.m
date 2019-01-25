@@ -26,7 +26,7 @@
     }else{
         hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     }
-    hud.offset = CGPointMake(0.f, MBProgressMaxOffset);
+    hud.offset = CGPointMake(0.f, MAINSCREEN.height-88);
     hud.label.text = msg;
     hud.mode = MBProgressHUDModeText;
     

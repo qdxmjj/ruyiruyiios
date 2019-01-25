@@ -37,6 +37,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"订单确认";
+    
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushAddShippingAddressEvent)];
+    
+    [self.addressView addGestureRecognizer:gesture];
+    
     ///默认无地址
     [self.addressView addSubview:self.addAddressView];
     
@@ -110,6 +115,9 @@
                     [self.navigationController popToViewController:vc animated:YES];
                 }
             }
+        }else{
+            
+            [MBProgressHUD showTextMessage:data[@"msg"]];
         }
     } failure:^(NSError * _Nullable error) {
         [MBProgressHUD hideWaitViewAnimated:self.view];
@@ -117,10 +125,14 @@
     
 }
 
-- (void)pushAddShippingAddressEvent:(UIButton *)sender{
+- (void)pushAddShippingAddressEvent{
     ShippingAddressController *shippingAddressVC = [[ShippingAddressController alloc] init];
     shippingAddressVC.delegate = self;
-    shippingAddressVC.selectAddressID = self.addressID;
+    if ([self.addressID isEqualToString:@""] || !self.addressID) {
+        shippingAddressVC.selectAddressID = @"无地址ID";
+    }else{
+        shippingAddressVC.selectAddressID = self.addressID;
+    }
     [self.navigationController pushViewController:shippingAddressVC animated:YES];
 }
 
@@ -190,7 +202,6 @@
     if (!_myAddressView) {
         
         _myAddressView = [[AddressView alloc] initWithFrame:self.addressView.frame];
-        [_myAddressView.rightBtn addTarget:self action:@selector(pushAddShippingAddressEvent:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _myAddressView;
 }
@@ -198,7 +209,6 @@
     if (!_addAddressView) {
         
         _addAddressView = [[AddAddressView alloc] initWithFrame:self.addressView.frame];
-        [_addAddressView.rightBtn addTarget:self action:@selector(pushAddShippingAddressEvent:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _addAddressView;
 }

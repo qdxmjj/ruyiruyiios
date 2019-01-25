@@ -47,19 +47,20 @@
     self.rightView.frame = CGRectMake(self.leftView.frame.size.width+self.leftView.frame.origin.x, 10, (MAINSCREEN.width - 40)*2/3, 120);
 }
 
-- (void)setdatatoViews:(CouponInfo *)couponInfo couponType:(NSString *)couponTypeStr{
+- (void)setdatatoViews:(CouponInfo *)couponInfo{
     
     self.leftView.backgroundColor = [UIColor whiteColor];
     self.rightView.backgroundColor = [UIColor whiteColor];
-    [self.leftView setdatatoViews:couponInfo couponType:couponTypeStr];
+    [self.leftView setdatatoViews:couponInfo];
     [self.rightView setdatatoViews:couponInfo];
 }
 
--(void)setdatatoViews:(CouponInfo *)counponInfo commodityList:(NSArray *)commodityList storeID:(NSString *)storeID{
+-(void)setdatatoViews:(CouponInfo *)counponInfo goodsNameArr:(NSArray *)goodsNameArr totalPrice:(NSString *)totalPrice storeID:(NSString *)storeID{
     
     self.leftView.backgroundColor = [UIColor whiteColor];
     self.rightView.backgroundColor = [UIColor whiteColor];
-    [self.leftView setdatatoViews:counponInfo commodityList:commodityList storeID:storeID];
+    
+    [self.leftView setdatatoViews:counponInfo goodsNameArr:goodsNameArr totalPrice:totalPrice storeID:storeID];
     [self.rightView setdatatoViews:counponInfo];
 }
 - (void)awakeFromNib {

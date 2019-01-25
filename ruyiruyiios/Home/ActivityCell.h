@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *ThreeBtn1;
 @property (weak, nonatomic) IBOutlet UIButton *ThreeBtn2;
 @property (weak, nonatomic) IBOutlet UIButton *ThreeBtn3;
+@property (weak, nonatomic) IBOutlet UIImageView *titleImageView;
 
 @end
 

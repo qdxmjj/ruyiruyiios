@@ -16,10 +16,9 @@
 @property(nonatomic, strong)UIView *midView;
 @property(nonatomic, strong)UILabel *useStateLabel;
 
-//old
-- (void)setdatatoViews:(CouponInfo *)counponInfo couponType:(NSString *)couponTypeStr;
 
-//new
-- (void)setdatatoViews:(CouponInfo *)counponInfo commodityList:(NSArray *)commodityList storeID:(NSString *)storeID;
+- (void)setdatatoViews:(CouponInfo *)counponInfo;
+
+- (void)setdatatoViews:(CouponInfo *)counponInfo goodsNameArr:(NSArray *)goodsNameArr totalPrice:(NSString *)totalPrice storeID:(NSString *)storeID;
 
 @end

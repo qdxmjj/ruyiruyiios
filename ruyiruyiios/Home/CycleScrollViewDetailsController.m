@@ -29,19 +29,20 @@
     
     self.title = @"最新活动";
 
-//    [self.view addSubview:self.backGroupView];
     [self.view addSubview:self.scrollView];
     [self.scrollView addSubview:self.backGroupView];
-    [self.view addSubview:self.btn];
+    
+    if (self.index == 0) {
+        [self.view addSubview:self.btn];
+    }
 }
 
 #pragma mark 跳转轮胎购买页面事件
 #pragma mark buttoncheckEvent
-
 -(void)pushBuyingTireViewController{
     
     switch (self.index) {
-        case 0:case 1:case 3:
+        case 0:
             
             if ([self.dataCars isEqual:[NSNull null]] || self.dataCars == nil || !self.dataCars || [UserConfig userCarId].intValue == 0) {
                 
@@ -102,16 +103,16 @@
         NSString *imgName = @"";
         switch (self.index) {
             case 0:
-                imgName = @"ic_huoodng_3";
+                imgName = @"ic_bujimianpei";
                 _backGroupView.frame = CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height-SafeAreaTopHeight);
                 break;
             case 1:
-                imgName = @"ic_hd5_bj";
+                imgName = @"ic_jingpin";
                 _backGroupView.frame = CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height-SafeAreaTopHeight);
 
                 break;
             case 2:
-                imgName = @"ic_duibi";
+                imgName = @"ic_neirong";
                 _backGroupView.frame = CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height-SafeAreaTopHeight);
                 break;
             case 3:
@@ -138,28 +139,13 @@
         NSString *imgName = @"";
         switch (self.index) {
             case 0:
-                imgName = @"ic_hd_button3";
+                imgName = @"ic_button";
                 [_btn setFrame:CGRectMake((MAINSCREEN.width - MAINSCREEN.width*0.7)/2, MAINSCREEN.height-44-20-Height_TabBar, MAINSCREEN.width*0.7, MAINSCREEN.height*0.07)];
-
                 break;
-            case 1:
-                imgName = @"ic_hd5_button";
-                [_btn setFrame:CGRectMake((MAINSCREEN.width - MAINSCREEN.width*0.51)/2, MAINSCREEN.height-54-20-Height_TabBar, MAINSCREEN.width*0.51, MAINSCREEN.height*0.08)];
-
-                break;
-            case 2:
-                break;
-            case 3:
-                imgName = @"ic_hd4_button";
-                [_btn setFrame:CGRectMake((MAINSCREEN.width - MAINSCREEN.width*0.7)/2, MAINSCREEN.height-52-20-Height_TabBar, MAINSCREEN.width*0.7, MAINSCREEN.height*0.08)];
-
-                break;
-                
             default:
                 break;
         }
         [_btn setImage:[UIImage imageNamed:imgName] forState:UIControlStateNormal];
-        
     }
     return _btn;
 }

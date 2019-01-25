@@ -73,6 +73,46 @@ static NSInteger const HeadViewH = 150;
     
     [self.view addSubview:self.contentVC.tableView];
     
+    [self.headV mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.leading.trailing.mas_equalTo(self.view);
+        make.height.mas_equalTo(HeadViewH);
+        make.top.mas_equalTo(self.view.mas_top);
+    }];
+    
+    [self.tabbarV mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.mas_equalTo(self.headV.mas_bottom);
+        make.leading.trailing.mas_equalTo(self.view);
+        make.height.mas_equalTo(45);
+    }];
+    
+    [self.bootV mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        if (@available(iOS 11.0, *)) {
+            make.bottom.mas_equalTo(self.view.mas_safeAreaLayoutGuideBottom);
+        } else {
+            make.bottom.mas_equalTo(self.view.mas_bottom);
+        }
+        make.leading.trailing.mas_equalTo(self.view);
+        make.height.mas_equalTo(45);
+    }];
+    
+    [self.directoryVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.mas_equalTo(self.tabbarV.mas_bottom).inset(2);
+        make.bottom.mas_equalTo(self.bootV.mas_top);
+        make.leading.mas_equalTo(self.view.mas_leading);
+        make.width.mas_equalTo(self.view.mas_width).multipliedBy(0.25);
+    }];
+    
+    [self.contentVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.leading.mas_equalTo(self.directoryVC.view.mas_trailing);
+        make.top.mas_equalTo(self.tabbarV.mas_bottom).inset(2);
+        make.bottom.mas_equalTo(self.bootV.mas_top);
+        make.trailing.mas_equalTo(self.view.mas_trailing);
+    }];
     
     __weak __typeof(self)weakSelf = self;
     
@@ -117,7 +157,15 @@ static NSInteger const HeadViewH = 150;
             }
             weakSelf.shopCartView.commodityList = commodityArr;
             [weakSelf.view addSubview:weakSelf.shopCartView];
-            [weakSelf.view bringSubviewToFront:weakSelf.bootV];//添加新视图需设置一遍
+            [weakSelf.view bringSubviewToFront:weakSelf.bootV];
+            
+            [weakSelf.shopCartView mas_makeConstraints:^(MASConstraintMaker *make) {
+               
+                make.leading.mas_equalTo(weakSelf.view.mas_leading);
+                make.top.mas_equalTo(weakSelf.view.mas_top);
+                make.width.mas_equalTo(weakSelf.view.mas_width);
+                make.bottom.mas_equalTo(weakSelf.bootV.mas_top);
+            }];
             
         }else{
             
@@ -188,7 +236,6 @@ static NSInteger const HeadViewH = 150;
 
 -(void)getCommodityInfoWithSetHeadView{
     
-    //给子视图赋值，需在子视图添加完成之后
     if (self.commodityInfo.count>0) {
         
         [self getStoreDetailsInfoWithStoreID:[self.commodityInfo objectForKey:@"storeId"]];
@@ -509,7 +556,7 @@ static NSInteger const HeadViewH = 150;
     if (!_directoryVC) {
         
         _directoryVC = [[DirectoryTableViewController alloc] initWithStyle:UITableViewStylePlain];
-        _directoryVC.tableView.frame = CGRectMake(0, HeadViewH+45+2, self.view.frame.size.width/4+10, self.view.frame.size.height-HeadViewH-45-45-2-bottom_height);
+//        _directoryVC.tableView.frame = CGRectMake(0, HeadViewH+45+2, self.view.frame.size.width/4+10, self.view.frame.size.height-HeadViewH-45-45-2-bottom_height);
         _directoryVC.tableView.backgroundColor = [UIColor colorWithRed:230/255.f green:230/255.f blue:230/255.f alpha:1.f];
     }
     
@@ -521,7 +568,7 @@ static NSInteger const HeadViewH = 150;
     if (!_contentVC) {
         
         _contentVC = [[ContentTableViewController alloc] initWithStyle:UITableViewStylePlain];
-        _contentVC.tableView.frame = CGRectMake(self.view.frame.size.width/4+10, HeadViewH+45+2, self.view.frame.size.width-self.view.frame.size.width/4-10, self.view.frame.size.height-HeadViewH-45-45-2-bottom_height);
+//        _contentVC.tableView.frame = CGRectMake(self.view.frame.size.width/4+10, HeadViewH+45+2, self.view.frame.size.width-self.view.frame.size.width/4-10, self.view.frame.size.height-HeadViewH-45-45-2-bottom_height);
     }
     return _contentVC;
 }
@@ -530,7 +577,7 @@ static NSInteger const HeadViewH = 150;
     
     if (!_bootV) {
     
-        _bootV = [[BootView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-45-(Height_TabBar-49), self.view.frame.size.width, 45)];
+        _bootV = [[BootView alloc] init];
         [_bootV.submitBtn addTarget:self action:@selector(pushBuyCommdityWithPayingViewController) forControlEvents:UIControlEventTouchUpInside];
         _bootV.layer.shadowOffset = CGSizeMake(0, 0);
         _bootV.layer.shadowOpacity = 0.5;
@@ -543,7 +590,7 @@ static NSInteger const HeadViewH = 150;
     
     if (!_headV) {
         
-        _headV = [[HeadView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, HeadViewH)];
+        _headV = [[HeadView alloc] init];
         [_headV.backBtn addTarget:self action:@selector(popViewController) forControlEvents:UIControlEventTouchUpInside];
         [_headV.itemBtn addTarget:self action:@selector(pushStoreDetailsVC) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -554,7 +601,7 @@ static NSInteger const HeadViewH = 150;
     
     if (!_tabbarV) {
         
-        _tabbarV = [[TabbarView alloc] initWithFrame:CGRectMake(0, HeadViewH, self.view.frame.size.width, 45)];
+        _tabbarV = [[TabbarView alloc] init];
     }
     return _tabbarV;
 }
@@ -563,7 +610,7 @@ static NSInteger const HeadViewH = 150;
     
     if (!_shopCartView) {
         
-        _shopCartView = [[ShopCartView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-self.bootV.frame.size.height-bottom_height)];
+        _shopCartView = [[ShopCartView alloc] init];
         [self.directoryVC.tableView bringSubviewToFront:_shopCartView];
     }
     return _shopCartView;

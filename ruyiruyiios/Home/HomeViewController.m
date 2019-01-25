@@ -46,7 +46,7 @@
 #import "CommdoityDetailsViewController.h"
 #import "YMDetailedServiceViewController.h"
 static CGFloat const cellOneHeigh = 90;
-static CGFloat const cellTwoHeigh = 90;
+static CGFloat const cellTwoHeigh = 100;
 static CGFloat const cellThreeHeigh = 130;
 
 @interface HomeViewController ()<UIScrollViewDelegate, SDCycleScrollViewDelegate, UITableViewDelegate, UITableViewDataSource,LoginStatusDelegate, CLLocationManagerDelegate,LoginStatusDelegate, CityNameDelegate,UpdateAddCarDelegate,ADActivityDelegate,EntranceViewDelegate>{
@@ -253,9 +253,13 @@ static CGFloat const cellThreeHeigh = 130;
                 
                 NSInteger type = [self.activityArr[i][@"type"] integerValue];
                 
-                if (type == 1) {
+                if (type == 0) {
                     
-                    [newArr addObject:[self oneDicWith:self.activityArr[i]]];
+                    [newArr addObject:[self oneDicWith:self.activityArr[i] type:type]];
+                    self.tableViewHeigh += 45;
+                }else if (type == 1) {
+                    
+                    [newArr addObject:[self oneDicWith:self.activityArr[i] type:type]];
                     self.tableViewHeigh += cellOneHeigh+2.01;
                 }else if (type == 2){
                     
@@ -264,7 +268,7 @@ static CGFloat const cellThreeHeigh = 130;
                     self.tableViewHeigh += cellTwoHeigh+2.01;
                 }else if (type == 3){
                     
-                    [newArr addObject:[self twoDicWith:self.activityArr[i] two:self.activityArr[i+1] three:self.activityArr[i+2]]];
+                    [newArr addObject:[self threeDicWith:self.activityArr[i] three:self.activityArr[i+1] three:self.activityArr[i+2]]];
                     self.tableViewHeigh += cellThreeHeigh;
                     i += 2;
                 }else{
@@ -296,7 +300,7 @@ static CGFloat const cellThreeHeigh = 130;
 
 #pragma mark 数据二次处理--底部广告页面数据
 //随时可能废弃此功能
--(NSMutableDictionary *)oneDicWith:(NSDictionary *)dic1{
+-(NSMutableDictionary *)oneDicWith:(NSDictionary *)dic1 type:(NSInteger )type{
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     
     [dic setObject:@[[dic1 objectForKey:@"content"]] forKey:@"content"];
@@ -311,7 +315,7 @@ static CGFloat const cellThreeHeigh = 130;
     [dic setObject:@[[dic1 objectForKey:@"webUrl"]] forKey:@"webUrl"];
     [dic setObject:@[[dic1 objectForKey:@"stockId"]] forKey:@"stockId"];
 
-    [dic setObject:@"1" forKey:@"setType"];
+    [dic setObject:[NSString stringWithFormat:@"%ld",(long)type] forKey:@"setType"];
 
     return dic;
 }
@@ -337,7 +341,7 @@ static CGFloat const cellThreeHeigh = 130;
     return dic;
 }
 
--(NSMutableDictionary *)twoDicWith:(NSDictionary *)dic1 two:(NSDictionary *)dic2 three:(NSDictionary *)dic3{
+-(NSMutableDictionary *)threeDicWith:(NSDictionary *)dic1 three:(NSDictionary *)dic2 three:(NSDictionary *)dic3{
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     
     [dic setObject:@[[dic1 objectForKey:@"content"],[dic2 objectForKey:@"content"],[dic3 objectForKey:@"content"]] forKey:@"content"];
@@ -400,14 +404,18 @@ static CGFloat const cellThreeHeigh = 130;
     
     [JJRequest postRequest:@"getAppActivity" params:nil success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
        
-        NSLog(@"%@ %@ %@",code,message,data);
+        NSLog(@"主页广告弹窗：%@ %@ %@",code,message,data);
         
-        if ([data count]>0) {
-            ADView *adView = [[ADView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height)];
-            adView.delegate = self;
-            [adView setActivityInfo:data];
-            [adView show:self.view];
+        if ([code integerValue] == 1) {
+            
+            if ([data count]>0) {
+                ADView *adView = [[ADView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height)];
+                adView.delegate = self;
+                [adView setActivityInfo:data];
+                [adView show:self.view];
+            }
         }
+        
     } failure:^(NSError * _Nullable error) {
         
     }];
@@ -479,6 +487,10 @@ static CGFloat const cellThreeHeigh = 130;
     NSString *identifier = @"";//对应xib中设置的identifier
     NSInteger index = 0; //xib中第几个Cell
     switch (type) {
+        case 0:
+            identifier = @"ActivityCellFourID";
+            index = 3;
+            break;
         case 1:
             identifier = @"ActivityCellOneID";
             index = 0;
@@ -504,6 +516,13 @@ static CGFloat const cellThreeHeigh = 130;
     }
     
     switch (type) {
+        case 0:{
+            
+            NSArray *urlArr  = self.activityArr[indexPath.section][@"imageUrl"];
+
+            [cell.titleImageView sd_setImageWithURL:urlArr[0]];
+        }
+            break;
         case 1:{
          
             NSArray *urlArr  = self.activityArr[indexPath.section][@"imageUrl"];
@@ -728,6 +747,10 @@ static CGFloat const cellThreeHeigh = 130;
     NSInteger type = [self.activityArr[indexPath.section][@"setType"] integerValue];
 
     switch (type) {
+        case 0:
+            
+            return 45;
+            break;
         case 1:
             
             return cellOneHeigh;
@@ -824,7 +847,6 @@ static CGFloat const cellThreeHeigh = 130;
         newTireVC.service_year_length = self.dataCars.service_year_length;
 
         [self.navigationController pushViewController:newTireVC animated:YES];
-        
     }else{
 
         SelectTirePositionViewController *selectTPVC = [[SelectTirePositionViewController alloc] init];
@@ -1085,10 +1107,6 @@ static CGFloat const cellThreeHeigh = 130;
     
     _user_token = [UserConfig token];
     [self getAndroidHomeDate];
-    
-    //开始签到并显示
-    [SignInObject startSignInAndshowView:self.view];
-
 }
 
 - (void)didReceiveMemoryWarning {

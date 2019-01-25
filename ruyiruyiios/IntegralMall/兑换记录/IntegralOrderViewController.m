@@ -64,7 +64,7 @@
 
 - (void)getIntegralOrderInfo:(NSString *)page{
     
-    [JJRequest getRequest:[NSString stringWithFormat:@"%@/score/order",SERVERPREFIX] params:@{@"userId":[UserConfig user_id],@"page":page,@"rows":@"5"} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+    [JJRequest getRequest:[NSString stringWithFormat:@"%@/score/order",INTEGRAL_IP] params:@{@"userId":[UserConfig user_id],@"page":page,@"rows":@"5"} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         
         if (pageNumber == 1) {
             

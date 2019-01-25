@@ -69,6 +69,19 @@
     }
     return _creditLineBtn;
 }
+
+- (UIButton *)integralBtn{
+    if (!_integralBtn) {
+        
+        _integralBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_integralBtn setBackgroundColor:[UIColor whiteColor]];
+        [_integralBtn setTitle:@"积分商城" forState:UIControlStateNormal];
+        [_integralBtn setTitleColor:TEXTCOLOR64 forState:UIControlStateNormal];
+        _integralBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
+    }
+    return _integralBtn;
+}
+
 -(UIView *)lineView{
     
     if (!_lineView) {
@@ -87,7 +100,15 @@
     }
     return _spacingView;
 }
-
+-(UIView *)spacingView1{
+    
+    if (!_spacingView1) {
+        
+        _spacingView1 = [[UIView alloc] init];
+        _spacingView1.backgroundColor = [PublicClass colorWithHexString:@"#ececec"];
+    }
+    return _spacingView1;
+}
 - (instancetype)initWithFrame:(CGRect)frame{
     
     self = [super initWithFrame:frame];
@@ -105,8 +126,11 @@
     [self addSubview:self.nameBtn];
     [self addSubview:self.myQuotaBtn];
     [self addSubview:self.creditLineBtn];
+    [self addSubview:self.integralBtn];
     [self addSubview:self.lineView];
     [self addSubview:self.spacingView];
+    [self addSubview:self.spacingView1];
+
 }
 
 - (void)layoutSubviews{
@@ -115,7 +139,7 @@
     [self.backImageV mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.mas_equalTo(self.mas_top);
-        make.left.and.right.mas_equalTo(self);
+        make.leading.and.trailing.mas_equalTo(self);
         make.height.mas_equalTo(self.mas_height).multipliedBy(0.8);
     }];
     [self.headPortraitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -138,31 +162,49 @@
     [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.bottom.mas_equalTo(self.mas_bottom);
-        make.left.right.mas_equalTo(self);
+        make.leading.trailing.mas_equalTo(self);
         make.height.mas_equalTo(2);
     }];
-    [self.spacingView mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.centerX.mas_equalTo(self.mas_centerX);
-        make.width.mas_equalTo(2);
-        make.height.mas_equalTo(self.mas_height).multipliedBy(0.2);
-        make.bottom.mas_equalTo(self.lineView.mas_top);
-    }];
+
     [self.myQuotaBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.bottom.mas_equalTo(self.lineView.mas_bottom);
-        make.left.mas_equalTo(self.mas_left);
-        make.right.mas_equalTo(self.spacingView.mas_left);
-        make.height.mas_equalTo(self.spacingView.mas_height).offset(2);
+        make.bottom.mas_equalTo(self.lineView.mas_top);
+        make.leading.mas_equalTo(self.mas_leading);
+        make.width.mas_equalTo(self.mas_width).multipliedBy(0.3333);
+        make.height.mas_equalTo(self.mas_height).multipliedBy(0.2);
     }];
+    
+    [self.spacingView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.leading.mas_equalTo(self.myQuotaBtn.mas_trailing);
+        make.width.mas_equalTo(2);
+        make.height.mas_equalTo(self.myQuotaBtn.mas_height);
+        make.bottom.mas_equalTo(self.lineView.mas_top);
+    }];
+    
     [self.creditLineBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.bottom.mas_equalTo(self.lineView.mas_bottom);
-        make.left.mas_equalTo(self.spacingView.mas_right);
-        make.right.mas_equalTo(self.mas_right);
-        make.height.mas_equalTo(self.spacingView.mas_height).offset(2);
+        make.bottom.mas_equalTo(self.lineView.mas_top);
+        make.leading.mas_equalTo(self.spacingView.mas_trailing);
+        make.width.mas_equalTo(self.mas_width).multipliedBy(0.3333);
+        make.height.mas_equalTo(self.mas_height).multipliedBy(0.2);
     }];
-  
+    
+    [self.spacingView1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.leading.mas_equalTo(self.creditLineBtn.mas_trailing);
+        make.width.mas_equalTo(2);
+        make.height.mas_equalTo(self.creditLineBtn.mas_height);
+        make.bottom.mas_equalTo(self.lineView.mas_top);
+    }];
+
+    [self.integralBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.bottom.mas_equalTo(self.lineView.mas_top);
+        make.leading.mas_equalTo(self.spacingView1.mas_trailing);
+        make.trailing.mas_equalTo(self.mas_trailing);
+        make.height.mas_equalTo(self.mas_height).multipliedBy(0.2);
+    }];
 }
 
 - (void)setDatatoHeadView{

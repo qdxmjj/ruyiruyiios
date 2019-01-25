@@ -15,8 +15,11 @@
 @property(nonatomic, strong)UIButton *nameBtn;
 @property(nonatomic, strong)UIButton *myQuotaBtn;
 @property(nonatomic, strong)UIButton *creditLineBtn;
+@property (nonatomic, strong) UIButton *integralBtn;
 @property(nonatomic, strong)UIView *lineView;
 @property(nonatomic, strong)UIView *spacingView;
+@property(nonatomic, strong)UIView *spacingView1;
+
 - (void)setDatatoHeadView;
 
 @end

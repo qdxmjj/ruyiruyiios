@@ -53,8 +53,6 @@
 }
 
 
-
-
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
     return 1;
@@ -143,10 +141,10 @@
     
     [self.tableVIew reloadData];
     
-    for (NSDictionary *dic in commodityList) {
-        
-        [self.commodityNameArr addObject:[dic objectForKey:@"name"]];
-    }
+//    for (NSDictionary *dic in commodityList) {
+//
+//        [self.commodityNameArr addObject:[dic objectForKey:@"name"]];
+//    }
 }
 
 -(void)pushCouponVC:(UIButton *)btn{
@@ -156,13 +154,20 @@
     
     couponVC.storesID = self.storeID;
     
-    couponVC.commodityList = self.commodityNameArr;
+    couponVC.isSelect = @"1";
+    couponVC.totalPrice = self.totalPrice;
+    
+    NSMutableArray *nameArr = [NSMutableArray array];
+    for (NSDictionary *dic in self.commodityList) {
+        
+        [nameArr addObject:dic[@"name"]];
+    }
+    
+    couponVC.goodsNameArr = nameArr;
     
     couponVC.callBuyStore = ^(NSString *couponIdStr, NSString *typeIdStr, NSString *couponNameStr) {
-        
         //再次选择优惠券，重新赋值新价格为原价 减 新优惠券价格  只允许一张优惠券生效
         self.n_TotalPrice = [self.totalPrice floatValue];
-        
         
         if (couponIdStr) {
             //设置优惠券ID
@@ -191,7 +196,6 @@
         }else{
         }
         //赋值新的价格
-        
         if (self.n_TotalPrice <0) {
             
             weakSelf.priceLabLab.attributedText = [YMTools priceWithRedString:@"0"];

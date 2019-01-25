@@ -16,10 +16,9 @@
 @property(nonatomic, strong)CouponLeftView *leftView;
 @property(nonatomic, strong)CouponRightView *rightView;
 
-//old
-- (void)setdatatoViews:(CouponInfo *)couponInfo couponType:(NSString *)couponTypeStr;
 
-//new
-- (void)setdatatoViews:(CouponInfo *)counponInfo commodityList:(NSArray *)commodityList storeID:(NSString *)storeID;
+- (void)setdatatoViews:(CouponInfo *)couponInfo;
+
+-(void)setdatatoViews:(CouponInfo *)counponInfo goodsNameArr:(NSArray *)goodsNameArr totalPrice:(NSString *)totalPrice storeID:(NSString *)storeID;
 
 @end

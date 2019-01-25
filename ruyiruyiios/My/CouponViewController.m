@@ -153,7 +153,6 @@
 
 - (void)getUserCouponsFromInternet{
     
-//    NSLog(@"%@---%@", [UserConfig user_id], [UserConfig userCarId]);
     NSDictionary *userCouponsDic = @{@"userId":[UserConfig user_id]};
     NSString *reqJson = [PublicClass convertToJsonData:userCouponsDic];
     [JJRequest postRequest:@"preferentialInfo/selectsUserCoupons" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
@@ -250,13 +249,23 @@
         
         couponInfo = [self.historyMutableA objectAtIndex:indexPath.row];
     }
-//    [couponCell setdatatoViews:couponInfo couponType:couponTypeStr];
-    [couponCell setdatatoViews:couponInfo commodityList:self.commodityList storeID:self.storesID];
+    if (![self.isSelect isEqualToString:@"1"]) {
+        
+        [couponCell setdatatoViews:couponInfo];
+    }else{
+        
+        [couponCell setdatatoViews:couponInfo goodsNameArr:self.goodsNameArr totalPrice:self.totalPrice storeID:self.storesID];
+    }
     
     return couponCell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (![self.isSelect isEqualToString:@"1"]) {
+    
+        return;
+    }
     
     CouponInfo *couponInfo;
     couponInfo = [self.availableMutableA objectAtIndex:indexPath.row];
@@ -275,7 +284,7 @@
                 if ([couponInfo.type intValue] == 1) {
                     
                     //判断购买的商品列表 是否包含此优惠券对应的名称 包含即可使用此优惠券
-                    if ([_commodityList containsObject:couponInfo.rule]) {
+                    if ([_goodsNameArr containsObject:couponInfo.rule]) {
                         
                         self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.coupon_id], [NSString stringWithFormat:@"%@", couponInfo.type], couponInfo.rule);
                         [self.navigationController popViewControllerAnimated:YES];

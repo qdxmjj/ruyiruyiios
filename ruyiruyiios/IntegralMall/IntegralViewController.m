@@ -11,7 +11,7 @@
 #import "ChangeCouponViewController.h"
 #import "IntergralDetailsViewController.h"
 #import "IntegralOrderViewController.h"
-
+#import "MyWebViewController.h"
 #import <Masonry.h>
 #import "IntegralNavigationView.h"
 #import "GuideView.h"
@@ -140,9 +140,9 @@
             
             CGFloat tableviewHeight = 0.0;
             
-            for (NSString *content in self.contentArr) {
+            for (NSDictionary *dic in self.contentArr) {
                 
-                CGFloat height = [PublicClass getHeightWithText:content width:MAINSCREEN.width-54 font:15.f];
+                CGFloat height = [PublicClass getHeightWithText:dic[@"description"] width:MAINSCREEN.width-54 font:15.f];
                 tableviewHeight += height;
             }
             [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -200,9 +200,18 @@
     
     switch (index) {
             case 0:{
-             
+                MyWebViewController *myWebView = [[MyWebViewController alloc] init];
                 
+                myWebView.isRefresh = @"1";
+                myWebView.url = [NSString stringWithFormat:@"http://score.qdxmjj.com/luckyWheel.html?token=%@",[UserConfig token]];
                 
+                myWebView.block = ^{
+                  
+                    [self getIntegralInfoWithSignIn];
+                };
+                
+                [self.navigationController pushViewController:myWebView animated:YES];
+                self.hidesBottomBarWhenPushed = YES;
             }
             break;
             case 1:{
@@ -235,11 +244,15 @@
     integralActivityCell *cell = [tableView dequeueReusableCellWithIdentifier:@"integralActivityCellID" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    if (self.contentArr.count > indexPath.row) {
-        cell.contentLab.text = self.contentArr[indexPath.row];
-        cell.titleLab.text = @[@"每日登陆",@"消费送积分",@"邀请送积分"][indexPath.row];
+    
+    cell.contentLab.text = self.contentArr[indexPath.row][@"description"];
+    cell.titleLab.text = self.contentArr[indexPath.row][@"title"];
+    
+    if (imgArr.count<=self.contentArr.count) {
+        
         cell.imgView.image = [UIImage imageNamed:imgArr[indexPath.row]];
     }
+    
     return cell;
 }
 
@@ -248,16 +261,19 @@
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    return 3;
+    if (self.contentArr.count>0) {
+        
+        return self.contentArr.count;
+    }
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     //文字高度默认20
     
     if (self.contentArr.count>0) {
-        CGFloat height = [PublicClass getHeightWithText:self.contentArr[indexPath.row] width:MAINSCREEN.width-54 font:15.f];
-        return 35 + height;
+        CGFloat height = [PublicClass getHeightWithText:self.contentArr[indexPath.row][@"description"] width:MAINSCREEN.width-54 font:15.f];
+        return 35 + height +10;
     }
     return 55;
 }

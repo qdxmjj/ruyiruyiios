@@ -47,6 +47,13 @@
     self.Progressview.frame = CGRectMake(0, 0, 0, 2);
 }
 
+- (IBAction)backButtonAction:(id)sender{
+    
+    self.block();
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 -(void)activityInfoWithShareType:(shareType)type shareText:(NSString *)text shareUrl:(NSString *)url{
     
     if (type == shareStatusAble) {
@@ -78,19 +85,19 @@
 }
 
 #pragma mark 左侧点击事件
--(void)backButtonAction:(id)sender{
-    
-    if (self.webview.canGoBack)
-    {
-        
-        [self.webview goBack];
-    }
-    else
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-    
-}
+//-(void)backButtonAction:(id)sender{
+//    
+//    if (self.webview.canGoBack)
+//    {
+//        
+//        [self.webview goBack];
+//    }
+//    else
+//    {
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }
+//    
+//}
 -(void)customBackItemClicked{
 
     if (self.webview.canGoBack)

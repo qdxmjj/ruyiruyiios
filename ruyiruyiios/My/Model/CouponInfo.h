@@ -32,6 +32,10 @@
 @property(nonatomic, strong)NSNumber *userShoeOrderId;
 @property(nonatomic, strong)NSNumber *viewTypeId;
 
+@property(nonatomic, strong)NSString *moneyFull; ///满减 条件 满足条件 才可以满减
+@property(nonatomic, strong)NSString *moneyMinus;///满减 减去的价格
+@property(nonatomic, strong)NSString *deduction;///抵扣券 抵扣的金额
+
 @property(nonatomic, strong)id storesName;//数组
 @property(nonatomic, copy)NSString *positionsName;
 @property(nonatomic, copy)NSString *rule;

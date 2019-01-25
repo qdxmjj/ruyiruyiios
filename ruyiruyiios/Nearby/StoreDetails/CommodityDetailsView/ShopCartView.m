@@ -28,18 +28,10 @@
         
         [self addSubview:self.tableView];
         [self addSubview:self.removeMptyBtn];
-
-        [self.removeMptyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-           
-            make.right.mas_equalTo(self.tableView.mas_right).inset(10);
-            make.bottom.mas_equalTo(self.tableView.mas_top).inset(3);
-            make.height.mas_equalTo(@20);
-            make.width.mas_equalTo(@20);
-        }];
-        
     }
     return self;
 }
+
 
 -(void)reloadTableView{
     
@@ -79,10 +71,8 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
 
-    return UITableViewAutomaticDimension;
+    return 44;
 }
-
-
 
 -(UITableView *)tableView{
     
@@ -105,6 +95,7 @@
     if (!_removeMptyBtn) {
         
         _removeMptyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        [_removeMptyBtn setTitle:@"清空购物车" forState:UIControlStateNormal];
         [_removeMptyBtn setImage:[UIImage imageNamed:@"ic_delete"] forState:UIControlStateNormal];
         [_removeMptyBtn setBackgroundColor:[UIColor whiteColor]];
         [_removeMptyBtn addTarget:self action:@selector(removeShopCartContentWithAll) forControlEvents:UIControlEventTouchUpInside];
@@ -118,17 +109,29 @@
 }
 
 -(void)setCommodityList:(NSArray *)commodityList{
-    
     _commodityList = commodityList;
-    if (_commodityList.count<=5) {
-        
-        self.tableView.frame = CGRectMake(0, self.frame.size.height-_commodityList.count*44, self.frame.size.width, _commodityList.count*44);
-    }else{
-        
-        self.tableView.frame = CGRectMake(0, self.frame.size.height-5*44, self.frame.size.width, 5*44);
-    }
     
+    [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        
+        make.leading.trailing.mas_equalTo(self);
+        make.bottom.mas_equalTo(self.mas_bottom);
+        if (_commodityList.count<=5) {
 
+            make.height.mas_equalTo(_commodityList.count*44);//最低高度
+        }else{
+            
+            make.height.mas_equalTo(5*44);//最大高度
+        }
+    }];
+    
+    [self.removeMptyBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+        
+        make.trailing.mas_equalTo(self.tableView.mas_trailing).inset(10);
+        make.bottom.mas_equalTo(self.tableView.mas_top).inset(3);
+        make.height.mas_equalTo(@20);
+        make.width.mas_equalTo(@20);
+    }];
+    
     [self.tableView reloadData];
 }
 

@@ -13,6 +13,7 @@
 
 @property(nonatomic,strong)UIImageView *backGroundView;
 @property(nonatomic,strong)UIButton *couponBtn;
+@property (nonatomic, strong) UIImageView *rightView;
 
 @end
 @implementation IntegralNavigationView
@@ -25,18 +26,19 @@
         [self addSubview:self.backGroundView];
         [self addSubview:self.numberLab];
         [self addSubview:self.couponBtn];
+        [self addSubview:self.rightView];
     }
     return self;
 }
 
 - (void)layoutSubviews{
     
-    [self.backGroundView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.backGroundView mas_remakeConstraints:^(MASConstraintMaker *make) {
        
         make.edges.mas_equalTo(self);
     }];
     
-    [self.numberLab mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.numberLab mas_remakeConstraints:^(MASConstraintMaker *make) {
        
         make.centerX.mas_equalTo(self.mas_centerX);
 //        当前高度 - 导航栏高度  / 2 为此控件的 中心点
@@ -44,10 +46,17 @@
         make.height.mas_equalTo(35);
     }];
     
-    [self.couponBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.couponBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
        
         make.top.mas_equalTo(self.numberLab.mas_bottom).inset(2);
         make.centerX.mas_equalTo(self.mas_centerX);
+    }];
+    
+    [self.rightView mas_remakeConstraints:^(MASConstraintMaker *make) {
+       
+        make.leading.mas_equalTo(self.couponBtn.mas_trailing).inset(3);
+        make.centerY.mas_equalTo(self.couponBtn.mas_centerY);
+        make.width.height.mas_equalTo(CGSizeMake(20, 20));
     }];
 }
 
@@ -92,5 +101,14 @@
         [_couponBtn addTarget:self action:@selector(didSelectMyIntegral:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _couponBtn;
+}
+- (UIImageView *)rightView{
+    if (!_rightView) {
+        
+        _rightView = [[UIImageView alloc] init];
+        _rightView.image = [UIImage imageNamed:@"ic_bai"];
+        _rightView.contentMode = UIViewContentModeCenter;
+    }
+    return _rightView;
 }
 @end

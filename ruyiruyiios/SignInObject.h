@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SignInObject : NSObject
 
-+(void)startSignInAndshowView:(UIView *)view;
++(void)startSignInAndshowView:(nullable UIView *)view;
 
 @end
 

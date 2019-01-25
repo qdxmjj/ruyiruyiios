@@ -21,18 +21,18 @@
         
         if ([code integerValue] == 1) {
             
-            if ([data[@"signState"] integerValue] == 1) {
+            if ([data[@"signState"] integerValue] == 0) {
                 
                 NSLog(@"未签到");
                 
-                [JJRequest interchangeablePostRequestWithIP:INTEGRAL_IP path:@"score/sign" params:@{@"userId":[NSString stringWithFormat:@"%@",[UserConfig user_id]]} success:^(id  _Nullable data) {
+                [JJRequest interchangeablePostRequestWithIP:INTEGRAL_IP path:@"score/sign" params:@{@"userId":[NSString stringWithFormat:@"%@",[UserConfig user_id]],@"token":[UserConfig token]} success:^(id  _Nullable data) {
                     
                     if ([data[@"status"] integerValue] != 1) {
                         
                         return ;
                     }
                     
-                    NSLog(@"%@",data);
+                    NSLog(@"签到信息：%@",data);
                     NSDictionary *integralDic = data[@"data"];
                     
                     NSString *signInCount = integralDic[@"continuousMonth"];

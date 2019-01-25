@@ -11,7 +11,12 @@
 #import "UIButton+Subscript.h"
 @interface TabbarView ()
 
-@property(nonatomic,strong)UIImageView *sliderView;//滑块
+@property(nonatomic,strong)UIView *sliderView;//滑块
+
+@property (nonatomic, strong) UIButton *btn1;
+@property (nonatomic, strong) UIButton *btn2;
+@property (nonatomic, strong) UIButton *btn3;
+@property (nonatomic, strong) UIButton *btn4;
 
 @end
 @implementation TabbarView
@@ -34,7 +39,6 @@
         for (int i=0; i<=3; i++) {
             
             UIButton *tabbarBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-            tabbarBtn.frame=CGRectMake(self.frame.size.width/4*i,0 , self.frame.size.width/4, self.frame.size.height-2);
             [tabbarBtn setTitle:titleArr[i] forState:UIControlStateNormal];
             [tabbarBtn.titleLabel setFont:[UIFont systemFontOfSize:15.f]];
             [tabbarBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -46,9 +50,71 @@
 //            }
             [tabbarBtn addTarget:self action:@selector(topBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:tabbarBtn];
+            
+            switch (i) {
+                case 0:
+                    self.btn1 = tabbarBtn;
+                    break;
+                case 1:
+                    self.btn2 =tabbarBtn;
+                    break;
+                case 2:
+                    self.btn3 = tabbarBtn;
+                    break;
+                case 3:
+                    self.btn4 = tabbarBtn;
+                    break;
+                    
+                default:
+                    break;
+            }
+//            tabbarBtn.frame=CGRectMake(self.frame.size.width/4*i,0 , self.frame.size.width/4, self.frame.size.height-2);
+
         }
     }
     return self;
+}
+
+- (void)layoutSubviews{
+    
+    [self.btn1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.leading.mas_equalTo(self.mas_leading);
+        make.top.mas_equalTo(self.mas_top);
+        make.width.mas_equalTo(self.frame.size.width/4);
+        make.height.mas_equalTo(self.frame.size.height-2);
+    }];
+    [self.btn2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.leading.mas_equalTo(self.btn1.mas_trailing);
+        make.top.mas_equalTo(self.mas_top);
+        make.width.mas_equalTo(self.frame.size.width/4);
+        make.height.mas_equalTo(self.frame.size.height-2);
+    }];
+    [self.btn3 mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.leading.mas_equalTo(self.btn2.mas_trailing);
+        make.top.mas_equalTo(self.mas_top);
+        make.width.mas_equalTo(self.frame.size.width/4);
+        make.height.mas_equalTo(self.frame.size.height-2);
+    }];
+    [self.btn4 mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.leading.mas_equalTo(self.btn3.mas_trailing);
+        make.top.mas_equalTo(self.mas_top);
+        make.width.mas_equalTo(self.frame.size.width/4);
+        make.height.mas_equalTo(self.frame.size.height-2);
+    }];
+    
+//    _sliderView.frame = CGRectMake(10, self.frame.size.height-2, self.frame.size.width/4-20, 2);
+
+    [self.sliderView mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.leading.mas_equalTo(self.mas_leading).inset(10);
+        make.bottom.mas_equalTo(self.mas_bottom);
+        make.height.mas_equalTo(2);
+        make.width.mas_equalTo(self.frame.size.width/4-20);
+    }];
 }
 
 -(void)changeBadgeNumberWithButton:(NSInteger )buttonTag status:(BOOL)badgeStatus{
@@ -135,8 +201,6 @@
         default:
             break;
     }
-    
-    
 }
 
 -(void)emptyBadgeNumer{
@@ -148,8 +212,6 @@
         btn.badgeLable.hidden = YES;
         btn.badgeLable.text = @"0";
     }
-
-    
 }
 
 -(void)topBtnPressed:(UIButton *)sender{
@@ -180,20 +242,12 @@
 
 
 
--(UIImageView *)sliderView{
+-(UIView *)sliderView{
     
     if (_sliderView==nil) {
         
-        _sliderView = [UIImageView new];
-        
-//        if (KIsiPhoneX) {
-//            _sliderView.frame = CGRectMake(0, topBtnH, SCREEN_WIDTH/5, 2.5);
-//
-//        }else{
-            _sliderView.frame = CGRectMake(10, self.frame.size.height-2, self.frame.size.width/4-20, 2);
-//        }
+        _sliderView = [[UIView alloc] init];
         _sliderView.backgroundColor=[UIColor colorWithRed:255.f/255.f green:102.f/255.0 blue:35.f/255.0 alpha:1];
-        
     }
     return _sliderView;
 }

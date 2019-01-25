@@ -12,7 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AddressView : UIView
 
-@property(nonatomic, strong)UIButton *rightBtn;
 @property(nonatomic, strong)UILabel *userNameLab;
 @property(nonatomic, strong)UILabel *phoneLab;
 @property(nonatomic, strong)UILabel *addressLab;

@@ -107,6 +107,7 @@
         [_myHeadview.nameBtn addTarget:self action:@selector(chickNameAndHeadBtn:) forControlEvents:UIControlEventTouchUpInside];
         [_myHeadview.myQuotaBtn addTarget:self action:@selector(chickMyquotaBtn:) forControlEvents:UIControlEventTouchUpInside];
         [_myHeadview.creditLineBtn addTarget:self action:@selector(chickCreaditLineBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [_myHeadview.integralBtn addTarget:self action:@selector(chickIntegralBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _myHeadview;
 }
@@ -180,6 +181,17 @@
         [self.navigationController pushViewController:creditLineVC animated:YES];
     }
 }
+- (void)chickIntegralBtn:(UIButton *)button{
+    
+    if ([UserConfig user_id] == NULL) {
+        
+        [self alertIsloginView];
+    }else{
+        IntegralViewController *contactCustomerVC = [[IntegralViewController alloc] init];
+        [self.navigationController pushViewController:contactCustomerVC animated:YES];
+    }
+}
+
 
 -(void)myOrderView:(MyOrderView *)view cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -321,7 +333,7 @@
             
             if (![WXApi isWXAppInstalled]){
                 //此为联系客服 临时更改为 积分商城
-                IntegralViewController *contactCustomerVC = [[IntegralViewController alloc] init];
+                ContactCustomerViewController *contactCustomerVC = [[ContactCustomerViewController alloc] init];
                 [self.navigationController pushViewController:contactCustomerVC animated:YES];
             }else{
                 MySettingViewController *mysettingVC = [[MySettingViewController alloc] init];
