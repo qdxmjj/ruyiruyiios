@@ -23,14 +23,19 @@
     
     if (_carNameLabel == nil) {
         
-        _carNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(80, 25, MAINSCREEN.width - 80, 20)];
+        _carNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(80, 25, 80, 20)];
         _carNameLabel.font = [UIFont fontWithName:TEXTFONT size:16.0];
         _carNameLabel.textColor = [UIColor blackColor];
         _carNameLabel.textAlignment = NSTextAlignmentLeft;
     }
     return _carNameLabel;
 }
-
+- (UIImageView *)authenticatedImgView{
+    if (!_authenticatedImgView) {
+        _authenticatedImgView = [[UIImageView alloc] initWithFrame:CGRectMake(180, 25, 80, 25)];
+    }
+    return _authenticatedImgView;
+}
 - (UILabel *)platNumberLabel{
     
     if (_platNumberLabel == nil) {
@@ -71,6 +76,7 @@
         
         [self.contentView addSubview:self.carImageV];
         [self.contentView addSubview:self.carNameLabel];
+        [self.contentView addSubview:self.authenticatedImgView];
         [self.contentView addSubview:self.platNumberLabel];
         [self.contentView addSubview:self.underLineV];
         [self.contentView addSubview:self.defultImageV];

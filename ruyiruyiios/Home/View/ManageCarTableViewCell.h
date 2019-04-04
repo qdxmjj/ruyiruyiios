@@ -12,6 +12,7 @@
 
 @property(nonatomic, strong)UIImageView *carImageV;
 @property(nonatomic, strong)UILabel *carNameLabel;
+@property (nonatomic, strong) UIImageView *authenticatedImgView;
 @property(nonatomic, strong)UILabel *platNumberLabel;
 @property(nonatomic, strong)UIView *underLineV;
 @property(nonatomic, strong)UIImageView *defultImageV;

@@ -220,10 +220,16 @@
 
 - (void)analysizeDic:(NSDictionary *)dataDic{
     
-    if ([[dataDic objectForKey:@"storeQuaryResVos"] count]<=0) {
+    ///默认的店铺数据 跟选择的店铺数据格式不一致 所以需要判断
+    if ([dataDic objectForKey:@"storeQuaryResVos"]) {
         
-        [PublicClass showHUD:@"周围没有店铺！" view:self.view];
-        return;
+        if ([[dataDic objectForKey:@"storeQuaryResVos"] count]<=0) {
+            
+            [PublicClass showHUD:@"周围没有店铺！" view:self.view];
+            return;
+        }
+    }else{
+        
     }
     
     NSDictionary *storeInfoDic = [[dataDic objectForKey:@"storeQuaryResVos"] objectAtIndex:0];

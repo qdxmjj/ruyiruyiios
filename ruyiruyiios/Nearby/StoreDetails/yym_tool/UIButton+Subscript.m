@@ -33,8 +33,8 @@ static NSString *badgeLabelKey = @"badgeLabelKey";
     self.badgeLable.backgroundColor = [UIColor redColor];
     self.badgeLable.hidden = YES;
 
-    CGFloat badgeX = self.frame.size.width-15;
-    
+    CGFloat badgeX = MAINSCREEN.width/4-15;
+
     self.badgeLable.frame = CGRectMake(badgeX, 0, badgeW, badgeW);
 
     [self addSubview:self.badgeLable];

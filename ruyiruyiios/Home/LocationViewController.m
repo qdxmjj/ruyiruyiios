@@ -399,6 +399,7 @@ static CGFloat const headViewAllSubViewsSpacing = 5+5+5+5+5; //headView 所有�
     }];
     
     for (FMDBPosition *countyPosition in countyArr) {
+
         if ([countyPosition.fid integerValue] == positionID) {
             
             [newCountyArr addObject:countyPosition];

@@ -12,6 +12,7 @@
 #import "CodeLoginViewController.h"
 #import "MyWebViewController.h"
 #import "CodeLoginViewController.h"
+#import "ManageCarViewController.h"
 @implementation UIButton(FillColor)
 
 - (void)setBackgroundColor:(UIColor *)backgroundColor forState:(UIControlState)state{
@@ -183,6 +184,27 @@
     [alert addAction:ok];
     [alert addAction:cancel];
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)perfectCaiInfoAlert{
+    
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"请完善车辆信息" message:@"是否前往完善信息界面" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"前往" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        ///
+        ManageCarViewController *manageCarVC = [[ManageCarViewController alloc] init];
+        
+        [self.navigationController pushViewController:manageCarVC animated:YES];
+    }];
+    
+    [alertC addAction:action];
+    [alertC addAction:action1];
+    [self presentViewController:alertC animated:YES completion:nil];
 }
 
 - (void)setdataEmptying{

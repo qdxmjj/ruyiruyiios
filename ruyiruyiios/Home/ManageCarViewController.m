@@ -11,10 +11,11 @@
 #import "DBRecorder.h"
 #import "ManageCar.h"
 #import <UIImageView+WebCache.h>
-#import "CarInfoViewController.h"
+
 #import "CodeLoginViewController.h"
 #import "DelegateConfiguration.h"
 
+#import "MyCarInfoViewController.h"
 @interface ManageCarViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property(nonatomic, strong)UIButton *addCarBtn;
@@ -76,7 +77,7 @@
 
 - (void)chickAddCarBtn{
     
-    CarInfoViewController *carInfoVC = [[CarInfoViewController alloc] init];
+    MyCarInfoViewController *carInfoVC = [[MyCarInfoViewController alloc] init];
     carInfoVC.is_alter = YES;
     [self.navigationController pushViewController:carInfoVC animated:YES];
     self.hidesBottomBarWhenPushed = YES;
@@ -181,12 +182,28 @@
         manageCell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     ManageCar *manageCar = [self.carMutableA objectAtIndex:indexPath.row];
-    [manageCell.carImageV sd_setImageWithURL:[NSURL URLWithString:manageCar.car_brand]];
-    manageCell.carNameLabel.text = manageCar.car_name;
+    
+    if ([manageCar.car_brand isEqualToString:@""] || [manageCar.car_brand isEqual:[NSNull null]] || manageCar.car_brand.length <= 0) {
+        
+        manageCell.carNameLabel.text = @"待选择车型";
+        manageCell.carImageV.image = [UIImage imageNamed:@"ic_dairenzheng"];
+    }else{
+        manageCell.carNameLabel.text = manageCar.car_name;
+        [manageCell.carImageV sd_setImageWithURL:[NSURL URLWithString:manageCar.car_brand]];
+    }
     manageCell.platNumberLabel.text = manageCar.plat_number;
+    
+    if ([manageCar.authenticatedState longLongValue] == 2) {
+        
+        manageCell.authenticatedImgView.image = [UIImage imageNamed:@"ic_weirz"];
+    }else{
+        manageCell.authenticatedImgView.image = [UIImage imageNamed:@"ic_yirz"];
+    }
     if ([manageCar.is_default intValue] == 1) {
         
         manageCell.defultImageV.hidden = NO;
+    }else{
+        manageCell.defultImageV.hidden = YES;
     }
     return manageCell;
 }
@@ -194,7 +211,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     ManageCar *managerCar = [self.carMutableA objectAtIndex:indexPath.row];
-    CarInfoViewController *carInfoVC = [[CarInfoViewController alloc] init];
+    MyCarInfoViewController *carInfoVC = [[MyCarInfoViewController alloc] init];
     carInfoVC.user_car_idStr = [NSString stringWithFormat:@"%@", managerCar.user_car_id];
     carInfoVC.is_alter = NO;
     [self.navigationController pushViewController:carInfoVC animated:YES];

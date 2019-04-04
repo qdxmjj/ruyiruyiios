@@ -32,7 +32,7 @@
 
 
 //测试版IP debug
-//#define SERVERPREFIX  @"http://192.168.0.170:8060"  //龚林 测试地址
+//#define SERVERPREFIX  @"http://192.168.0.86:8060"  //龚林 测试地址
 //#define GL_RuYiRuYiIP  @"http://192.168.0.170:8030"  //龚林 我的钱包测试ID
 
 //#define SERVERPREFIX  @"http://192.168.0.96:8060/"  //主测试地址

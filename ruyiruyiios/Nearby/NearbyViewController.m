@@ -246,15 +246,28 @@
 #pragma mark toppingDelegate
 -(void)toppingDidSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (self.topingDataArr.count>0) {
+    if ([self.status isEqualToString:@"1"]) {
         
-        CommdoityDetailsViewController *storeDetails = [[CommdoityDetailsViewController alloc]init];
+        //状态为1  pop回掉
+        DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+        [delegateConfiguration unregistercityNameListers:self];
+        [delegateConfiguration unregisterLoginStatusChangedListener:self];
         
-        storeDetails.commodityInfo = self.topingDataArr[indexPath.item];
+        NSDictionary *backDic = [self.topingDataArr objectAtIndex:indexPath.item];
+        self.backBlock(backDic);
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
         
-        [self.navigationController pushViewController:storeDetails animated:YES];
-        if ([self.isLocation isEqualToString:@"1"]) {
-            self.hidesBottomBarWhenPushed = YES;
+        if (self.topingDataArr.count>0) {
+            
+            CommdoityDetailsViewController *storeDetails = [[CommdoityDetailsViewController alloc]init];
+            
+            storeDetails.commodityInfo = self.topingDataArr[indexPath.item];
+            
+            [self.navigationController pushViewController:storeDetails animated:YES];
+            if ([self.isLocation isEqualToString:@"1"]) {
+                self.hidesBottomBarWhenPushed = YES;
+            }
         }
     }
 }

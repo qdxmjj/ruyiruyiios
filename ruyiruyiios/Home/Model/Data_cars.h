@@ -22,4 +22,6 @@
 @property(nonatomic,strong) NSString *service_end_date;
 @property(nonatomic,strong) NSNumber *service_year_length;
 
+@property(nonatomic,strong) NSNumber *authenticatedState;
+
 @end

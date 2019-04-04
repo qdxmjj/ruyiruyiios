@@ -43,4 +43,6 @@
 @property (nonatomic, strong)NSNumber *userId;
 @property (nonatomic, strong)NSNumber *serviceYearLength;
 
+@property (nonatomic, strong)NSNumber *authenticatedState; ///1 认证 2 未认证
+
 @end

@@ -68,8 +68,6 @@
                 default:
                     break;
             }
-//            tabbarBtn.frame=CGRectMake(self.frame.size.width/4*i,0 , self.frame.size.width/4, self.frame.size.height-2);
-
         }
     }
     return self;
@@ -106,8 +104,6 @@
         make.height.mas_equalTo(self.frame.size.height-2);
     }];
     
-//    _sliderView.frame = CGRectMake(10, self.frame.size.height-2, self.frame.size.width/4-20, 2);
-
     [self.sliderView mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.leading.mas_equalTo(self.mas_leading).inset(10);
@@ -115,6 +111,8 @@
         make.height.mas_equalTo(2);
         make.width.mas_equalTo(self.frame.size.width/4-20);
     }];
+    
+    [self layoutIfNeeded];
 }
 
 -(void)changeBadgeNumberWithButton:(NSInteger )buttonTag status:(BOOL)badgeStatus{

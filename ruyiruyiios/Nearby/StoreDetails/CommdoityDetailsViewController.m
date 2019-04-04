@@ -54,10 +54,7 @@ static NSInteger const HeadViewH = 150;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-//    self.navigationController.delegate = self;
     self.view.backgroundColor = [UIColor whiteColor];
-//    NSLog(@"%@  %@",self.directoryRequest?@"YES":@"NO",self.contentRequest?@"YES":@"NO");
     
     [self.view addSubview:self.headV];
     
@@ -116,7 +113,6 @@ static NSInteger const HeadViewH = 150;
     
     __weak __typeof(self)weakSelf = self;
     
-    //有空全都换成代理,好看
     //刷新商品详细内容
     self.directoryVC.refreshBlock = ^(NSInteger index, NSString *commodityID) {
     
@@ -133,7 +129,6 @@ static NSInteger const HeadViewH = 150;
                 
                 [SubserviceCorrespondingGoods addObject:commodity];
             }
-            
         }
         //根据index来取得对应的内容
         weakSelf.contentVC.dataArr = SubserviceCorrespondingGoods;
@@ -166,7 +161,6 @@ static NSInteger const HeadViewH = 150;
                 make.width.mas_equalTo(weakSelf.view.mas_width);
                 make.bottom.mas_equalTo(weakSelf.bootV.mas_top);
             }];
-            
         }else{
             
             [weakSelf.shopCartView removeFromSuperview];
@@ -233,7 +227,6 @@ static NSInteger const HeadViewH = 150;
     [self getCommodityInfoWithSetHeadView];
 }
 
-
 -(void)getCommodityInfoWithSetHeadView{
     
     if (self.commodityInfo.count>0) {
@@ -248,7 +241,6 @@ static NSInteger const HeadViewH = 150;
         
         self.headV.storeName.text =[self.commodityInfo objectForKey:@"storeName"];
         self.headV.serviceTypeList = [self.commodityInfo objectForKey:@"storeServcieList"];
-        
     }
 }
 
@@ -279,24 +271,16 @@ static NSInteger const HeadViewH = 150;
                     
                     //如果有默认选择的商品，则跳转到对应的商品分类，self.clickButtonTag，分类页面点击商品跳转到对应页面
                     [self AutomaticClick:100100+self.clickButtonTag];
-                    
                 }else{
                     
                     //附近的门店进入此页面，执行此方法，默认选择第一个
                     [self AutomaticClick:100100];
                 }
-                
             }
-            
         }
-
     } failure:^(NSError * _Nullable error) {
-        
-        
     }];
-    
 }
-
 
 #pragma mark 获取全部的商品目录
 -(void)getStoreDetailsInfoWithStoreID:(NSString *)storeID{
@@ -338,7 +322,6 @@ static NSInteger const HeadViewH = 150;
             
             [dic1 setObject:@"0" forKey:@"badgeNumber"];
             [self.meirongArr addObject:dic1];
-            
         }
         [self.meirongArr addObject:@"0"];
         
@@ -361,11 +344,8 @@ static NSInteger const HeadViewH = 150;
             
             [dic1 setObject:@"0" forKey:@"badgeNumber"];
             [self.fuwuArr addObject:dic1];
-
         }
         [self.fuwuArr addObject:@"0"];
-        
-
         
         [self.directoryVC.sevrviceGroup addObject:self.baoyangArr];
         [self.directoryVC.sevrviceGroup addObject:self.meirongArr];
@@ -382,7 +362,6 @@ static NSInteger const HeadViewH = 150;
                     
                     //自动选择时会调用此方法，self.clickButtonTag，分类页面点击商品跳转到对应页面
                     [self AutomaticClick:100100+self.clickButtonTag];
-                    
                 }else{
                     
                     //附近的门店进入此页面，执行此方法，默认选择第一个
@@ -391,10 +370,7 @@ static NSInteger const HeadViewH = 150;
             }
         }
     } failure:^(NSError * _Nullable error) {
-        
     }];
-    
-    
 }
 
 #pragma mark 通知事件
@@ -443,7 +419,6 @@ static NSInteger const HeadViewH = 150;
                     break;
                 }
             }}}
-    
     //大类服务角标显示
     [self.tabbarV changeBadgeNumberWithButton:self.directoryVC.subScript status:NO];
 }
@@ -556,10 +531,8 @@ static NSInteger const HeadViewH = 150;
     if (!_directoryVC) {
         
         _directoryVC = [[DirectoryTableViewController alloc] initWithStyle:UITableViewStylePlain];
-//        _directoryVC.tableView.frame = CGRectMake(0, HeadViewH+45+2, self.view.frame.size.width/4+10, self.view.frame.size.height-HeadViewH-45-45-2-bottom_height);
         _directoryVC.tableView.backgroundColor = [UIColor colorWithRed:230/255.f green:230/255.f blue:230/255.f alpha:1.f];
     }
-    
     return _directoryVC;
 }
 
@@ -568,7 +541,6 @@ static NSInteger const HeadViewH = 150;
     if (!_contentVC) {
         
         _contentVC = [[ContentTableViewController alloc] initWithStyle:UITableViewStylePlain];
-//        _contentVC.tableView.frame = CGRectMake(self.view.frame.size.width/4+10, HeadViewH+45+2, self.view.frame.size.width-self.view.frame.size.width/4-10, self.view.frame.size.height-HeadViewH-45-45-2-bottom_height);
     }
     return _contentVC;
 }
@@ -685,16 +657,6 @@ static NSInteger const HeadViewH = 150;
     
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"ShopCartPlusNotification" object:nil];
 }
-
-
-//隐藏导航栏
-//- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-//
-//    BOOL isShowHomePage = [viewController isKindOfClass:[self class]];
-//    [self.navigationController setNavigationBarHidden:isShowHomePage animated:YES];
-//
-//}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

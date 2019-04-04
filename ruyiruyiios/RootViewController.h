@@ -32,9 +32,14 @@
 
 - (IBAction)backButtonAction:(id)sender;
 
+//未登录
 - (void)alertIsloginView;
 
+//token错误
 - (void)alertIsequallyTokenView;
+
+//车辆未认证 或 车辆信息未完善
+- (void)perfectCaiInfoAlert;
 
 -(void)alertResetHomeInfoView;//暂未用到，留待以后
 @end

@@ -119,7 +119,7 @@
                 carFactory.factoryId = [NSNumber numberWithInt:[factoryRs intForColumn:@"factoryId"]];
                 carFactory.system = [NSNumber numberWithInt:[factoryRs intForColumn:@"system"]];
                 carFactory.time = [factoryRs stringForColumn:@"time"];
-                NSString *timeStr = [NSString stringWithFormat:@"%ld",[carFactory.time integerValue]];//直接比较时间戳
+                NSString *timeStr = [NSString stringWithFormat:@"%ld",(long)[carFactory.time integerValue]];//直接比较时间戳
 //                [PublicClass timestampSwitchTime:[carFactory.time integerValue] andFormatter:@"YYYY-MM-dd HH:mm:ss"];
                 [timeArray addObject:timeStr];
             }
@@ -248,7 +248,7 @@
                 carBrand.system = [NSNumber numberWithInt:[brandRs intForColumn:@"system"]];
                 carBrand.time = [brandRs stringForColumn:@"time"];
 //                NSString *timeStr = [PublicClass timestampSwitchTime:[carBrand.time integerValue] andFormatter:@"YYYY-MM-dd HH:mm:ss"];
-                NSString *timeStr = [NSString stringWithFormat:@"%ld",[carBrand.time integerValue]];//直接比较时间戳
+                NSString *timeStr = [NSString stringWithFormat:@"%ld",(long)[carBrand.time integerValue]];//直接比较时间戳
 
                 [brandTimeArray addObject:timeStr];
             }
@@ -385,7 +385,7 @@
                 carVerhicle.verhicle = [verhicleRs stringForColumn:@"verhicle"];
                 carVerhicle.verify = [NSNumber numberWithInt:[verhicleRs intForColumn:@"verify"]];
 //                NSString *timeStr = [PublicClass timestampSwitchTime:[carVerhicle.time integerValue] andFormatter:@"YYYY-MM-dd HH:mm:ss"];
-                NSString *timeStr = [NSString stringWithFormat:@"%ld",[carVerhicle.time integerValue]];//直接比较时间戳
+                NSString *timeStr = [NSString stringWithFormat:@"%ld",(long)[carVerhicle.time integerValue]];//直接比较时间戳
                 [verhicleTimeArry addObject:timeStr];
             }
             verhiclePaixArray = [verhicleTimeArry sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
@@ -702,7 +702,7 @@
                 carTireType.tireState = [NSNumber numberWithInt:[tireTypeRs intForColumn:@"tireState"]];
                 carTireType.tireTypeId = [NSNumber numberWithInt:[tireTypeRs intForColumn:@"tireTypeId"]];
 //                NSString *timeStr = [PublicClass timestampSwitchTime:[carTireType.time integerValue] andFormatter:@"YYYY-MM-dd HH:mm:ss"];
-                NSString *timeStr = [NSString stringWithFormat:@"%ld",[carTireType.time integerValue]];//直接比较时间戳
+                NSString *timeStr = [NSString stringWithFormat:@"%ld",(long)[carTireType.time integerValue]];//直接比较时间戳
 
                 [tireTypeTimeArray addObject:timeStr];
             }
@@ -810,34 +810,42 @@
     LosDatabaseHelper *helper = [LosDatabaseHelper sharedInstance];
     [helper inTransaction:^(FMDatabase *db, BOOL rollback) {
         
-        if ([db open]) {
-            
-            [db setShouldCacheStatements:YES];
-            if (![db tableExists:@"position"]) {
+        dispatch_queue_t queue = dispatch_queue_create("cityInfoQueue.com", DISPATCH_QUEUE_CONCURRENT);
+
+        dispatch_async(queue, ^{
+        
+            NSLog(@"当前线程：%@",[NSThread currentThread]);
+
+            if ([db open]) {
                 
-                [db executeUpdate:@"CREATE TABLE position(Id INTEGER PRIMARY KEY, definition INTEGER, fid INTEGER, icon TEXT, positionId INTEGER, level INTEGER, name TEXT, time TEXT)"];
-                NSLog(@"省市区位置数据库创建完成!");
-            }
-            NSString *pdefinition_Str, *pfid_Str, *positionId_Str, *plevel_Str;
-            for (NSDictionary *dataDic in dataArray) {
-                
-                FMDBPosition *position = [[FMDBPosition alloc] init];
-                [position setValuesForKeysWithDictionary:dataDic];
-                pdefinition_Str = [NSString stringWithFormat:@"%ld", (long)[position.definition intValue]];
-                pfid_Str = [NSString stringWithFormat:@"%ld", (long)[position.fid intValue]];
-                positionId_Str = [NSString stringWithFormat:@"%ld", (long)[position.positionId intValue]];
-                plevel_Str = [NSString stringWithFormat:@"%ld", (long)[position.level intValue]];
-                FMResultSet *positionRs = [db executeQuery:@"select * from position where positionId = ?", positionId_Str];
-                if ([positionRs next]) {
+                [db setShouldCacheStatements:YES];
+                if (![db tableExists:@"position"]) {
                     
-                    [db executeUpdate:@"update position set definition = ?, fid = ?, icon = ?, level = ?, name = ?, time = ? where positionId = ?", pdefinition_Str, pfid_Str, position.icon, plevel_Str, position.name, position.time, positionId_Str];
-                }else{
-                    
-                    [db executeUpdate:@"insert into position(definition, fid, icon, positionId, level, name, time) values(?,?,?,?,?,?,?)", pdefinition_Str, pfid_Str, position.icon, positionId_Str, plevel_Str, position.name, position.time];
+                    [db executeUpdate:@"CREATE TABLE position(Id INTEGER PRIMARY KEY, definition INTEGER, fid INTEGER, icon TEXT, positionId INTEGER, level INTEGER, name TEXT, time TEXT)"];
+                    NSLog(@"省市区位置数据库创建完成!");
                 }
-                [positionRs close];
+                NSString *pdefinition_Str, *pfid_Str, *positionId_Str, *plevel_Str;
+                for (NSDictionary *dataDic in dataArray) {
+                    
+                    FMDBPosition *position = [[FMDBPosition alloc] init];
+                    [position setValuesForKeysWithDictionary:dataDic];
+                    pdefinition_Str = [NSString stringWithFormat:@"%ld", (long)[position.definition intValue]];
+                    pfid_Str = [NSString stringWithFormat:@"%ld", (long)[position.fid intValue]];
+                    positionId_Str = [NSString stringWithFormat:@"%ld", (long)[position.positionId intValue]];
+                    plevel_Str = [NSString stringWithFormat:@"%ld", (long)[position.level intValue]];
+                    FMResultSet *positionRs = [db executeQuery:@"select * from position where positionId = ?", positionId_Str];
+                    if ([positionRs next]) {
+                        
+                        [db executeUpdate:@"update position set definition = ?, fid = ?, icon = ?, level = ?, name = ?, time = ? where positionId = ?", pdefinition_Str, pfid_Str, position.icon, plevel_Str, position.name, position.time, positionId_Str];
+                    }else{
+                        
+                        [db executeUpdate:@"insert into position(definition, fid, icon, positionId, level, name, time) values(?,?,?,?,?,?,?)", pdefinition_Str, pfid_Str, position.icon, positionId_Str, plevel_Str, position.name, position.time];
+                    }
+                    [positionRs close];
+                }
             }
-        }
+            
+        });
     }];
 }
 
@@ -866,6 +874,7 @@
                 position.level = [NSNumber numberWithInt:[provinceRs intForColumn:@"level"]];
                 position.name = [provinceRs stringForColumn:@"name"];
                 position.time = [provinceRs stringForColumn:@"time"];
+
                 [provinceArray addObject:position];
             }
             [provinceRs close];
@@ -967,7 +976,7 @@
                 position.name = [provinceRs stringForColumn:@"name"];
                 position.time = [provinceRs stringForColumn:@"time"];
 //                NSString *timeStr = [PublicClass timestampSwitchTime:[position.time integerValue] andFormatter:@"YYYY-MM-dd HH:mm:ss"];
-                NSString *timeStr = [NSString stringWithFormat:@"%ld",[position.time integerValue]];//直接比较时间戳
+                NSString *timeStr = [NSString stringWithFormat:@"%ld",(long)[position.time integerValue]];//直接比较时间戳
 
                 [positionTimeArray addObject:timeStr];
             }

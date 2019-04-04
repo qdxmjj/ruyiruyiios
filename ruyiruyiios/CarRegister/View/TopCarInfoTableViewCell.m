@@ -24,7 +24,7 @@
         
         _topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, 325-40)];
         _topView.backgroundColor = [UIColor whiteColor];
-        NSArray *leftNameArray = @[@"车型", @"是否是新能源汽车", @"车牌号码", @"常驻地区", @"前轮型号", @"后轮型号", @"行驶证注册日期"];
+        NSArray *leftNameArray = @[@"车型", @"是否是新能源汽车", @"车牌号码", @"常驻地区", @"前轮型号", @"后轮型号", @"行驶证认证（非必填）"];
         
         //于2018.08.01 隐藏掉 服务年限 功能。对应隐藏按钮 serviceBtn
 //        NSArray *leftNameArray = @[@"车型", @"是否是新能源汽车", @"车牌号码", @"常驻地区", @"前轮型号", @"后轮型号", @"行驶证注册日期", @"服务年限"];
@@ -136,7 +136,7 @@
         _drivingBtn = [[UIButton alloc] initWithFrame:CGRectMake(MAINSCREEN.width/2, 240, MAINSCREEN.width/2 - 20, 40)];
         _drivingBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
         _drivingBtn.titleLabel.textAlignment = NSTextAlignmentRight;
-        [_drivingBtn setTitle:@"2017-09-09" forState:UIControlStateNormal];
+        [_drivingBtn setTitle:@"未认证" forState:UIControlStateNormal];
         [_drivingBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         _drivingBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     }

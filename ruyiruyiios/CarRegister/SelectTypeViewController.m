@@ -10,8 +10,7 @@
 #import "SelectSystemTableViewCell.h"
 #import "DBRecorder.h"
 #import "DelegateConfiguration.h"
-#import "CarInfoViewController.h"
-
+#import "MyCarInfoViewController.h"
 @interface SelectTypeViewController ()<UITableViewDataSource, UITableViewDelegate>{
     
     CGFloat headH, engineW, engineX, yearW;
@@ -209,12 +208,10 @@
     DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
     FMDBCarTireInfo *carInfo = [self.typeVerhicleArray objectAtIndex:indexPath.row];
     [delegateConfiguration changeCartypeStatusNumber:carInfo];
-//    [self.tabBarController.tabBar setHidden:NO];
-    NSLog(@"%@", self.navigationController.viewControllers);
+    
     for (int i = 0; i<self.navigationController.viewControllers.count; i++) {
         
-        NSLog(@"%@", [[self.navigationController.viewControllers objectAtIndex:i] class]);
-        if ([[[self.navigationController.viewControllers objectAtIndex:i] class] isEqual:[CarInfoViewController class]]) {
+        if ([[[self.navigationController.viewControllers objectAtIndex:i] class] isEqual:[MyCarInfoViewController class]]) {
             
             [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:i] animated:YES];
         }

@@ -16,6 +16,9 @@
 #import "FMDBCarTireInfo.h"
 #import "FMDBCarTireType.h"
 #import <AlipaySDK/AlipaySDK.h>
+
+#import "AipOcrSdk.h"///百度文字识别
+
 #import "MBProgressHUD+YYM_category.h"
 #import <Bugly/Bugly.h>
 
@@ -61,7 +64,10 @@
     [self checkVersion];
     
     //bugly
-    [self configureBugly];
+//    [self configureBugly];
+    
+    [[AipOcrService shardService] authWithAK:@"3ScyPTo44fdxDBeRngqxlLm8" andSK:@"finbwQiT7jL0z9krsbBqKiQBYZh7TyIR"];
+
     
     return YES;
 }
@@ -118,6 +124,12 @@
             [JJRequest postRequest:@"getAppNewestVersion" params:@{@"reqJson":[PublicClass convertToJsonData:@{@"appVersion":@"1.0.0",@"versionType":@"ios"}]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
                 
                 if ([[data objectForKey:@"forceUpdate"] integerValue] == 1) {
+                    
+                    ///视图遮罩 防止点完更新 不执行更新 再回到app 就可正常使用app 强制更新时弹出
+                    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, MAINSCREEN.height)];
+                    view.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5];
+                    
+                    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:view];
                     //1 强制更新
                     [alertController addAction:ok];
                 }else{

@@ -266,51 +266,199 @@
     
         return;
     }
-    
     CouponInfo *couponInfo;
     couponInfo = [self.availableMutableA objectAtIndex:indexPath.row];
     
     //可用优惠券
     if ([self.couponStatusStr isEqualToString:@"1"]) {
         
+//        NSInteger counponType = [couponInfo.type integerValue];
+//        //判断是否是指定门店 门店ID  可以指定多个门店 也就是 可以是多个门店ID
+//        NSArray *storeIDArr = [couponInfo.storeIdList componentsSeparatedByString:@","];
+//
+//        switch (counponType) {
+//            case 1:
+//                if ([couponInfo.userCarId integerValue] == [[UserConfig userCarId] integerValue]) {
+//                    if ([couponInfo.storeIdList isEqualToString:@""] || [couponInfo.storeIdList isEqual:[NSNull null]]) {
+//
+//                        //服务券 判断商品名称
+//                        if ([_goodsNameArr containsObject:couponInfo.rule]) {
+//
+//                            self.backImageV.image = [UIImage imageNamed:@"ic_blue"];
+//                        }else{
+//                            self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+//                        }
+//
+//                    }else{
+//                        if ([storeIDArr containsObject:_storesID]) {
+//
+//                            //服务券 判断商品名称
+//                            if ([_goodsNameArr containsObject:couponInfo.rule]) {
+//
+//                                self.backImageV.image = [UIImage imageNamed:@"ic_blue"];
+//                            }else{
+//                                self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+//                            }
+//                        }else{
+//
+//                            self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+//                        }
+//                    }
+//                }else{
+//                    self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+//                }
+//                break;
+//            case 2:
+//
+//                self.backImageV.image = [UIImage imageNamed:@"ic_red"];
+//                break;
+//            case 3:
+//                if ([couponInfo.userCarId integerValue] == [[UserConfig userCarId] integerValue]) {
+//
+//                    CGFloat totalPriceFloat = [_totalPrice floatValue];
+//
+//                    if ([couponInfo.storeIdList isEqualToString:@""] || [couponInfo.storeIdList isEqual:[NSNull null]]) {
+//
+//                        //满减券 判断是否满减
+//                        if (totalPriceFloat >= [couponInfo.moneyFull integerValue]) {
+//
+//                            self.backImageV.image = [UIImage imageNamed:@"ic_yellow"];
+//                        }else{
+//                            self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+//                        }
+//
+//                    }else{
+//                        if ([storeIDArr containsObject:_storesID]) {
+//
+//                            //满减券 判断是否满减
+//                            if (totalPriceFloat >= [couponInfo.moneyFull integerValue]) {
+//
+//                                self.backImageV.image = [UIImage imageNamed:@"ic_yellow"];
+//                            }else{
+//                                self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+//                            }
+//                        }else{
+//
+//                            self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+//                        }
+//                    }
+//                }else{
+//                    self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+//                }
+//
+//                break;
+//            case 4:
+//                //判断是否是指定车辆   type == 4 小额券  将指定商品变成小额券 的价格
+//                if ([couponInfo.userCarId integerValue] == [[UserConfig userCarId] integerValue]) {
+//
+//                    if ([couponInfo.storeIdList isEqualToString:@""] || [couponInfo.storeIdList isEqual:[NSNull null]]) {
+//
+//                        //小额券 判断商品名称
+//                        if ([_goodsNameArr containsObject:couponInfo.rule]) {
+//
+//                            self.backImageV.image = [UIImage imageNamed:@"ic_zise"];
+//                        }else{
+//                            self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+//                        }
+//
+//                    }else{
+//                        if ([storeIDArr containsObject:_storesID]) {
+//
+//                            //小额券 判断商品名称
+//                            if ([_goodsNameArr containsObject:couponInfo.rule]) {
+//
+//                                self.backImageV.image = [UIImage imageNamed:@"ic_zise"];
+//                            }else{
+//                                self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+//                            }
+//                        }else{
+//
+//                            self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+//                        }
+//                    }
+//
+//                }else{
+//                    self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+//                }
+//
+//                break;
+//            case 5:
+//                //判断是否是指定车辆   type == 5 抵扣券  对应商品 抵扣掉 对应金额
+//                if ([couponInfo.userCarId integerValue] == [[UserConfig userCarId] integerValue]) {
+//
+//                    if ([couponInfo.storeIdList isEqualToString:@""] || [couponInfo.storeIdList isEqual:[NSNull null]]) {
+//
+//                        //折扣券 判断商品名称
+//                        if ([_goodsNameArr containsObject:couponInfo.rule]) {
+//
+//                            self.backImageV.image = [UIImage imageNamed:@"ic_pink"];
+//                        }else{
+//                            self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+//                        }
+//
+//                    }else{
+//                        if ([storeIDArr containsObject:_storesID]) {
+//
+//                            //折扣券 判断商品名称
+//                            if ([_goodsNameArr containsObject:couponInfo.rule]) {
+//
+//                                self.backImageV.image = [UIImage imageNamed:@"ic_pink"];
+//                            }else{
+//                                self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+//                            }
+//                        }else{
+//
+//                            self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+//                        }
+//                    }
+//                }else{
+//                    self.backImageV.image = [UIImage imageNamed:@"ic_huise"];
+//                }
+//                break;
+//            default:
+//
+//                self.backImageV.image = [UIImage imageNamed:@"ic_green"];
+//                break;
+//        }
+//
         //仅限指定车辆可用
         if ([couponInfo.userCarId intValue] == [[UserConfig userCarId] intValue]) {
-            
+
             //判断是否是指定门店 门店ID  可以指定多个门店 也就是 可以是多个门店ID
             NSArray *storeIDArr = [couponInfo.storeIdList componentsSeparatedByString:@","];
-            
+
             if ([storeIDArr containsObject:_storesID] || [couponInfo.storeIdList isEqualToString:@""]) {
-                
+
                 if ([couponInfo.type intValue] == 1) {
-                    
+
                     //判断购买的商品列表 是否包含此优惠券对应的名称 包含即可使用此优惠券
                     if ([_goodsNameArr containsObject:couponInfo.rule]) {
-                        
+
                         self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.coupon_id], [NSString stringWithFormat:@"%@", couponInfo.type], couponInfo.rule);
                         [self.navigationController popViewControllerAnimated:YES];
                     }else{
-                        
+
                     }
                 }else if ([couponInfo.type intValue] == 2){
-                    
+
                     //2为现金券 所有商品都可以使用 无任何限制条件  不是指定门店也可以使用
                     self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.coupon_id], [NSString stringWithFormat:@"%@", couponInfo.type], couponInfo.rule);
                     [self.navigationController popViewControllerAnimated:YES];
                 }
             }else{
-                
+
                 //2为现金券 所有商品都可以使用 无任何限制条件  不是指定门店也可以使用
                 if ([couponInfo.type integerValue] == 2){
-                    
+
                     self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.coupon_id], [NSString stringWithFormat:@"%@", couponInfo.type], couponInfo.rule);
                     [self.navigationController popViewControllerAnimated:YES];
                 }
             }
         }else{
-            
+
             //2为现金券 所有商品都可以使用 无任何限制条件 不是指定车辆也可以使用
             if ([couponInfo.type intValue] == 2) {
-                
+
                 self.callBuyStore([NSString stringWithFormat:@"%@", couponInfo.coupon_id], [NSString stringWithFormat:@"%@", couponInfo.type], couponInfo.rule);
                 [self.navigationController popViewControllerAnimated:YES];
             }

@@ -16,7 +16,8 @@
 #import "Lunbo_infos.h"
 #import "Data_cars.h"
 #import "CodeLoginViewController.h"
-#import "CarInfoViewController.h"
+#import "MyCarInfoViewController.h"
+
 #import "ManageCarViewController.h"
 #import "LocationViewController.h"
 #import <CoreLocation/CoreLocation.h>
@@ -35,7 +36,6 @@
 #import "SignInObject.h"
 
 #import "EntranceView.h"
-#import "FirstStartConfiguration.h"
 #import "MBProgressHUD+YYM_category.h"
 #import "ADView.h"
 #import <Masonry.h>
@@ -90,6 +90,14 @@ static CGFloat const cellThreeHeigh = 130;
     }
     
     self.view.backgroundColor = [UIColor whiteColor];
+    
+//    [JJRequest interchangeablePostRequestWithIP:@"http://api.xyq.nhys.cdnhxx.com/v1/" path:@"login" params:@{@"phone":@"18380206895",@"password":@"123456"} success:^(id  _Nullable data) {
+//        
+//        
+//        NSLog(@"测试接口：%@",data);
+//    } failure:^(NSError * _Nullable error) {
+//        
+//    }];
 
     //开始签到并显示
     [SignInObject startSignInAndshowView:self.view];
@@ -222,8 +230,11 @@ static CGFloat const cellThreeHeigh = 130;
     
     [JJRequest postRequest:@"getAndroidHomeDate" params:@{@"reqJson":adroidHomereqJson} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         
+        [MBProgressHUD hideWaitViewAnimated:self.view];
+
         NSString *statusStr = [NSString stringWithFormat:@"%@", code];
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
+                
         if ([statusStr isEqualToString:@"-1"]) {
             
             [PublicClass showHUD:messageStr view:self.view];
@@ -232,11 +243,13 @@ static CGFloat const cellThreeHeigh = 130;
             
             self.data_carDic = [data objectForKey:@"androidHomeData_cars"];
             NSArray *imgArray = [data objectForKey:@"lunbo_infos"];
+            
             if (self.data_carDic == nil || [self.data_carDic isKindOfClass:[NSNull class]]) {
                 
                 [UserConfig userDefaultsSetObject:@"0" key:@"userCarId"];
             }else{
                 
+                ///数据model
                 [self setuserDatacarData:self.data_carDic];
             }
             [self setImageurlData:imgArray];
@@ -288,13 +301,13 @@ static CGFloat const cellThreeHeigh = 130;
             [self.activityTableView reloadData];
             
         }
-        [MBProgressHUD hideWaitViewAnimated:self.view];
         
     } failure:^(NSError * _Nullable error) {
         
 //        NSLog(@"获取主页信息错误:%@", error);
-        [self.mainScrollV.mj_header endRefreshing];
         [MBProgressHUD hideWaitViewAnimated:self.view];
+
+        [self.mainScrollV.mj_header endRefreshing];
     }];
 }
 
@@ -378,7 +391,11 @@ static CGFloat const cellThreeHeigh = 130;
         Data_cars *data_car = [[Data_cars alloc] init];
         [data_car setValuesForKeysWithDictionary:carDic];
         self.dataCars = data_car;
+        
+        ///存储当前的默认车辆id
         [UserConfig userDefaultsSetObject:data_car.user_car_id key:@"userCarId"];
+        //存储当前默认车辆的认证状态
+        [UserConfig userDefaultsSetObject:data_car.authenticatedState key:@"kAuthenticatedState"];
     }
 }
 
@@ -395,9 +412,9 @@ static CGFloat const cellThreeHeigh = 130;
 
         [self.imgMutableA addObject:lun_info.contentImageUrl];
     }
-    dispatch_async(dispatch_get_main_queue(), ^{
+//    dispatch_async(dispatch_get_main_queue(), ^{
         _sdcycleScrollV.imageURLStringsGroup = self.imgMutableA;
-    });
+//    });
 }
 #pragma mark 获取广告信息
 -(void)getActivityInfo{
@@ -452,7 +469,7 @@ static CGFloat const cellThreeHeigh = 130;
         
         if ([_data_carDic isKindOfClass:[NSNull class]] || _data_carDic == nil) {
             
-            CarInfoViewController *carinfoVC = [[CarInfoViewController alloc] init];
+            MyCarInfoViewController *carinfoVC = [[MyCarInfoViewController alloc] init];
             carinfoVC.is_alter = YES;
             [self.navigationController pushViewController:carinfoVC animated:YES];
         }else{
@@ -798,6 +815,35 @@ static CGFloat const cellThreeHeigh = 130;
         return;
     }
     
+    if ([self.dataCars isEqual:[NSNull null]] || self.dataCars == nil || !self.dataCars || [UserConfig userCarId].intValue == 0) {
+        
+        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"请先添加车辆" message:@"是否前往添加车辆界面" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {}];
+        
+        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"前往" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            MyCarInfoViewController *carinfoVC = [[MyCarInfoViewController alloc] init];
+            carinfoVC.is_alter = YES;
+            [self.navigationController pushViewController:carinfoVC animated:YES];
+        }];
+        [alertC addAction:action];
+        [alertC addAction:action1];
+        [self presentViewController:alertC animated:YES completion:nil];
+        return;
+    }
+    
+    if ([self.dataCars.car_id longLongValue] == 0) {
+        
+        ///弹出提示 跳转到车辆管理页面
+        
+        /* 请完善车辆信息
+         是否前往完善信息界面
+         */
+        [self perfectCaiInfoAlert];
+        return;
+    }
+    
     switch (indexPath.item) {
         case 0:{
             [self chickBuytyreBtn:[UIButton new]];
@@ -827,14 +873,6 @@ static CGFloat const cellThreeHeigh = 130;
 #pragma mark 跳转轮胎购买页面事件
 - (void)chickBuytyreBtn:(UIButton *)btn{
     
-    if ([self.dataCars isEqual:[NSNull null]] || self.dataCars == nil || !self.dataCars || [UserConfig userCarId].intValue == 0) {
-        
-        CarInfoViewController *carinfoVC = [[CarInfoViewController alloc] init];
-        carinfoVC.is_alter = YES;
-        [self.navigationController pushViewController:carinfoVC animated:YES];
-        
-        return;
-    }
     //前后轮一致 直接进入轮胎购买页面 不一致先进入选择前后轮界面 再进入轮胎购买
     if ([self.dataCars.font isEqualToString:self.dataCars.rear]) {
         
@@ -1047,12 +1085,20 @@ static CGFloat const cellThreeHeigh = 130;
             
             self.firstView.iconImageV.image = [UIImage imageNamed:@"添加"];
             self.firstView.topLabel.text = @"添加我的宝驹";
-            self.firstView.bottomLabel.text = @"邀请好友绑定车辆可免费洗车";
+            self.firstView.bottomLabel.text = @"邀请好友绑定车辆可得现金券";
         }else{
             
-            [self.firstView.iconImageV sd_setImageWithURL:[NSURL URLWithString:self.dataCars.car_brand_url]];
-            self.firstView.topLabel.text = self.dataCars.car_verhicle;
-            self.firstView.bottomLabel.text = @"一次性购买四条轮胎送洗车券";
+            if ([self.dataCars.car_id longLongValue] == 0) {
+                
+                self.firstView.iconImageV.image = [UIImage imageNamed:@"ic_dairenzheng"];
+                self.firstView.topLabel.text = @"请完善车辆信息";
+                self.firstView.bottomLabel.text = @"完善车辆信息后可享受特色服务";
+            }else{
+                
+                [self.firstView.iconImageV sd_setImageWithURL:[NSURL URLWithString:self.dataCars.car_brand_url]];
+                self.firstView.topLabel.text = self.dataCars.car_verhicle;
+                self.firstView.bottomLabel.text = @"一次性购买四条轮胎送洗车券";
+            }
         }
     }
 }

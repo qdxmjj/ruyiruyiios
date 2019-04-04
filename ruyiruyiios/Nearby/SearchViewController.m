@@ -109,8 +109,29 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
+    if ([UserConfig user_id] == NULL) {
+        
+        [MBProgressHUD showTextMessage:@"请先登录！"];
+        return;
+    }
     
-    NSLog(@"%@",self.dataArr[indexPath.row]);
+    NSString *cityName = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentCity"];
+    NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
+    NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
+    
+    [FJStoreReqeust getFJStoreByConditionWithInfo:@{@"page":@"1",@"rows":@"100",@"cityName":cityName,@"storeName":self.dataArr[indexPath.row],@"storeType":@"",@"serviceType":@"",@"longitude":longitude,@"latitude":latitude,@"rankType":@"0"} succrss:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+        
+        if (data !=nil) {
+            
+            self.searchBlock([data objectForKey:@"storeQuaryResVos"]);
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    } failure:^(NSError * _Nullable error) {
+        
+    }];
+    
+//    NSLog(@"%@",self.dataArr[indexPath.row]);
 }
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{

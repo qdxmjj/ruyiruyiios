@@ -10,7 +10,7 @@
 #import "SelectTirePositionViewController.h"
 #import "YMDetailedServiceViewController.h"
 #import "NewTirePurchaseViewController.h"
-#import "CarInfoViewController.h"
+#import "MyCarInfoViewController.h"
 @interface CycleScrollViewDetailsController ()
 
 
@@ -46,13 +46,28 @@
             
             if ([self.dataCars isEqual:[NSNull null]] || self.dataCars == nil || !self.dataCars || [UserConfig userCarId].intValue == 0) {
                 
-                //        [PublicClass showHUD:@"轮胎信息获取失败！" view:self.view];
+                UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"请先添加车辆" message:@"是否前往添加车辆界面" preferredStyle:UIAlertControllerStyleAlert];
                 
-                CarInfoViewController *carinfoVC = [[CarInfoViewController alloc] init];
-                carinfoVC.is_alter = YES;
-                [self.navigationController pushViewController:carinfoVC animated:YES];
+                UIAlertAction *action = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {}];
+                
+                UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"前往" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    MyCarInfoViewController *carinfoVC = [[MyCarInfoViewController alloc] init];
+                    carinfoVC.is_alter = YES;
+                    [self.navigationController pushViewController:carinfoVC animated:YES];
+                    self.hidesBottomBarWhenPushed = YES;
+                }];
+                [alertC addAction:action];
+                [alertC addAction:action1];
+                [self presentViewController:alertC animated:YES completion:nil];
+                return;
+            }else if([[UserConfig authenticatedState] longLongValue] == 2){
+                
+                [self perfectCaiInfoAlert];
                 self.hidesBottomBarWhenPushed = YES;
                 return;
+            }else{
+                
             }
 
             //前后轮一致 直接进入轮胎购买页面 不一致先进入选择前后轮界面 再进入轮胎购买

@@ -49,7 +49,10 @@
 
 - (IBAction)backButtonAction:(id)sender{
     
-    self.block();
+    if (self.block) {
+        
+        self.block();
+    }
     
     [self.navigationController popViewControllerAnimated:YES];
 }

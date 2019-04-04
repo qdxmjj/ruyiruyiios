@@ -12,7 +12,7 @@
 #import "CodeLoginViewController.h"
 
 @implementation JJRequest
-//单列 防止AF内存泄漏
+
 + (AFHTTPSessionManager *)sharedHTTPSession{
     static AFHTTPSessionManager *manager = nil;
     static dispatch_once_t onceToken;
@@ -22,7 +22,7 @@
     return manager;
 }
 
-//无单列 存在内存泄漏
+
 + (AFHTTPSessionManager *)getRequestManager {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     /**
@@ -40,9 +40,9 @@
     /**
      *  Content-Type
      */
-    //    manager.requestSerializer=[AFJSONRequestSerializer serializer];
+//        manager.requestSerializer=[AFJSONRequestSerializer serializer];
     //    manager.requestSerializer.HTTPMethodsEncodingParametersInURI=[NSSet setWithObjects:@"GET", @"HEAD", @"DELETE", nil];
-//    manager.responseSerializer.acceptableContentTypes= [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/xml", @"text/plain", nil];
+    manager.responseSerializer.acceptableContentTypes= [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/xml", @"text/plain", nil];
     
     
     //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];

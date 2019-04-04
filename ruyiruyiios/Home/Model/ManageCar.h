@@ -16,5 +16,6 @@
 @property(nonatomic, strong)NSNumber *is_default;
 @property(nonatomic, strong)NSString *plat_number;
 @property(nonatomic, strong)NSNumber *user_car_id;
+@property(nonatomic, strong)NSString *authenticatedState; ///是否 认证  1 已认证 2未认证
 
 @end

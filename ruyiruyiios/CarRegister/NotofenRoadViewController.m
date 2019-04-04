@@ -11,8 +11,8 @@
 #import "RoadInfo.h"
 #import <UIImageView+WebCache.h>
 #import "DelegateConfiguration.h"
-#import "CarInfoViewController.h"
 
+#import "MyCarInfoViewController.h"
 @interface NotofenRoadViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property(nonatomic, strong)UILabel *pointLabel;
@@ -130,7 +130,7 @@
     for (int i=0; i<self.navigationController.viewControllers.count; i++) {
         
         ;
-        if ([[[self.navigationController.viewControllers objectAtIndex:i] class] isEqual:[CarInfoViewController class]]) {
+        if ([[[self.navigationController.viewControllers objectAtIndex:i] class] isEqual:[MyCarInfoViewController class]]) {
             
             [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:i] animated:YES];
         }

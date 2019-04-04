@@ -39,7 +39,7 @@
 
 +(NSString *)headimgurl;
 
-+(NSNumber *)user_id;
++(NSNumber *)user_id;  //获取主页信息的默认车辆id
 
 +(NSString *)invitationCode;
 
@@ -76,4 +76,6 @@
 +(NSString *)integral;
 
 +(NSString *)selectCityName; //退出登录不需要清空
+
++ (NSString *)authenticatedState;///当前默认车辆 是否认证
 @end

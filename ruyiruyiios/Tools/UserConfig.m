@@ -180,4 +180,10 @@
     
     return [self userDefaultsGetObjectForKey:@"kIntegral"];
 }
+
++ (NSString *)authenticatedState{
+    
+    
+    return [self userDefaultsGetObjectForKey:@"kAuthenticatedState"];
+}
 @end

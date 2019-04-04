@@ -17,6 +17,7 @@ target 'ruyiruyiios' do
   pod 'GTMBase64'
   pod 'SVProgressHUD'
   pod 'Bugly'
+  pod 'MOFSPickerManager'
 
   #解决scrollView 手势滑动返回冲突
   pod 'TZScrollViewPopGesture'

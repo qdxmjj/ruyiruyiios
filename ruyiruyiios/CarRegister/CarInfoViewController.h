@@ -14,4 +14,8 @@
 @property(nonatomic, strong)NSString *user_car_idStr;
 @property(nonatomic, assign)BOOL is_alter;
 
+
+
+/*                       废弃                            */
+
 @end

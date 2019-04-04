@@ -54,6 +54,7 @@
         
         _processImageV = [[UIImageView alloc] init];
         _processImageV.image = [UIImage imageNamed:@"ic_liucheng"];
+        _processImageV.contentMode = UIViewContentModeScaleAspectFill;
     }
     return _processImageV;
 }

@@ -16,7 +16,7 @@
 #import "NearbyViewController.h"
 #import "UIView+extension.h"
 #import "CouponViewController.h"
-
+#import "MyCarInfoViewController.h"
 @interface BuyCommdityViewController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *priceLabLab;
@@ -49,7 +49,6 @@
     self.n_TotalPrice = [self.totalPrice floatValue];
     
     [self.tableVIew registerNib:[UINib nibWithNibName:NSStringFromClass([BuyCommdityCell class]) bundle:nil] forCellReuseIdentifier:@"buyCommodityListCellID"];
-    
 }
 
 
@@ -218,10 +217,25 @@
             ||
             [[dic objectForKey:@"name"] isEqualToString:@"四轮定位"]
             ) {
-            
-            if ([[UserConfig userCarId] integerValue] == 0 ) {
+            if ([[UserConfig userCarId] integerValue] == 0 || ![UserConfig userCarId]) {
                 
-                [MBProgressHUD showTextMessage:@"请先添加车辆！"];
+                [MBProgressHUD hideWaitViewAnimated:self.view];
+                
+                UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"请先添加车辆" message:@"是否前往添加车辆界面" preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction *action = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {}];
+                
+                UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"前往" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    MyCarInfoViewController *carinfoVC = [[MyCarInfoViewController alloc] init];
+                    carinfoVC.is_alter = YES;
+                    [self.navigationController pushViewController:carinfoVC animated:YES];
+                    self.hidesBottomBarWhenPushed = YES;
+                }];
+                [alertC addAction:action];
+                [alertC addAction:action1];
+                [self presentViewController:alertC animated:YES completion:nil];
+                
                 return;
             }
         }
@@ -270,12 +284,13 @@
     
     if (isSpecial == YES) {
         
-        if ([[UserConfig userCarId] integerValue] == 0 || ![UserConfig userCarId]) {
-         
-            [MBProgressHUD hideWaitViewAnimated:self.view];
-            
-            [PublicClass showHUD:@"特殊商品，需要绑定车辆购买!" view:self.view];
+       if([[UserConfig authenticatedState] longLongValue] == 2){
+           [hud hideAnimated:YES];
+
+            [self perfectCaiInfoAlert];
             return;
+        }else{
+            
         }
     }
     

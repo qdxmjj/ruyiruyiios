@@ -435,7 +435,7 @@
         if ([statusStr isEqualToString:@"1"]) {
 
             [UserConfig userDefaultsSetObject:@"1" key:@"firstAddCar"];
-//            DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
+
             [self.delegateConfiguration changeaddCarNumber];
             [self.delegateConfiguration unregisterRoadStatusChangedListener:self];
             [self.delegateConfiguration unregisterCartypeStatusChangeListener:self];
