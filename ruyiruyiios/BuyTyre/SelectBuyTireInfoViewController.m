@@ -719,7 +719,7 @@
         self.priceLab.text = @"";
         self.shoeID = 0;
         //重置已选内容
-        self.contentLab.text = [NSString stringWithFormat:@"已选 %@",self.buyTireData.figure];
+        self.contentLab.text = [NSString stringWithFormat:@"已选 %@",self.buyTireData.detailStr];
         
         //刷新速度级别
         [self.collectionView1 reloadData];
@@ -755,7 +755,7 @@
         self.cxwyPriceMap = [self.shoeSpeedLoadResultList[indexPath.row] objectForKey:@"cxwyPriceMap"];
         //重设显示的内容
         NSString *str = [self.shoeSpeedLoadResultList[indexPath.row] objectForKey:@"speedLoadStr"];
-        self.contentLab.text = [NSString stringWithFormat:@"已选 %@,%@",self.buyTireData.figure,[str componentsSeparatedByString:@"/￥"][0]];
+        self.contentLab.text = [NSString stringWithFormat:@"已选 %@,%@",self.buyTireData.detailStr,[str componentsSeparatedByString:@"/￥"][0]];
         
         //重设显示的轮胎价格
         if ([self.service_end_date isEqualToString:@""] || self.service_end_date == nil || [self.service_end_date isEqual:[NSNull null]]) {

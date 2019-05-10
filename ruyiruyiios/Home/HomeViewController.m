@@ -939,9 +939,13 @@ static CGFloat const cellThreeHeigh = 130;
                 
                 _currentCity = @"无法定位当前城市";
             }
-            [[NSUserDefaults standardUserDefaults] setObject:_currentCity forKey:@"currentCity"];//存储 当前定位的信息 县
-            [[NSUserDefaults standardUserDefaults] setObject:_currentCity forKey:@"positionCounty"];//存储 当前定位的信息 县 只做显示用
-            [UserConfig userDefaultsSetObject:currentStr key:@"selectCityName"];//当前的城市
+            //存储 当前定位的信息 县 手动选择城市会覆盖此字段
+            [[NSUserDefaults standardUserDefaults] setObject:_currentCity forKey:@"currentCity"];
+            //存储 当前定位的信息 县 只做显示用 与 购买轮胎时使用  2019.05.09
+            [[NSUserDefaults standardUserDefaults] setObject:_currentCity forKey:@"positionCounty"];
+            //存储 f当前的城市 仅做显示 与 购买轮胎时使用  2019.05.09
+            [UserConfig userDefaultsSetObject:currentStr key:@"selectCityName"];
+            
             [self.locationBtn setTitle:_currentCity forState:UIControlStateNormal];
             
             [self getAndroidHomeDate];//定位成功后请求主页数据  定位结果返回会执行多次  重复网络请求 不合理 暂未处理

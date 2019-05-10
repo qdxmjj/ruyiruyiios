@@ -93,7 +93,17 @@
     
     JJWeakSelf
     
-    NSDictionary *params = @{@"shoeSize":tireSize,@"userId":[UserConfig user_id],@"userCarId":[UserConfig userCarId]};
+    NSString *district = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentCity"];
+    district = [district isEqual:[NSNull null]] ? @"":district;
+    
+    NSString *city =  [[NSUserDefaults standardUserDefaults] objectForKey:@"selectCityName"];
+    city = [city isEqual:[NSNull null]] ? @"":city;
+    
+    NSLog(@"区：%@ 市：%@",district,city);
+    
+    //2019.05.09  增加 市区 参数 获取对应市区下 对应品牌的 轮胎
+    
+    NSDictionary *params = @{@"shoeSize":tireSize,@"userId":[UserConfig user_id],@"userCarId":[UserConfig userCarId],@"city":city,@"district":district};
     
     [MBProgressHUD showWaitMessage:@"正在获取..." showView:self.view];
     
@@ -102,7 +112,6 @@
         [MBProgressHUD hideWaitViewAnimated:self.view];
         
         //没有轮胎型号
-        
         if ([code longLongValue] == -999) {
             
             [weakSelf alertIsequallyTokenView];
@@ -125,7 +134,6 @@
             [weakSelf.dataArr addObjectsFromArray:data];
             
             //首次进入页面 默认显示内容
-            
             BuyTireData *bTireData = [[BuyTireData alloc] init];
             [bTireData setValuesForKeysWithDictionary:[data[0] objectForKey:@"shoeDetailResult"]];
             
