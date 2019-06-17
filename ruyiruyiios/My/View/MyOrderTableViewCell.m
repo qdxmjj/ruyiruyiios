@@ -180,8 +180,28 @@
             
             self.priceLabel.hidden = NO;
         }
-    }else{
+    }else if ([orderInfo.orderType isEqualToString:@"8"]){
         
+        if ([orderInfo.orderState isEqualToString:@"1"]) {
+            
+            statusStr = @"待支付";
+        }else if ([orderInfo.orderState isEqualToString:@"2"]){
+            
+            statusStr = @"待审核";
+        }else if ([orderInfo.orderState isEqualToString:@"3"]){
+            
+            statusStr = @"续保成功";
+        }else if ([orderInfo.orderState isEqualToString:@"4"]){
+            
+            statusStr = @"续保失败";
+        }else if ([orderInfo.orderState isEqualToString:@"5"]){
+            
+            statusStr = @"已取消";
+        }else{
+            
+        }
+       
+    }else{
         if ([orderInfo.orderState isEqualToString:@"1"]) {
             
             statusStr = @"交易完成";

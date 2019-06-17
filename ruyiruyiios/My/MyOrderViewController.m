@@ -191,29 +191,20 @@
             }
         }else if([orderInfo.orderType isEqualToString:@"8"]){
             
-            NSInteger state = [orderInfo.orderStage integerValue];
+            NSInteger state = [orderInfo.orderState integerValue];
             
             switch (state) {
-                case 0:
-                    
-                    [self.allMutableA addObject:orderInfo];
-                    break;
+
                 case 1:
                     [self.topayMutableA addObject:orderInfo];
-
                     break;
                 case 2:
                     [self.todeliverMutableA addObject:orderInfo];
-
-                    break;
-                case 3:
                     [self.toserviceMutableA addObject:orderInfo];
-
                     break;
-                case 4:
+                case 3: case 4: case 5:
                     [self.completedMutableA addObject:orderInfo];
                     break;
-                    
                 default:
                     break;
             }
@@ -429,6 +420,45 @@
         }else if ([orderInfo.orderState isEqualToString:@"14"]){
             
             [self jumpcompleteVC:@"店铺拒绝服务" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+        }else if([orderInfo.orderType isEqualToString:@"8"]){
+            NSInteger state = [orderInfo.orderState integerValue];
+            
+            switch (state) {
+                case 0:
+                    
+                    break;
+                case 1:{
+                 
+                    ToBePaidViewController *tobePayVC = [[ToBePaidViewController alloc] init];
+                    tobePayVC.statusStr = @"1";
+                    tobePayVC.orderNoStr = orderInfo.orderNo;
+                    tobePayVC.totalPriceStr = orderInfo.orderPrice;
+                    tobePayVC.orderTypeStr = orderInfo.orderType;
+                    tobePayVC.updateOrderVC = ^(NSString *update) {
+                        
+                        [self.myorderTableV.mj_header beginRefreshing];
+                    };
+                    [self.navigationController pushViewController:tobePayVC animated:YES];
+                    self.hidesBottomBarWhenPushed = YES;
+                }
+                    break;
+                case 2:
+                    
+                    [self jumpToAllorderDetailVC:@"待审核" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                    break;
+                case 3:
+                    [self jumpToAllorderDetailVC:@"续保成功" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                    break;
+                case 4:
+                    [self jumpToAllorderDetailVC:@"续保失败" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                    break;
+                case 5:
+                    [self jumpToAllorderDetailVC:@"已取消" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                    break;
+                    
+                default:
+                    break;
+            }
         }else{
             
             if ([orderInfo.orderState isEqualToString:@"8"]) {
@@ -508,6 +538,47 @@
         }else if ([orderInfo.orderType isEqualToString:@"5"]){
             
             //充值信用订单
+        }else if([orderInfo.orderType isEqualToString:@"8"]){
+            NSInteger state = [orderInfo.orderState integerValue];
+            
+            switch (state) {
+                case 0:
+                    
+                    break;
+                case 1:{
+                    
+                    ToBePaidViewController *tobePayVC = [[ToBePaidViewController alloc] init];
+                    tobePayVC.statusStr = @"1";
+                    tobePayVC.orderNoStr = orderInfo.orderNo;
+                    tobePayVC.totalPriceStr = orderInfo.orderPrice;
+                    tobePayVC.orderTypeStr = orderInfo.orderType;
+                    tobePayVC.updateOrderVC = ^(NSString *update) {
+                        
+                        [self.myorderTableV.mj_header beginRefreshing];
+                    };
+                    [self.navigationController pushViewController:tobePayVC animated:YES];
+                    self.hidesBottomBarWhenPushed = YES;
+                }
+                    break;
+                case 2:
+                    
+                    [self jumpToAllorderDetailVC:@"待审核" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                    break;
+                case 3:
+                    [self jumpToAllorderDetailVC:@"续保成功" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                    break;
+                case 4:
+                    [self jumpToAllorderDetailVC:@"续保失败" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                    break;
+                case 5:
+                    [self jumpToAllorderDetailVC:@"已取消" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                    break;
+                    
+                default:
+                    break;
+            }
+        }else{
+            
         }
     }else if ([statusStr intValue] == 2){
         
@@ -539,6 +610,45 @@
                 
                 [self jumpToAllorderDetailVC:@"待发货" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
             }
+        }else if([orderInfo.orderType isEqualToString:@"8"]){
+            NSInteger state = [orderInfo.orderState integerValue];
+            
+            switch (state) {
+                case 0:
+                    
+                    break;
+                case 1:{
+                    
+                    ToBePaidViewController *tobePayVC = [[ToBePaidViewController alloc] init];
+                    tobePayVC.statusStr = @"1";
+                    tobePayVC.orderNoStr = orderInfo.orderNo;
+                    tobePayVC.totalPriceStr = orderInfo.orderPrice;
+                    tobePayVC.orderTypeStr = orderInfo.orderType;
+                    tobePayVC.updateOrderVC = ^(NSString *update) {
+                        
+                        [self.myorderTableV.mj_header beginRefreshing];
+                    };
+                    [self.navigationController pushViewController:tobePayVC animated:YES];
+                    self.hidesBottomBarWhenPushed = YES;
+                }
+                    break;
+                case 2:
+                    
+                    [self jumpToAllorderDetailVC:@"待审核" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                    break;
+                case 3:
+                    [self jumpToAllorderDetailVC:@"续保成功" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                    break;
+                case 4:
+                    [self jumpToAllorderDetailVC:@"续保失败" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                    break;
+                case 5:
+                    [self jumpToAllorderDetailVC:@"已取消" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                    break;
+                    
+                default:
+                    break;
+            }
         }else{
             
             [self jumpToAllorderDetailVC:@"待发货" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
@@ -549,6 +659,45 @@
         if ([orderInfo.orderState isEqualToString:@"3"]) {
             
             [self jumpToServiceVC:@"待商家确认服务" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+        }else if([orderInfo.orderType isEqualToString:@"8"]){
+            NSInteger state = [orderInfo.orderState integerValue];
+            
+            switch (state) {
+                case 0:
+                    
+                    break;
+                case 1:{
+                    
+                    ToBePaidViewController *tobePayVC = [[ToBePaidViewController alloc] init];
+                    tobePayVC.statusStr = @"1";
+                    tobePayVC.orderNoStr = orderInfo.orderNo;
+                    tobePayVC.totalPriceStr = orderInfo.orderPrice;
+                    tobePayVC.orderTypeStr = orderInfo.orderType;
+                    tobePayVC.updateOrderVC = ^(NSString *update) {
+                        
+                        [self.myorderTableV.mj_header beginRefreshing];
+                    };
+                    [self.navigationController pushViewController:tobePayVC animated:YES];
+                    self.hidesBottomBarWhenPushed = YES;
+                }
+                    break;
+                case 2:
+                    
+                    [self jumpToAllorderDetailVC:@"待审核" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                    break;
+                case 3:
+                    [self jumpToAllorderDetailVC:@"续保成功" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                    break;
+                case 4:
+                    [self jumpToAllorderDetailVC:@"续保失败" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                    break;
+                case 5:
+                    [self jumpToAllorderDetailVC:@"已取消" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                    break;
+                    
+                default:
+                    break;
+            }
         }else{
             
             [self jumpToServiceVC:@"确认服务" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
@@ -559,6 +708,45 @@
         if ([orderInfo.orderState isEqualToString:@"7"]) {
             
             [self jumpTobeEvaluatedVCorderNo:orderInfo.orderNo storeId:[NSString stringWithFormat:@"%@", orderInfo.storeId]];
+        }else if([orderInfo.orderType isEqualToString:@"8"]){
+            NSInteger state = [orderInfo.orderState integerValue];
+            
+            switch (state) {
+                case 0:
+                    
+                    break;
+                case 1:{
+                    
+                    ToBePaidViewController *tobePayVC = [[ToBePaidViewController alloc] init];
+                    tobePayVC.statusStr = @"1";
+                    tobePayVC.orderNoStr = orderInfo.orderNo;
+                    tobePayVC.totalPriceStr = orderInfo.orderPrice;
+                    tobePayVC.orderTypeStr = orderInfo.orderType;
+                    tobePayVC.updateOrderVC = ^(NSString *update) {
+                        
+                        [self.myorderTableV.mj_header beginRefreshing];
+                    };
+                    [self.navigationController pushViewController:tobePayVC animated:YES];
+                    self.hidesBottomBarWhenPushed = YES;
+                }
+                    break;
+                case 2:
+                    
+                    [self jumpToAllorderDetailVC:@"待审核" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                    break;
+                case 3:
+                    [self jumpToAllorderDetailVC:@"续保成功" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                    break;
+                case 4:
+                    [self jumpToAllorderDetailVC:@"续保失败" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                    break;
+                case 5:
+                    [self jumpToAllorderDetailVC:@"已取消" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
+                    break;
+                    
+                default:
+                    break;
+            }
         }else{
             
             if ([orderInfo.orderType isEqualToString:@"3"] && [orderInfo.orderState isEqualToString:@"12"]) {

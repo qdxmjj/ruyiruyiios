@@ -253,7 +253,7 @@ static CGFloat const cellThreeHeigh = 130;
             
             self.tableViewHeigh = 0.f;
             
-            self.activityArr =[data objectForKey:@"activityList"];
+            self.activityArr = [data objectForKey:@"activityList"];
             
             dispatch_async(dispatch_queue_create("homeADViewQueue", NULL), ^{
                 
@@ -285,6 +285,22 @@ static CGFloat const cellThreeHeigh = 130;
                     }else{
                     }
                 }
+                
+                NSDictionary *dic = @{@"content":@[@"此条必须放到最上层"],
+                                      @"id":@[],
+                                      @"imageUrl":@[@"http://180.76.243.205:8111/images-new/activity/activity/ic_quanyi.png"],
+                                      @"positionIdList":@[],
+                                      @"positionNameList":@[],
+                                      @"serviceId":@[],
+                                      @"skip":@[@"4"],
+                                      @"storeIdList":@[],
+                                      @"type":@[],
+                                      @"webUrl":@[],
+                                      @"stockId":@[],
+                                      @"setType":@"1"
+                                      };
+                
+                [newArr insertObject:dic atIndex:0];
                 
                 self.activityArr = newArr;
                 
@@ -896,6 +912,7 @@ static CGFloat const cellThreeHeigh = 130;
     if (!_activityArr) {
         
         _activityArr = [NSMutableArray array];
+
     }
     return _activityArr;
 }
@@ -1032,7 +1049,7 @@ static CGFloat const cellThreeHeigh = 130;
                     
                     [self.firstView.iconImageV sd_setImageWithURL:[NSURL URLWithString:self.dataCars.car_brand_url]];
                     self.firstView.topLabel.text = self.dataCars.car_verhicle;
-                    self.firstView.bottomLabel.text = @"一次性购买四条轮胎送洗车券";
+                    self.firstView.bottomLabel.text = @"买轮胎即送畅行无忧";
                 }
             }
         }

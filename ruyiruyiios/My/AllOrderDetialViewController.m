@@ -244,50 +244,57 @@
     
     [self.firstUpdateInfo setValuesForKeysWithDictionary:dataDic];
     [self.tobepayInfo setValuesForKeysWithDictionary:dataDic];
-    if (![self.firstUpdateInfo.shoeOrderVoList isEqual:@[]]) {
+    if (![self.firstUpdateInfo.shoeOrderVoList isEqual:@[]] && ![orderTypeStr isEqualToString:@"8"]) {
         
         [self.shoeOrdervo setValuesForKeysWithDictionary:[[dataDic objectForKey:@"shoeOrderVoList"] objectAtIndex:0]];
     }
-    
-    if (self.firstUpdateInfo.firstChangeOrderVoList != NULL) {
-    
-        NSArray *dataArray = [dataDic objectForKey:@"firstChangeOrderVoList"];
-        for (int i = 0; i<dataArray.count; i++) {
-            
-            NSDictionary *dic = [dataArray objectAtIndex:i];
-            TireChaneOrderInfo *tireInfo = [[TireChaneOrderInfo alloc] init];
-            [tireInfo setValuesForKeysWithDictionary:dic];
-            [self.changeTireNumberMutableA addObject:tireInfo];
-        }
-    }
-    if (self.firstUpdateInfo.freeChangeOrderVoList != NULL) {
-        
-        NSArray *dataArray = [dataDic objectForKey:@"freeChangeOrderVoList"];
-        for (int i = 0; i<dataArray.count; i++) {
-            
-            NSDictionary *dic = [dataArray objectAtIndex:i];
-            TireChaneOrderInfo *tireInfo = [[TireChaneOrderInfo alloc] init];
-            [tireInfo setValuesForKeysWithDictionary:dic];
-            [self.changeTireNumberMutableA addObject:tireInfo];
-        }
-    }
-    
-    if (![self.firstUpdateInfo.stockOrderVoList isEqual:@[]]) {
-        
-        NSArray *stockArray = [dataDic objectForKey:@"stockOrderVoList"];
-        for (int p = 0; p<stockArray.count; p++) {
-            
-            NSDictionary *dic = [stockArray objectAtIndex:p];
-            StockOrderVoInfo *stockVoInfo = [[StockOrderVoInfo alloc] init];
-            [stockVoInfo setValuesForKeysWithDictionary:dic];
-            [self.changeTireNumberMutableA addObject:stockVoInfo];
-        }
-    }
-    
+
     if (![orderTypeStr isEqualToString:@"0"]) {
         
-        [_mainScrollV addSubview:self.tireChangeTableview];
-        [_mainScrollV setContentSize:CGSizeMake(MAINSCREEN.width, self.tireChangeTableview.frame.size.height + self.tireChangeTableview.frame.origin.y)];
+        if([orderTypeStr isEqualToString:@"8"]){
+            
+            
+            [_mainScrollV setContentSize:CGSizeMake(MAINSCREEN.width, self.topayBottomView.frame.size.height + self.topayBottomView.frame.origin.y)];
+        }else{
+            
+            if (self.firstUpdateInfo.firstChangeOrderVoList != NULL) {
+                
+                NSArray *dataArray = [dataDic objectForKey:@"firstChangeOrderVoList"];
+                for (int i = 0; i<dataArray.count; i++) {
+                    
+                    NSDictionary *dic = [dataArray objectAtIndex:i];
+                    TireChaneOrderInfo *tireInfo = [[TireChaneOrderInfo alloc] init];
+                    [tireInfo setValuesForKeysWithDictionary:dic];
+                    [self.changeTireNumberMutableA addObject:tireInfo];
+                }
+            }
+            if (self.firstUpdateInfo.freeChangeOrderVoList != NULL) {
+                
+                NSArray *dataArray = [dataDic objectForKey:@"freeChangeOrderVoList"];
+                for (int i = 0; i<dataArray.count; i++) {
+                    
+                    NSDictionary *dic = [dataArray objectAtIndex:i];
+                    TireChaneOrderInfo *tireInfo = [[TireChaneOrderInfo alloc] init];
+                    [tireInfo setValuesForKeysWithDictionary:dic];
+                    [self.changeTireNumberMutableA addObject:tireInfo];
+                }
+            }
+            
+            if (![self.firstUpdateInfo.stockOrderVoList isEqual:@[]]) {
+                
+                NSArray *stockArray = [dataDic objectForKey:@"stockOrderVoList"];
+                for (int p = 0; p<stockArray.count; p++) {
+                    
+                    NSDictionary *dic = [stockArray objectAtIndex:p];
+                    StockOrderVoInfo *stockVoInfo = [[StockOrderVoInfo alloc] init];
+                    [stockVoInfo setValuesForKeysWithDictionary:dic];
+                    [self.changeTireNumberMutableA addObject:stockVoInfo];
+                }
+            }
+            
+            [_mainScrollV addSubview:self.tireChangeTableview];
+            [_mainScrollV setContentSize:CGSizeMake(MAINSCREEN.width, self.tireChangeTableview.frame.size.height + self.tireChangeTableview.frame.origin.y)];
+        }
     }else{
         
         [_mainScrollV setContentSize:CGSizeMake(MAINSCREEN.width, self.topayBottomView.frame.size.height + self.topayBottomView.frame.origin.y)];

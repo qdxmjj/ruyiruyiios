@@ -248,6 +248,12 @@ static NSInteger const HeadViewH = 150;
 -(void)getStockListByStoreWithStoreID:(NSNumber *)storeID{
     
     [StoreDetailsRequest getStockListByStoreWithInfo:@{@"shopId":storeID} succrss:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+        
+        
+        if (data == NULL || data == nil || [data isEqual:[NSNull null]]) {
+            
+            return ;
+        }
        
         NSArray *arr = [data objectForKey:@"rows"];
         

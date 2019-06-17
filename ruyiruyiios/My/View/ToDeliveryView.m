@@ -144,23 +144,29 @@
     self.userNameLabel.text = firstUpdateOrFreeChaneInfo.userName;
     self.userPhoneLabel.text = firstUpdateOrFreeChaneInfo.userPhone;
     self.userPlatNumberLabel.text = firstUpdateOrFreeChaneInfo.platNumber;
-    if (firstUpdateOrFreeChaneInfo.firstChangeOrderVoList != NULL) {
+    
+    if ([firstUpdateOrFreeChaneInfo.orderType longLongValue] == 8) {
         
-        self.serviceLabel.text = @"首次更换";
-    }else if (![firstUpdateOrFreeChaneInfo.shoeOrderVoList  isEqual: @[]]){
-        
-        self.serviceLabel.text = @"轮胎购买";
-    }else if (![firstUpdateOrFreeChaneInfo.stockOrderVoList  isEqual: @[]]){
-        
-        self.serviceLabel.text = @"普通商品购买";
-    }else if (firstUpdateOrFreeChaneInfo.freeChangeOrderVoList != NULL){
-        
-        self.serviceLabel.text = @"免费再换";
+        self.serviceLabel.text = @"续保";
     }else{
         
-        self.serviceLabel.text = @"免费再换";
+        if (firstUpdateOrFreeChaneInfo.firstChangeOrderVoList != NULL) {
+            
+            self.serviceLabel.text = @"首次更换";
+        }else if (![firstUpdateOrFreeChaneInfo.shoeOrderVoList  isEqual: @[]]){
+            
+            self.serviceLabel.text = @"轮胎购买";
+        }else if (![firstUpdateOrFreeChaneInfo.stockOrderVoList  isEqual: @[]]){
+            
+            self.serviceLabel.text = @"普通商品购买";
+        }else if (firstUpdateOrFreeChaneInfo.freeChangeOrderVoList != NULL){
+            
+            self.serviceLabel.text = @"免费再换";
+        }else{
+            
+            self.serviceLabel.text = @"免费再换";
+        }
     }
-    
     if ([self.serviceLabel.text isEqualToString:@"轮胎购买"]) {
         
         NSString *nameStr = [NSString stringWithFormat:@"¥ %@", firstUpdateOrFreeChaneInfo.orderTotalPrice];

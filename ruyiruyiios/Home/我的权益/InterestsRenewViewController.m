@@ -110,15 +110,15 @@
             s_renewalYear = @"1";
             break;
         case 1:
-            s_renewalPrice = [NSString stringWithFormat:@"%@",renewalPriceInfo[@"1"]];
+            s_renewalPrice = [NSString stringWithFormat:@"%@",renewalPriceInfo[@"2"]];
             s_renewalYear = @"1";
             break;
         case 2:
-            s_renewalPrice = [NSString stringWithFormat:@"%@",renewalPriceInfo[@"1"]];
+            s_renewalPrice = [NSString stringWithFormat:@"%@",renewalPriceInfo[@"3"]];
             s_renewalYear = @"1";
             break;
         case 3:
-            s_renewalPrice = [NSString stringWithFormat:@"%@",renewalPriceInfo[@"1"]];
+            s_renewalPrice = [NSString stringWithFormat:@"%@",renewalPriceInfo[@"4"]];
             s_renewalYear = @"1";
             break;
         default:
@@ -153,7 +153,7 @@
     
     NSString *reqJson = [PublicClass convertToJsonData:@{@"userId":[UserConfig user_id],@"userCarId":[UserConfig userCarId],@"shoeNum":barCodeCount,@"serviceYearLength":serviceYear,@"renewalYear":s_renewalYear,@"renewalPrice":s_renewalPrice,@"serviceEndTime":serviceEndTime}];
     
-    [JJRequest postRequest:@"/renewalOrderInfo/addRenewalOrder" params:@{@"reqJson":reqJson} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+    [JJRequest postRequest:@"/renewalOrderInfo/addRenewalOrder" params:@{@"reqJson":reqJson,@"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         
         [MBProgressHUD hideWaitViewAnimated:self.view];
         

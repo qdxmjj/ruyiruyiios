@@ -164,7 +164,7 @@
     [super viewDidLoad];
     self.title = @"待支付";
     
-    if ([self.orderTypeStr isEqualToString:@"0"]) {
+    if ([self.orderTypeStr isEqualToString:@"0"] || [self.orderTypeStr isEqualToString:@"8"]) {
         
         [self addRightBtn];
     }
@@ -207,6 +207,10 @@
     }else if ([orderTypeStr isEqualToString:@"4"]){
         
         postStr = @"cancelShoeRepairOrder";
+    }else if ([orderTypeStr isEqualToString:@"8"]){
+        postStr = @"renewalOrderInfo/cancelRenewalOrder";
+    }else{
+        
     }
     NSDictionary *cancelPostDic = @{@"orderNo":orderNoStr, @"userId":[NSString stringWithFormat:@"%@", [UserConfig user_id]]};
     NSString *reqJson = [PublicClass convertToJsonData:cancelPostDic];
@@ -262,7 +266,7 @@
     
     [self.tobepayInfo setValuesForKeysWithDictionary:dataDic];
     
-    if (![self.tobepayInfo.shoeOrderVoList isEqual:@[]]) {
+    if (![self.tobepayInfo.shoeOrderVoList isEqual:@[]] && ![orderTypeStr isEqualToString:@"8"]) {
         
         [self.shoeOrdervo setValuesForKeysWithDictionary:[[dataDic objectForKey:@"shoeOrderVoList"] objectAtIndex:0]];
     }

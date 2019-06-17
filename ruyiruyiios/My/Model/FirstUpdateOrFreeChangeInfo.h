@@ -24,4 +24,6 @@
 @property(nonatomic, strong)NSString *userCarShoeBarCodeList;
 @property(nonatomic, strong)NSString *userCarShoeOldBarCodeList;
 
+@property(nonatomic, strong)NSString *orderType;
+
 @end
