@@ -20,7 +20,6 @@
 
 #import "ManageCarViewController.h"
 #import "LocationViewController.h"
-#import <CoreLocation/CoreLocation.h>
 #import "DelegateConfiguration.h"
 #import "SelectTirePositionViewController.h"
 #import "SmoothJourneyViewController.h"
@@ -38,18 +37,20 @@
 #import "EntranceView.h"
 #import "MBProgressHUD+YYM_category.h"
 #import "ADView.h"
-#import <Masonry.h>
 #import "HomeActivityModel.h"
 #import "ActivityCell.h"
 #import <UIButton+WebCache.h>
 #import "StoreDetailsRequest.h"
 #import "CommdoityDetailsViewController.h"
 #import "YMDetailedServiceViewController.h"
+
+#import "MyInterestsViewController.h"
+
 static CGFloat const cellOneHeigh = 90;
 static CGFloat const cellTwoHeigh = 100;
 static CGFloat const cellThreeHeigh = 130;
 
-@interface HomeViewController ()<UIScrollViewDelegate, SDCycleScrollViewDelegate, UITableViewDelegate, UITableViewDataSource,LoginStatusDelegate, CLLocationManagerDelegate,LoginStatusDelegate, CityNameDelegate,UpdateAddCarDelegate,ADActivityDelegate,EntranceViewDelegate>{
+@interface HomeViewController ()<UIScrollViewDelegate, SDCycleScrollViewDelegate, UITableViewDelegate, UITableViewDataSource,LoginStatusDelegate,LoginStatusDelegate, CityNameDelegate,UpdateAddCarDelegate,ADActivityDelegate,EntranceViewDelegate>{
     
     CGFloat nameW;
     CGFloat tviewX, tviewY, tviewW, tviewH;
@@ -70,8 +71,6 @@ static CGFloat const cellThreeHeigh = 130;
 @property (nonatomic, strong)NSString *user_token;
 @property (nonatomic, strong)NSDictionary *data_carDic;
 @property (nonatomic, strong)Data_cars *dataCars;
-@property (nonatomic, strong)CLLocationManager *locationManager;
-@property (nonatomic, copy)NSString *currentCity;//定位城市
 
 @property (nonatomic, strong)NSMutableArray *activityArr;//底部广告数组
 @property (nonatomic, assign)CGFloat tableViewHeigh;//tableview高度
@@ -88,22 +87,14 @@ static CGFloat const cellThreeHeigh = 130;
         WelcomeViewController *welcomeVC = [[WelcomeViewController alloc] init];
         [self.navigationController presentViewController:[[BaseNavigation alloc]initWithRootViewController:welcomeVC] animated:YES completion:nil];
     }
-    
+    ///使用代码 约束布局 需要设置为NO
+    self.mainScrollV.translatesAutoresizingMaskIntoConstraints = NO;
+
     self.view.backgroundColor = [UIColor whiteColor];
     
-//    [JJRequest interchangeablePostRequestWithIP:@"http://api.xyq.nhys.cdnhxx.com/v1/" path:@"login" params:@{@"phone":@"18380206895",@"password":@"123456"} success:^(id  _Nullable data) {
-//        
-//        
-//        NSLog(@"测试接口：%@",data);
-//    } failure:^(NSError * _Nullable error) {
-//        
-//    }];
-
     //开始签到并显示
     [SignInObject startSignInAndshowView:self.view];
-    
-    _currentCity = @"定位中";
-    
+        
     DelegateConfiguration *delegateCF = [DelegateConfiguration sharedConfiguration];
     [delegateCF registercityNameListers:self];
     [delegateCF registerLoginStatusChangedListener:self];
@@ -128,7 +119,7 @@ static CGFloat const cellThreeHeigh = 130;
         make.bottom.mas_equalTo(self.activityTableView.mas_bottom);
     }];
     
-    [self.view layoutIfNeeded];
+//    [self.view layoutIfNeeded];
     
     [self.sdcycleScrollV mas_makeConstraints:^(MASConstraintMaker *make) {
        
@@ -184,17 +175,16 @@ static CGFloat const cellThreeHeigh = 130;
     
     //获取弹窗广告
     [self getActivityInfo];
-
-    //定位 定位成功后获取主页数据
-    [self locateMap];
-
+    //获取主页信息
+    [self getAndroidHomeDate];
+    
     //生成购买轮胎订单的时候 的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(generateTireOrderNoticeEvent) name:GenerateTireOrderNotice object:nil];
     //设置默认车辆的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(generateTireOrderNoticeEvent) name:ModifyDefaultCarNotification object:nil];
-    
+
     self.mainScrollV.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        
+
         [self getAndroidHomeDate];
     }];
 }
@@ -218,7 +208,10 @@ static CGFloat const cellThreeHeigh = 130;
         }
     }
     
-    NSString *currentCity = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentCity"];
+    NSString *currentCity = [UserConfig currentCity];
+    
+    [self.locationBtn setTitle:currentCity forState:UIControlStateNormal];
+
     if (currentCity.length<=0) {
         
          currentCity = @"定位失败";
@@ -231,6 +224,8 @@ static CGFloat const cellThreeHeigh = 130;
     [JJRequest postRequest:@"getAndroidHomeDate" params:@{@"reqJson":adroidHomereqJson} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         
         [MBProgressHUD hideWaitViewAnimated:self.view];
+        
+        [self.mainScrollV.mj_header endRefreshing];
 
         NSString *statusStr = [NSString stringWithFormat:@"%@", code];
         NSString *messageStr = [NSString stringWithFormat:@"%@", message];
@@ -252,6 +247,7 @@ static CGFloat const cellThreeHeigh = 130;
                 ///数据model
                 [self setuserDatacarData:self.data_carDic];
             }
+            
             [self setImageurlData:imgArray];
             [self setElementOffirstView];
             
@@ -259,47 +255,49 @@ static CGFloat const cellThreeHeigh = 130;
             
             self.activityArr =[data objectForKey:@"activityList"];
             
-            //遍历重新处理 底部广告页面数据
-            NSMutableArray *newArr = [NSMutableArray array];
-            
-            for (int i = 0; i<self.activityArr.count; i++) {
+            dispatch_async(dispatch_queue_create("homeADViewQueue", NULL), ^{
                 
-                NSInteger type = [self.activityArr[i][@"type"] integerValue];
+                //遍历重新处理 底部广告页面数据
+                NSMutableArray *newArr = [NSMutableArray array];
                 
-                if (type == 0) {
+                for (int i = 0; i<self.activityArr.count; i++) {
                     
-                    [newArr addObject:[self oneDicWith:self.activityArr[i] type:type]];
-                    self.tableViewHeigh += 45;
-                }else if (type == 1) {
+                    NSInteger type = [self.activityArr[i][@"type"] integerValue];
                     
-                    [newArr addObject:[self oneDicWith:self.activityArr[i] type:type]];
-                    self.tableViewHeigh += cellOneHeigh+2.01;
-                }else if (type == 2){
-                    
-                    [newArr addObject:[self twoDicWith:self.activityArr[i] two:self.activityArr[i+1]]];
-                    i += 1;
-                    self.tableViewHeigh += cellTwoHeigh+2.01;
-                }else if (type == 3){
-                    
-                    [newArr addObject:[self threeDicWith:self.activityArr[i] three:self.activityArr[i+1] three:self.activityArr[i+2]]];
-                    self.tableViewHeigh += cellThreeHeigh;
-                    i += 2;
-                }else{
-                }
-            }
+                    if (type == 0) {
                         
-            self.activityArr = newArr;
-            
-            //更新tableview 高度
-            [self.activityTableView mas_updateConstraints:^(MASConstraintMaker *make) {
-               
-                make.height.mas_equalTo(self.tableViewHeigh);
-            }];
-            
-            [self.mainScrollV.mj_header endRefreshing];
-
-            [self.activityTableView reloadData];
-            
+                        [newArr addObject:[self oneDicWith:self.activityArr[i] type:type]];
+                        self.tableViewHeigh += 45;
+                    }else if (type == 1) {
+                        
+                        [newArr addObject:[self oneDicWith:self.activityArr[i] type:type]];
+                        self.tableViewHeigh += cellOneHeigh+2.01;
+                    }else if (type == 2){
+                        
+                        [newArr addObject:[self twoDicWith:self.activityArr[i] two:self.activityArr[i+1]]];
+                        i += 1;
+                        self.tableViewHeigh += cellTwoHeigh+2.01;
+                    }else if (type == 3){
+                        
+                        [newArr addObject:[self threeDicWith:self.activityArr[i] three:self.activityArr[i+1] three:self.activityArr[i+2]]];
+                        self.tableViewHeigh += cellThreeHeigh;
+                        i += 2;
+                    }else{
+                    }
+                }
+                
+                self.activityArr = newArr;
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                   
+                    //更新tableview 高度
+                    [self.activityTableView mas_updateConstraints:^(MASConstraintMaker *make) {
+                        
+                        make.height.mas_equalTo(self.tableViewHeigh);
+                    }];
+                    [self.activityTableView reloadData];
+                });
+            });
         }
         
     } failure:^(NSError * _Nullable error) {
@@ -421,7 +419,7 @@ static CGFloat const cellThreeHeigh = 130;
     
     [JJRequest postRequest:@"getAppActivity" params:nil success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
        
-        NSLog(@"主页广告弹窗：%@ %@ %@",code,message,data);
+//        NSLog(@"主页广告弹窗：%@ %@ %@",code,message,data);
         
         if ([code integerValue] == 1) {
             
@@ -481,22 +479,8 @@ static CGFloat const cellThreeHeigh = 130;
 //    NSLog(@"给changeView添加的手势");
 }
 
-- (void)locateMap{
-    
-    if ([CLLocationManager locationServicesEnabled]) {
-        
-        _locationManager = [[CLLocationManager alloc] init];
-        _locationManager.delegate = self;
-        [_locationManager requestAlwaysAuthorization];
-        _currentCity = [[NSString alloc] init];
-        [_locationManager requestWhenInUseAuthorization];
-        _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        _locationManager.distanceFilter = 5.0;
-        [_locationManager startUpdatingLocation];
-    }
-}
 
-#pragma mark - TableViewDelegate AND 广告页面数据处理
+#pragma mark - TableViewDelegate  广告页面数据处理
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     
     NSInteger type = [self.activityArr[indexPath.section][@"setType"] integerValue];
@@ -634,6 +618,11 @@ static CGFloat const cellThreeHeigh = 130;
             }
         }
             break;
+        case 4:{
+            
+            
+            
+        }
         default:
             
             break;
@@ -717,7 +706,15 @@ static CGFloat const cellThreeHeigh = 130;
             
         }
             break;
+        case 4:{
             
+            MyInterestsViewController *interestsVC = [[MyInterestsViewController alloc] init];
+            
+            
+            [self.navigationController pushViewController:interestsVC animated:YES];
+
+            NSLog(@"新页面!");
+        }
         default:
             break;
     }
@@ -893,74 +890,6 @@ static CGFloat const cellThreeHeigh = 130;
     }
 }
 
-#pragma mark - 定位失败
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
-    
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请在设置中打开定位" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"打开定位" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-        NSURL *settingURL = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-        if (@available(iOS 10.0, *)) {
-            [[UIApplication sharedApplication] openURL:settingURL options:@{} completionHandler:nil];
-        } else {
-            // Fallback on earlier versions
-        }
-    }];
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        
-        
-    }];
-    [alert addAction:cancel];
-    [alert addAction:ok];
-    [self presentViewController:alert animated:YES completion:nil];
-}
-
-#pragma mark - 定位成功
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
-    
-    [_locationManager stopUpdatingLocation];
-    CLLocation *currentLocation = [locations lastObject];
-    CLGeocoder *geoCoder = [[CLGeocoder alloc] init];
-    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%f", currentLocation.coordinate.longitude] forKey:@"longitude"];
-    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%f", currentLocation.coordinate.latitude] forKey:@"latitude"];
-//    NSTimeInterval locationAge = -[currentLocation.timestamp timeIntervalSinceNow];
-//    if (locationAge > 1.0) {
-//
-//        return;
-//    }
-    [geoCoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
-        
-        if (placemarks.count >0) {
-            
-            CLPlacemark *placeMark = placemarks[0];
-            _currentCity = placeMark.subLocality;//2018.10.24 改为默认显示县 之前默认为市
-            NSString *currentStr = placeMark.locality;
-            if (!_currentCity) {
-                
-                _currentCity = @"无法定位当前城市";
-            }
-            //存储 当前定位的信息 县 手动选择城市会覆盖此字段
-            [[NSUserDefaults standardUserDefaults] setObject:_currentCity forKey:@"currentCity"];
-            //存储 当前定位的信息 县 只做显示用 与 购买轮胎时使用  2019.05.09
-            [[NSUserDefaults standardUserDefaults] setObject:_currentCity forKey:@"positionCounty"];
-            //存储 f当前的城市 仅做显示 与 购买轮胎时使用  2019.05.09
-            [UserConfig userDefaultsSetObject:currentStr key:@"selectCityName"];
-            
-            [self.locationBtn setTitle:_currentCity forState:UIControlStateNormal];
-            
-            [self getAndroidHomeDate];//定位成功后请求主页数据  定位结果返回会执行多次  重复网络请求 不合理 暂未处理
-            
-        }else if (error == nil && placemarks.count){
-            
-            NSLog(@"NO location and error return");
-        }else if (error){
-            
-            NSLog(@"location error:%@", error);
-        }
-    }];
-}
-
-
 #pragma mark 懒加载
 -(NSMutableArray *)activityArr{
     
@@ -1022,8 +951,7 @@ static CGFloat const cellThreeHeigh = 130;
         
         _locationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _locationBtn.titleLabel.font = [UIFont fontWithName:TEXTFONT size:16.0];
-        [_locationBtn setTitle:_currentCity forState:UIControlStateNormal];
-//        [_locationBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
+        [_locationBtn setTitle:[UserConfig currentCity] forState:UIControlStateNormal];
         [_locationBtn setImage:[UIImage imageNamed:@"定位"] forState:UIControlStateNormal];
         [_locationBtn addTarget:self action:@selector(selectLocationBtn) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -1078,33 +1006,37 @@ static CGFloat const cellThreeHeigh = 130;
 
 - (void)setElementOffirstView{
     
-    if (_user_token == 0 || [[NSString stringWithFormat:@"%@", [UserConfig user_id]] isEqualToString:@""]) {
+//    dispatch_async(dispatch_get_main_queue(), ^{
+    
         
-        self.firstView.iconImageV.image = [UIImage imageNamed:@"注册"];
-        self.firstView.topLabel.text = @"新人注册享好礼";
-        self.firstView.bottomLabel.text = @"购买轮胎即送畅行无忧";
-    }else{
-        
-        if ([_data_carDic isKindOfClass:[NSNull class]] || _data_carDic == nil) {
+        if (_user_token == 0 || [[NSString stringWithFormat:@"%@", [UserConfig user_id]] isEqualToString:@""]) {
             
-            self.firstView.iconImageV.image = [UIImage imageNamed:@"添加"];
-            self.firstView.topLabel.text = @"添加我的宝驹";
-            self.firstView.bottomLabel.text = @"邀请好友绑定车辆可得现金券";
+            self.firstView.iconImageV.image = [UIImage imageNamed:@"注册"];
+            self.firstView.topLabel.text = @"新人注册享好礼";
+            self.firstView.bottomLabel.text = @"购买轮胎即送畅行无忧";
         }else{
             
-            if ([self.dataCars.car_id longLongValue] == 0) {
+            if ([_data_carDic isKindOfClass:[NSNull class]] || _data_carDic == nil) {
                 
-                self.firstView.iconImageV.image = [UIImage imageNamed:@"ic_dairenzheng"];
-                self.firstView.topLabel.text = @"请完善车辆信息";
-                self.firstView.bottomLabel.text = @"完善车辆信息后可享受特色服务";
+                self.firstView.iconImageV.image = [UIImage imageNamed:@"添加"];
+                self.firstView.topLabel.text = @"添加我的宝驹";
+                self.firstView.bottomLabel.text = @"邀请好友绑定车辆可得现金券";
             }else{
                 
-                [self.firstView.iconImageV sd_setImageWithURL:[NSURL URLWithString:self.dataCars.car_brand_url]];
-                self.firstView.topLabel.text = self.dataCars.car_verhicle;
-                self.firstView.bottomLabel.text = @"一次性购买四条轮胎送洗车券";
+                if ([self.dataCars.car_id longLongValue] == 0) {
+                    
+                    self.firstView.iconImageV.image = [UIImage imageNamed:@"ic_dairenzheng"];
+                    self.firstView.topLabel.text = @"请完善车辆信息";
+                    self.firstView.bottomLabel.text = @"完善车辆信息后可享受特色服务";
+                }else{
+                    
+                    [self.firstView.iconImageV sd_setImageWithURL:[NSURL URLWithString:self.dataCars.car_brand_url]];
+                    self.firstView.topLabel.text = self.dataCars.car_verhicle;
+                    self.firstView.bottomLabel.text = @"一次性购买四条轮胎送洗车券";
+                }
             }
         }
-    }
+//    });
 }
 - (UITableView *)activityTableView{
     

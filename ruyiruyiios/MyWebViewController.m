@@ -69,6 +69,7 @@
         [shareBtn addTarget:self action:@selector(shareClicked) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *roadLoad = [[UIBarButtonItem alloc] initWithCustomView:shareBtn];
         self.navigationItem.rightBarButtonItem = roadLoad;
+        
     }
 }
 

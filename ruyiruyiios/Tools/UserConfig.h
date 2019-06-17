@@ -15,6 +15,8 @@
 
 +(id)userDefaultsGetObjectForKey:(NSString *)key;
 
++(NSString *)currentCity;
+
 +(NSNumber *)age;
 
 +(NSString *)birthday;

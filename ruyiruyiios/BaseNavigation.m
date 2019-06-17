@@ -9,6 +9,7 @@
 #import "BaseNavigation.h"
 #import "CommdoityDetailsViewController.h"
 #import "WelcomeViewController.h"
+#import "MyInterestsViewController.h"
 @interface BaseNavigation ()<UIGestureRecognizerDelegate,UINavigationControllerDelegate>
 
 @end
@@ -32,7 +33,8 @@
     if ([viewController isKindOfClass:[CommdoityDetailsViewController class]]||
         [viewController isKindOfClass:[HomeViewController class]]||
         [viewController isKindOfClass:[MyViewController class]]||
-        [viewController isKindOfClass:[WelcomeViewController class]]) {
+        [viewController isKindOfClass:[WelcomeViewController class]]||
+        [viewController isKindOfClass:[MyInterestsViewController class]]) {
         
         [self setNavigationBarHidden:YES animated:YES];
     }else{

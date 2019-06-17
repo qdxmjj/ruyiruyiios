@@ -810,42 +810,36 @@
     LosDatabaseHelper *helper = [LosDatabaseHelper sharedInstance];
     [helper inTransaction:^(FMDatabase *db, BOOL rollback) {
         
-        dispatch_queue_t queue = dispatch_queue_create("cityInfoQueue.com", DISPATCH_QUEUE_CONCURRENT);
-
-        dispatch_async(queue, ^{
+        NSLog(@"当前线程：%@",[NSThread currentThread]);
         
-            NSLog(@"当前线程：%@",[NSThread currentThread]);
-
-            if ([db open]) {
-                
-                [db setShouldCacheStatements:YES];
-                if (![db tableExists:@"position"]) {
-                    
-                    [db executeUpdate:@"CREATE TABLE position(Id INTEGER PRIMARY KEY, definition INTEGER, fid INTEGER, icon TEXT, positionId INTEGER, level INTEGER, name TEXT, time TEXT)"];
-                    NSLog(@"省市区位置数据库创建完成!");
-                }
-                NSString *pdefinition_Str, *pfid_Str, *positionId_Str, *plevel_Str;
-                for (NSDictionary *dataDic in dataArray) {
-                    
-                    FMDBPosition *position = [[FMDBPosition alloc] init];
-                    [position setValuesForKeysWithDictionary:dataDic];
-                    pdefinition_Str = [NSString stringWithFormat:@"%ld", (long)[position.definition intValue]];
-                    pfid_Str = [NSString stringWithFormat:@"%ld", (long)[position.fid intValue]];
-                    positionId_Str = [NSString stringWithFormat:@"%ld", (long)[position.positionId intValue]];
-                    plevel_Str = [NSString stringWithFormat:@"%ld", (long)[position.level intValue]];
-                    FMResultSet *positionRs = [db executeQuery:@"select * from position where positionId = ?", positionId_Str];
-                    if ([positionRs next]) {
-                        
-                        [db executeUpdate:@"update position set definition = ?, fid = ?, icon = ?, level = ?, name = ?, time = ? where positionId = ?", pdefinition_Str, pfid_Str, position.icon, plevel_Str, position.name, position.time, positionId_Str];
-                    }else{
-                        
-                        [db executeUpdate:@"insert into position(definition, fid, icon, positionId, level, name, time) values(?,?,?,?,?,?,?)", pdefinition_Str, pfid_Str, position.icon, positionId_Str, plevel_Str, position.name, position.time];
-                    }
-                    [positionRs close];
-                }
-            }
+        if ([db open]) {
             
-        });
+            [db setShouldCacheStatements:YES];
+            if (![db tableExists:@"position"]) {
+                
+                [db executeUpdate:@"CREATE TABLE position(Id INTEGER PRIMARY KEY, definition INTEGER, fid INTEGER, icon TEXT, positionId INTEGER, level INTEGER, name TEXT, time TEXT)"];
+                NSLog(@"省市区位置数据库创建完成!");
+            }
+            NSString *pdefinition_Str, *pfid_Str, *positionId_Str, *plevel_Str;
+            for (NSDictionary *dataDic in dataArray) {
+                
+                FMDBPosition *position = [[FMDBPosition alloc] init];
+                [position setValuesForKeysWithDictionary:dataDic];
+                pdefinition_Str = [NSString stringWithFormat:@"%ld", (long)[position.definition intValue]];
+                pfid_Str = [NSString stringWithFormat:@"%ld", (long)[position.fid intValue]];
+                positionId_Str = [NSString stringWithFormat:@"%ld", (long)[position.positionId intValue]];
+                plevel_Str = [NSString stringWithFormat:@"%ld", (long)[position.level intValue]];
+                FMResultSet *positionRs = [db executeQuery:@"select * from position where positionId = ?", positionId_Str];
+                if ([positionRs next]) {
+                    
+                    [db executeUpdate:@"update position set definition = ?, fid = ?, icon = ?, level = ?, name = ?, time = ? where positionId = ?", pdefinition_Str, pfid_Str, position.icon, plevel_Str, position.name, position.time, positionId_Str];
+                }else{
+                    
+                    [db executeUpdate:@"insert into position(definition, fid, icon, positionId, level, name, time) values(?,?,?,?,?,?,?)", pdefinition_Str, pfid_Str, position.icon, positionId_Str, plevel_Str, position.name, position.time];
+                }
+                [positionRs close];
+            }
+        }
     }];
 }
 

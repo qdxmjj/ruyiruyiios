@@ -133,7 +133,9 @@
                 
                 NSLog(@"请求车辆品牌数据成功");
                 dispatch_semaphore_signal(semaphore);
-                [DBRecorder insertFactoryArray:data];
+                if ([data count] > 0) {
+                    [DBRecorder insertFactoryArray:data];
+                }
             }
             
         } failure:^(NSError * _Nullable error) {
@@ -167,7 +169,9 @@
                 
                 NSLog(@"请求车辆图标数据成功");
                 dispatch_semaphore_signal(semaphore);
-                [DBRecorder insertBrandArray:data];
+                if ([data count] > 0) {
+                    [DBRecorder insertBrandArray:data];
+                }
             }
             
         } failure:^(NSError * _Nullable error) {
@@ -201,7 +205,9 @@
                 
                 NSLog(@"请求车辆型号数据成功");
                 dispatch_semaphore_signal(semaphore);
-                [DBRecorder insertVerhicleArray:data];
+                if ([data count] > 0) {
+                    [DBRecorder insertVerhicleArray:data];
+                }
             }
             
         } failure:^(NSError * _Nullable error) {
@@ -235,7 +241,9 @@
                 
                 NSLog(@"请求车辆类型数据成功");
                 dispatch_semaphore_signal(semaphore);
-                [DBRecorder insertTireTypeArray:data];
+                if ([data count] > 0) {
+                    [DBRecorder insertTireTypeArray:data];
+                }
             }
             
         } failure:^(NSError * _Nullable error) {
@@ -268,7 +276,9 @@
             }else{
                 NSLog(@"请求省县市数据成功");
                 dispatch_semaphore_signal(semaphore);
-                [DBRecorder insertPositionArray:data];
+                if ([data count] > 0) {
+                    [DBRecorder insertPositionArray:data];
+                }
             }
             
         } failure:^(NSError * _Nullable error) {

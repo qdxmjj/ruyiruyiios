@@ -32,14 +32,14 @@
 
 
 //测试版IP debug
-//#define SERVERPREFIX  @"http://192.168.0.86:8060"  //龚林 测试地址
+#define SERVERPREFIX  @"http://192.168.0.142:8060"  //龚林 测试地址
 //#define GL_RuYiRuYiIP  @"http://192.168.0.170:8030"  //龚林 我的钱包测试ID
 
 //#define SERVERPREFIX  @"http://192.168.0.96:8060/"  //主测试地址
 //#define INTEGRAL_IP @"http://192.168.0.96:10008"  ///积分商城测试IP
 
 //release
-#define SERVERPREFIX @"http://180.76.243.205:10002/xmjj-webservice/" ///主地址！
+//#define SERVERPREFIX @"http://180.76.243.205:10002/xmjj-webservice/" ///主地址！
 
 #define INTEGRAL_IP @"http://180.76.243.205:10008"  ///积分商城IP
 

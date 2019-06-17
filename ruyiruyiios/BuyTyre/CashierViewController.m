@@ -98,6 +98,11 @@
     }else if ([orderTypeStr isEqualToString:@"7"]){
         
         orderNameStr = @"补邮费订单";
+    }else if ([orderTypeStr isEqualToString:@"8"]){
+        
+        orderNameStr = @"续保订单";
+    }else{
+        
     }
     //1--blanceMoney  2--wxPay  3--alipay
     if ([self.payTypeStr isEqualToString:@"1"]) {
@@ -142,20 +147,30 @@
         [JJRequest commonPostRequest:@"getWeixinPaySign" params:@{@"reqJson":threeDesStr, @"token":[UserConfig token]} hostNameStr:SERVERPREFIX success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
             
 //            NSLog(@"%@", data);
-            if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi]) {
+            if ([message isEqualToString:@"签名错误"]) {
                 
-                PayReq *req = [[PayReq alloc] init];
-                req.openID = [data objectForKey:@"appid"];
-                req.partnerId = [data objectForKey:@"partnerid"];
-                req.prepayId = [data objectForKey:@"prepayid"];
-                req.package = [data objectForKey:@"package"];
-                req.nonceStr = [data objectForKey:@"noncestr"];
-                req.timeStamp = [[data objectForKey:@"timestamp"] intValue];
-                req.sign = [data objectForKey:@"sign"];
-                [WXApi sendReq:req];
+                
+                [PublicClass showHUD:message view:self.view];
+            }else if ([message containsString:@"token错误!!!!"]){
+                
+                [PublicClass showHUD:@"token错误,请重新登录！" view:self.view];
             }else{
                 
-                [PublicClass showHUD:@"未安装微信" view:self.view];
+                if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi]) {
+                    
+                    PayReq *req = [[PayReq alloc] init];
+                    req.openID = [data objectForKey:@"appid"];
+                    req.partnerId = [data objectForKey:@"partnerid"];
+                    req.prepayId = [data objectForKey:@"prepayid"];
+                    req.package = [data objectForKey:@"package"];
+                    req.nonceStr = [data objectForKey:@"noncestr"];
+                    req.timeStamp = [[data objectForKey:@"timestamp"] intValue];
+                    req.sign = [data objectForKey:@"sign"];
+                    [WXApi sendReq:req];
+                }else{
+                    
+                    [PublicClass showHUD:@"未安装微信" view:self.view];
+                }
             }
         } failure:^(NSError * _Nullable error) {
             
@@ -169,22 +184,31 @@
         NSLog(@"%@", @{@"reqJson":threeDesStr, @"token":[UserConfig token]});
         [JJRequest testPostRequest:@"getAliPaySign" params:@{@"reqJson":threeDesStr, @"token":[UserConfig token]} serviceAddress:SERVERPREFIX success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
             
-            NSString *messageStr = [NSString stringWithFormat:@"%@", message];
-//            NSLog(@"%@", messageStr);
-            [[AlipaySDK defaultService] payOrder:messageStr fromScheme:@"ruyiruyiios" callback:^(NSDictionary *resultDic) {
+            if ([message isEqualToString:@"签名错误"]) {
                 
-                NSLog(@"调用网页支付宝回调结果 = %@", resultDic);
-                if ([[resultDic objectForKey:@"resultStatus"] isEqualToString:@"9000"]) {
+                
+                [PublicClass showHUD:message view:self.view];
+            }else if ([message containsString:@"token错误!!!!"]){
+                
+                [PublicClass showHUD:@"token错误,请重新登录！" view:self.view];
+            }else{
+                
+                NSString *messageStr = [NSString stringWithFormat:@"%@", message];
+                //            NSLog(@"%@", messageStr);
+                [[AlipaySDK defaultService] payOrder:messageStr fromScheme:@"ruyiruyiios" callback:^(NSDictionary *resultDic) {
                     
-                    [self chickPayResult];
-//                    [[NSNotificationCenter defaultCenter] postNotificationName:@"payStatus" object:nil];
-                }else{
-                    
-                    [PublicClass showHUD:@"支付宝支付失败" view:self.view];
-                }
-            }];
+                    NSLog(@"调用网页支付宝回调结果 = %@", resultDic);
+                    if ([[resultDic objectForKey:@"resultStatus"] isEqualToString:@"9000"]) {
+                        
+                        [self chickPayResult];
+                        //                    [[NSNotificationCenter defaultCenter] postNotificationName:@"payStatus" object:nil];
+                    }else{
+                        
+                        [PublicClass showHUD:@"支付宝支付失败" view:self.view];
+                    }
+                }];
+            }
         } failure:^(NSError * _Nullable error) {
-            
             NSLog(@"获取支付宝支付签名错误:%@", error);
         }];
     }
@@ -293,7 +317,7 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"如驿如意" message:@"确定要离开？离开后可在付款订单中找到这笔未完成的订单。" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
-        if ([self.orderTypeStr isEqualToString:@"0"] || [self.orderTypeStr isEqualToString:@"3"]) {
+        if ([self.orderTypeStr isEqualToString:@"0"] || [self.orderTypeStr isEqualToString:@"3"] || [self.orderTypeStr isEqualToString:@"8"]) {
             
             ToBePaidViewController *tobePaidVC = [[ToBePaidViewController alloc] init];
             tobePaidVC.orderNoStr = self.orderNoStr;

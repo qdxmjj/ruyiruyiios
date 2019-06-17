@@ -23,7 +23,6 @@
 #import <Bugly/Bugly.h>
 
 #import "FirstStartConfiguration.h"
-
 #import "JJShare.h"
 #import "BaseNavigation.h"
 @interface AppDelegate (){
@@ -55,6 +54,10 @@
     //新版本获取首次登录配置信息
     FirstStartConfiguration *first = [[FirstStartConfiguration alloc] init];
     [first StartConfigurationDataAndNetwork];
+    
+    //定位
+    self.position = [[JJPositionObject alloc] init];
+    [self.position startPosition];
     
     [WXApi registerApp:WEIXINID];
     //-----------------mob分享---------------------

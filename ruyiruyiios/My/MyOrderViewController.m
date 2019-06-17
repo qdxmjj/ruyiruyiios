@@ -189,6 +189,34 @@
                 
                 [self.todeliverMutableA addObject:orderInfo];
             }
+        }else if([orderInfo.orderType isEqualToString:@"8"]){
+            
+            NSInteger state = [orderInfo.orderStage integerValue];
+            
+            switch (state) {
+                case 0:
+                    
+                    [self.allMutableA addObject:orderInfo];
+                    break;
+                case 1:
+                    [self.topayMutableA addObject:orderInfo];
+
+                    break;
+                case 2:
+                    [self.todeliverMutableA addObject:orderInfo];
+
+                    break;
+                case 3:
+                    [self.toserviceMutableA addObject:orderInfo];
+
+                    break;
+                case 4:
+                    [self.completedMutableA addObject:orderInfo];
+                    break;
+                    
+                default:
+                    break;
+            }
         }else{
             
             if ([orderInfo.orderState isEqualToString:@"5"] || [orderInfo.orderState isEqualToString:@"2"] || [orderInfo.orderState isEqualToString:@"9"] || [orderInfo.orderState isEqualToString:@"11"] || [orderInfo.orderState isEqualToString:@"13"]) {
@@ -205,6 +233,7 @@
                 [self.toserviceMutableA addObject:orderInfo];
             }
         }
+        
     }
     [self.myorderTableV reloadData];
 }
@@ -363,7 +392,7 @@
                 };
                 [self.navigationController pushViewController:tobePayVC animated:YES];
                 self.hidesBottomBarWhenPushed = YES;
-
+                
             }else if ([orderInfo.orderState isEqualToString:@"7"]){
                 
                 [self jumpToAllorderDetailVC:@"退款中" orderNo:orderInfo.orderNo orderType:orderInfo.orderType];
@@ -410,7 +439,7 @@
                 waitpayVC.orderType = orderInfo.orderType;
                 [self.navigationController pushViewController:waitpayVC animated:YES];
                 self.hidesBottomBarWhenPushed = YES;
-
+                
                 
             }else if ([orderInfo.orderState isEqualToString:@"2"] || [orderInfo.orderState isEqualToString:@"5"] || [orderInfo.orderState isEqualToString:@"9"]){
                 
@@ -466,7 +495,7 @@
             };
             [self.navigationController pushViewController:tobePayVC animated:YES];
             self.hidesBottomBarWhenPushed = YES;
-
+            
         }else if ([orderInfo.orderType isEqualToString:@"1"]){
             
             WaitPaymentViewController *waitpayVC = [[WaitPaymentViewController alloc] init];
@@ -475,7 +504,7 @@
             waitpayVC.orderType = orderInfo.orderType;
             [self.navigationController pushViewController:waitpayVC animated:YES];
             self.hidesBottomBarWhenPushed = YES;
-
+            
         }else if ([orderInfo.orderType isEqualToString:@"5"]){
             
             //充值信用订单
@@ -573,7 +602,7 @@
     };
     [self.navigationController pushViewController:toServiceVC animated:YES];
     self.hidesBottomBarWhenPushed = YES;
-
+    
 }
 
 - (void)jumpToAllorderDetailVC:(NSString *)titleStr orderNo:(NSString *)orderNoStr orderType:(NSString *)orderTypeStr{
@@ -584,7 +613,7 @@
     allOrderDetialVC.orderTypeStr = orderTypeStr;
     [self.navigationController pushViewController:allOrderDetialVC animated:YES];
     self.hidesBottomBarWhenPushed = YES;
-
+    
 }
 
 - (void)jumpTobeEvaluatedVCorderNo:(NSString *)orderNoStr storeId:(NSString *)storeIdStr{
@@ -598,7 +627,7 @@
     };
     [self.navigationController pushViewController:tobeEvaluatedVC animated:YES];
     self.hidesBottomBarWhenPushed = YES;
-
+    
 }
 
 - (void)jumpcompleteVC:(NSString *)titleStr orderNo:(NSString *)orderNoStr orderType:(NSString *)orderTypeStr{
@@ -637,7 +666,7 @@
     };
     [self.navigationController pushViewController:auditFailVC animated:YES];
     self.hidesBottomBarWhenPushed = YES;
-
+    
 }
 
 //LoginStatusDelegate
@@ -652,13 +681,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

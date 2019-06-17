@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "WXApi.h"
+#import "JJPositionObject.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UINavigationControllerDelegate, WXApiDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
+@property (strong, nonatomic) JJPositionObject *position;
 -(void)setMainViewController;
 
 @end

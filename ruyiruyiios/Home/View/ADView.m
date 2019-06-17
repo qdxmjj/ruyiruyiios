@@ -29,6 +29,10 @@
         self.userInteractionEnabled = YES;
         [self addSubview:self.dcycleView];
         [self addSubview:self.deleteBtn];
+        
+        self.dcycleView.translatesAutoresizingMaskIntoConstraints = NO;
+        self.deleteBtn.translatesAutoresizingMaskIntoConstraints = NO;
+
     }
     return self;
 }

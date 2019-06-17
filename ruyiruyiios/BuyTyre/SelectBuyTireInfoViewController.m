@@ -82,8 +82,18 @@
     [self.mainView addSubview:self.contentLab];
     [self.mainView addSubview:self.patternLab];
     [self.mainView addSubview:self.collectionView];
-    [self.mainView addSubview:self.speedLab];
-    [self.mainView addSubview:self.collectionView1];
+    
+    /*
+     *  2019.05.10
+     *  修改内容如下：
+     *      1.选择完花纹，默认自动选择第一条速度级别，
+     *      2.隐藏速度级别label 与 速度级别 collectionview1
+     *  修改前规则
+     *      手动选择花纹，再手动选择速度级别
+     */
+//    [self.mainView addSubview:self.speedLab];
+//    [self.mainView addSubview:self.collectionView1];
+    
     [self.mainView addSubview:self.serviceLab];
     [self.mainView addSubview:self.jjSliderView];
     [self.mainView addSubview:self.tireNumberLab];
@@ -179,19 +189,22 @@
         }
     }];
     
-    [self.speedLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.mas_equalTo(self.collectionView.mas_bottom).inset(5);
-        make.left.mas_equalTo(self.backGroupView.mas_left).inset(10);
-        make.height.mas_equalTo(@20);
-    }];
+    /* 此处隐藏掉了 速度级别label 与 速度级别条目 要恢复 请自行适当修改布局约束*/
     
-    [self.collectionView1 mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.and.right.mas_equalTo(self.backGroupView);
-        make.top.mas_equalTo(self.speedLab.mas_bottom).inset(5);
-        make.height.mas_equalTo(@40);
-    }];
+//    [self.speedLab mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.top.mas_equalTo(self.collectionView.mas_bottom).inset(5);
+//        make.left.mas_equalTo(self.backGroupView.mas_left).inset(10);
+//        make.height.mas_equalTo(@20);
+//    }];
+//
+//    [self.collectionView1 mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.and.right.mas_equalTo(self.backGroupView);
+//        make.top.mas_equalTo(self.speedLab.mas_bottom).inset(5);
+//        make.height.mas_equalTo(@40);
+//    }];
+    
     
     [self.serviceLab mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -201,7 +214,7 @@
         }else{
             make.height.mas_equalTo(@0);
         }
-        make.top.mas_equalTo(self.collectionView1.mas_bottom).inset(5);
+        make.top.mas_equalTo(self.collectionView.mas_bottom).inset(5);
         make.left.mas_equalTo(self.backGroupView.mas_left).inset(10);
     }];
     
@@ -721,6 +734,44 @@
         //重置已选内容
         self.contentLab.text = [NSString stringWithFormat:@"已选 %@",self.buyTireData.detailStr];
         
+        
+        /*
+         已于2019.05.10 废弃 手动选择速度级别选择功能
+         改为手动选择完花纹后 自动选择第一个速度级别 由可见操作变为不可见操作
+         若要恢复 请将此往下内容去除  直接删掉即可
+         */
+        
+#warning 恢复老版本规则需要去除的内容  开始>>>>>>>>>>
+        self.priceMap = [self.shoeSpeedLoadResultList[0] objectForKey:@"priceMap"];
+        //设置轮胎ID
+        self.shoeID = [[self.shoeSpeedLoadResultList[0] objectForKey:@"shoeId"] integerValue];
+        
+        self.cxwyPriceMap = [self.shoeSpeedLoadResultList[0] objectForKey:@"cxwyPriceMap"];
+        //重设显示的内容
+        NSString *str = [self.shoeSpeedLoadResultList[0] objectForKey:@"speedLoadStr"];
+        self.contentLab.text = [NSString stringWithFormat:@"已选 %@,%@",self.buyTireData.detailStr,[str componentsSeparatedByString:@"/￥"][0]];
+        
+        //重设显示的轮胎价格
+        if ([self.service_end_date isEqualToString:@""] || self.service_end_date == nil || [self.service_end_date isEqual:[NSNull null]]) {
+            
+            self.priceLab.text = [NSString stringWithFormat:@"¥%@",[self.priceMap objectForKey:self.jjSliderView.currentValueStr]];
+        }else{
+            
+            //默认年限价格，服务年限不可选
+            self.priceLab.text = [NSString stringWithFormat:@"¥%@",[self.priceMap objectForKey:self.service_year_length]];
+        }
+        
+        //重设畅行无忧价格 畅行无忧价格赛选条件: 先根据 速度级别列表 查询畅行无忧价格表 然后 查询对应服务年限 对应畅行无忧数量的价格
+        if (self.cxwyPriceMap.count<=0|| self.stepper2.value<=0) {
+            
+        }else{
+            NSString *newCxwyPrice = self.cxwyPriceMap[self.jjSliderView.currentValueStr][[NSString stringWithFormat:@"%.0f",self.stepper2.value]];
+            self.cxwyPrice.text = newCxwyPrice;
+        }
+#warning  <<<<<<<<<<<<结尾
+        
+#warning 恢复老版本规则需要开启的内容  开始>>>>>>>>>>
+        /*
         //刷新速度级别
         [self.collectionView1 reloadData];
         
@@ -736,6 +787,8 @@
         
         //清空 畅行无忧价格字典
         self.cxwyPriceMap = @{};
+         */
+#warning <<<<<<<<<<结尾
         
         //选中色
         SelectBuyTireInfoCell *cell = (SelectBuyTireInfoCell *)[collectionView cellForItemAtIndexPath:indexPath];
@@ -744,6 +797,13 @@
         cell.titleLab.backgroundColor = [LOGINBACKCOLOR colorWithAlphaComponent:0.1];
         
     }else if([collectionView isEqual:self.collectionView1]){
+        
+        /*
+            已于2019.05.10 废弃 速度级别选择功能
+            以下功能不会被执行
+            若要恢复 请查看上面注释 重新添加上 速度级别选择条目即可
+         */
+        
         
         /*选择速度级别item*/
         

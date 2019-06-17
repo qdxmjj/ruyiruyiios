@@ -9,7 +9,6 @@
 #import "UserConfig.h"
 @implementation UserConfig
 
-
 +(void)userDefaultsSetObject:(id)object key:(NSString *)key{
     
     [[NSUserDefaults standardUserDefaults] setObject:object forKey:key];
@@ -25,6 +24,10 @@
     }
 }
 
++(NSString *)currentCity{
+    
+    return [self userDefaultsGetObjectForKey:@"currentCity"];
+}
 
 +(NSNumber *)age{
     
