@@ -42,7 +42,6 @@ PODS:
     - SDWebImage/Core (= 4.4.2)
   - SDWebImage/Core (4.4.2)
   - SVProgressHUD (2.2.5)
-  - TZScrollViewPopGesture (1.0.6)
 
 DEPENDENCIES:
   - AFNetworking
@@ -60,7 +59,6 @@ DEPENDENCIES:
   - SDCycleScrollView
   - SDWebImage
   - SVProgressHUD
-  - TZScrollViewPopGesture
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -78,7 +76,6 @@ SPEC REPOS:
     - SDCycleScrollView
     - SDWebImage
     - SVProgressHUD
-    - TZScrollViewPopGesture
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
@@ -95,8 +92,7 @@ SPEC CHECKSUMS:
   SDCycleScrollView: 884b88f0266dd4708a0e1934975c69cb971707b1
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
-  TZScrollViewPopGesture: d36355038259e89372a1f4a2db7e9ca675de2278
 
-PODFILE CHECKSUM: d2976fd557fa1905dd6109a748f5cf3bc7c97a60
+PODFILE CHECKSUM: b3156e1a190cf38d4635cf3655d7b207bb5a845d
 
 COCOAPODS: 1.5.3

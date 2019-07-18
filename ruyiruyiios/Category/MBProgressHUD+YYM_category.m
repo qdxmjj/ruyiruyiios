@@ -47,7 +47,7 @@
     MBProgressHUD *hud;
     if (!view) {
         
-        hud = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].windows lastObject] animated:YES];
+        hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
     }else{
         hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     }
@@ -72,7 +72,7 @@
         
         
     }
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].windows lastObject] animated:YES];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
     hud.label.text = message;
     hud.mode = MBProgressHUDModeText;
     

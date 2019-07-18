@@ -58,9 +58,6 @@
         [MBProgressHUD showTextMessage:@"未检测到微信，请先安装微信！"];
         return;
     };
-    
-    
-    
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
         
     [shareParams SSDKSetupShareParamsByText:title images:images url:[NSURL URLWithString:url] title:describe type:type];
@@ -70,6 +67,26 @@
     }];
     
 }
-
++(void)ShareDescribe:(NSString *)describe images:(id)images url:(NSString *)url title:(NSString *)title type:(SSDKContentType)type block:(void (^)(BOOL))shareBlock{
+    
+    if (![WXApi isWXAppInstalled]) {
+        
+        [MBProgressHUD showTextMessage:@"未检测到微信，请先安装微信！"];
+        return;
+    };
+    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+    
+    [shareParams SSDKSetupShareParamsByText:title images:images url:[NSURL URLWithString:url] title:describe type:type];
+    
+    [ShareSDK showShareActionSheet:nil customItems:nil shareParams:shareParams sheetConfiguration:nil onStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
+        
+        if (state == SSDKResponseStateSuccess) {
+            
+            shareBlock(YES);
+        }else{
+            shareBlock(NO);
+        }
+    }];
+}
 
 @end

@@ -42,4 +42,15 @@
 - (void)perfectCaiInfoAlert;
 
 -(void)alertResetHomeInfoView;//暂未用到，留待以后
+
+//查询当前账号是否分享
+
+- (void)selectShareStatus:(void(^)(BOOL cxwyStatus,BOOL replaceStatus))selectSuccess;
+
+/*
+ *调用后台接口 修改当前账号的分享状态
+ *jj_project  1为免费更换 2为畅行无忧
+ */
+- (void)updateShareStatus:(NSInteger )jj_project;
+
 @end

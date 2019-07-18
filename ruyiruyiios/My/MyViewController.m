@@ -50,15 +50,12 @@
     DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
     [delegateConfiguration registerLoginStatusChangedListener:self];
     
-    if (![WXApi isWXAppInstalled]){
-        
-        self.titleArray = @[@"我的钱包",@"待更换轮胎", @"畅行无忧", @"我的宝驹", @"优惠券", @"评价", @"设置", @"联系客服"];
-        self.imgArray = @[@"ic_redbag",@"ic_daigenghuan", @"ic_changxing", @"ic_wodeche", @"ic_youhuiquan", @"ic_pingjia", @"ic_shezhi", @"ic_lianxi"];
-
-    }else{
-        self.titleArray = @[@"我的钱包",@"待更换轮胎", @"畅行无忧", @"我的宝驹", @"优惠券", @"推广有礼", @"评价", @"设置", @"联系客服"];
-        self.imgArray = @[@"ic_redbag",@"ic_daigenghuan", @"ic_changxing", @"ic_wodeche", @"ic_youhuiquan", @"ic_tuiguang", @"ic_pingjia", @"ic_shezhi", @"ic_lianxi"];
-    }
+    
+    //推广有礼 已于2019-7-16 去掉
+    
+    self.titleArray = @[@"我的钱包",@"待更换轮胎", @"畅行无忧", @"我的宝驹", @"优惠券", @"评价", @"设置", @"联系客服"];
+    self.imgArray = @[@"ic_redbag",@"ic_daigenghuan", @"ic_changxing", @"ic_wodeche", @"ic_youhuiquan", @"ic_pingjia", @"ic_shezhi", @"ic_lianxi"];
+    
     
     [self addView];
 }
@@ -144,7 +141,7 @@
 - (void)chickNameAndHeadBtn:(UIButton *)button{
     
     if ([UserConfig user_id] == NULL || [[NSString stringWithFormat:@"%@", [UserConfig user_id]] isEqualToString:@""]) {
-                
+        
         CodeLoginViewController *loginVC = [[CodeLoginViewController alloc] init];
         [self.navigationController pushViewController:loginVC animated:YES];
     }else{
@@ -203,7 +200,7 @@
     
     MyOrderViewController *myOrderVC = [[MyOrderViewController alloc] init];
     // 1--topay  2--todelivery  3--toservice  4--completed  0--lookAllOrderBtn
-
+    
     switch (indexPath.item) {
         case 0:
             myOrderVC.statusStr = @"1";
@@ -231,7 +228,7 @@
         [self alertIsloginView];
     }else{
         MyOrderViewController *myOrderVC = [[MyOrderViewController alloc] init];
-
+        
         myOrderVC.statusStr = @"0";
         [self.navigationController pushViewController:myOrderVC animated:YES];
     }
@@ -260,7 +257,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-//    1/3+1/6
+    //    1/3+1/6
     
     CGFloat HEIGHT = MAINSCREEN.height;
     
@@ -291,7 +288,7 @@
         if (indexPath.item == 0) {
             WithdrawViewController *withdrawVC = [[WithdrawViewController alloc] init];
             [self.navigationController pushViewController:withdrawVC animated:YES];
-
+            
         }else if (indexPath.item == 1) {
             
             TobeReplacedTiresViewController *tobeReplacedVC = [[TobeReplacedTiresViewController alloc] init];
@@ -310,35 +307,16 @@
             [self.navigationController pushViewController:couponVC animated:YES];
         }else if (indexPath.item == 5){
             
-            if (![WXApi isWXAppInstalled]){
-
-                MyEvaluationViewController *myEvaluationVC = [[MyEvaluationViewController alloc] init];
-                [self.navigationController pushViewController:myEvaluationVC animated:YES];
-            }else{
-                InvitedGiftViewController *extensionVC = [[InvitedGiftViewController alloc] init];
-                [self.navigationController pushViewController:extensionVC animated:YES];
-            }
+            MyEvaluationViewController *myEvaluationVC = [[MyEvaluationViewController alloc] init];
+            [self.navigationController pushViewController:myEvaluationVC animated:YES];
         }else if (indexPath.item == 6){
             
-            if (![WXApi isWXAppInstalled]){
-                
-                MySettingViewController *mysettingVC = [[MySettingViewController alloc] init];
-                [self.navigationController pushViewController:mysettingVC animated:YES];
-            }else{
-                MyEvaluationViewController *myEvaluationVC = [[MyEvaluationViewController alloc] init];
-                [self.navigationController pushViewController:myEvaluationVC animated:YES];
-            }
-            
+            MySettingViewController *mysettingVC = [[MySettingViewController alloc] init];
+            [self.navigationController pushViewController:mysettingVC animated:YES];
         }else if (indexPath.item == 7){
             
-            if (![WXApi isWXAppInstalled]){
-                //此为联系客服 临时更改为 积分商城
-                ContactCustomerViewController *contactCustomerVC = [[ContactCustomerViewController alloc] init];
-                [self.navigationController pushViewController:contactCustomerVC animated:YES];
-            }else{
-                MySettingViewController *mysettingVC = [[MySettingViewController alloc] init];
-                [self.navigationController pushViewController:mysettingVC animated:YES];
-            }
+            ContactCustomerViewController *contactCustomerVC = [[ContactCustomerViewController alloc] init];
+            [self.navigationController pushViewController:contactCustomerVC animated:YES];
         }else{
             
             if ([WXApi isWXAppInstalled]){
@@ -358,7 +336,7 @@
 
 #pragma mark  定义整个CollectionViewCell与整个View的间距
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-
+    
     return UIEdgeInsetsMake(0, 10, 0, 10);//（上、左、下、右）
 }
 
@@ -374,13 +352,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

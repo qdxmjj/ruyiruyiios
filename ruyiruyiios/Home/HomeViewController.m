@@ -174,7 +174,8 @@ static CGFloat const cellThreeHeigh = 130;
     }];
     
     //获取弹窗广告
-    [self getActivityInfo];
+//    [self getActivityInfo];
+    
     //获取主页信息
     [self getAndroidHomeDate];
     
@@ -863,11 +864,23 @@ static CGFloat const cellThreeHeigh = 130;
         }
             break;
         case 1:{
+//            //d判断s当前车辆是否认证 未认证提示去认证
+//            if ([self.dataCars.authenticatedState integerValue] == 2) {
+//                
+//                [PublicClass showHUD:@"车辆未认证，请先去完成认证！" view:self.view];
+//                return;
+//            }
             FreeChangeViewController *tireRepairVC = [[FreeChangeViewController alloc] init];
             [self.navigationController pushViewController:tireRepairVC animated:YES];
         }
             break;
         case 2:{
+            //d判断s当前车辆是否认证 未认证提示去认证
+            if ([self.dataCars.authenticatedState integerValue] == 2) {
+                
+                [PublicClass showHUD:@"车辆未认证，请先去完成认证！" view:self.view];
+                return;
+            }
             TireRepairViewController *tireRepairVC = [[TireRepairViewController alloc] init];
             [self.navigationController pushViewController:tireRepairVC animated:YES];
         }

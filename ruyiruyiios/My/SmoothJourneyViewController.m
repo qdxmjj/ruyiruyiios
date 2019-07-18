@@ -218,20 +218,28 @@
         return;
     }
     
-    NSInteger cxwyTotalNumber = [self.tireInfo[@"fontAmount"] integerValue] + [self.tireInfo[@"rearAmount"] integerValue];
-    
-    if (self.couponArr.count > cxwyTotalNumber) {
-        
-        [PublicClass showHUD:[NSString stringWithFormat:@"畅行无忧数量不可超过轮胎数量(%ld个)",(long)cxwyTotalNumber] view:self.view];
-        return;
-    }
-    
-    CxwyFreeReplaceViewController *freeReplaceVC = [[CxwyFreeReplaceViewController alloc] init];
-    
-    freeReplaceVC.tireInfoDic = self.tireInfo;
-    freeReplaceVC.cxwyList = self.couponArr;
-    [self.navigationController pushViewController:freeReplaceVC animated:YES];
-    self.hidesBottomBarWhenPushed = YES;
+    [self selectShareStatus:^(BOOL cxwyStatus, BOOL replaceStatus) {
+        if (cxwyStatus) {
+            
+            NSInteger cxwyTotalNumber = [self.tireInfo[@"fontAmount"] integerValue] + [self.tireInfo[@"rearAmount"] integerValue];
+            
+            if (self.couponArr.count > cxwyTotalNumber) {
+                
+                [PublicClass showHUD:[NSString stringWithFormat:@"畅行无忧数量不可超过轮胎数量(%ld个)",(long)cxwyTotalNumber] view:self.view];
+                return;
+            }
+            
+            CxwyFreeReplaceViewController *freeReplaceVC = [[CxwyFreeReplaceViewController alloc] init];
+            
+            freeReplaceVC.tireInfoDic = self.tireInfo;
+            freeReplaceVC.cxwyList = self.couponArr;
+            [self.navigationController pushViewController:freeReplaceVC animated:YES];
+            self.hidesBottomBarWhenPushed = YES;
+        }else{
+            
+            [self updateShareStatus:2];
+        }
+    }];
 }
 
 

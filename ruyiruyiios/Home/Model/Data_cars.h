@@ -22,6 +22,6 @@
 @property(nonatomic,strong) NSString *service_end_date;
 @property(nonatomic,strong) NSNumber *service_year_length;
 
-@property(nonatomic,strong) NSNumber *authenticatedState;
+@property(nonatomic,strong) NSNumber *authenticatedState;//当前车辆是否认证 1已认证 2未认证
 
 @end

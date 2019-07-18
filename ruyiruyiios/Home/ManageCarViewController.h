@@ -10,4 +10,9 @@
 
 @interface ManageCarViewController : RootViewController
 
+/*
+ *popStatus  1 为商品购买页面跳转进入 需要原路返回
+ */
+@property (nonatomic, assign) NSInteger popStatus;
+
 @end

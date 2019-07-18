@@ -77,11 +77,9 @@
             if ([controller isKindOfClass:[MyOrderViewController class]]) {
                 
                 MyOrderViewController *A =(MyOrderViewController *)controller;
-                
                 [self.navigationController popToViewController:A animated:YES];
             }
         }
-    
     }else{
         
         [self.navigationController popViewControllerAnimated:YES];
@@ -495,99 +493,103 @@
 -(void)submitFreeChangeInfo{
     
     if(!self.fontRearFlag){
-        
-        
         [PublicClass showHUD:@"没有可更换的轮胎！" view:self.view];
         return;
     }
     
     if (self.freeChangeSelectTirePhotoCellNumber <= 0||!self.freeChangeSelectTirePhotoCellNumber) {
-        
         [PublicClass showHUD:@"请选择更换的轮胎！" view:self.view];
         return;
     }
     
     if (self.storeInfo.storeId == nil) {
-
         [PublicClass showHUD:@"没有选择安装门店！" view:self.view];
         return;
     }
     
-    NSMutableDictionary *tireInfoDic = [NSMutableDictionary dictionary];
-
-    [tireInfoDic setObject:self.storeInfo.storeId forKey:@"storeId"];
-    [tireInfoDic setObject:[UserConfig userCarId] forKey:@"userCarId"];
-    [tireInfoDic setObject:[UserConfig user_id] forKey:@"userId"];
-        
-    if ([self.fontRearFlag isEqualToString:@"0"]) {
-
-        NSInteger total = self.fontAmount + self.rearAmount;
-        [tireInfoDic setObject:[NSString stringWithFormat:@"%ld",(long)total] forKey:@"fontAmount"];
-            [tireInfoDic setObject:@"0" forKey:@"rearAmount"];
+    //查询当前账号是否分享过 只有分享过才可以进行 免费更换与购买畅行无忧
+    [self selectShareStatus:^(BOOL cxwyStatus, BOOL replaceStatus) {
+        if (replaceStatus) {
             
-    }else{
+            NSMutableDictionary *tireInfoDic = [NSMutableDictionary dictionary];
             
-        [tireInfoDic setObject:[NSString stringWithFormat:@"%ld",(long)self.fontAmount] forKey:@"fontAmount"];
-        [tireInfoDic setObject:[NSString stringWithFormat:@"%ld",(long)self.rearAmount] forKey:@"rearAmount"];
-    }
-    [tireInfoDic setObject:self.fontRearFlag forKey:@"fontRearFlag"];
-    [tireInfoDic setObject:@"3" forKey:@"orderType"];
-        
-    
-    
-    NSMutableArray <JJFileParam *> *photoArr = [NSMutableArray array];
-
-    float imgCompressionQuality = 0.3;
-
-    for (int i = 0; i< self.freeChangeSelectTirePhotoCellNumber; i++) {
-        
-        FreeChangeSelectPhotoCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:2]];
-
-
-        if (cell.selectBarCodePhotoBtn.imageView.image == nil) {
+            [tireInfoDic setObject:self.storeInfo.storeId forKey:@"storeId"];
+            [tireInfoDic setObject:[UserConfig userCarId] forKey:@"userCarId"];
+            [tireInfoDic setObject:[UserConfig user_id] forKey:@"userId"];
             
-            [PublicClass showHUD:@"有轮胎条形码照片未选择！" view:self.view];
-            return;
-        }
-        
-        if (cell.selectWearLinePhotoBtn.imageView.image == nil) {
+            if ([self.fontRearFlag isEqualToString:@"0"]) {
+                
+                NSInteger total = self.fontAmount + self.rearAmount;
+                [tireInfoDic setObject:[NSString stringWithFormat:@"%ld",(long)total] forKey:@"fontAmount"];
+                [tireInfoDic setObject:@"0" forKey:@"rearAmount"];
+                
+            }else{
+                
+                [tireInfoDic setObject:[NSString stringWithFormat:@"%ld",(long)self.fontAmount] forKey:@"fontAmount"];
+                [tireInfoDic setObject:[NSString stringWithFormat:@"%ld",(long)self.rearAmount] forKey:@"rearAmount"];
+            }
+            [tireInfoDic setObject:self.fontRearFlag forKey:@"fontRearFlag"];
+            [tireInfoDic setObject:@"3" forKey:@"orderType"];
             
-            [PublicClass showHUD:@"有轮胎磨损线照片未选择！" view:self.view];
-            return;
-        }
-        
-        NSData *frontData = UIImageJPEGRepresentation(cell.selectBarCodePhotoBtn.imageView.image, imgCompressionQuality);
-        NSData *rearData = UIImageJPEGRepresentation(cell.selectWearLinePhotoBtn.imageView.image, imgCompressionQuality);
-
-        [photoArr addObject:[JJFileParam fileConfigWithfileData:frontData name:[NSString stringWithFormat:@"shoe%dBarCodeImg",i+1] fileName:[NSString stringWithFormat:@"tire%d.png",i+1] mimeType:@"image/jpg/png/jpeg"]];
-        
-        [photoArr addObject:[JJFileParam fileConfigWithfileData:rearData name:[NSString stringWithFormat:@"shoe%dImg",i+1] fileName:[NSString stringWithFormat:@"code%d.png",i+1] mimeType:@"image/jpg/png/jpeg"]];
-    }
-    
-
-    [JJRequest updateRequest:@"addUserFreeChangeOrder" params:@{@"reqJson":[PublicClass convertToJsonData:tireInfoDic],@"token":[UserConfig token]} fileConfig:photoArr progress:^(int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
-        
-        
-        
-    } success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
-
-        NSString *statusStr = [NSString stringWithFormat:@"%@", code];
-        NSString *messageStr = [NSString stringWithFormat:@"%@", message];
-        
-        if ([statusStr isEqualToString:@"1"]) {
             
-            [self.navigationController popViewControllerAnimated:YES];
             
-        }else if ([statusStr isEqualToString:@"-999"]){
+            NSMutableArray <JJFileParam *> *photoArr = [NSMutableArray array];
             
-            [self alertIsequallyTokenView];
+            float imgCompressionQuality = 0.3;
+            
+            for (int i = 0; i< self.freeChangeSelectTirePhotoCellNumber; i++) {
+                
+                FreeChangeSelectPhotoCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:2]];
+                
+                
+                if (cell.selectBarCodePhotoBtn.imageView.image == nil) {
+                    
+                    [PublicClass showHUD:@"有轮胎条形码照片未选择！" view:self.view];
+                    return;
+                }
+                
+                if (cell.selectWearLinePhotoBtn.imageView.image == nil) {
+                    
+                    [PublicClass showHUD:@"有轮胎磨损线照片未选择！" view:self.view];
+                    return;
+                }
+                
+                NSData *frontData = UIImageJPEGRepresentation(cell.selectBarCodePhotoBtn.imageView.image, imgCompressionQuality);
+                NSData *rearData = UIImageJPEGRepresentation(cell.selectWearLinePhotoBtn.imageView.image, imgCompressionQuality);
+                
+                [photoArr addObject:[JJFileParam fileConfigWithfileData:frontData name:[NSString stringWithFormat:@"shoe%dBarCodeImg",i+1] fileName:[NSString stringWithFormat:@"tire%d.png",i+1] mimeType:@"image/jpg/png/jpeg"]];
+                
+                [photoArr addObject:[JJFileParam fileConfigWithfileData:rearData name:[NSString stringWithFormat:@"shoe%dImg",i+1] fileName:[NSString stringWithFormat:@"code%d.png",i+1] mimeType:@"image/jpg/png/jpeg"]];
+            }
+            
+            
+            [JJRequest updateRequest:@"addUserFreeChangeOrder" params:@{@"reqJson":[PublicClass convertToJsonData:tireInfoDic],@"token":[UserConfig token]} fileConfig:photoArr progress:^(int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
+                
+            } success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+                
+                NSString *statusStr = [NSString stringWithFormat:@"%@", code];
+                NSString *messageStr = [NSString stringWithFormat:@"%@", message];
+                
+                if ([statusStr isEqualToString:@"1"]) {
+                    
+                    [PublicClass showHUD:@"提交订单成功！" view:self.view];
+                    [self.navigationController popViewControllerAnimated:YES];
+                    
+                }else if ([statusStr isEqualToString:@"-999"]){
+                    
+                    [self alertIsequallyTokenView];
+                }else{
+                    
+                    [PublicClass showHUD:messageStr view:self.view];
+                }
+                
+            } complete:^(id  _Nullable dataObj, NSError * _Nullable error) {
+            }];
             
         }else{
-            
-            [PublicClass showHUD:messageStr view:self.view];
+            ///未分享
+            [self updateShareStatus:1];
         }
-        
-    } complete:^(id  _Nullable dataObj, NSError * _Nullable error) {
     }];
 }
 

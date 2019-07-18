@@ -20,7 +20,7 @@ target 'ruyiruyiios' do
   pod 'MOFSPickerManager'
 
   #解决scrollView 手势滑动返回冲突
-  pod 'TZScrollViewPopGesture'
+  # pod 'TZScrollViewPopGesture'
   #侧滑返回
   pod 'FDFullscreenPopGesture'
   # 主模块(必须)

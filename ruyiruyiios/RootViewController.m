@@ -13,6 +13,9 @@
 #import "MyWebViewController.h"
 #import "CodeLoginViewController.h"
 #import "ManageCarViewController.h"
+#import "MBProgressHUD+YYM_category.h"
+#import "JJShare.h"
+
 @implementation UIButton(FillColor)
 
 - (void)setBackgroundColor:(UIColor *)backgroundColor forState:(UIControlState)state{
@@ -188,7 +191,7 @@
 
 - (void)perfectCaiInfoAlert{
     
-    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"请完善车辆信息" message:@"是否前往完善信息界面" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"当前车辆未认证" message:@"是否前往认证" preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *action = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
@@ -198,7 +201,7 @@
         
         ///
         ManageCarViewController *manageCarVC = [[ManageCarViewController alloc] init];
-        
+        manageCarVC.popStatus = 1;
         [self.navigationController pushViewController:manageCarVC animated:YES];
     }];
     
@@ -206,6 +209,82 @@
     [alertC addAction:action1];
     [self presentViewController:alertC animated:YES completion:nil];
 }
+
+- (void)selectShareStatus:(void (^)(BOOL, BOOL))selectSuccess{
+    
+    NSString *reqJson = [PublicClass convertToJsonData:@{@"userId":[UserConfig user_id],@"userCarId":[UserConfig userCarId]}];
+    
+    [JJRequest postRequest:@"preferentialInfo/getReplaceShareStatus" params:@{@"reqJson":reqJson,@"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+      
+        if (data && data != nil && data != [NSNull null]) {
+            
+            BOOL cxwyStatus = [data[@"cxwyStatus"] longLongValue] == 1 ? YES:NO; //1是已经分享0未分享
+            BOOL replaceStatus = [data[@"replaceStatus"] longLongValue] == 1 ? YES:NO; //1是已经分享0未分享
+
+            selectSuccess(cxwyStatus,replaceStatus);
+        }else{
+            selectSuccess(NO,NO);
+        }
+    } failure:^(NSError * _Nullable error) {
+        
+    }];
+}
+
+- (void)updateShareStatus:(NSInteger)jj_project{
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"请先分享" message:@"为了您的朋友也能享受如此好的服务，请把我们分享给您身边的朋友!" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"分享" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [MBProgressHUD showWaitMessage:@"正在分享..." showView:self.view];
+        
+        [JJShare ShareDescribe:@"如驿如意"
+                        images:@[[UIImage imageNamed:@"icon"]]
+                           url:@"https://mp.weixin.qq.com/s/WZHn3G0ZjiQD_5dS2Y76fA"
+                         title:@"1、快来，我在如驿如意免费换了新轮胎！\n2、轮胎撞坏了，在如驿如意免费换了新的~~"
+                          type:SSDKContentTypeAuto
+                         block:^(BOOL shareStatus) {
+                             
+                             if (shareStatus) {
+                                 
+                                 NSString *project;
+                                 if (jj_project == 1) {
+                                     
+                                     project = @"replaceStatus";///免费更换
+                                 }else if (jj_project == 2){
+                                     
+                                     project = @"cxwyStatus";///畅行无忧
+                                 }else{
+                                     
+                                     project = @"";
+                                 }
+                                 NSString *reqJson = [PublicClass convertToJsonData:@{@"userId":[UserConfig user_id],@"userCarId":[UserConfig userCarId],project:@(1)}];
+                                 
+                                 [JJRequest postRequest:@"preferentialInfo/updateReplaceShareStatus" params:@{@"reqJson":reqJson,@"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
+                                     
+                                     [MBProgressHUD hideWaitViewAnimated:self.view];
+                                     if ([code longLongValue] == 1) {
+                                         
+                                         [MBProgressHUD showTextMessage:@"分享成功!"];
+                                     }else{
+                                         [MBProgressHUD showTextMessage:message];
+                                     }
+                                 } failure:^(NSError * _Nullable error) {
+                                     [MBProgressHUD hideWaitViewAnimated:self.view];
+                                 }];
+                             }else{
+                                 [MBProgressHUD hideWaitViewAnimated:self.view];
+                                 [MBProgressHUD showTextMessage:@"分享失败！"];
+                             }
+                         }];
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [alert addAction:ok];
+    [alert addAction:cancel];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+
 
 - (void)setdataEmptying{
     

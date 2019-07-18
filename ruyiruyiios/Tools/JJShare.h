@@ -25,4 +25,7 @@
  */
 +(void)ShareDescribe:(NSString *)describe images:(id)images url:(NSString *)url title:(NSString *)title type:(SSDKContentType)type;
 
+
++(void)ShareDescribe:(NSString *)describe images:(id)images url:(NSString *)url title:(NSString *)title type:(SSDKContentType)type block:(void(^)(BOOL shareStatus))shareBlock;
+
 @end

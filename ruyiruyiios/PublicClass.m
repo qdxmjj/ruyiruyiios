@@ -16,13 +16,13 @@
 
 + (void)showHUD:(NSString *)HUDStr view:(UIView *)selfView{
     
-    MBProgressHUD *hub = [[MBProgressHUD alloc] initWithView:selfView];
-    hub.minSize = CGSizeMake(120.f, 30.f);
-    [selfView addSubview:hub];
-    hub.label.text = HUDStr;
-    hub.mode = MBProgressHUDModeText;
-    [hub showAnimated:YES];
-    [hub hideAnimated:YES afterDelay:1.8];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:selfView animated:YES];
+    hud.minSize = CGSizeMake(120.f, 30.f);
+    [selfView addSubview:hud];
+    hud.label.text = HUDStr;
+    hud.mode = MBProgressHUDModeText;
+    [hud showAnimated:YES];
+    [hud hideAnimated:YES afterDelay:1.8];
 }
 
 + (UIColor *) colorWithHexString: (NSString *)color

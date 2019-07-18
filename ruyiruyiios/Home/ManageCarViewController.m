@@ -16,6 +16,7 @@
 #import "DelegateConfiguration.h"
 
 #import "MyCarInfoViewController.h"
+#import "BuyCommdityViewController.h"
 @interface ManageCarViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property(nonatomic, strong)UIButton *addCarBtn;
@@ -91,9 +92,29 @@
     self.title = @"管理车辆";
     
     [self addViews];
-
-
 }
+
+- (IBAction)backButtonAction:(id)sender{
+    
+    if (self.popStatus == 1) {
+        
+        BOOL isBuyGoodsVC = NO;
+        for (UIViewController *vc in self.navigationController.viewControllers) {
+            
+            if ([vc isKindOfClass:[BuyCommdityViewController class]]) {
+                isBuyGoodsVC = YES;
+                [self.navigationController popToViewController:vc animated:YES];
+            }
+        }
+        if (isBuyGoodsVC == NO) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }else{
+     
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+    
 
 
 - (void)getDataFromInternet{

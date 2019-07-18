@@ -10,7 +10,6 @@
 #import "IntergralTypeViewController.h"
 #import <Masonry.h>
 #import "UIView+BorderLine.h"
-#import <UINavigationController+TZPopGesture.h>
 @interface IntergralDetailsViewController () <UIScrollViewDelegate>
 
 @property(nonatomic,strong)UIView *topView;//顶部item
@@ -44,8 +43,6 @@
     [self.topView addSubview:self.lineView];
     [self.mainView addSubview:self.expendVC.view];
     [self.mainView addSubview:self.incomeVC.view];
-    
-    [self tz_addPopGestureToView:self.mainView];
     
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
         
