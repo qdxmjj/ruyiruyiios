@@ -68,7 +68,7 @@ static CGFloat const headViewAllSubViewsSpacing = 5+5+5+5+5; //headView 所有�
     
     if (_numberArray == nil) {
         
-        _numberArray = [[NSArray alloc] initWithObjects:@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"W", @"S", @"Y", @"Z", nil];
+        _numberArray = [[NSArray alloc] initWithObjects:@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T",@"U",@"V", @"W", @"X", @"Y", @"Z", nil];
     }
     return _numberArray;
 }
@@ -454,7 +454,7 @@ static CGFloat const headViewAllSubViewsSpacing = 5+5+5+5+5; //headView 所有�
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREEN.width, 20)];
-    headerView.backgroundColor = [UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:0.1];
+    headerView.backgroundColor = [UIColor colorWithRed:245.f/255.f green:245.f/255.f blue:245.f/255.f alpha:1.f];
     
     UILabel *letterLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, MAINSCREEN.width - 20, 20)];
     letterLabel.font = [UIFont fontWithName:TEXTFONT size:14.0];
@@ -524,7 +524,7 @@ static CGFloat const headViewAllSubViewsSpacing = 5+5+5+5+5; //headView 所有�
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    return CGSizeMake(collectionView.frame.size.width/3 - 10, 40);
+    return CGSizeMake(collectionView.frame.size.width/3 - 10, 35);
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
@@ -546,7 +546,6 @@ static CGFloat const headViewAllSubViewsSpacing = 5+5+5+5+5; //headView 所有�
         
         make.height.mas_equalTo(35+collectionViewHeight*(countyArr.count/3 + (countyArr.count % 3 == 0? 0:1)));
     }];
-    
 }
 
 @end

@@ -85,7 +85,10 @@ static CGFloat const cellThreeHeigh = 130;
     if (![[NSUserDefaults standardUserDefaults] valueForKey:@"isFirst"]) {
         
         WelcomeViewController *welcomeVC = [[WelcomeViewController alloc] init];
-        [self.navigationController presentViewController:[[BaseNavigation alloc]initWithRootViewController:welcomeVC] animated:YES completion:nil];
+        BaseNavigation *nav = [[BaseNavigation alloc] initWithRootViewController:welcomeVC];
+        nav.modalPresentationStyle = UIModalPresentationFullScreen;
+
+        [self.navigationController presentViewController:nav animated:NO completion:nil];
     }
     ///使用代码 约束布局 需要设置为NO
     self.mainScrollV.translatesAutoresizingMaskIntoConstraints = NO;
@@ -213,9 +216,9 @@ static CGFloat const cellThreeHeigh = 130;
     
     [self.locationBtn setTitle:currentCity forState:UIControlStateNormal];
 
-    if (currentCity.length<=0) {
-        
-         currentCity = @"定位失败";
+    if (!currentCity || currentCity.length<=0) {
+        //         currentCity = @"定位失败";
+        currentCity = @"青岛市";
     }
     
     NSDictionary *androidHomeDic = @{@"userId":userid,@"position":currentCity};
@@ -287,6 +290,7 @@ static CGFloat const cellThreeHeigh = 130;
                     }
                 }
                 
+                ///增加本地自定义一行   setType类型 1
                 NSDictionary *dic = @{@"content":@[@"此条必须放到最上层"],
                                       @"id":@[],
                                       @"imageUrl":@[@"http://180.76.243.205:8111/images-new/activity/activity/ic_quanyi.png"],
@@ -302,6 +306,8 @@ static CGFloat const cellThreeHeigh = 130;
                                       };
                 
                 [newArr insertObject:dic atIndex:0];
+                
+                self.tableViewHeigh += cellOneHeigh+2.01;
                 
                 self.activityArr = newArr;
                 
@@ -690,8 +696,11 @@ static CGFloat const cellThreeHeigh = 130;
                     hud.mode = MBProgressHUDModeText;
                     [hud showAnimated:YES];
                     
-                    NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
-                    NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
+//                    NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
+//                    NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
+//                    
+                    NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"] == NULL ? @"" : [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
+                    NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"] == NULL ? @"" : [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
                     
                     NSString *storeID = [storeInfo objectForKey:@"storeId"];
                     
@@ -724,12 +733,8 @@ static CGFloat const cellThreeHeigh = 130;
         }
             break;
         case 4:{
-            
             MyInterestsViewController *interestsVC = [[MyInterestsViewController alloc] init];
-            
-            
             [self.navigationController pushViewController:interestsVC animated:YES];
-
             NSLog(@"新页面!");
         }
         default:

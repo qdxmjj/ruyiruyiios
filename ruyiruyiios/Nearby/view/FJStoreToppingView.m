@@ -99,7 +99,7 @@
         [cell.toppingStoreDistanceBtn setImage:[UIImage imageNamed:@"ic_weizhi"] forState:UIControlStateNormal];
     }else{
         [cell.toppingStoreDistanceBtn setTitle:@"" forState:UIControlStateNormal];
-        [cell.toppingStoreDistanceBtn setImage:[UIImage alloc] forState:UIControlStateNormal];
+        [cell.toppingStoreDistanceBtn setImage:nil forState:UIControlStateNormal];
     }
 
     return cell;

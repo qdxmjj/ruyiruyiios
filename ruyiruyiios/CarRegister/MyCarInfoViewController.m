@@ -46,7 +46,11 @@
     NSString *invite_code; /// 邀请码
     
     NSString *authenticatedState; /// 是否认证 1 认证 2 未认证
-
+    
+    ///选择器默认选中的位置
+    NSInteger frontItem1Row, frontItem2Row, frontItem3Row;
+    NSInteger rearItem1Row, rearItem2Row, rearItem3Row;
+    
 }
 @property (nonatomic, strong) UILabel *titleLab;
 
@@ -151,7 +155,7 @@
     self.rearWheelBtn.userInteractionEnabled = self.is_alter;
     self.roadConditionBtn.userInteractionEnabled = self.is_alter;
     self.mileageTextField.userInteractionEnabled = self.is_alter;
-
+    
     [self.view addSubview:self.mainView];
     [self.view addSubview:self.backView];
     [self.backView addSubview:self.plateLicenseView];
@@ -163,7 +167,7 @@
     
     [self.mainView addSubview:self.nEnergyCarLab];
     [self.mainView addSubview:self.nEnergySwitch];
-
+    
     [self.mainView addSubview:self.carNumberLab];
     [self.mainView addSubview:self.carNumberBtn];
     
@@ -195,7 +199,7 @@
     }
     
     [self.view addSubview:self.saveBtn];
-
+    
     [self.mainView mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.mas_equalTo(self.view.mas_top);
@@ -243,7 +247,7 @@
     }];
     
     [self.carNumberLab mas_makeConstraints:^(MASConstraintMaker *make) {
-       
+        
         make.top.mas_equalTo(self.nEnergyCarLab.mas_bottom);
         make.leading.mas_equalTo(self.view.mas_leading).inset(16);
         make.height.mas_equalTo(44);
@@ -258,7 +262,7 @@
     }];
     
     [self.changZhuLab mas_makeConstraints:^(MASConstraintMaker *make) {
-       
+        
         make.top.mas_equalTo(self.carNumberLab.mas_bottom);
         make.leading.mas_equalTo(self.view.mas_leading).inset(16);
         make.height.mas_equalTo(44);
@@ -306,7 +310,7 @@
         make.height.mas_equalTo(44);
     }];
     [self.imgView mas_makeConstraints:^(MASConstraintMaker *make) {
-       
+        
         make.leading.mas_equalTo(self.certificationLab.mas_trailing);
         make.centerY.mas_equalTo(self.certificationLab.mas_centerY);
         make.width.height.mas_equalTo(@15);
@@ -348,7 +352,7 @@
     }];
     
     if ([[UserConfig firstAddCar] integerValue] == 0) {
-
+        
         [self.InvitationCodeLab mas_makeConstraints:^(MASConstraintMaker *make) {
             
             make.top.mas_equalTo(self.roadConditionLab.mas_bottom);
@@ -413,7 +417,7 @@
     if (!_carBrandbtn) {
         
         _carBrandbtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//        [_carBrandbtn setTitle:@"选择车型" forState:UIControlStateNormal];
+        //        [_carBrandbtn setTitle:@"选择车型" forState:UIControlStateNormal];
         [_carBrandbtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
         [_carBrandbtn.titleLabel setFont:[UIFont systemFontOfSize:14.f]];
         [_carBrandbtn setBackgroundColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -451,7 +455,7 @@
     if (!_carNumberBtn) {
         
         _carNumberBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//        [_carNumberBtn setTitle:@"选择车牌" forState:UIControlStateNormal];
+        //        [_carNumberBtn setTitle:@"选择车牌" forState:UIControlStateNormal];
         [_carNumberBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
         [_carNumberBtn.titleLabel setFont:[UIFont systemFontOfSize:14.f]];
         [_carNumberBtn setBackgroundColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -473,7 +477,7 @@
     if (!_changZhuBtn) {
         
         _changZhuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//        [_changZhuBtn setTitle:@"选择常驻地区" forState:UIControlStateNormal];
+        //        [_changZhuBtn setTitle:@"选择常驻地区" forState:UIControlStateNormal];
         [_changZhuBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
         [_changZhuBtn.titleLabel setFont:[UIFont systemFontOfSize:14.f]];
         [_changZhuBtn setBackgroundColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -495,7 +499,7 @@
     if (!_frontWheelBtn) {
         
         _frontWheelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//        [_frontWheelBtn setTitle:@"选择前轮型号" forState:UIControlStateNormal];
+        //        [_frontWheelBtn setTitle:@"选择前轮型号" forState:UIControlStateNormal];
         [_frontWheelBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
         [_frontWheelBtn.titleLabel setFont:[UIFont systemFontOfSize:14.f]];
         [_frontWheelBtn setBackgroundColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -517,7 +521,7 @@
     if (!_rearWheelBtn) {
         
         _rearWheelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//        [_rearWheelBtn setTitle:@"选择后轮型号" forState:UIControlStateNormal];
+        //        [_rearWheelBtn setTitle:@"选择后轮型号" forState:UIControlStateNormal];
         [_rearWheelBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
         [_rearWheelBtn.titleLabel setFont:[UIFont systemFontOfSize:14.f]];
         [_rearWheelBtn setBackgroundColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -589,7 +593,7 @@
     if (!_roadConditionBtn) {
         
         _roadConditionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//        [_roadConditionBtn setTitle:@"选择路况" forState:UIControlStateNormal];
+        //        [_roadConditionBtn setTitle:@"选择路况" forState:UIControlStateNormal];
         [_roadConditionBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
         [_roadConditionBtn.titleLabel setFont:[UIFont systemFontOfSize:14.f]];
         [_roadConditionBtn setBackgroundColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -686,7 +690,7 @@
     NSString *letterStr = [self.plateLicenseView.letterArray objectAtIndex:secondRow];
     
     NSString *carNumberString = [NSString stringWithFormat:@"%@%@%@", regionStr, letterStr, self.plateLicenseView.inputTF.text];
-
+    
     NSLog(@"选择的车牌号为：%@",carNumberString);
     
     if (isNew) {
@@ -695,7 +699,7 @@
             
             ///输入格式正确
             plat_number = carNumberString;
-
+            
             [self.carNumberBtn setTitle:carNumberString forState:UIControlStateNormal];
             
         }else{
@@ -708,7 +712,7 @@
             
             ///输入格式正确
             plat_number = carNumberString;
-
+            
             [self.carNumberBtn setTitle:carNumberString forState:UIControlStateNormal];
         }else{
             
@@ -742,7 +746,7 @@
     [self.carBrandbtn setTitle:carTireInfo.verhicle forState:UIControlStateNormal];
     
     if ([[self.carInfo.carId stringValue] isEqualToString:@"0"]) {
-
+        
         ///小程序添加的车辆 不做任何改变
     }else{
         
@@ -767,7 +771,7 @@
             NSString *province = cityArr[0] == NULL ? @"":cityArr[0];
             NSString *city = cityArr[1] == NULL ? @"":cityArr[1];
             NSString *area = cityArr[2] == NULL ? @"":cityArr[2];
-
+            
             NSLog(@"省%@,市%@,区%@", province, city, area);
             
             if ([city isEqualToString:@""]) {
@@ -829,7 +833,18 @@
     }
     
     TireSpecificationViewController *tireSVC = [[TireSpecificationViewController alloc] init];
-    tireSVC.specificationBlock = ^(NSString *text) {
+    
+    if ([sender isEqual:self.frontWheelBtn]) {
+        
+        tireSVC.dItem1Row = frontItem1Row;
+        tireSVC.dItem2Row = frontItem2Row;
+        tireSVC.dItem3Row = frontItem3Row;
+    }else {
+        tireSVC.dItem1Row = rearItem1Row;
+        tireSVC.dItem2Row = rearItem2Row;
+        tireSVC.dItem3Row = rearItem3Row;
+    }
+    tireSVC.specificationBlock = ^(NSString *text, NSInteger item1Row, NSInteger item2Row, NSInteger item3Row) {
         
         if ([sender isEqual:self.frontWheelBtn]) {
             
@@ -838,8 +853,18 @@
             
             front = text;
             rear = text;
+            
+            self->frontItem1Row = item1Row;
+            self->frontItem2Row = item2Row;
+            self->frontItem3Row = item3Row;
+            self->rearItem1Row = item1Row;
+            self->rearItem2Row = item2Row;
+            self->rearItem3Row = item3Row;
         }else{
             
+            self->rearItem1Row = item1Row;
+            self->rearItem2Row = item2Row;
+            self->rearItem3Row = item3Row;
             [sender setTitle:text forState:UIControlStateNormal];
             rear = text;
         }
@@ -856,9 +881,9 @@
         [MBProgressHUD showTextMessage:@"请先输入车牌号！"];
         return;
     }
-
+    
     __block UIViewController * aipVC = [AipGeneralVC ViewControllerWithHandler:^(UIImage *image) {
-
+        
         [MBProgressHUD showWaitMessage:@"正在识别..." showView:aipVC.view];
         
         [[AipOcrService shardService] detectVehicleLicenseFromImage:image withOptions:nil successHandler:^(id result) {
@@ -868,7 +893,7 @@
                 [MBProgressHUD hideWaitViewAnimated:aipVC.view];
                 [MBProgressHUD showWaitMessage:@"开始认证..." showView:aipVC.view];
             }];
-
+            
             NSString *discern_PlatNumber =  result[@"words_result"][@"号牌号码"][@"words"];
             ///比对车牌号
             if ([plat_number isEqualToString:discern_PlatNumber]) {
@@ -883,7 +908,7 @@
                     [drivingLicenseDateMutable insertString:@"-" atIndex:7];
                     
                     driving_license_date = drivingLicenseDateMutable;
-
+                    
                     ///认证成功
                     [JJRequest postRequest:@"/userCarInfo/updateAuthenticatedState" params:@{@"id":self.carInfo.carInfoid,@"drivingLicenseDateStr":driving_license_date,@"authenticatedState":@"1"} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
                         
@@ -894,7 +919,7 @@
                                 
                                 [UserConfig userDefaultsSetObject:@"1" key:@"kAuthenticatedState"];
                             }
-
+                            
                             authenticatedState = @"1";//认证成功
                             
                             dispatch_async(dispatch_get_main_queue(), ^{
@@ -932,12 +957,12 @@
                         
                         [MBProgressHUD hideWaitViewAnimated:aipVC.view];
                     }];
-
+                    
                     authenticatedState = @"1";//认证成功
                     driving_license_date = result[@"words_result"][@"发证日期"][@"words"];
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
-                       
+                        
                         [self.certificationBtn setTitle:@"已认证" forState:UIControlStateNormal];
                         ///认证成功 禁止重新输入车牌号码
                         self.carNumberBtn.userInteractionEnabled = NO;
@@ -948,7 +973,7 @@
             }else{
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                   
+                    
                     [MBProgressHUD hideWaitViewAnimated:aipVC.view];
                     
                     [PublicClass showHUD:@"认证失败！" view:aipVC.view];
@@ -966,7 +991,7 @@
             });
         }];
     }];
-
+    
     [self presentViewController:aipVC animated:YES completion:nil];
 }
 -(BOOL)shouldAutorotate{
@@ -1000,7 +1025,7 @@
 ///设置路况
 - (void)updateRoadStatusName:(NSString *)nameStr OftenId:(NSString *)oftenIdStr OnceId:(NSString *)onceIdStr NotId:(NSString *)notIdStr { 
     
-//    NSLog(@"路况信息%@\n%@\n%@\n%@",nameStr,oftenIdStr,onceIdStr,notIdStr);
+    //    NSLog(@"路况信息%@\n%@\n%@\n%@",nameStr,oftenIdStr,onceIdStr,notIdStr);
     road_text = nameStr;
     type_i_rate = oftenIdStr;
     type_ii_rate = onceIdStr;
@@ -1135,7 +1160,7 @@
     } failure:^(NSError * _Nullable error) {
         
         [MBProgressHUD hideWaitViewAnimated:self.view];
-
+        
         NSLog(@"获取用户车辆信息错误:%@", error);
     }];
 }
@@ -1144,7 +1169,7 @@
 - (void)saveAndChangeCarInfoEvent:(UIButton *)sender{
     NSDictionary *dic;
     
-
+    
     if ([traveled isEqualToString:@""]) {
         
         [MBProgressHUD showTextMessage:@"请输入行驶里程!"];
@@ -1167,7 +1192,7 @@
     }
     
     if ([sender.titleLabel.text isEqualToString:@"保存"]) {
-    
+        
         if ([type_i_rate isEqualToString:@""] && [type_ii_rate isEqualToString:@""] && [type_iii_rate isEqualToString:@""]) {
             
             [MBProgressHUD showTextMessage:@"请选择行驶路况！"];
@@ -1180,7 +1205,7 @@
         [self commitInternetWithDic:dic];
     }else{
         
-
+        
         ///修改车辆
         dic =@{@"userId":[UserConfig user_id], @"id":self.carInfo.carInfoid, @"carId":carID, @"isNewenergy":isNew == NO ? @(0) : @(1), @"platNumber":plat_number, @"proCityId":pro_city_id, @"font":front, @"rear":rear, @"drivingLicenseDate":driving_license_date, @"serviceYearLength":serviceYearLength,@"type_i_rate":type_i_rate, @"type_ii_rate":type_ii_rate, @"type_iii_rate":type_iii_rate, @"traveled":traveled, @"carName":carName, @"proCityName":proCityName, @"roadTxt":road_text,@"authenticatedState":authenticatedState};
         
@@ -1227,7 +1252,7 @@
         }
     } failure:^(NSError * _Nullable error) {
         [MBProgressHUD hideWaitViewAnimated:self.view];
-
+        
         NSLog(@"修改用户车辆信息错误:%@", error);
     }];
 }
@@ -1246,7 +1271,7 @@
             [UserConfig userDefaultsSetObject:@"1" key:@"firstAddCar"];
             
             DelegateConfiguration *delegateConfiguration = [DelegateConfiguration sharedConfiguration];
-
+            
             [delegateConfiguration changeaddCarNumber];
             [delegateConfiguration unregisterRoadStatusChangedListener:self];
             [delegateConfiguration unregisterCartypeStatusChangeListener:self];

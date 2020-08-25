@@ -66,6 +66,7 @@
     return 4;
 }
 
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     WinterTyreServiceTypeCell *cell = [tableView cellForRowAtIndexPath:indexPath];

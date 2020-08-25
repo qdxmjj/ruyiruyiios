@@ -324,7 +324,10 @@
         [PublicClass showHUD:@"定位失败" view:self.view];
     }else{
         
-        NSDictionary *postDic = @{@"page":@"1", @"rows":@"1", @"cityName":[[NSUserDefaults standardUserDefaults] objectForKey:@"currentCity"], @"storeName":@"", @"storeType":@"", @"serviceType":@"5", @"longitude":[[NSUserDefaults standardUserDefaults]objectForKey:@"longitude"], @"latitude":[[NSUserDefaults standardUserDefaults]objectForKey:@"latitude"], @"rankType":@"1"};
+        NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"] == NULL ? @"" : [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
+        NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"] == NULL ? @"" : [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
+        
+        NSDictionary *postDic = @{@"page":@"1", @"rows":@"1", @"cityName":[[NSUserDefaults standardUserDefaults] objectForKey:@"currentCity"], @"storeName":@"", @"storeType":@"", @"serviceType":@"5", @"longitude":longitude, @"latitude":latitude, @"rankType":@"1"};
         NSString *reqJson = [PublicClass convertToJsonData:postDic];
         [JJRequest postRequest:@"selectStoreByCondition" params:@{@"reqJson":reqJson, @"token":[UserConfig token]} success:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
             

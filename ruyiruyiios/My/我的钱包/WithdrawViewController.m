@@ -44,7 +44,11 @@
     
     self.edgesForExtendedLayout = UIRectEdgeAll;
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"记录" style:UIBarButtonItemStyleDone target:self action:@selector(pushWithdrawalsRecordViewController)];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"记录" style:UIBarButtonItemStyleDone target:self action:@selector(pushWithdrawalsRecordViewController)];
+    [item setTintColor:[UIColor whiteColor]];
+
+    
+    self.navigationItem.rightBarButtonItem = item;
     
     [MBProgressHUD showWaitMessage:@"正在获取提现数据..." showView:self.view];
     

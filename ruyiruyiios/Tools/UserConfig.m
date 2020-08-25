@@ -25,7 +25,9 @@
 }
 
 +(NSString *)currentCity{
-    
+    if ([self userDefaultsGetObjectForKey:@"currentCity"] == NULL) {
+        return @"青岛市";
+    }
     return [self userDefaultsGetObjectForKey:@"currentCity"];
 }
 
@@ -175,7 +177,9 @@
 }
 
 +(NSString *)selectCityName{
-    
+    if ([self userDefaultsGetObjectForKey:@""] == NULL) {
+        return @"青岛市";
+    }
     return [self userDefaultsGetObjectForKey:@"selectCityName"];
 }
 

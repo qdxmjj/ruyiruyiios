@@ -10,6 +10,10 @@
 
 @interface TireSpecificationViewController : RootViewController
 
-@property(nonatomic, copy)void(^specificationBlock)(NSString *);
+@property(nonatomic, copy)void(^specificationBlock)(NSString *text,NSInteger item1Row, NSInteger item2Row, NSInteger item3Row);
+
+@property (nonatomic, assign) NSInteger dItem1Row;
+@property (nonatomic, assign) NSInteger dItem2Row;
+@property (nonatomic, assign) NSInteger dItem3Row;
 
 @end

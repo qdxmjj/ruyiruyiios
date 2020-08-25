@@ -118,8 +118,10 @@
 
 -(void)getStockListInfo:(NSInteger )number{
     
-    NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
-    NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
+//    NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
+//    NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
+    NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"] == NULL ? @"" : [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
+    NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"] == NULL ? @"" : [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
     NSString *cityName = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentCity"];
     NSInteger serviceid = [self.serviceID integerValue];
     

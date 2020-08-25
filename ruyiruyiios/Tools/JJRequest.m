@@ -9,7 +9,7 @@
 #import "JJRequest.h"
 #import <AFNetworking.h>
 #import "MBProgressHUD+YYM_category.h"
-#import "CodeLoginViewController.h"
+
 
 @implementation JJRequest
 

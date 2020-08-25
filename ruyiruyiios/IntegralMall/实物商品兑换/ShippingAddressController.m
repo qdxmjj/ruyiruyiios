@@ -69,13 +69,25 @@
             
             if (self.addressList.count<=0) {
                 
-                [self.view addSubview:self.imgView];
-                [self.view addSubview:self.gotoAddBtn];
-                [self setUI];
+                if (_imgView) {
+                    _imgView.hidden = NO;
+                }
+                if (_gotoAddBtn) {
+                    _gotoAddBtn.hidden = NO;
+                }else {
+                    [self.view addSubview:self.imgView];
+                    [self.view addSubview:self.gotoAddBtn];
+                    [self setUI];
+                }
             }else{
-                
-                [self.tableView reloadData];
+                if (_imgView) {
+                    _imgView.hidden = YES;
+                }
+                if (_gotoAddBtn) {
+                    _gotoAddBtn.hidden = YES;
+                }
             }
+            [self.tableView reloadData];
         }
         
     } failure:^(NSError * _Nullable error) {
@@ -124,13 +136,20 @@
     UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         NSIndexPath *indexPath = [weakSelf.tableView indexPathForCell:cell];
+        
+        if (weakSelf.addressList.count<=0 || !weakSelf.addressList) {
+            //防止异常卡顿 显示与数据异常 出现的错误
+            [weakSelf.tableView reloadData];
+            return ;
+        }
         NSDictionary *dic = weakSelf.addressList[indexPath.row];
         
         NSString *addressID = [NSString stringWithFormat:@"%@",dic[@"id"]];
         
+        //如果当前有默认收货地址，那么默认的收货地址不可删除，  默认的收货地址 由订单确认页面 传递过来
         if ([addressID isEqualToString:self.selectAddressID]) {
             
-            [MBProgressHUD showTextMessage:@"当前选择的地址不可删除"];
+            [MBProgressHUD showTextMessage:@"当前选择的收货地址不可删除!"];
             return ;
         }
         
@@ -138,8 +157,8 @@
             
             if ([code integerValue] == 1) {
                 
-                self.imgView.hidden = YES;
-                self.gotoAddBtn.hidden = YES;
+//                self.imgView.hidden = YES;
+//                self.gotoAddBtn.hidden = YES;
                 [weakSelf getShippingAddressInfo];
             }
         } failure:^(NSError * _Nullable error) {

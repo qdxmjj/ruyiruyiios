@@ -30,6 +30,12 @@
     NSString *isodomter, *carroadStr, *dateStr, *addressStr, *resultPlateStr, *pro_city_id, *pro_city_name;
     NSString *fontStr, *rearStr;
     NSString *oftenId, *onceId, *notId;
+    
+    
+    ///选择器默认选中的位置
+    NSInteger frontItem1Row, frontItem2Row, frontItem3Row;
+    NSInteger rearItem1Row, rearItem2Row, rearItem3Row;
+
 }
 
 @property(nonatomic, strong)UIView *firstView;
@@ -834,8 +840,19 @@
     }
     JJWeakSelf
     TireSpecificationViewController *tireSVC = [[TireSpecificationViewController alloc] init];
-    tireSVC.specificationBlock = ^(NSString *text) {
+    
+    if (button.tag == 10002) {
         
+        tireSVC.dItem1Row = frontItem1Row;
+        tireSVC.dItem2Row = frontItem2Row;
+        tireSVC.dItem3Row = frontItem3Row;
+    }else {
+        tireSVC.dItem1Row = rearItem1Row;
+        tireSVC.dItem2Row = rearItem2Row;
+        tireSVC.dItem3Row = rearItem3Row;
+    }
+    
+    tireSVC.specificationBlock = ^(NSString *text, NSInteger item1Row, NSInteger item2Row, NSInteger item3Row) {
         NSLog(@"%ld", button.tag);
         if (button.tag == 10002) {
             
@@ -844,9 +861,17 @@
             TopCarInfoTableViewCell *topCell = [weakSelf.carInfoTV cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
             
             [topCell.rearBtn setTitle:text forState:UIControlStateNormal];
-
-        }else{
             
+            self->frontItem1Row = item1Row;
+            self->frontItem2Row = item2Row;
+            self->frontItem3Row = item3Row;
+            self->rearItem1Row = item1Row;
+            self->rearItem2Row = item2Row;
+            self->rearItem3Row = item3Row;
+        }else{
+            self->rearItem1Row = item1Row;
+            self->rearItem2Row = item2Row;
+            self->rearItem3Row = item3Row;
             self->rearStr = text;
         }
         [button setTitle:text forState:UIControlStateNormal];

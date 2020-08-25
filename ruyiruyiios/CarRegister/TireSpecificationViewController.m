@@ -24,6 +24,8 @@
 @property(nonatomic, strong)NSMutableDictionary *tireDiameterDic;
 @property(nonatomic, strong)NSMutableArray *tireDiameterArray;
 
+@property (nonatomic, strong) NSArray *allTireDeta;
+
 @end
 
 @implementation TireSpecificationViewController
@@ -141,9 +143,29 @@
     NSString *resultWidth = [self.tireFlatWidthArray objectAtIndex:firstrow];
     NSString *resultratio = [[self.tireFlatnessRatioDic objectForKey:resultWidth] objectAtIndex:secondrow];
     NSString *resultdiameter = [[self.tireDiameterDic objectForKey:[NSString stringWithFormat:@"%@-%@", resultWidth, resultratio]] objectAtIndex:threerow];
-    NSString *resultStr = [NSString stringWithFormat:@"%@/%@R%@", resultWidth, resultratio, resultdiameter];
-//    NSLog(@"%@", resultStr);
-    self.specificationBlock(resultStr);
+    
+    
+    __block NSString *resultStr = [NSString stringWithFormat:@"%@%@R%@", resultWidth, resultratio, resultdiameter];
+    
+    [self.allTireDeta enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        FMDBCarTireType *model = (FMDBCarTireType *)obj;
+        
+        if ([model.tireFlatWidth isEqualToString:resultWidth] && [model.tireFlatnessRatio isEqualToString:resultratio] && [model.tireDiameter isEqualToString:resultdiameter]) {
+         
+            if (model.tireState.integerValue == 1) {
+         
+                resultStr = [NSString stringWithFormat:@"%@/%@R%@", resultWidth, resultratio, resultdiameter];
+            }else{
+                
+            }
+            *stop = YES;
+        }
+    }];
+    
+//    self.specificationBlock(resultStr);
+    
+    self.specificationBlock(resultStr, firstrow, secondrow, threerow);
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -158,6 +180,7 @@
 - (void)getDataFromDatabase{
     
     NSArray *tiretypeArray = [DBRecorder getAllTiretypeData];
+    self.allTireDeta = tiretypeArray;
     if (self.tireFlatWidthArray.count != 0) {
         
         [self.tireFlatWidthArray removeAllObjects];
@@ -189,7 +212,7 @@
                 [flatRatioMutableA addObject:flat_tireType.tireFlatnessRatio];
             }
         }
-        for (int k = 0; k<flatRatioMutableA.count; k++) {
+        for (int k = 0; k< flatRatioMutableA.count; k++) {
             
             NSString *flatratio = [flatRatioMutableA objectAtIndex:k];
             NSArray *tireDiameterArray = [DBRecorder getTiretypeDataByflatRatio:flatratio];
@@ -208,6 +231,14 @@
         [self.tireFlatnessRatioDic setValue:flatRatioMutableA forKey:t_flatWidth];
     }
     wtorStr = [NSString stringWithFormat:@"%@-%@", flatWidth, firstFlatratio];
+    
+    
+    [self.sizePickerV selectRow:self.dItem1Row inComponent:0 animated:YES];
+    [self.sizePickerV selectRow:self.dItem2Row inComponent:1 animated:YES];
+    [self.sizePickerV selectRow:self.dItem3Row inComponent:2 animated:YES];
+
+    [self pickerView:self.sizePickerV didSelectRow:self.dItem1Row inComponent:0];
+
 //    NSLog(@"%@", wtorStr);
 //    NSLog(@"返回的偏平比字典:%@", self.tireFlatnessRatioDic);
 //    NSLog(@"返回的轮胎直径:%@", self.tireDiameterDic);
@@ -250,27 +281,39 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     
-    if (component == 0) {
+    if (component == 0) {///查询 第0组 第1组 第2组数据  并滚动到各自的第0个
         
         flatWidth = [self.tireFlatWidthArray objectAtIndex:row];
         [self.sizePickerV reloadComponent:1];
+        
+        [pickerView selectRow:0 inComponent:1 animated:YES];
+        
+        ///自动查询一次 下一组第三组数据
+        wtorStr = [NSString stringWithFormat:@"%@-%@", flatWidth, [[self.tireFlatnessRatioDic objectForKey:flatWidth] objectAtIndex:0]];
+        [pickerView reloadComponent:2];
+        [pickerView selectRow:0 inComponent:2 animated:YES];
+        
 //        NSLog(@"胎面宽:%@",flatWidth);
     }else if (component == 1){
         
         wtorStr = [NSString stringWithFormat:@"%@-%@", flatWidth, [[self.tireFlatnessRatioDic objectForKey:flatWidth] objectAtIndex:row]];
 //        NSLog(@"第二个字典的键值:%@", wtorStr);
-        [self.sizePickerV reloadComponent:2];
+        [pickerView selectRow:0 inComponent:2 animated:YES];
+        [pickerView reloadComponent:2];
+    }else{
+        
     }
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
     
     if (component == 0) {
-        
+
         return [self.tireFlatWidthArray objectAtIndex:row];
     }else if (component == 1){
         
         return [[self.tireFlatnessRatioDic objectForKey:flatWidth] objectAtIndex:row];
+        
     }else{
         
         return [[self.tireDiameterDic objectForKey:wtorStr] objectAtIndex:row];
@@ -282,6 +325,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (NSArray *)allTireDeta{
+    if (!_allTireDeta) {
+        _allTireDeta = [NSArray array];
+    }
+    return _allTireDeta;
+}
 /*
 #pragma mark - Navigation
 

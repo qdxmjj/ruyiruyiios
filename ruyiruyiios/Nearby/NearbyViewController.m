@@ -165,8 +165,8 @@
         return;
     }
     
-    NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
-    NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
+    NSString *longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"] == NULL ? @"" : [[NSUserDefaults standardUserDefaults] objectForKey:@"longitude"];
+    NSString *latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"] == NULL ? @"" : [[NSUserDefaults standardUserDefaults] objectForKey:@"latitude"];
     
     [FJStoreReqeust getFJStoreByConditionWithInfo:@{@"page":number,@"rows":@"10",@"cityName":cityName,@"storeName":@"",@"storeType":self.storeType,@"serviceType":self.serviceType,@"longitude":longitude,@"latitude":latitude,@"rankType":self.rankType} succrss:^(NSString * _Nullable code, NSString * _Nullable message, id  _Nullable data) {
         
